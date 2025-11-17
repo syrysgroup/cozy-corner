@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Building2, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Language, useTranslation } from "@/lib/i18n";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const Navbar = () => {
   const [lang, setLang] = useState<Language>('en');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
   const t = useTranslation(lang);
 
   return (
@@ -14,32 +17,44 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <Building2 className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold text-foreground">Multilisting</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/" className="text-foreground hover:text-primary transition-colors">
               {t.nav.home}
-            </a>
-            <a href="#properties" className="text-foreground hover:text-primary transition-colors">
+            </Link>
+            <Link to="/properties" className="text-foreground hover:text-primary transition-colors">
               {t.nav.properties}
-            </a>
-            <a href="#agents" className="text-foreground hover:text-primary transition-colors">
-              {t.nav.agents}
-            </a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors">
+            </Link>
+            <Link to="/about" className="text-foreground hover:text-primary transition-colors">
               {t.nav.about}
-            </a>
+            </Link>
+            {user && (
+              <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors">
+                {t.nav.dashboard}
+              </Link>
+            )}
           </div>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
             <LanguageSwitcher currentLang={lang} onLanguageChange={setLang} />
-            <Button variant="ghost">{t.nav.signIn}</Button>
-            <Button className="bg-primary hover:bg-primary/90">{t.nav.getStarted}</Button>
+            {user ? (
+              <Button onClick={signOut}>{t.nav.signOut}</Button>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to="/auth">{t.nav.signIn}</Link>
+                </Button>
+                <Button className="bg-primary hover:bg-primary/90" asChild>
+                  <Link to="/auth">{t.nav.getStarted}</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -59,21 +74,33 @@ export const Navbar = () => {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 animate-fade-in">
             <div className="flex flex-col gap-4">
-              <a href="#" className="text-foreground hover:text-primary transition-colors py-2">
+              <Link to="/" className="text-foreground hover:text-primary transition-colors py-2">
                 {t.nav.home}
-              </a>
-              <a href="#properties" className="text-foreground hover:text-primary transition-colors py-2">
+              </Link>
+              <Link to="/properties" className="text-foreground hover:text-primary transition-colors py-2">
                 {t.nav.properties}
-              </a>
-              <a href="#agents" className="text-foreground hover:text-primary transition-colors py-2">
-                {t.nav.agents}
-              </a>
-              <a href="#about" className="text-foreground hover:text-primary transition-colors py-2">
+              </Link>
+              <Link to="/about" className="text-foreground hover:text-primary transition-colors py-2">
                 {t.nav.about}
-              </a>
+              </Link>
+              {user && (
+                <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors py-2">
+                  {t.nav.dashboard}
+                </Link>
+              )}
               <div className="flex flex-col gap-2 pt-4 border-t border-border">
-                <Button variant="ghost" className="w-full">{t.nav.signIn}</Button>
-                <Button className="w-full bg-primary hover:bg-primary/90">{t.nav.getStarted}</Button>
+                {user ? (
+                  <Button onClick={signOut} className="w-full">{t.nav.signOut}</Button>
+                ) : (
+                  <>
+                    <Button variant="ghost" className="w-full" asChild>
+                      <Link to="/auth">{t.nav.signIn}</Link>
+                    </Button>
+                    <Button className="w-full bg-primary hover:bg-primary/90" asChild>
+                      <Link to="/auth">{t.nav.getStarted}</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>
