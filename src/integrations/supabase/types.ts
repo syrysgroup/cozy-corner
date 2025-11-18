@@ -14,41 +14,35 @@ export type Database = {
   }
   public: {
     Tables: {
-      kyc_uploads: {
+      kyc_documents: {
         Row: {
-          created_at: string
+          admin_notes: string | null
           document_type: string
           file_url: string
           id: string
-          notes: string | null
-          reviewed_at: string | null
-          reviewed_by: string | null
           status: string | null
           updated_at: string
+          uploaded_at: string
           user_id: string
         }
         Insert: {
-          created_at?: string
+          admin_notes?: string | null
           document_type: string
           file_url: string
           id?: string
-          notes?: string | null
-          reviewed_at?: string | null
-          reviewed_by?: string | null
           status?: string | null
           updated_at?: string
+          uploaded_at?: string
           user_id: string
         }
         Update: {
-          created_at?: string
+          admin_notes?: string | null
           document_type?: string
           file_url?: string
           id?: string
-          notes?: string | null
-          reviewed_at?: string | null
-          reviewed_by?: string | null
           status?: string | null
           updated_at?: string
+          uploaded_at?: string
           user_id?: string
         }
         Relationships: []
@@ -57,25 +51,46 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string
+          first_name: string | null
           full_name: string | null
           id: string
+          kyc_level: string | null
+          kyc_status: string | null
+          last_name: string | null
+          onboarding_step: string | null
           phone: string | null
+          preferred_language: string | null
+          role: string | null
           updated_at: string
         }
         Insert: {
           avatar_url?: string | null
           created_at?: string
+          first_name?: string | null
           full_name?: string | null
           id: string
+          kyc_level?: string | null
+          kyc_status?: string | null
+          last_name?: string | null
+          onboarding_step?: string | null
           phone?: string | null
+          preferred_language?: string | null
+          role?: string | null
           updated_at?: string
         }
         Update: {
           avatar_url?: string | null
           created_at?: string
+          first_name?: string | null
           full_name?: string | null
           id?: string
+          kyc_level?: string | null
+          kyc_status?: string | null
+          last_name?: string | null
+          onboarding_step?: string | null
           phone?: string | null
+          preferred_language?: string | null
+          role?: string | null
           updated_at?: string
         }
         Relationships: []

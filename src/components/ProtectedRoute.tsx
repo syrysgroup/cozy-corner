@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 
-export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, loading } = useAuth();
+export const ProtectedRoute = ({ children, requireOnboarding = true }: { children: React.ReactNode; requireOnboarding?: boolean }) => {
+  const { user, profile, loading } = useAuth();
 
   if (loading) {
     return (
@@ -14,6 +14,11 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   if (!user) {
     return <Navigate to="/auth" replace />;
+  }
+
+  // Check if onboarding is required and not completed
+  if (requireOnboarding && profile && profile.onboarding_step !== 'completed') {
+    return <Navigate to="/onboarding" replace />;
   }
 
   return <>{children}</>;

@@ -1,10 +1,11 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FileText, Shield, User, Settings, Menu, X } from 'lucide-react';
+import { Home, FileText, Shield, User, Settings, Menu, X, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Language, useTranslation } from '@/lib/i18n';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { supabase } from '@/integrations/supabase/client';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -13,17 +14,46 @@ interface DashboardLayoutProps {
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [lang, setLang] = useState<Language>('en');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { signOut, user } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { signOut, user, profile } = useAuth();
   const location = useLocation();
   const t = useTranslation(lang);
 
-  const menuItems = [
+  useEffect(() => {
+    checkAdminStatus();
+  }, [user]);
+
+  const checkAdminStatus = async () => {
+    if (!user) return;
+    
+    try {
+      const { data, error } = await supabase.rpc('has_role', {
+        _user_id: user.id,
+        _role: 'admin',
+      });
+      
+      if (!error && data) {
+        setIsAdmin(true);
+      }
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+    }
+  };
+
+  const baseMenuItems = [
     { icon: Home, label: t.dashboard.overview, path: '/dashboard' },
     { icon: FileText, label: t.dashboard.properties, path: '/dashboard/properties' },
     { icon: Shield, label: t.dashboard.kyc, path: '/dashboard/kyc' },
     { icon: User, label: t.dashboard.profile, path: '/dashboard/profile' },
     { icon: Settings, label: t.dashboard.settings, path: '/dashboard/settings' },
   ];
+
+  const adminMenuItems = [
+    { icon: Users, label: 'User Management', path: '/admin/users' },
+    { icon: Shield, label: 'KYC Review', path: '/admin/kyc-review' },
+  ];
+
+  const menuItems = isAdmin ? [...baseMenuItems, ...adminMenuItems] : baseMenuItems;
 
   return (
     <div className="min-h-screen bg-background">
