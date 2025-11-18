@@ -14,6 +14,10 @@ import DashboardProperties from "./pages/DashboardProperties";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import KYC from "./pages/KYC";
+import OnboardingWizard from "./components/OnboardingWizard";
+import UpdatePassword from "./pages/UpdatePassword";
+import UserList from "./pages/Admin/UserList";
+import KYCReview from "./pages/Admin/KYCReview";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +34,28 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/properties" element={<Properties />} />
             <Route path="/about" element={<About />} />
+            
+            {/* Onboarding - don't require onboarding completion */}
+            <Route
+              path="/onboarding"
+              element={
+                <ProtectedRoute requireOnboarding={false}>
+                  <OnboardingWizard />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* Password update */}
+            <Route
+              path="/update-password"
+              element={
+                <ProtectedRoute requireOnboarding={false}>
+                  <UpdatePassword />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* Dashboard routes - require onboarding */}
             <Route
               path="/dashboard"
               element={
@@ -70,6 +96,25 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            
+            {/* Admin routes */}
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute>
+                  <UserList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/kyc-review"
+              element={
+                <ProtectedRoute>
+                  <KYCReview />
+                </ProtectedRoute>
+              }
+            />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

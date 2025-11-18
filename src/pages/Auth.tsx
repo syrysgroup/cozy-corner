@@ -9,12 +9,13 @@ import { Language, useTranslation } from '@/lib/i18n';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 export default function Auth() {
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [mode, setMode] = useState<'signin' | 'signup' | 'reset'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [lang, setLang] = useState<Language>('en');
-  const { user, signIn, signUp } = useAuth();
+  const { user, signIn, signUp, resetPassword } = useAuth();
   const t = useTranslation(lang);
 
   if (user) {
@@ -23,8 +24,12 @@ export default function Auth() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSignUp) {
-      await signUp(email, password, fullName);
+    
+    if (mode === 'reset') {
+      await resetPassword(email);
+      setMode('signin');
+    } else if (mode === 'signup') {
+      await signUp(email, password, firstName, lastName);
     } else {
       await signIn(email, password);
     }
@@ -39,24 +44,44 @@ export default function Auth() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">
-            {isSignUp ? t.auth.createAccount : t.auth.welcomeBack}
+            {mode === 'reset' 
+              ? 'Reset Password' 
+              : mode === 'signup' 
+              ? t.auth.createAccount 
+              : t.auth.welcomeBack}
           </CardTitle>
           <CardDescription>
-            {isSignUp ? t.auth.joinCommunity : t.auth.signIn}
+            {mode === 'reset'
+              ? 'Enter your email to receive a password reset link'
+              : mode === 'signup'
+              ? t.auth.joinCommunity
+              : t.auth.signIn}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {isSignUp && (
-              <div className="space-y-2">
-                <Label htmlFor="fullName">{t.auth.fullName}</Label>
-                <Input
-                  id="fullName"
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                />
+            {mode === 'signup' && (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName">First Name</Label>
+                  <Input
+                    id="firstName"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="lastName">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
             )}
             
@@ -71,30 +96,52 @@ export default function Auth() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">{t.auth.password}</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-              />
-            </div>
+            {mode !== 'reset' && (
+              <div className="space-y-2">
+                <Label htmlFor="password">{t.auth.password}</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  minLength={6}
+                />
+              </div>
+            )}
 
             <Button type="submit" className="w-full">
-              {isSignUp ? t.auth.signUpButton : t.auth.signInButton}
+              {mode === 'reset'
+                ? 'Send Reset Link'
+                : mode === 'signup'
+                ? t.auth.signUpButton
+                : t.auth.signInButton}
             </Button>
           </form>
 
-          <div className="mt-4 text-center text-sm">
+          <div className="mt-4 space-y-2 text-center text-sm">
+            {mode === 'signin' && (
+              <button
+                onClick={() => setMode('reset')}
+                className="text-primary hover:underline block w-full"
+              >
+                Forgot password?
+              </button>
+            )}
             <button
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="text-primary hover:underline"
+              onClick={() => setMode(mode === 'signup' ? 'signin' : 'signup')}
+              className="text-primary hover:underline block w-full"
             >
-              {isSignUp ? t.auth.haveAccount : t.auth.noAccount}
+              {mode === 'signup' ? t.auth.haveAccount : t.auth.noAccount}
             </button>
+            {mode === 'reset' && (
+              <button
+                onClick={() => setMode('signin')}
+                className="text-primary hover:underline block w-full"
+              >
+                Back to sign in
+              </button>
+            )}
           </div>
         </CardContent>
       </Card>
