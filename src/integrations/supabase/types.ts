@@ -47,6 +47,157 @@ export type Database = {
         }
         Relationships: []
       }
+      listing_units: {
+        Row: {
+          available: boolean | null
+          bathrooms: number | null
+          bedrooms: number | null
+          created_at: string
+          id: string
+          listing_id: string
+          price: number
+          unit_name: string
+        }
+        Insert: {
+          available?: boolean | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          id?: string
+          listing_id: string
+          price: number
+          unit_name: string
+        }
+        Update: {
+          available?: boolean | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          created_at?: string
+          id?: string
+          listing_id?: string
+          price?: number
+          unit_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listing_units_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      listing_versions: {
+        Row: {
+          changed_at: string
+          changed_by: string
+          id: string
+          listing_id: string
+          snapshot: Json
+        }
+        Insert: {
+          changed_at?: string
+          changed_by: string
+          id?: string
+          listing_id: string
+          snapshot: Json
+        }
+        Update: {
+          changed_at?: string
+          changed_by?: string
+          id?: string
+          listing_id?: string
+          snapshot?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listing_versions_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      listings: {
+        Row: {
+          address_text: string
+          amenities: string[] | null
+          bathrooms: number | null
+          bedrooms: number | null
+          city: string
+          country: string
+          created_at: string
+          description_en: string | null
+          description_fr: string | null
+          id: string
+          image_urls: string[] | null
+          listing_type: string
+          lot_size: number | null
+          price: number
+          property_size: number | null
+          province: string
+          rent_frequency: string | null
+          status: string
+          title_en: string
+          title_fr: string
+          unit_count: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address_text: string
+          amenities?: string[] | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          city: string
+          country?: string
+          created_at?: string
+          description_en?: string | null
+          description_fr?: string | null
+          id?: string
+          image_urls?: string[] | null
+          listing_type: string
+          lot_size?: number | null
+          price: number
+          property_size?: number | null
+          province: string
+          rent_frequency?: string | null
+          status?: string
+          title_en: string
+          title_fr: string
+          unit_count?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address_text?: string
+          amenities?: string[] | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          city?: string
+          country?: string
+          created_at?: string
+          description_en?: string | null
+          description_fr?: string | null
+          id?: string
+          image_urls?: string[] | null
+          listing_type?: string
+          lot_size?: number | null
+          price?: number
+          property_size?: number | null
+          province?: string
+          rent_frequency?: string | null
+          status?: string
+          title_en?: string
+          title_fr?: string
+          unit_count?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
