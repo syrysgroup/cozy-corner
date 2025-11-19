@@ -16,6 +16,9 @@ import Settings from "./pages/Settings";
 import KYC from "./pages/KYC";
 import OnboardingWizard from "./components/OnboardingWizard";
 import UpdatePassword from "./pages/UpdatePassword";
+import CreateListing from "./pages/CreateListing";
+import EditListing from "./pages/EditListing";
+import PropertyDetails from "./pages/PropertyDetails";
 import UserList from "./pages/Admin/UserList";
 import KYCReview from "./pages/Admin/KYCReview";
 import NotFound from "./pages/NotFound";
@@ -33,6 +36,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/properties" element={<Properties />} />
+            <Route path="/properties/:id" element={<PropertyDetails />} />
             <Route path="/about" element={<About />} />
             
             {/* Onboarding - don't require onboarding completion */}
@@ -93,6 +97,24 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <Settings />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* Listing routes */}
+            <Route
+              path="/listings/create"
+              element={
+                <ProtectedRoute>
+                  <CreateListing />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/listings/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditListing />
                 </ProtectedRoute>
               }
             />
