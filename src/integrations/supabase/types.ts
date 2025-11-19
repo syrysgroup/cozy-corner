@@ -131,6 +131,7 @@ export type Database = {
           created_at: string
           description_en: string | null
           description_fr: string | null
+          formatted_address: string | null
           id: string
           image_urls: string[] | null
           listing_type: string
@@ -156,6 +157,7 @@ export type Database = {
           created_at?: string
           description_en?: string | null
           description_fr?: string | null
+          formatted_address?: string | null
           id?: string
           image_urls?: string[] | null
           listing_type: string
@@ -181,6 +183,7 @@ export type Database = {
           created_at?: string
           description_en?: string | null
           description_fr?: string | null
+          formatted_address?: string | null
           id?: string
           image_urls?: string[] | null
           listing_type?: string
