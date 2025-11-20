@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { MapPin, Bed, Bath, Maximize, Eye, Edit, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Language } from '@/lib/i18n';
+import { SaveListingButton } from '@/components/SaveListingButton';
 
 interface PropertyCardProps {
   listing: {
@@ -46,6 +47,9 @@ export function PropertyCard({ listing, lang, isOwner, onEdit, onDelete }: Prope
             {listing.status}
           </Badge>
         )}
+        <div className="absolute top-2 right-2">
+          <SaveListingButton listingId={listing.id} />
+        </div>
       </div>
       <CardContent className="p-4">
         <h3 className="text-xl font-bold mb-2 line-clamp-1">{title}</h3>
