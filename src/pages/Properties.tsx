@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PropertyCard } from '@/components/PropertyCard';
+import { ListingsMap } from '@/components/ListingsMap';
 import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Language } from '@/lib/i18n';
-import { Search } from 'lucide-react';
+import { Search, Map } from 'lucide-react';
 
 export default function Properties() {
   const [lang] = useState<Language>('en');
@@ -14,6 +16,13 @@ export default function Properties() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
+  const [showMap, setShowMap] = useState(false);
+  const [mapBounds, setMapBounds] = useState<{
+    minLat: number;
+    maxLat: number;
+    minLng: number;
+    maxLng: number;
+  } | null>(null);
 
   useEffect(() => {
     fetchListings();
@@ -43,7 +52,15 @@ export default function Properties() {
     
     const matchesType = filterType === 'all' || listing.listing_type === filterType;
     
-    return matchesSearch && matchesType;
+    // Apply map bounds filter if map view is active
+    const matchesBounds = !mapBounds || !listing.latitude || !listing.longitude || (
+      listing.latitude >= mapBounds.minLat &&
+      listing.latitude <= mapBounds.maxLat &&
+      listing.longitude >= mapBounds.minLng &&
+      listing.longitude <= mapBounds.maxLng
+    );
+    
+    return matchesSearch && matchesType && matchesBounds;
   });
 
   return (
@@ -81,7 +98,22 @@ export default function Properties() {
                 <SelectItem value="ppp">PPP</SelectItem>
               </SelectContent>
             </Select>
+            <Button
+              variant={showMap ? 'default' : 'outline'}
+              onClick={() => setShowMap(!showMap)}
+            >
+              <Map className="h-4 w-4 mr-2" />
+              {showMap ? 'List View' : 'Map View'}
+            </Button>
           </div>
+
+          {showMap && (
+            <ListingsMap
+              listings={filteredListings}
+              onBoundsChange={setMapBounds}
+              lang={lang}
+            />
+          )}
 
           {loading ? (
             <div className="text-center py-12">
@@ -91,7 +123,7 @@ export default function Properties() {
             <div className="text-center py-12">
               <p className="text-muted-foreground">No properties found</p>
             </div>
-          ) : (
+          ) : showMap ? null : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredListings.map(listing => (
                 <PropertyCard

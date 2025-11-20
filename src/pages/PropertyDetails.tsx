@@ -9,6 +9,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { MapPin, Bed, Bath, Maximize, Calendar } from 'lucide-react';
 import { Language } from '@/lib/i18n';
 
+import { PropertyMap } from '@/components/PropertyMap';
+
 interface Listing {
   id: string;
   title_en: string;
@@ -29,6 +31,9 @@ interface Listing {
   amenities: string[];
   unit_count: number;
   created_at: string;
+  latitude?: number;
+  longitude?: number;
+  formatted_address?: string;
 }
 
 interface Unit {
@@ -223,6 +228,20 @@ export default function PropertyDetails() {
                         </Card>
                       ))}
                     </div>
+                  </div>
+                </>
+              )}
+
+              {listing.latitude && listing.longitude && (
+                <>
+                  <Separator />
+                  <div>
+                    <h2 className="text-2xl font-bold mb-4">Location</h2>
+                    <PropertyMap
+                      latitude={listing.latitude}
+                      longitude={listing.longitude}
+                      address={listing.formatted_address || listing.address_text}
+                    />
                   </div>
                 </>
               )}
