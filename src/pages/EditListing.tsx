@@ -12,6 +12,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { Upload, X } from 'lucide-react';
 
+import { MapPicker } from '@/components/MapPicker';
+
 const LISTING_TYPES = ['sale', 'rent', 'shared', 'student', 'co_ownership', 'auction', 'ppp'];
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
 
@@ -38,7 +40,10 @@ export default function EditListing() {
     property_size: '',
     lot_size: '',
     unit_count: '1',
-    status: 'draft'
+    status: 'draft',
+    latitude: 43.6532,
+    longitude: -79.3832,
+    formatted_address: ''
   });
 
   useEffect(() => {
@@ -58,25 +63,30 @@ export default function EditListing() {
       return;
     }
 
+    const listing = data as any; // Type assertion until Supabase types are regenerated
+
     setFormData({
-      listing_type: data.listing_type,
-      title_en: data.title_en,
-      title_fr: data.title_fr,
-      description_en: data.description_en || '',
-      description_fr: data.description_fr || '',
-      price: data.price.toString(),
-      rent_frequency: data.rent_frequency || '',
-      address_text: data.address_text,
-      city: data.city,
-      province: data.province,
-      bedrooms: data.bedrooms?.toString() || '',
-      bathrooms: data.bathrooms?.toString() || '',
-      property_size: data.property_size?.toString() || '',
-      lot_size: data.lot_size?.toString() || '',
-      unit_count: data.unit_count.toString(),
-      status: data.status
+      listing_type: listing.listing_type,
+      title_en: listing.title_en,
+      title_fr: listing.title_fr,
+      description_en: listing.description_en || '',
+      description_fr: listing.description_fr || '',
+      price: listing.price.toString(),
+      rent_frequency: listing.rent_frequency || '',
+      address_text: listing.address_text,
+      city: listing.city,
+      province: listing.province,
+      bedrooms: listing.bedrooms?.toString() || '',
+      bathrooms: listing.bathrooms?.toString() || '',
+      property_size: listing.property_size?.toString() || '',
+      lot_size: listing.lot_size?.toString() || '',
+      unit_count: listing.unit_count.toString(),
+      status: listing.status,
+      latitude: listing.latitude || 43.6532,
+      longitude: listing.longitude || -79.3832,
+      formatted_address: listing.formatted_address || ''
     });
-    setImages(data.image_urls || []);
+    setImages(listing.image_urls || []);
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,7 +150,10 @@ export default function EditListing() {
         property_size: formData.property_size ? parseFloat(formData.property_size) : null,
         lot_size: formData.lot_size ? parseFloat(formData.lot_size) : null,
         unit_count: parseInt(formData.unit_count),
-        status: formData.status
+        status: formData.status,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
+        formatted_address: formData.formatted_address
       })
       .eq('id', id);
 
@@ -385,6 +398,19 @@ export default function EditListing() {
               </div>
             </CardContent>
           </Card>
+
+          <MapPicker
+            initialLat={formData.latitude}
+            initialLng={formData.longitude}
+            onLocationChange={(lat, lng, address) => {
+              setFormData({
+                ...formData,
+                latitude: lat,
+                longitude: lng,
+                formatted_address: address
+              });
+            }}
+          />
 
           <Card>
             <CardHeader>

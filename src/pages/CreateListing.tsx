@@ -12,6 +12,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { Upload, X } from 'lucide-react';
 
+import { MapPicker } from '@/components/MapPicker';
+
 const LISTING_TYPES = ['sale', 'rent', 'shared', 'student', 'co_ownership', 'auction', 'ppp'];
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
 
@@ -37,7 +39,10 @@ export default function CreateListing() {
     property_size: '',
     lot_size: '',
     unit_count: '1',
-    status: 'draft'
+    status: 'draft',
+    latitude: 43.6532,
+    longitude: -79.3832,
+    formatted_address: ''
   });
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +108,10 @@ export default function CreateListing() {
         property_size: formData.property_size ? parseFloat(formData.property_size) : null,
         lot_size: formData.lot_size ? parseFloat(formData.lot_size) : null,
         unit_count: parseInt(formData.unit_count),
-        status: formData.status
+        status: formData.status,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
+        formatted_address: formData.formatted_address
       });
 
     setLoading(false);
@@ -347,6 +355,19 @@ export default function CreateListing() {
               </div>
             </CardContent>
           </Card>
+
+          <MapPicker
+            initialLat={formData.latitude}
+            initialLng={formData.longitude}
+            onLocationChange={(lat, lng, address) => {
+              setFormData({
+                ...formData,
+                latitude: lat,
+                longitude: lng,
+                formatted_address: address
+              });
+            }}
+          />
 
           <Card>
             <CardHeader>
