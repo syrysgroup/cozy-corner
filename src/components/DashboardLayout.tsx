@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FileText, Shield, User, Settings, Menu, X, Users, Heart } from 'lucide-react';
+import { Home, FileText, Shield, User, Settings, Menu, X, Users, Heart, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Language, useTranslation } from '@/lib/i18n';
@@ -15,28 +15,44 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [lang, setLang] = useState<Language>('en');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [canBulkUpload, setCanBulkUpload] = useState(false);
   const { signOut, user, profile } = useAuth();
   const location = useLocation();
   const t = useTranslation(lang);
 
   useEffect(() => {
-    checkAdminStatus();
+    checkPermissions();
   }, [user]);
 
-  const checkAdminStatus = async () => {
+  const checkPermissions = async () => {
     if (!user) return;
     
     try {
-      const { data, error } = await supabase.rpc('has_role', {
+      const { data: isAdminData } = await supabase.rpc('has_role', {
         _user_id: user.id,
         _role: 'admin',
       });
       
-      if (!error && data) {
+      if (isAdminData) {
         setIsAdmin(true);
+        setCanBulkUpload(true);
+        return;
+      }
+
+      // Check for bulk upload permissions
+      const allowedRoles = ['agent', 'landlord', 'business_manager'];
+      for (const role of allowedRoles) {
+        const { data } = await supabase.rpc('has_role', {
+          _user_id: user.id,
+          _role: role as any,
+        });
+        if (data) {
+          setCanBulkUpload(true);
+          break;
+        }
       }
     } catch (error) {
-      console.error('Error checking admin status:', error);
+      console.error('Error checking permissions:', error);
     }
   };
 
@@ -49,12 +65,16 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     { icon: Settings, label: t.dashboard.settings, path: '/dashboard/settings' },
   ];
 
+  const bulkUploadItem = { icon: Upload, label: 'Bulk Upload', path: '/dashboard/bulk-upload' };
+
   const adminMenuItems = [
     { icon: Users, label: 'User Management', path: '/admin/users' },
     { icon: Shield, label: 'KYC Review', path: '/admin/kyc-review' },
   ];
 
-  const menuItems = isAdmin ? [...baseMenuItems, ...adminMenuItems] : baseMenuItems;
+  let menuItems = [...baseMenuItems];
+  if (canBulkUpload) menuItems.push(bulkUploadItem);
+  if (isAdmin) menuItems = [...menuItems, ...adminMenuItems];
 
   return (
     <div className="min-h-screen bg-background">

@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      bulk_import_logs: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          details: Json | null
+          error_count: number
+          file_name: string
+          file_url: string | null
+          id: string
+          row_count: number
+          status: string
+          success_count: number
+          user_id: string
+          warning_count: number
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          details?: Json | null
+          error_count?: number
+          file_name: string
+          file_url?: string | null
+          id?: string
+          row_count?: number
+          status: string
+          success_count?: number
+          user_id: string
+          warning_count?: number
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          details?: Json | null
+          error_count?: number
+          file_name?: string
+          file_url?: string | null
+          id?: string
+          row_count?: number
+          status?: string
+          success_count?: number
+          user_id?: string
+          warning_count?: number
+        }
+        Relationships: []
+      }
       kyc_documents: {
         Row: {
           admin_notes: string | null

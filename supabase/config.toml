@@ -1,1 +1,10 @@
 project_id = "jwmvnsyvtprtheawgsan"
+
+[functions.geocode]
+verify_jwt = true
+
+[functions.parse-bulk-listings]
+verify_jwt = true
+
+[functions.process-bulk-import]
+verify_jwt = true
