@@ -12,6 +12,7 @@ import Search from "./pages/Search";
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
 import DashboardProperties from "./pages/DashboardProperties";
+import SavedListings from "./pages/SavedListings";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import KYC from "./pages/KYC";
@@ -83,6 +84,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <DashboardProperties />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/saved"
+              element={
+                <ProtectedRoute>
+                  <SavedListings />
                 </ProtectedRoute>
               }
             />
