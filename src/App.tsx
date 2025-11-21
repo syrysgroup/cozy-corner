@@ -23,6 +23,8 @@ import EditListing from "./pages/EditListing";
 import PropertyDetails from "./pages/PropertyDetails";
 import UserList from "./pages/Admin/UserList";
 import KYCReview from "./pages/Admin/KYCReview";
+import BulkUpload from "./pages/BulkUpload";
+import { BulkUploadGuard } from "./components/BulkUploadGuard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -92,6 +94,16 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <SavedListings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/bulk-upload"
+              element={
+                <ProtectedRoute>
+                  <BulkUploadGuard>
+                    <BulkUpload />
+                  </BulkUploadGuard>
                 </ProtectedRoute>
               }
             />
