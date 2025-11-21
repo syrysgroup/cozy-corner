@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FileText, Shield, User, Settings, Menu, X, Users } from 'lucide-react';
+import { Home, FileText, Shield, User, Settings, Menu, X, Users, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Language, useTranslation } from '@/lib/i18n';
@@ -43,6 +43,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const baseMenuItems = [
     { icon: Home, label: t.dashboard.overview, path: '/dashboard' },
     { icon: FileText, label: t.dashboard.properties, path: '/dashboard/properties' },
+    { icon: Heart, label: t.dashboard.savedListings, path: '/dashboard/saved' },
     { icon: Shield, label: t.dashboard.kyc, path: '/dashboard/kyc' },
     { icon: User, label: t.dashboard.profile, path: '/dashboard/profile' },
     { icon: Settings, label: t.dashboard.settings, path: '/dashboard/settings' },

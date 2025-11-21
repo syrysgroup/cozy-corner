@@ -30,6 +30,9 @@ export const Navbar = () => {
             <Link to="/properties" className="text-foreground hover:text-primary transition-colors">
               {t.nav.properties}
             </Link>
+            <Link to="/search" className="text-foreground hover:text-primary transition-colors">
+              {t.nav.search}
+            </Link>
             <Link to="/about" className="text-foreground hover:text-primary transition-colors">
               {t.nav.about}
             </Link>
@@ -79,6 +82,9 @@ export const Navbar = () => {
               </Link>
               <Link to="/properties" className="text-foreground hover:text-primary transition-colors py-2">
                 {t.nav.properties}
+              </Link>
+              <Link to="/search" className="text-foreground hover:text-primary transition-colors py-2">
+                {t.nav.search}
               </Link>
               <Link to="/about" className="text-foreground hover:text-primary transition-colors py-2">
                 {t.nav.about}

@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       home: 'Home',
       properties: 'Properties',
+      search: 'Search',
       about: 'About',
       dashboard: 'Dashboard',
       signIn: 'Sign In',
@@ -91,6 +92,7 @@ export const translations = {
       title: 'Dashboard',
       overview: 'Overview',
       properties: 'My Properties',
+      savedListings: 'Saved Listings',
       kyc: 'KYC Verification',
       profile: 'Profile',
       settings: 'Settings',
@@ -139,6 +141,7 @@ export const translations = {
     nav: {
       home: 'Accueil',
       properties: 'Propriétés',
+      search: 'Rechercher',
       about: 'À Propos',
       dashboard: 'Tableau de bord',
       signIn: 'Se Connecter',
@@ -225,6 +228,7 @@ export const translations = {
       title: 'Tableau de bord',
       overview: 'Aperçu',
       properties: 'Mes propriétés',
+      savedListings: 'Annonces Sauvegardées',
       kyc: 'Vérification KYC',
       profile: 'Profil',
       settings: 'Paramètres',
