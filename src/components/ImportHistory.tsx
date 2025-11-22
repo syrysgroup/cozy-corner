@@ -16,6 +16,7 @@ interface ImportLog {
   status: string;
   created_at: string;
   completed_at: string | null;
+  details?: any;
 }
 
 export const ImportHistory = () => {
@@ -93,6 +94,9 @@ export const ImportHistory = () => {
                   )}
                   {log.error_count > 0 && (
                     <span className="text-red-600">Errors: {log.error_count}</span>
+                  )}
+                  {log.details?.geocoded_count && log.details.geocoded_count > 0 && (
+                    <span className="text-blue-600">Geocoded: {log.details.geocoded_count}</span>
                   )}
                 </div>
               </div>
