@@ -60,6 +60,7 @@ serve(async (req) => {
 
     let successCount = 0;
     let errorCount = 0;
+    let geocodedCount = 0;
     const importErrors: any[] = [];
 
     // Process each row
@@ -127,6 +128,38 @@ serve(async (req) => {
           throw insertError;
         }
 
+        // Geocode if coordinates missing
+        if (listing && (!row.latitude || !row.longitude)) {
+          try {
+            const geocodeQuery = `${row.address_text}, ${row.city}, ${row.province}, Canada`;
+            
+            const { data: geocodeData, error: geocodeError } = await supabase.functions.invoke('geocode', {
+              body: { 
+                address: geocodeQuery,
+                action: 'forward'
+              }
+            });
+
+            if (!geocodeError && geocodeData?.latitude && geocodeData?.longitude) {
+              // Update listing with geocoded coordinates
+              await supabase
+                .from('listings')
+                .update({
+                  formatted_address: geocodeData.formatted_address,
+                })
+                .eq('id', listing.id);
+              
+              geocodedCount++;
+              console.log(`Geocoded listing ${listing.id}: ${geocodeData.formatted_address}`);
+            } else {
+              console.warn(`Failed to geocode row ${parsedRow.row_number}:`, geocodeError);
+            }
+          } catch (geocodeErr: any) {
+            console.error(`Geocoding error for row ${parsedRow.row_number}:`, geocodeErr);
+            // Don't fail the import for geocoding errors
+          }
+        }
+
         successCount++;
       } catch (error: any) {
         console.error(`Error importing row ${parsedRow.row_number}:`, error);
@@ -149,6 +182,7 @@ serve(async (req) => {
         details: {
           ...importLog.details,
           import_errors: importErrors,
+          geocoded_count: geocodedCount,
         }
       })
       .eq('id', parsed_data_id);
@@ -160,6 +194,7 @@ serve(async (req) => {
           total_processed: rowsToImport.length,
           success_count: successCount,
           error_count: errorCount,
+          geocoded_count: geocodedCount,
           errors: importErrors,
         }
       }),

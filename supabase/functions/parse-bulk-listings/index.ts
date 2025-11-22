@@ -1,5 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.81.1";
+import Papa from "https://esm.sh/papaparse@5.4.1";
+import * as XLSX from "https://esm.sh/xlsx@0.18.5";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -113,6 +115,30 @@ serve(async (req) => {
       throw new Error('Unauthorized');
     }
 
+    // Check rate limiting: max 10 imports per day per user (admins exempt)
+    const { data: isAdmin } = await supabase.rpc('has_role', {
+      _user_id: user.id,
+      _role: 'admin' as any
+    });
+
+    if (!isAdmin) {
+      const oneDayAgo = new Date();
+      oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+
+      const { data: recentImports, error: countError } = await supabase
+        .from('bulk_import_logs')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+        .gte('created_at', oneDayAgo.toISOString());
+
+      if (!countError && recentImports && (recentImports as any).count >= 10) {
+        return new Response(
+          JSON.stringify({ error: 'Rate limit exceeded. Maximum 10 imports per day.' }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
     // Check if user has required role
     const allowedRoles = ['agent', 'landlord', 'business_manager', 'admin'];
     let hasPermission = false;
@@ -138,26 +164,75 @@ serve(async (req) => {
       throw new Error('No file provided');
     }
 
-    const fileName = file.name.toLowerCase();
-    if (!fileName.endsWith('.csv') && !fileName.endsWith('.xlsx')) {
-      throw new Error('Invalid file type. Only CSV and XLSX files are supported.');
+    const fileName = file.name;
+    const fileSize = file.size;
+
+    // Check file size (10MB max)
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+    if (fileSize > MAX_FILE_SIZE) {
+      return new Response(
+        JSON.stringify({ error: `File size exceeds 10MB limit. Your file is ${(fileSize / 1024 / 1024).toFixed(2)}MB.` }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    // Parse file content
-    const fileContent = await file.text();
+    // Parse file based on type
+    let rows: any[] = [];
     
-    // Simple CSV parsing (for production, consider using a proper CSV parser)
-    const lines = fileContent.split('\n').filter(line => line.trim());
-    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-    
-    const rows: any[] = [];
-    for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
-      const row: any = {};
-      headers.forEach((header, index) => {
-        row[header] = values[index] || '';
+    if (fileName.endsWith('.csv') || file.type.includes('csv')) {
+      const text = await file.text();
+      
+      // Use PapaParse for robust CSV parsing
+      const parseResult = Papa.parse(text, {
+        header: true,
+        skipEmptyLines: true,
+        transformHeader: (header) => header.trim(),
+        transform: (value) => value.trim()
       });
-      rows.push(row);
+
+      if (parseResult.errors.length > 0) {
+        console.error('CSV parsing errors:', parseResult.errors);
+        return new Response(
+          JSON.stringify({ 
+            error: `CSV parsing failed: ${parseResult.errors[0].message}`,
+            details: parseResult.errors.slice(0, 5) // First 5 errors
+          }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      rows = parseResult.data;
+    } else if (fileName.endsWith('.xlsx') || file.type.includes('spreadsheet')) {
+      const arrayBuffer = await file.arrayBuffer();
+      const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+      
+      // Use first sheet
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      
+      // Convert to JSON with headers
+      rows = XLSX.utils.sheet_to_json(worksheet, {
+        raw: false, // Get formatted strings
+        defval: '' // Default value for empty cells
+      });
+    } else {
+      throw new Error('Unsupported file type. Please upload CSV (.csv) or Excel (.xlsx) file.');
+    }
+
+    // Check row count limits
+    if (rows.length === 0) {
+      throw new Error('File is empty or contains no valid data rows.');
+    }
+
+    if (rows.length > 1000) {
+      return new Response(
+        JSON.stringify({ error: `Too many rows. Maximum 1000 rows allowed. Your file has ${rows.length} rows.` }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (rows.length > 500) {
+      console.warn(`Large import: ${rows.length} rows. This may take several minutes.`);
     }
 
     // Validate each row
