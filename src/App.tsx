@@ -23,6 +23,7 @@ import EditListing from "./pages/EditListing";
 import PropertyDetails from "./pages/PropertyDetails";
 import UserList from "./pages/Admin/UserList";
 import KYCReview from "./pages/Admin/KYCReview";
+import BulkImports from "./pages/Admin/BulkImports";
 import BulkUpload from "./pages/BulkUpload";
 import { BulkUploadGuard } from "./components/BulkUploadGuard";
 import NotFound from "./pages/NotFound";
@@ -156,6 +157,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <KYCReview />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/bulk-imports"
+              element={
+                <ProtectedRoute>
+                  <BulkImports />
                 </ProtectedRoute>
               }
             />

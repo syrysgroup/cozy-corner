@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FileText, Shield, User, Settings, Menu, X, Users, Heart, Upload } from 'lucide-react';
+import { Home, FileText, Shield, User, Settings, Menu, X, Users, Heart, Upload, FolderUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Language, useTranslation } from '@/lib/i18n';
@@ -70,6 +70,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const adminMenuItems = [
     { icon: Users, label: 'User Management', path: '/admin/users' },
     { icon: Shield, label: 'KYC Review', path: '/admin/kyc-review' },
+    { icon: FolderUp, label: 'Bulk Imports', path: '/admin/bulk-imports' },
   ];
 
   let menuItems = [...baseMenuItems];
