@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { BulkUploadPreview } from '@/components/BulkUploadPreview';
 import { ImportHistory } from '@/components/ImportHistory';
 import { BulkUploadHelpModal } from '@/components/BulkUploadHelpModal';
@@ -9,8 +10,11 @@ import { ImportProgressTracker } from '@/components/ImportProgressTracker';
 import { downloadCSVTemplate, downloadExcelTemplate } from '@/lib/templateGenerator';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Upload, Download, FileSpreadsheet, Loader2 } from 'lucide-react';
+import { Upload, Download, FileSpreadsheet, Loader2, AlertTriangle, Clock, FileWarning } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_ROWS = 1000;
 
 export default function BulkUpload() {
   const [file, setFile] = useState<File | null>(null);
@@ -22,17 +26,35 @@ export default function BulkUpload() {
   const [importInProgress, setImportInProgress] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [uploadError, setUploadError] = useState<{ type: string; message: string } | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    setUploadError(null);
+    
     if (acceptedFiles.length > 0) {
       const uploadedFile = acceptedFiles[0];
-      if (uploadedFile.name.endsWith('.csv') || uploadedFile.name.endsWith('.xlsx')) {
-        setFile(uploadedFile);
-        setPreview(null);
-        setParsedDataId(null);
-      } else {
-        toast.error('Invalid file type. Please upload CSV or Excel files only.');
+      
+      // Client-side file type validation
+      if (!uploadedFile.name.endsWith('.csv') && !uploadedFile.name.endsWith('.xlsx')) {
+        setUploadError({
+          type: 'FILE_TYPE',
+          message: 'Invalid file type. Please upload CSV (.csv) or Excel (.xlsx) files only.'
+        });
+        return;
       }
+      
+      // Client-side file size validation
+      if (uploadedFile.size > MAX_FILE_SIZE) {
+        setUploadError({
+          type: 'FILE_SIZE',
+          message: `File size (${(uploadedFile.size / 1024 / 1024).toFixed(2)}MB) exceeds the 10MB limit. Please use a smaller file.`
+        });
+        return;
+      }
+      
+      setFile(uploadedFile);
+      setPreview(null);
+      setParsedDataId(null);
     }
   }, []);
 
@@ -43,12 +65,15 @@ export default function BulkUpload() {
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
     },
     maxFiles: 1,
+    maxSize: MAX_FILE_SIZE,
   });
 
   const handleParseFile = async () => {
     if (!file) return;
 
     setUploading(true);
+    setUploadError(null);
+    
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -70,15 +95,37 @@ export default function BulkUpload() {
         }
       );
 
+      const result = await response.json();
+
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to parse file');
+        // Handle specific error types
+        if (response.status === 429) {
+          setUploadError({
+            type: 'RATE_LIMIT',
+            message: result.error || 'Rate limit exceeded. Maximum 10 imports per day.'
+          });
+          return;
+        }
+        if (response.status === 403) {
+          setUploadError({
+            type: 'PERMISSION',
+            message: result.error || 'You do not have permission to use bulk upload.'
+          });
+          return;
+        }
+        if (result.code === 'ROW_LIMIT_EXCEEDED') {
+          setUploadError({
+            type: 'ROW_LIMIT',
+            message: result.error || `File has too many rows. Maximum ${MAX_ROWS} rows allowed.`
+          });
+          return;
+        }
+        throw new Error(result.error || 'Failed to parse file');
       }
 
-      const result = await response.json();
       setPreview(result.preview);
       setParsedDataId(result.parsed_data_id);
-      setTotalRows(result.preview?.summary?.total || 0);
+      setTotalRows(result.preview?.total || 0);
       toast.success('File parsed successfully!');
     } catch (error: any) {
       console.error('Error parsing file:', error);
@@ -144,6 +191,7 @@ export default function BulkUpload() {
     setPreview(null);
     setParsedDataId(null);
     setImportInProgress(false);
+    setUploadError(null);
   };
 
   const handleImportComplete = () => {
@@ -186,12 +234,34 @@ export default function BulkUpload() {
         {/* Step 2: Upload File */}
         <Card className="p-6">
           <h2 className="text-xl font-semibold mb-4">Step 2: Upload File</h2>
+          
+          {/* Error Alert */}
+          {uploadError && (
+            <Alert variant="destructive" className="mb-4">
+              {uploadError.type === 'RATE_LIMIT' && <Clock className="h-4 w-4" />}
+              {uploadError.type === 'FILE_SIZE' && <FileWarning className="h-4 w-4" />}
+              {uploadError.type === 'FILE_TYPE' && <FileWarning className="h-4 w-4" />}
+              {uploadError.type === 'PERMISSION' && <AlertTriangle className="h-4 w-4" />}
+              {uploadError.type === 'ROW_LIMIT' && <FileWarning className="h-4 w-4" />}
+              <AlertTitle>
+                {uploadError.type === 'RATE_LIMIT' && 'Rate Limit Exceeded'}
+                {uploadError.type === 'FILE_SIZE' && 'File Too Large'}
+                {uploadError.type === 'FILE_TYPE' && 'Invalid File Type'}
+                {uploadError.type === 'PERMISSION' && 'Permission Denied'}
+                {uploadError.type === 'ROW_LIMIT' && 'Too Many Rows'}
+              </AlertTitle>
+              <AlertDescription>{uploadError.message}</AlertDescription>
+            </Alert>
+          )}
+          
           <div
             {...getRootProps()}
             className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${
               isDragActive
                 ? 'border-primary bg-primary/5'
-                : 'border-border hover:border-primary/50'
+                : uploadError 
+                  ? 'border-destructive/50 bg-destructive/5'
+                  : 'border-border hover:border-primary/50'
             }`}
           >
             <input {...getInputProps()} />
@@ -216,7 +286,24 @@ export default function BulkUpload() {
               </div>
             )}
           </div>
-          {file && !preview && (
+          
+          {/* File Limits Info */}
+          <div className="mt-4 flex flex-wrap gap-4 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <FileWarning className="h-3 w-3" />
+              Max file size: 10MB
+            </span>
+            <span className="flex items-center gap-1">
+              <FileWarning className="h-3 w-3" />
+              Max rows: 1000
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              Daily limit: 10 imports
+            </span>
+          </div>
+          
+          {file && !preview && !uploadError && (
             <Button
               onClick={handleParseFile}
               disabled={uploading}
