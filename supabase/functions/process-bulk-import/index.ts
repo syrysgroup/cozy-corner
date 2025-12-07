@@ -62,9 +62,15 @@ serve(async (req) => {
     let errorCount = 0;
     let geocodedCount = 0;
     const importErrors: any[] = [];
+    const createdListingIds: string[] = [];
+
+    // Update progress every N rows
+    const progressUpdateInterval = 10;
 
     // Process each row
-    for (const parsedRow of rowsToImport) {
+    for (let i = 0; i < rowsToImport.length; i++) {
+      const parsedRow = rowsToImport[i];
+      
       try {
         const row = parsedRow.data;
 
@@ -128,6 +134,8 @@ serve(async (req) => {
           throw insertError;
         }
 
+        createdListingIds.push(listing.id);
+
         // Geocode if coordinates missing
         if (listing && (!row.latitude || !row.longitude)) {
           try {
@@ -167,7 +175,26 @@ serve(async (req) => {
         importErrors.push({
           row_number: parsedRow.row_number,
           error: error.message,
+          data: parsedRow.data,
         });
+      }
+
+      // Update progress periodically
+      if ((i + 1) % progressUpdateInterval === 0 || i === rowsToImport.length - 1) {
+        await supabase
+          .from('bulk_import_logs')
+          .update({
+            success_count: successCount,
+            error_count: errorCount,
+            details: {
+              ...importLog.details,
+              current_row: i + 1,
+              geocoded_count: geocodedCount,
+              import_errors: importErrors,
+              created_listing_ids: createdListingIds,
+            }
+          })
+          .eq('id', parsed_data_id);
       }
     }
 
@@ -175,7 +202,7 @@ serve(async (req) => {
     await supabase
       .from('bulk_import_logs')
       .update({
-        status: errorCount === 0 ? 'completed' : 'completed',
+        status: 'completed',
         success_count: successCount,
         error_count: errorCount,
         completed_at: new Date().toISOString(),
@@ -183,6 +210,7 @@ serve(async (req) => {
           ...importLog.details,
           import_errors: importErrors,
           geocoded_count: geocodedCount,
+          created_listing_ids: createdListingIds,
         }
       })
       .eq('id', parsed_data_id);
@@ -196,6 +224,7 @@ serve(async (req) => {
           error_count: errorCount,
           geocoded_count: geocodedCount,
           errors: importErrors,
+          created_listing_ids: createdListingIds,
         }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

@@ -2,9 +2,10 @@ import { useState, useCallback } from 'react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { BulkUploadPreview } from '@/components/BulkUploadPreview';
 import { ImportHistory } from '@/components/ImportHistory';
+import { BulkUploadHelpModal } from '@/components/BulkUploadHelpModal';
+import { ImportProgressTracker } from '@/components/ImportProgressTracker';
 import { downloadCSVTemplate, downloadExcelTemplate } from '@/lib/templateGenerator';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -18,6 +19,9 @@ export default function BulkUpload() {
   const [uploading, setUploading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [publishAsDraft, setPublishAsDraft] = useState(true);
+  const [importInProgress, setImportInProgress] = useState(false);
+  const [totalRows, setTotalRows] = useState(0);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -74,6 +78,7 @@ export default function BulkUpload() {
       const result = await response.json();
       setPreview(result.preview);
       setParsedDataId(result.parsed_data_id);
+      setTotalRows(result.preview?.summary?.total || 0);
       toast.success('File parsed successfully!');
     } catch (error: any) {
       console.error('Error parsing file:', error);
@@ -87,6 +92,7 @@ export default function BulkUpload() {
     if (!parsedDataId) return;
 
     setProcessing(true);
+    setImportInProgress(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -122,9 +128,12 @@ export default function BulkUpload() {
       setFile(null);
       setPreview(null);
       setParsedDataId(null);
+      setImportInProgress(false);
+      setRefreshKey(prev => prev + 1);
     } catch (error: any) {
       console.error('Error processing import:', error);
       toast.error(error.message || 'Failed to process import');
+      setImportInProgress(false);
     } finally {
       setProcessing(false);
     }
@@ -134,6 +143,12 @@ export default function BulkUpload() {
     setFile(null);
     setPreview(null);
     setParsedDataId(null);
+    setImportInProgress(false);
+  };
+
+  const handleImportComplete = () => {
+    setImportInProgress(false);
+    setRefreshKey(prev => prev + 1);
   };
 
   return (
@@ -148,9 +163,13 @@ export default function BulkUpload() {
 
         {/* Step 1: Download Template */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Step 1: Download Template</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold">Step 1: Download Template</h2>
+            <BulkUploadHelpModal />
+          </div>
           <p className="text-muted-foreground mb-4">
             Start by downloading a template file with example data and field descriptions.
+            The Excel template includes instructions and valid values on separate sheets.
           </p>
           <div className="flex gap-4">
             <Button onClick={downloadCSVTemplate} variant="outline">
@@ -192,7 +211,7 @@ export default function BulkUpload() {
                     : 'Drag and drop a file here, or click to select'}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Accepts CSV and XLSX files (max 10MB)
+                  Accepts CSV and XLSX files (max 10MB, 1000 rows)
                 </p>
               </div>
             )}
@@ -220,28 +239,44 @@ export default function BulkUpload() {
         {preview && (
           <Card className="p-6">
             <h2 className="text-xl font-semibold mb-4">Step 3: Preview & Confirm</h2>
-            <div className="mb-4">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={publishAsDraft}
-                  onChange={(e) => setPublishAsDraft(e.target.checked)}
-                  className="rounded border-border"
+            
+            {/* Progress Tracker */}
+            {importInProgress && parsedDataId && (
+              <div className="mb-4">
+                <ImportProgressTracker
+                  importLogId={parsedDataId}
+                  totalRows={totalRows}
+                  onComplete={handleImportComplete}
                 />
-                <span className="text-sm">Import as drafts (recommended)</span>
-              </label>
-            </div>
-            <BulkUploadPreview
-              preview={preview}
-              onConfirm={handleConfirmImport}
-              onCancel={handleCancel}
-              processing={processing}
-            />
+              </div>
+            )}
+
+            {!importInProgress && (
+              <>
+                <div className="mb-4">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={publishAsDraft}
+                      onChange={(e) => setPublishAsDraft(e.target.checked)}
+                      className="rounded border-border"
+                    />
+                    <span className="text-sm">Import as drafts (recommended)</span>
+                  </label>
+                </div>
+                <BulkUploadPreview
+                  preview={preview}
+                  onConfirm={handleConfirmImport}
+                  onCancel={handleCancel}
+                  processing={processing}
+                />
+              </>
+            )}
           </Card>
         )}
 
         {/* Import History */}
-        <ImportHistory />
+        <ImportHistory key={refreshKey} />
       </div>
     </DashboardLayout>
   );
