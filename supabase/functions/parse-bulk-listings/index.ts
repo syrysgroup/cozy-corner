@@ -20,72 +20,125 @@ const REQUIRED_FIELDS = ['title_en', 'title_fr', 'listing_type', 'price', 'addre
 const VALID_LISTING_TYPES = ['sale', 'rent', 'shared', 'student', 'co_ownership', 'auction', 'ppp'];
 const VALID_PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
 
+// Sanitize string input to prevent XSS/injection
+function sanitizeString(value: any): string {
+  if (value === null || value === undefined) return '';
+  return String(value)
+    .trim()
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // Remove script tags
+    .replace(/javascript:/gi, '') // Remove javascript: protocols
+    .replace(/on\w+\s*=/gi, ''); // Remove inline event handlers
+}
+
 function validateRow(row: any, rowNumber: number): ParsedRow {
   const errors: string[] = [];
   const warnings: string[] = [];
 
+  // Sanitize all string fields
+  const sanitizedRow: any = {};
+  for (const key of Object.keys(row)) {
+    sanitizedRow[key] = sanitizeString(row[key]);
+  }
+
   // Check required fields
   for (const field of REQUIRED_FIELDS) {
-    if (!row[field] || String(row[field]).trim() === '') {
+    if (!sanitizedRow[field] || sanitizedRow[field] === '') {
       errors.push(`Missing required field: ${field}`);
     }
   }
 
+  // Validate title lengths
+  if (sanitizedRow.title_en && sanitizedRow.title_en.length > 200) {
+    errors.push('Title (English) must be less than 200 characters');
+  }
+  if (sanitizedRow.title_fr && sanitizedRow.title_fr.length > 200) {
+    errors.push('Title (French) must be less than 200 characters');
+  }
+
   // Validate listing type
-  if (row.listing_type && !VALID_LISTING_TYPES.includes(row.listing_type.toLowerCase())) {
+  if (sanitizedRow.listing_type && !VALID_LISTING_TYPES.includes(sanitizedRow.listing_type.toLowerCase())) {
     errors.push(`Invalid listing_type. Must be one of: ${VALID_LISTING_TYPES.join(', ')}`);
   }
 
   // Validate price
-  const price = parseFloat(row.price);
+  const price = parseFloat(sanitizedRow.price);
   if (isNaN(price)) {
     errors.push('Price must be a valid number');
   } else if (price <= 0) {
     errors.push('Price must be greater than 0');
+  } else if (price > 999999999) {
+    errors.push('Price exceeds maximum allowed value');
   }
 
   // Validate province
-  if (row.province && !VALID_PROVINCES.includes(row.province.toUpperCase())) {
+  if (sanitizedRow.province && !VALID_PROVINCES.includes(sanitizedRow.province.toUpperCase())) {
     errors.push(`Invalid province code. Must be one of: ${VALID_PROVINCES.join(', ')}`);
   }
 
-  // Validate optional numeric fields
-  if (row.bedrooms && (isNaN(parseInt(row.bedrooms)) || parseInt(row.bedrooms) < 0)) {
-    warnings.push('Bedrooms must be a positive number');
+  // Validate address length
+  if (sanitizedRow.address_text && sanitizedRow.address_text.length > 500) {
+    errors.push('Address must be less than 500 characters');
   }
-  if (row.bathrooms && (isNaN(parseFloat(row.bathrooms)) || parseFloat(row.bathrooms) < 0)) {
-    warnings.push('Bathrooms must be a positive number');
+
+  // Validate city length
+  if (sanitizedRow.city && sanitizedRow.city.length > 100) {
+    errors.push('City name must be less than 100 characters');
+  }
+
+  // Validate optional numeric fields
+  if (sanitizedRow.bedrooms) {
+    const bedrooms = parseInt(sanitizedRow.bedrooms);
+    if (isNaN(bedrooms) || bedrooms < 0) {
+      warnings.push('Bedrooms must be a positive number');
+    } else if (bedrooms > 50) {
+      warnings.push('Bedrooms value seems unusually high');
+    }
+  }
+  if (sanitizedRow.bathrooms) {
+    const bathrooms = parseFloat(sanitizedRow.bathrooms);
+    if (isNaN(bathrooms) || bathrooms < 0) {
+      warnings.push('Bathrooms must be a positive number');
+    } else if (bathrooms > 50) {
+      warnings.push('Bathrooms value seems unusually high');
+    }
   }
 
   // Validate image URLs
-  if (row.image_urls) {
-    const urls = String(row.image_urls).split(',').map(u => u.trim());
-    const invalidUrls = urls.filter(url => {
+  if (sanitizedRow.image_urls) {
+    const urls = sanitizedRow.image_urls.split(',').map((u: string) => u.trim());
+    if (urls.length > 20) {
+      warnings.push('Maximum 20 images allowed per listing');
+    }
+    const invalidUrls = urls.slice(0, 20).filter((url: string) => {
+      if (!url) return false;
       try {
-        new URL(url);
+        const parsed = new URL(url);
+        if (!['http:', 'https:'].includes(parsed.protocol)) return true;
         return !url.match(/\.(jpg|jpeg|png|gif|webp)$/i);
       } catch {
         return true;
       }
     });
     if (invalidUrls.length > 0) {
-      warnings.push(`Invalid image URLs (will be skipped): ${invalidUrls.join(', ')}`);
+      warnings.push(`Invalid image URLs (will be skipped): ${invalidUrls.slice(0, 3).join(', ')}${invalidUrls.length > 3 ? '...' : ''}`);
     }
   }
 
   // Check text field lengths
-  if (row.description_en && row.description_en.length > 5000) {
-    warnings.push('Description (English) is very long (>5000 chars)');
+  if (sanitizedRow.description_en && sanitizedRow.description_en.length > 5000) {
+    warnings.push('Description (English) is very long (>5000 chars), will be truncated');
+    sanitizedRow.description_en = sanitizedRow.description_en.substring(0, 5000);
   }
-  if (row.description_fr && row.description_fr.length > 5000) {
-    warnings.push('Description (French) is very long (>5000 chars)');
+  if (sanitizedRow.description_fr && sanitizedRow.description_fr.length > 5000) {
+    warnings.push('Description (French) is very long (>5000 chars), will be truncated');
+    sanitizedRow.description_fr = sanitizedRow.description_fr.substring(0, 5000);
   }
 
   const status = errors.length > 0 ? 'error' : warnings.length > 0 ? 'warning' : 'valid';
 
   return {
     row_number: rowNumber,
-    data: row,
+    data: sanitizedRow,
     status,
     errors,
     warnings,
@@ -125,15 +178,21 @@ serve(async (req) => {
       const oneDayAgo = new Date();
       oneDayAgo.setDate(oneDayAgo.getDate() - 1);
 
-      const { data: recentImports, error: countError } = await supabase
+      const { count, error: countError } = await supabase
         .from('bulk_import_logs')
-        .select('id', { count: 'exact', head: true })
+        .select('*', { count: 'exact', head: true })
         .eq('user_id', user.id)
         .gte('created_at', oneDayAgo.toISOString());
 
-      if (!countError && recentImports && (recentImports as any).count >= 10) {
+      console.log(`Rate limit check: user ${user.id} has ${count} imports in last 24h`);
+
+      if (!countError && count !== null && count >= 10) {
         return new Response(
-          JSON.stringify({ error: 'Rate limit exceeded. Maximum 10 imports per day.' }),
+          JSON.stringify({ 
+            error: 'Rate limit exceeded. Maximum 10 imports per day.',
+            code: 'RATE_LIMIT_EXCEEDED',
+            details: { current_count: count, limit: 10 }
+          }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
