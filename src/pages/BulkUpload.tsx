@@ -7,10 +7,11 @@ import { BulkUploadPreview } from '@/components/BulkUploadPreview';
 import { ImportHistory } from '@/components/ImportHistory';
 import { BulkUploadHelpModal } from '@/components/BulkUploadHelpModal';
 import { ImportProgressTracker } from '@/components/ImportProgressTracker';
+import { BulkUploadTooltip, tooltips } from '@/components/BulkUploadTooltip';
 import { downloadCSVTemplate, downloadExcelTemplate } from '@/lib/templateGenerator';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Upload, Download, FileSpreadsheet, Loader2, AlertTriangle, Clock, FileWarning } from 'lucide-react';
+import { Upload, Download, FileSpreadsheet, Loader2, AlertTriangle, Clock, FileWarning, Info } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -212,28 +213,44 @@ export default function BulkUpload() {
         {/* Step 1: Download Template */}
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Step 1: Download Template</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-semibold">Step 1: Download Template</h2>
+              <BulkUploadTooltip content={tooltips.templateDownload} />
+            </div>
             <BulkUploadHelpModal />
           </div>
           <p className="text-muted-foreground mb-4">
             Start by downloading a template file with example data and field descriptions.
             The Excel template includes instructions and valid values on separate sheets.
           </p>
-          <div className="flex gap-4">
-            <Button onClick={downloadCSVTemplate} variant="outline">
-              <Download className="mr-2 h-4 w-4" />
-              Download CSV Template
-            </Button>
-            <Button onClick={downloadExcelTemplate} variant="outline">
-              <FileSpreadsheet className="mr-2 h-4 w-4" />
-              Download Excel Template
-            </Button>
+          <div className="flex flex-wrap gap-4">
+            <BulkUploadTooltip 
+              content="Simple format, compatible with all spreadsheet apps. Good for experienced users."
+              side="bottom"
+            >
+              <Button onClick={downloadCSVTemplate} variant="outline">
+                <Download className="mr-2 h-4 w-4" />
+                Download CSV Template
+              </Button>
+            </BulkUploadTooltip>
+            <BulkUploadTooltip 
+              content="Includes Instructions sheet and Valid Values reference. Recommended for beginners."
+              side="bottom"
+            >
+              <Button onClick={downloadExcelTemplate} variant="outline">
+                <FileSpreadsheet className="mr-2 h-4 w-4" />
+                Download Excel Template
+              </Button>
+            </BulkUploadTooltip>
           </div>
         </Card>
 
         {/* Step 2: Upload File */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Step 2: Upload File</h2>
+          <div className="flex items-center gap-2 mb-4">
+            <h2 className="text-xl font-semibold">Step 2: Upload File</h2>
+            <BulkUploadTooltip content={tooltips.fileUpload} />
+          </div>
           
           {/* Error Alert */}
           {uploadError && (
@@ -289,18 +306,27 @@ export default function BulkUpload() {
           
           {/* File Limits Info */}
           <div className="mt-4 flex flex-wrap gap-4 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1">
-              <FileWarning className="h-3 w-3" />
-              Max file size: 10MB
-            </span>
-            <span className="flex items-center gap-1">
-              <FileWarning className="h-3 w-3" />
-              Max rows: 1000
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="h-3 w-3" />
-              Daily limit: 10 imports
-            </span>
+            <BulkUploadTooltip content={tooltips.fileSize} side="bottom">
+              <span className="flex items-center gap-1 cursor-help">
+                <FileWarning className="h-3 w-3" />
+                Max file size: 10MB
+                <Info className="h-3 w-3 opacity-50" />
+              </span>
+            </BulkUploadTooltip>
+            <BulkUploadTooltip content={tooltips.maxRows} side="bottom">
+              <span className="flex items-center gap-1 cursor-help">
+                <FileWarning className="h-3 w-3" />
+                Max rows: 1000
+                <Info className="h-3 w-3 opacity-50" />
+              </span>
+            </BulkUploadTooltip>
+            <BulkUploadTooltip content={tooltips.dailyLimit} side="bottom">
+              <span className="flex items-center gap-1 cursor-help">
+                <Clock className="h-3 w-3" />
+                Daily limit: 10 imports
+                <Info className="h-3 w-3 opacity-50" />
+              </span>
+            </BulkUploadTooltip>
           </div>
           
           {file && !preview && !uploadError && (
@@ -349,6 +375,7 @@ export default function BulkUpload() {
                       className="rounded border-border"
                     />
                     <span className="text-sm">Import as drafts (recommended)</span>
+                    <BulkUploadTooltip content={tooltips.draftMode} />
                   </label>
                 </div>
                 <BulkUploadPreview

@@ -3,8 +3,9 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { CheckCircle, AlertTriangle, XCircle, ChevronDown, ChevronRight } from 'lucide-react';
+import { CheckCircle, AlertTriangle, XCircle, ChevronDown, ChevronRight, Info } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { BulkUploadTooltip, tooltips } from '@/components/BulkUploadTooltip';
 
 interface ParsedRow {
   row_number: number;
@@ -71,6 +72,9 @@ export const BulkUploadPreview = ({ preview, onConfirm, onCancel, processing }: 
           <div className="text-sm text-green-600 dark:text-green-400 flex items-center gap-2">
             <CheckCircle className="h-4 w-4" />
             Valid
+            <BulkUploadTooltip content={tooltips.validStatus} variant="info">
+              <Info className="h-3 w-3 opacity-60" />
+            </BulkUploadTooltip>
           </div>
           <div className="text-2xl font-bold text-green-600 dark:text-green-400">{preview.valid_count}</div>
         </Card>
@@ -78,6 +82,9 @@ export const BulkUploadPreview = ({ preview, onConfirm, onCancel, processing }: 
           <div className="text-sm text-yellow-600 dark:text-yellow-400 flex items-center gap-2">
             <AlertTriangle className="h-4 w-4" />
             Warnings
+            <BulkUploadTooltip content={tooltips.warningStatus} variant="info">
+              <Info className="h-3 w-3 opacity-60" />
+            </BulkUploadTooltip>
           </div>
           <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{preview.warning_count}</div>
         </Card>
@@ -85,6 +92,9 @@ export const BulkUploadPreview = ({ preview, onConfirm, onCancel, processing }: 
           <div className="text-sm text-red-600 dark:text-red-400 flex items-center gap-2">
             <XCircle className="h-4 w-4" />
             Errors
+            <BulkUploadTooltip content={tooltips.errorStatus} variant="info">
+              <Info className="h-3 w-3 opacity-60" />
+            </BulkUploadTooltip>
           </div>
           <div className="text-2xl font-bold text-red-600 dark:text-red-400">{preview.error_count}</div>
         </Card>
