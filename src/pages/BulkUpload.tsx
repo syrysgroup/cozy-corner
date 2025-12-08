@@ -3,6 +3,8 @@ import { DashboardLayout } from '@/components/DashboardLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
 import { BulkUploadPreview } from '@/components/BulkUploadPreview';
 import { ImportHistory } from '@/components/ImportHistory';
 import { BulkUploadHelpModal } from '@/components/BulkUploadHelpModal';
@@ -11,7 +13,19 @@ import { BulkUploadTooltip, tooltips } from '@/components/BulkUploadTooltip';
 import { downloadCSVTemplate, downloadExcelTemplate } from '@/lib/templateGenerator';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Upload, Download, FileSpreadsheet, Loader2, AlertTriangle, Clock, FileWarning, Info } from 'lucide-react';
+import { 
+  Upload, 
+  Download, 
+  FileSpreadsheet, 
+  Loader2, 
+  AlertTriangle, 
+  Clock, 
+  FileWarning, 
+  CheckCircle2,
+  FileText,
+  Eye,
+  Sparkles
+} from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -200,197 +214,282 @@ export default function BulkUpload() {
     setRefreshKey(prev => prev + 1);
   };
 
+  // Determine current step
+  const currentStep = preview ? 3 : file ? 2 : 1;
+
   return (
     <DashboardLayout>
-      <div className="space-y-8">
-        <div>
-          <h1 className="text-3xl font-bold">Bulk Upload Listings</h1>
-          <p className="text-muted-foreground mt-2">
-            Upload multiple listings at once using CSV or Excel files
-          </p>
+      <div className="space-y-8 max-w-5xl mx-auto">
+        {/* Header with gradient accent */}
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-6 md:p-8">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="relative">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight">Bulk Upload Listings</h1>
+                <p className="text-muted-foreground mt-2 max-w-xl">
+                  Import multiple property listings at once using CSV or Excel files. 
+                  Perfect for agents and landlords with large portfolios.
+                </p>
+              </div>
+              <BulkUploadHelpModal />
+            </div>
+            
+            {/* Step Indicator */}
+            <div className="flex items-center gap-2 mt-6">
+              {[
+                { num: 1, label: 'Template', icon: Download },
+                { num: 2, label: 'Upload', icon: Upload },
+                { num: 3, label: 'Review', icon: Eye },
+              ].map((step, idx) => (
+                <div key={step.num} className="flex items-center">
+                  <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                    currentStep >= step.num 
+                      ? 'bg-primary text-primary-foreground' 
+                      : 'bg-muted text-muted-foreground'
+                  }`}>
+                    {currentStep > step.num ? (
+                      <CheckCircle2 className="h-4 w-4" />
+                    ) : (
+                      <step.icon className="h-4 w-4" />
+                    )}
+                    <span className="hidden sm:inline">{step.label}</span>
+                    <span className="sm:hidden">{step.num}</span>
+                  </div>
+                  {idx < 2 && (
+                    <div className={`w-8 h-0.5 mx-1 ${
+                      currentStep > step.num ? 'bg-primary' : 'bg-border'
+                    }`} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Step 1: Download Template */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-semibold">Step 1: Download Template</h2>
-              <BulkUploadTooltip content={tooltips.templateDownload} />
+        <Card className={`p-6 transition-all duration-300 ${currentStep === 1 ? 'ring-2 ring-primary/20 shadow-lg' : ''}`}>
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <Download className="h-5 w-5 text-primary" />
             </div>
-            <BulkUploadHelpModal />
-          </div>
-          <p className="text-muted-foreground mb-4">
-            Start by downloading a template file with example data and field descriptions.
-            The Excel template includes instructions and valid values on separate sheets.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <BulkUploadTooltip 
-              content="Simple format, compatible with all spreadsheet apps. Good for experienced users."
-              side="bottom"
-            >
-              <Button onClick={downloadCSVTemplate} variant="outline">
-                <Download className="mr-2 h-4 w-4" />
-                Download CSV Template
-              </Button>
-            </BulkUploadTooltip>
-            <BulkUploadTooltip 
-              content="Includes Instructions sheet and Valid Values reference. Recommended for beginners."
-              side="bottom"
-            >
-              <Button onClick={downloadExcelTemplate} variant="outline">
-                <FileSpreadsheet className="mr-2 h-4 w-4" />
-                Download Excel Template
-              </Button>
-            </BulkUploadTooltip>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-lg font-semibold">Download Template</h2>
+                <BulkUploadTooltip content={tooltips.templateDownload} />
+                {currentStep > 1 && (
+                  <Badge variant="secondary" className="bg-success-soft text-green-700 dark:text-green-400">
+                    <CheckCircle2 className="h-3 w-3 mr-1" />
+                    Ready
+                  </Badge>
+                )}
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Get a pre-formatted file with all required columns and example data.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button onClick={downloadCSVTemplate} variant="outline" size="sm" className="gap-2">
+                  <FileText className="h-4 w-4" />
+                  CSV Template
+                </Button>
+                <Button onClick={downloadExcelTemplate} variant="outline" size="sm" className="gap-2">
+                  <FileSpreadsheet className="h-4 w-4 text-green-600" />
+                  Excel Template
+                  <Badge variant="secondary" className="ml-1 text-xs">Recommended</Badge>
+                </Button>
+              </div>
+            </div>
           </div>
         </Card>
 
         {/* Step 2: Upload File */}
-        <Card className="p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <h2 className="text-xl font-semibold">Step 2: Upload File</h2>
-            <BulkUploadTooltip content={tooltips.fileUpload} />
-          </div>
-          
-          {/* Error Alert */}
-          {uploadError && (
-            <Alert variant="destructive" className="mb-4">
-              {uploadError.type === 'RATE_LIMIT' && <Clock className="h-4 w-4" />}
-              {uploadError.type === 'FILE_SIZE' && <FileWarning className="h-4 w-4" />}
-              {uploadError.type === 'FILE_TYPE' && <FileWarning className="h-4 w-4" />}
-              {uploadError.type === 'PERMISSION' && <AlertTriangle className="h-4 w-4" />}
-              {uploadError.type === 'ROW_LIMIT' && <FileWarning className="h-4 w-4" />}
-              <AlertTitle>
-                {uploadError.type === 'RATE_LIMIT' && 'Rate Limit Exceeded'}
-                {uploadError.type === 'FILE_SIZE' && 'File Too Large'}
-                {uploadError.type === 'FILE_TYPE' && 'Invalid File Type'}
-                {uploadError.type === 'PERMISSION' && 'Permission Denied'}
-                {uploadError.type === 'ROW_LIMIT' && 'Too Many Rows'}
-              </AlertTitle>
-              <AlertDescription>{uploadError.message}</AlertDescription>
-            </Alert>
-          )}
-          
-          <div
-            {...getRootProps()}
-            className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${
-              isDragActive
-                ? 'border-primary bg-primary/5'
-                : uploadError 
-                  ? 'border-destructive/50 bg-destructive/5'
-                  : 'border-border hover:border-primary/50'
-            }`}
-          >
-            <input {...getInputProps()} />
-            <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            {file ? (
-              <div>
-                <p className="text-lg font-medium">{file.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  {(file.size / 1024).toFixed(2)} KB
-                </p>
+        <Card className={`p-6 transition-all duration-300 ${currentStep === 2 ? 'ring-2 ring-primary/20 shadow-lg' : ''}`}>
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <Upload className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-lg font-semibold">Upload Your File</h2>
+                <BulkUploadTooltip content={tooltips.fileUpload} />
               </div>
-            ) : (
-              <div>
-                <p className="text-lg font-medium">
-                  {isDragActive
-                    ? 'Drop the file here'
-                    : 'Drag and drop a file here, or click to select'}
-                </p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Accepts CSV and XLSX files (max 10MB, 1000 rows)
-                </p>
-              </div>
-            )}
-          </div>
-          
-          {/* File Limits Info */}
-          <div className="mt-4 flex flex-wrap gap-4 text-xs text-muted-foreground">
-            <BulkUploadTooltip content={tooltips.fileSize} side="bottom">
-              <span className="flex items-center gap-1 cursor-help">
-                <FileWarning className="h-3 w-3" />
-                Max file size: 10MB
-                <Info className="h-3 w-3 opacity-50" />
-              </span>
-            </BulkUploadTooltip>
-            <BulkUploadTooltip content={tooltips.maxRows} side="bottom">
-              <span className="flex items-center gap-1 cursor-help">
-                <FileWarning className="h-3 w-3" />
-                Max rows: 1000
-                <Info className="h-3 w-3 opacity-50" />
-              </span>
-            </BulkUploadTooltip>
-            <BulkUploadTooltip content={tooltips.dailyLimit} side="bottom">
-              <span className="flex items-center gap-1 cursor-help">
-                <Clock className="h-3 w-3" />
-                Daily limit: 10 imports
-                <Info className="h-3 w-3 opacity-50" />
-              </span>
-            </BulkUploadTooltip>
-          </div>
-          
-          {file && !preview && !uploadError && (
-            <Button
-              onClick={handleParseFile}
-              disabled={uploading}
-              className="mt-4 w-full"
-              size="lg"
-            >
-              {uploading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Validating...
-                </>
-              ) : (
-                'Validate & Preview'
+              <p className="text-sm text-muted-foreground mb-4">
+                Drag and drop your completed file or click to browse.
+              </p>
+              
+              {/* Error Alert */}
+              {uploadError && (
+                <Alert variant="destructive" className="mb-4">
+                  {uploadError.type === 'RATE_LIMIT' && <Clock className="h-4 w-4" />}
+                  {uploadError.type === 'FILE_SIZE' && <FileWarning className="h-4 w-4" />}
+                  {uploadError.type === 'FILE_TYPE' && <FileWarning className="h-4 w-4" />}
+                  {uploadError.type === 'PERMISSION' && <AlertTriangle className="h-4 w-4" />}
+                  {uploadError.type === 'ROW_LIMIT' && <FileWarning className="h-4 w-4" />}
+                  <AlertTitle className="font-medium">
+                    {uploadError.type === 'RATE_LIMIT' && 'Rate Limit Exceeded'}
+                    {uploadError.type === 'FILE_SIZE' && 'File Too Large'}
+                    {uploadError.type === 'FILE_TYPE' && 'Invalid File Type'}
+                    {uploadError.type === 'PERMISSION' && 'Permission Denied'}
+                    {uploadError.type === 'ROW_LIMIT' && 'Too Many Rows'}
+                  </AlertTitle>
+                  <AlertDescription>{uploadError.message}</AlertDescription>
+                </Alert>
               )}
-            </Button>
-          )}
+              
+              {/* Upload Zone */}
+              <div
+                {...getRootProps()}
+                className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200 ${
+                  isDragActive
+                    ? 'border-primary bg-upload-active shadow-upload'
+                    : uploadError 
+                      ? 'border-destructive/50 bg-error-soft'
+                      : file
+                        ? 'border-primary/50 bg-success-soft'
+                        : 'border-upload-border bg-upload-zone hover:border-primary/50 hover:bg-upload-active'
+                }`}
+              >
+                <input {...getInputProps()} />
+                
+                {file ? (
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <FileSpreadsheet className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-foreground">{file.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {(file.size / 1024).toFixed(2)} KB • Ready to validate
+                      </p>
+                    </div>
+                    <CheckCircle2 className="h-6 w-6 text-green-600 ml-2" />
+                  </div>
+                ) : (
+                  <div>
+                    <div className="w-16 h-16 rounded-full bg-muted mx-auto mb-4 flex items-center justify-center">
+                      <Upload className={`h-8 w-8 transition-transform duration-200 ${isDragActive ? 'scale-110 text-primary' : 'text-muted-foreground'}`} />
+                    </div>
+                    <p className="text-base font-medium text-foreground">
+                      {isDragActive ? 'Drop your file here' : 'Drag and drop your file here'}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      or <span className="text-primary font-medium">browse</span> to select
+                    </p>
+                    <div className="flex items-center justify-center gap-4 mt-4 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <FileText className="h-3 w-3" /> CSV, XLSX
+                      </span>
+                      <span>•</span>
+                      <span>Max 10MB</span>
+                      <span>•</span>
+                      <span>Max 1,000 rows</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              {/* Limits with tooltips */}
+              <div className="flex flex-wrap gap-4 mt-4 text-xs text-muted-foreground">
+                <BulkUploadTooltip content={tooltips.fileSize} side="bottom">
+                  <span className="flex items-center gap-1.5 cursor-help hover:text-foreground transition-colors">
+                    <FileWarning className="h-3.5 w-3.5" />
+                    10MB limit
+                  </span>
+                </BulkUploadTooltip>
+                <BulkUploadTooltip content={tooltips.maxRows} side="bottom">
+                  <span className="flex items-center gap-1.5 cursor-help hover:text-foreground transition-colors">
+                    <FileSpreadsheet className="h-3.5 w-3.5" />
+                    1,000 rows max
+                  </span>
+                </BulkUploadTooltip>
+                <BulkUploadTooltip content={tooltips.dailyLimit} side="bottom">
+                  <span className="flex items-center gap-1.5 cursor-help hover:text-foreground transition-colors">
+                    <Clock className="h-3.5 w-3.5" />
+                    10 imports/day
+                  </span>
+                </BulkUploadTooltip>
+              </div>
+              
+              {file && !preview && !uploadError && (
+                <Button
+                  onClick={handleParseFile}
+                  disabled={uploading}
+                  className="mt-4 w-full gap-2"
+                  size="lg"
+                >
+                  {uploading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Validating your file...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-4 w-4" />
+                      Validate & Preview
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
+          </div>
         </Card>
 
         {/* Step 3: Preview & Confirm */}
         {preview && (
-          <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Step 3: Preview & Confirm</h2>
-            
-            {/* Progress Tracker */}
-            {importInProgress && parsedDataId && (
-              <div className="mb-4">
-                <ImportProgressTracker
-                  importLogId={parsedDataId}
-                  totalRows={totalRows}
-                  onComplete={handleImportComplete}
-                />
+          <Card className="p-6 ring-2 ring-primary/20 shadow-lg animate-fade-in">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <Eye className="h-5 w-5 text-primary" />
               </div>
-            )}
-
-            {!importInProgress && (
-              <>
-                <div className="mb-4">
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={publishAsDraft}
-                      onChange={(e) => setPublishAsDraft(e.target.checked)}
-                      className="rounded border-border"
-                    />
-                    <span className="text-sm">Import as drafts (recommended)</span>
-                    <BulkUploadTooltip content={tooltips.draftMode} />
-                  </label>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-4">
+                  <h2 className="text-lg font-semibold">Review & Import</h2>
                 </div>
-                <BulkUploadPreview
-                  preview={preview}
-                  onConfirm={handleConfirmImport}
-                  onCancel={handleCancel}
-                  processing={processing}
-                />
-              </>
-            )}
+                
+                {/* Progress Tracker */}
+                {importInProgress && parsedDataId && (
+                  <div className="mb-6">
+                    <ImportProgressTracker
+                      importLogId={parsedDataId}
+                      totalRows={totalRows}
+                      onComplete={handleImportComplete}
+                    />
+                  </div>
+                )}
+
+                {!importInProgress && (
+                  <>
+                    <div className="flex items-center space-x-3 mb-6 p-3 rounded-lg bg-muted/50">
+                      <Checkbox
+                        id="publishAsDraft"
+                        checked={publishAsDraft}
+                        onCheckedChange={(checked) => setPublishAsDraft(checked as boolean)}
+                      />
+                      <div className="flex items-center gap-2">
+                        <label htmlFor="publishAsDraft" className="text-sm font-medium cursor-pointer">
+                          Import as drafts
+                        </label>
+                        <Badge variant="outline" className="text-xs">Recommended</Badge>
+                        <BulkUploadTooltip content={tooltips.draftMode} />
+                      </div>
+                    </div>
+                    <BulkUploadPreview
+                      preview={preview}
+                      onConfirm={handleConfirmImport}
+                      onCancel={handleCancel}
+                      processing={processing}
+                    />
+                  </>
+                )}
+              </div>
+            </div>
           </Card>
         )}
 
         {/* Import History */}
-        <ImportHistory key={refreshKey} />
+        <div className="pt-4">
+          <ImportHistory key={refreshKey} />
+        </div>
       </div>
     </DashboardLayout>
   );
