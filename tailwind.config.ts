@@ -57,6 +57,20 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        upload: {
+          zone: "hsl(var(--upload-zone-bg))",
+          border: "hsl(var(--upload-zone-border))",
+          active: "hsl(var(--upload-zone-active))",
+        },
+        success: {
+          soft: "hsl(var(--success-soft))",
+        },
+        warning: {
+          soft: "hsl(var(--warning-soft))",
+        },
+        error: {
+          soft: "hsl(var(--error-soft))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -96,6 +110,7 @@ export default {
         "fade-up": "fade-up 0.8s ease-out",
         "scale-in": "scale-in 0.4s ease-out",
         "slide-in-right": "slide-in-right 0.5s ease-out",
+        "pulse-soft": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       backgroundImage: {
         'hero-gradient': 'var(--hero-gradient)',
@@ -104,6 +119,7 @@ export default {
       boxShadow: {
         'card': 'var(--card-shadow)',
         'card-hover': 'var(--card-shadow-hover)',
+        'upload': '0 0 0 3px hsl(var(--primary) / 0.1)',
       },
     },
   },

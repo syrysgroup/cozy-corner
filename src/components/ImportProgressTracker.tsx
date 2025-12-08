@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, Loader2, MapPin } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { CheckCircle2, Loader2, MapPin, XCircle, Sparkles } from 'lucide-react';
 
 interface ImportProgressTrackerProps {
   importLogId: string;
@@ -68,46 +69,84 @@ export const ImportProgressTracker = ({
   const currentRow = progress.details?.current_row || processedCount;
   const geocodedCount = progress.details?.geocoded_count || 0;
 
-  const isComplete = progress.status === 'completed' || progress.status === 'failed';
+  const isComplete = progress.status === 'completed';
+  const isFailed = progress.status === 'failed';
+  const isProcessing = !isComplete && !isFailed;
 
   return (
-    <div className="space-y-4 p-4 bg-muted/50 rounded-lg">
+    <div className="rounded-xl border bg-gradient-to-br from-primary/5 to-transparent p-6 space-y-5">
+      {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {isComplete ? (
-            <CheckCircle className="h-5 w-5 text-green-600" />
+            <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
+              <CheckCircle2 className="h-5 w-5 text-green-600" />
+            </div>
+          ) : isFailed ? (
+            <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center">
+              <XCircle className="h-5 w-5 text-destructive" />
+            </div>
           ) : (
-            <Loader2 className="h-5 w-5 animate-spin text-primary" />
+            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <Loader2 className="h-5 w-5 text-primary animate-spin" />
+            </div>
           )}
-          <span className="font-medium">
-            {isComplete ? 'Import Complete' : 'Processing Import...'}
-          </span>
+          <div>
+            <h3 className="font-semibold">
+              {isComplete ? 'Import Complete!' : isFailed ? 'Import Failed' : 'Processing Import...'}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {isProcessing && 'Creating your listings and geocoding addresses'}
+              {isComplete && `Successfully imported ${progress.success_count} listings`}
+              {isFailed && 'Some listings could not be imported'}
+            </p>
+          </div>
         </div>
-        <span className="text-sm text-muted-foreground">
-          {currentRow} / {totalRows} rows
-        </span>
+        <Badge variant={isComplete ? 'default' : isFailed ? 'destructive' : 'secondary'} className="gap-1">
+          {isProcessing && <Sparkles className="h-3 w-3" />}
+          {currentRow} / {totalRows}
+        </Badge>
       </div>
 
-      <Progress value={progressPercent} className="h-2" />
-
-      <div className="flex gap-6 text-sm">
-        <div className="flex items-center gap-1">
-          <span className="text-green-600 font-medium">{progress.success_count}</span>
-          <span className="text-muted-foreground">successful</span>
+      {/* Progress Bar */}
+      <div className="space-y-2">
+        <Progress 
+          value={progressPercent} 
+          className={`h-2 ${isComplete ? 'bg-green-100 dark:bg-green-900/30' : ''}`}
+        />
+        <div className="flex justify-between text-xs text-muted-foreground">
+          <span>{Math.round(progressPercent)}% complete</span>
+          {isProcessing && <span className="animate-pulse">Estimated time remaining...</span>}
         </div>
-        {progress.error_count > 0 && (
-          <div className="flex items-center gap-1">
-            <span className="text-red-600 font-medium">{progress.error_count}</span>
-            <span className="text-muted-foreground">failed</span>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="rounded-lg bg-background/80 p-3 text-center">
+          <div className="flex items-center justify-center gap-1.5 text-green-600 dark:text-green-400">
+            <CheckCircle2 className="h-4 w-4" />
+            <span className="text-xl font-bold">{progress.success_count}</span>
           </div>
-        )}
-        {geocodedCount > 0 && (
-          <div className="flex items-center gap-1">
-            <MapPin className="h-4 w-4 text-blue-600" />
-            <span className="text-blue-600 font-medium">{geocodedCount}</span>
-            <span className="text-muted-foreground">geocoded</span>
+          <p className="text-xs text-muted-foreground mt-1">Successful</p>
+        </div>
+        
+        <div className="rounded-lg bg-background/80 p-3 text-center">
+          <div className="flex items-center justify-center gap-1.5 text-blue-600 dark:text-blue-400">
+            <MapPin className="h-4 w-4" />
+            <span className="text-xl font-bold">{geocodedCount}</span>
           </div>
-        )}
+          <p className="text-xs text-muted-foreground mt-1">Geocoded</p>
+        </div>
+        
+        <div className="rounded-lg bg-background/80 p-3 text-center">
+          <div className={`flex items-center justify-center gap-1.5 ${
+            progress.error_count > 0 ? 'text-destructive' : 'text-muted-foreground'
+          }`}>
+            <XCircle className="h-4 w-4" />
+            <span className="text-xl font-bold">{progress.error_count}</span>
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">Failed</p>
+        </div>
       </div>
     </div>
   );
