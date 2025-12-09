@@ -1,28 +1,151 @@
 import * as XLSX from 'xlsx';
+import { Language } from './i18n';
 
-// Field documentation for templates
+// Bilingual field documentation
 const FIELD_DOCUMENTATION = {
-  title_en: 'English title (required, max 200 chars)',
-  title_fr: 'French title (required, max 200 chars)',
-  listing_type: 'Type: sale, rent, student, commercial (required)',
-  price: 'Price in CAD, numeric only (required)',
-  rent_frequency: 'For rentals: monthly, weekly, yearly (leave empty for sales)',
-  address_text: 'Street address (required)',
-  city: 'City name (required)',
-  province: 'Province code: ON, QC, BC, AB, etc. (required)',
-  bedrooms: 'Number of bedrooms (optional)',
-  bathrooms: 'Number of bathrooms, can be decimal e.g. 1.5 (optional)',
-  property_size: 'Property size in sqft (optional)',
-  lot_size: 'Lot size in sqft (optional)',
-  unit_count: 'Number of units for multi-unit properties (optional)',
-  description_en: 'English description (optional)',
-  description_fr: 'French description (optional)',
-  image_urls: 'Comma-separated URLs, e.g. https://example.com/img1.jpg,https://example.com/img2.jpg (optional)',
-  amenities: 'Comma-separated amenities, e.g. parking,balcony,gym (optional)',
-  status: 'draft or published (defaults to draft)',
+  en: {
+    title_en: 'English title (required, max 200 chars)',
+    title_fr: 'French title (required, max 200 chars)',
+    listing_type: 'Type: sale, rent, student, commercial (required)',
+    price: 'Price in CAD, numeric only (required)',
+    rent_frequency: 'For rentals: monthly, weekly, yearly (leave empty for sales)',
+    address_text: 'Street address (required)',
+    city: 'City name (required)',
+    province: 'Province code: ON, QC, BC, AB, etc. (required)',
+    bedrooms: 'Number of bedrooms (optional)',
+    bathrooms: 'Number of bathrooms, can be decimal e.g. 1.5 (optional)',
+    property_size: 'Property size in sqft (optional)',
+    lot_size: 'Lot size in sqft (optional)',
+    unit_count: 'Number of units for multi-unit properties (optional)',
+    description_en: 'English description (optional)',
+    description_fr: 'French description (optional)',
+    image_urls: 'Comma-separated URLs (optional)',
+    amenities: 'Comma-separated amenities, e.g. parking,balcony,gym (optional)',
+    status: 'draft or published (defaults to draft)',
+  },
+  fr: {
+    title_en: 'Titre anglais (requis, max 200 caractères)',
+    title_fr: 'Titre français (requis, max 200 caractères)',
+    listing_type: 'Type: sale, rent, student, commercial (requis)',
+    price: 'Prix en CAD, numérique seulement (requis)',
+    rent_frequency: 'Pour locations: monthly, weekly, yearly (vide pour ventes)',
+    address_text: 'Adresse de rue (requis)',
+    city: 'Nom de la ville (requis)',
+    province: 'Code de province: ON, QC, BC, AB, etc. (requis)',
+    bedrooms: 'Nombre de chambres (optionnel)',
+    bathrooms: 'Nombre de salles de bain, peut être décimal ex. 1.5 (optionnel)',
+    property_size: 'Superficie en pieds carrés (optionnel)',
+    lot_size: 'Taille du terrain en pieds carrés (optionnel)',
+    unit_count: 'Nombre d\'unités pour propriétés multi-unités (optionnel)',
+    description_en: 'Description anglaise (optionnel)',
+    description_fr: 'Description française (optionnel)',
+    image_urls: 'URLs séparées par virgules (optionnel)',
+    amenities: 'Commodités séparées par virgules, ex. parking,balcony,gym (optionnel)',
+    status: 'draft ou published (draft par défaut)',
+  }
 };
 
-// Valid values for dropdown fields
+// Bilingual instructions
+const INSTRUCTIONS = {
+  en: {
+    title: 'Bulk Listing Import - Instructions',
+    requiredFields: 'REQUIRED FIELDS:',
+    optionalFields: 'OPTIONAL FIELDS:',
+    imageUrls: 'IMAGE URLS:',
+    tips: 'TIPS:',
+    required: [
+      '- title_en: English title for the listing',
+      '- title_fr: French title for the listing',
+      '- listing_type: Must be one of: sale, rent, student, commercial',
+      '- price: Numeric value in CAD (no commas or currency symbols)',
+      '- address_text: Street address',
+      '- city: City name',
+      '- province: Two-letter province code (ON, QC, BC, AB, etc.)',
+    ],
+    optional: [
+      '- rent_frequency: For rentals only - monthly, weekly, or yearly',
+      '- bedrooms: Number of bedrooms (whole number)',
+      '- bathrooms: Number of bathrooms (can be decimal, e.g., 1.5)',
+      '- property_size: Size in square feet',
+      '- lot_size: Lot size in square feet',
+      '- unit_count: Number of units (for multi-unit properties)',
+      '- description_en: English description',
+      '- description_fr: French description',
+      '- image_urls: Comma-separated image URLs (must be publicly accessible)',
+      '- amenities: Comma-separated list of amenities',
+      '- status: "draft" or "published" (defaults to draft)',
+    ],
+    imageUrlTips: [
+      '- Must start with http:// or https://',
+      '- Supported formats: .jpg, .jpeg, .png, .gif, .webp',
+      '- Multiple images separated by commas',
+      '- Example: https://example.com/img1.jpg,https://example.com/img2.jpg',
+    ],
+    tipsList: [
+      '- Delete the example rows before importing',
+      '- Maximum 1000 rows per import',
+      '- Maximum file size: 10MB',
+      '- Addresses will be automatically geocoded if valid',
+      '- Invalid rows will be skipped with error messages',
+    ],
+    sheetNames: {
+      listings: 'Listings',
+      instructions: 'Instructions',
+      validValues: 'Valid Values',
+    },
+    validValuesHeaders: ['Listing Types', 'Provinces', 'Rent Frequency', 'Common Amenities'],
+  },
+  fr: {
+    title: 'Importation en Lot - Instructions',
+    requiredFields: 'CHAMPS OBLIGATOIRES:',
+    optionalFields: 'CHAMPS OPTIONNELS:',
+    imageUrls: 'URLS D\'IMAGES:',
+    tips: 'CONSEILS:',
+    required: [
+      '- title_en: Titre anglais de l\'annonce',
+      '- title_fr: Titre français de l\'annonce',
+      '- listing_type: Doit être: sale, rent, student, commercial',
+      '- price: Valeur numérique en CAD (sans virgules ni symboles)',
+      '- address_text: Adresse de rue',
+      '- city: Nom de la ville',
+      '- province: Code de province à deux lettres (ON, QC, BC, AB, etc.)',
+    ],
+    optional: [
+      '- rent_frequency: Pour locations seulement - monthly, weekly ou yearly',
+      '- bedrooms: Nombre de chambres (nombre entier)',
+      '- bathrooms: Nombre de salles de bain (peut être décimal, ex. 1.5)',
+      '- property_size: Superficie en pieds carrés',
+      '- lot_size: Taille du terrain en pieds carrés',
+      '- unit_count: Nombre d\'unités (pour propriétés multi-unités)',
+      '- description_en: Description anglaise',
+      '- description_fr: Description française',
+      '- image_urls: URLs d\'images séparées par virgules (doivent être accessibles)',
+      '- amenities: Liste de commodités séparées par virgules',
+      '- status: "draft" ou "published" (draft par défaut)',
+    ],
+    imageUrlTips: [
+      '- Doit commencer par http:// ou https://',
+      '- Formats supportés: .jpg, .jpeg, .png, .gif, .webp',
+      '- Images multiples séparées par virgules',
+      '- Exemple: https://exemple.com/img1.jpg,https://exemple.com/img2.jpg',
+    ],
+    tipsList: [
+      '- Supprimez les lignes d\'exemple avant l\'importation',
+      '- Maximum 1000 lignes par importation',
+      '- Taille de fichier maximum: 10MB',
+      '- Les adresses seront géocodées automatiquement si valides',
+      '- Les lignes invalides seront ignorées avec messages d\'erreur',
+    ],
+    sheetNames: {
+      listings: 'Annonces',
+      instructions: 'Instructions',
+      validValues: 'Valeurs Valides',
+    },
+    validValuesHeaders: ['Types d\'Annonces', 'Provinces', 'Fréquence de Location', 'Commodités Courantes'],
+  }
+};
+
+// Valid values (same for both languages - these are system values)
 const VALID_VALUES = {
   listing_type: ['sale', 'rent', 'student', 'commercial'],
   rent_frequency: ['monthly', 'weekly', 'yearly', ''],
@@ -71,8 +194,8 @@ const exampleRows = [
     property_size: '1200',
     lot_size: '',
     unit_count: '1',
-    description_en: 'Spacious condo with modern finishes and stunning city views. Recently renovated kitchen and bathroom.',
-    description_fr: 'Condo spacieux avec finitions modernes et vues imprenables sur la ville. Cuisine et salle de bain récemment rénovées.',
+    description_en: 'Spacious condo with modern finishes and stunning city views.',
+    description_fr: 'Condo spacieux avec finitions modernes et vues sur la ville.',
     image_urls: 'https://example.com/condo1.jpg,https://example.com/condo2.jpg',
     amenities: 'parking,balcony,gym,concierge',
     status: 'draft'
@@ -91,8 +214,8 @@ const exampleRows = [
     property_size: '900',
     lot_size: '',
     unit_count: '1',
-    description_en: 'Perfect for students, walking distance to campus. All utilities included.',
-    description_fr: 'Parfait pour étudiants, à distance de marche du campus. Tous les services inclus.',
+    description_en: 'Perfect for students, walking distance to campus.',
+    description_fr: 'Parfait pour étudiants, à distance de marche du campus.',
     image_urls: '',
     amenities: 'internet,laundry,furnished',
     status: 'draft'
@@ -111,57 +234,17 @@ const exampleRows = [
     property_size: '2800',
     lot_size: '6500',
     unit_count: '1',
-    description_en: 'Stunning family home with heated pool, gourmet kitchen, and mountain views.',
-    description_fr: 'Magnifique maison familiale avec piscine chauffée, cuisine gastronomique et vue sur les montagnes.',
-    image_urls: 'https://example.com/house1.jpg,https://example.com/house2.jpg,https://example.com/house3.jpg',
+    description_en: 'Stunning family home with heated pool and mountain views.',
+    description_fr: 'Maison familiale avec piscine chauffée et vue sur les montagnes.',
+    image_urls: 'https://example.com/house1.jpg',
     amenities: 'pool,parking,ac,security',
     status: 'draft'
   },
-  {
-    title_en: 'Prime Commercial Space Downtown',
-    title_fr: 'Espace Commercial de Premier Choix au Centre-Ville',
-    listing_type: 'commercial',
-    price: '5500',
-    rent_frequency: 'monthly',
-    address_text: '100 Business Blvd',
-    city: 'Calgary',
-    province: 'AB',
-    bedrooms: '',
-    bathrooms: '2',
-    property_size: '3000',
-    lot_size: '',
-    unit_count: '1',
-    description_en: 'High-visibility retail space in busy downtown area. Triple net lease available.',
-    description_fr: 'Espace commercial très visible dans un quartier animé du centre-ville. Bail triple net disponible.',
-    image_urls: '',
-    amenities: 'parking,wheelchair_accessible,elevator',
-    status: 'draft'
-  },
-  {
-    title_en: 'Cozy Rental Apartment',
-    title_fr: 'Appartement Locatif Confortable',
-    listing_type: 'rent',
-    price: '1800',
-    rent_frequency: 'monthly',
-    address_text: '222 Oak Street',
-    city: 'Ottawa',
-    province: 'ON',
-    bedrooms: '1',
-    bathrooms: '1',
-    property_size: '650',
-    lot_size: '',
-    unit_count: '1',
-    description_en: 'Bright one-bedroom in quiet neighborhood. Close to transit and shopping.',
-    description_fr: 'Lumineux une chambre dans un quartier tranquille. Proche des transports et commerces.',
-    image_urls: 'https://example.com/apt1.jpg',
-    amenities: 'laundry,heating,pet_friendly',
-    status: 'draft'
-  }
 ];
 
-export const generateCSVTemplate = () => {
-  // Add comment row explaining fields
-  const commentRow = headers.map(h => FIELD_DOCUMENTATION[h as keyof typeof FIELD_DOCUMENTATION]);
+export const generateCSVTemplate = (lang: Language = 'en') => {
+  const docs = FIELD_DOCUMENTATION[lang];
+  const commentRow = headers.map(h => docs[h as keyof typeof docs]);
   
   const csvContent = [
     headers.join(','),
@@ -175,20 +258,22 @@ export const generateCSVTemplate = () => {
   return blob;
 };
 
-export const downloadCSVTemplate = () => {
-  const blob = generateCSVTemplate();
+export const downloadCSVTemplate = (lang: Language = 'en') => {
+  const blob = generateCSVTemplate(lang);
   const link = document.createElement('a');
   const url = URL.createObjectURL(blob);
   link.setAttribute('href', url);
-  link.setAttribute('download', 'listing_import_template.csv');
+  const fileName = lang === 'fr' ? 'modele_importation_annonces.csv' : 'listing_import_template.csv';
+  link.setAttribute('download', fileName);
   link.style.visibility = 'hidden';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
 };
 
-export const generateExcelTemplate = async (): Promise<Blob> => {
+export const generateExcelTemplate = async (lang: Language = 'en'): Promise<Blob> => {
   const workbook = XLSX.utils.book_new();
+  const instructions = INSTRUCTIONS[lang];
   
   // Sheet 1: Data Template
   const dataSheet = XLSX.utils.aoa_to_sheet([
@@ -199,51 +284,28 @@ export const generateExcelTemplate = async (): Promise<Blob> => {
   // Set column widths
   dataSheet['!cols'] = headers.map(h => ({ wch: Math.max(h.length, 15) }));
   
-  XLSX.utils.book_append_sheet(workbook, dataSheet, 'Listings');
+  XLSX.utils.book_append_sheet(workbook, dataSheet, instructions.sheetNames.listings);
   
   // Sheet 2: Instructions
   const instructionsData = [
-    ['Bulk Listing Import - Instructions'],
+    [instructions.title],
     [''],
-    ['REQUIRED FIELDS:'],
-    ['- title_en: English title for the listing'],
-    ['- title_fr: French title for the listing'],
-    ['- listing_type: Must be one of: sale, rent, student, commercial'],
-    ['- price: Numeric value in CAD (no commas or currency symbols)'],
-    ['- address_text: Street address'],
-    ['- city: City name'],
-    ['- province: Two-letter province code (ON, QC, BC, AB, etc.)'],
+    [instructions.requiredFields],
+    ...instructions.required.map(r => [r]),
     [''],
-    ['OPTIONAL FIELDS:'],
-    ['- rent_frequency: For rentals only - monthly, weekly, or yearly'],
-    ['- bedrooms: Number of bedrooms (whole number)'],
-    ['- bathrooms: Number of bathrooms (can be decimal, e.g., 1.5)'],
-    ['- property_size: Size in square feet'],
-    ['- lot_size: Lot size in square feet'],
-    ['- unit_count: Number of units (for multi-unit properties)'],
-    ['- description_en: English description'],
-    ['- description_fr: French description'],
-    ['- image_urls: Comma-separated image URLs (must be publicly accessible)'],
-    ['- amenities: Comma-separated list of amenities'],
-    ['- status: "draft" or "published" (defaults to draft)'],
+    [instructions.optionalFields],
+    ...instructions.optional.map(o => [o]),
     [''],
-    ['IMAGE URLS:'],
-    ['- Must start with http:// or https://'],
-    ['- Supported formats: .jpg, .jpeg, .png, .gif, .webp'],
-    ['- Multiple images separated by commas'],
-    ['- Example: https://example.com/img1.jpg,https://example.com/img2.jpg'],
+    [instructions.imageUrls],
+    ...instructions.imageUrlTips.map(t => [t]),
     [''],
-    ['TIPS:'],
-    ['- Delete the example rows before importing'],
-    ['- Maximum 1000 rows per import'],
-    ['- Maximum file size: 10MB'],
-    ['- Addresses will be automatically geocoded if valid'],
-    ['- Invalid rows will be skipped with error messages'],
+    [instructions.tips],
+    ...instructions.tipsList.map(t => [t]),
   ];
   
   const instructionsSheet = XLSX.utils.aoa_to_sheet(instructionsData);
   instructionsSheet['!cols'] = [{ wch: 80 }];
-  XLSX.utils.book_append_sheet(workbook, instructionsSheet, 'Instructions');
+  XLSX.utils.book_append_sheet(workbook, instructionsSheet, instructions.sheetNames.instructions);
   
   // Sheet 3: Valid Values
   const maxLength = Math.max(
@@ -253,7 +315,7 @@ export const generateExcelTemplate = async (): Promise<Blob> => {
   );
   
   const validValuesData = [
-    ['Listing Types', 'Provinces', 'Rent Frequency', 'Common Amenities'],
+    instructions.validValuesHeaders,
     ...Array.from({ length: maxLength }, (_, i) => [
       VALID_VALUES.listing_type[i] || '',
       VALID_VALUES.province[i] || '',
@@ -263,8 +325,8 @@ export const generateExcelTemplate = async (): Promise<Blob> => {
   ];
   
   const validValuesSheet = XLSX.utils.aoa_to_sheet(validValuesData);
-  validValuesSheet['!cols'] = [{ wch: 15 }, { wch: 12 }, { wch: 15 }, { wch: 25 }];
-  XLSX.utils.book_append_sheet(workbook, validValuesSheet, 'Valid Values');
+  validValuesSheet['!cols'] = [{ wch: 18 }, { wch: 12 }, { wch: 20 }, { wch: 25 }];
+  XLSX.utils.book_append_sheet(workbook, validValuesSheet, instructions.sheetNames.validValues);
   
   // Generate Excel file
   const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -275,12 +337,13 @@ export const generateExcelTemplate = async (): Promise<Blob> => {
   return blob;
 };
 
-export const downloadExcelTemplate = async () => {
-  const blob = await generateExcelTemplate();
+export const downloadExcelTemplate = async (lang: Language = 'en') => {
+  const blob = await generateExcelTemplate(lang);
   const link = document.createElement('a');
   const url = URL.createObjectURL(blob);
   link.setAttribute('href', url);
-  link.setAttribute('download', 'listing_import_template.xlsx');
+  const fileName = lang === 'fr' ? 'modele_importation_annonces.xlsx' : 'listing_import_template.xlsx';
+  link.setAttribute('download', fileName);
   link.style.visibility = 'hidden';
   document.body.appendChild(link);
   link.click();
