@@ -199,10 +199,12 @@ serve(async (req) => {
     }
 
     // Update import log with final status
+    const finalStatus = errorCount > 0 && successCount === 0 ? 'failed' : 'completed';
+    
     await supabase
       .from('bulk_import_logs')
       .update({
-        status: 'completed',
+        status: finalStatus,
         success_count: successCount,
         error_count: errorCount,
         completed_at: new Date().toISOString(),
@@ -214,6 +216,36 @@ serve(async (req) => {
         }
       })
       .eq('id', parsed_data_id);
+
+    // ==================== SEND EMAIL NOTIFICATION ====================
+    try {
+      console.log('Sending import completion email notification...');
+      
+      const { data: notifyData, error: notifyError } = await supabase.functions.invoke('notify-import-complete', {
+        body: {
+          import_log_id: parsed_data_id,
+          user_id: user.id,
+          user_email: user.email,
+          file_name: importLog.file_name,
+          success_count: successCount,
+          error_count: errorCount,
+          warning_count: importLog.warning_count || 0,
+          geocoded_count: geocodedCount,
+          total_rows: rowsToImport.length,
+          status: finalStatus,
+          errors: importErrors.slice(0, 10), // Send first 10 errors
+        }
+      });
+
+      if (notifyError) {
+        console.error('Failed to send email notification:', notifyError);
+      } else {
+        console.log('Email notification sent successfully');
+      }
+    } catch (emailErr: any) {
+      console.error('Error invoking notify-import-complete:', emailErr);
+      // Don't fail the import for email errors
+    }
 
     return new Response(
       JSON.stringify({

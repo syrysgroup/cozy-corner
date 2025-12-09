@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { CheckCircle, AlertTriangle, XCircle, ChevronDown, ChevronRight, Info } from 'lucide-react';
+import { CheckCircle, AlertTriangle, XCircle, ChevronDown, ChevronRight, Info, Copy, Image, Mail } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { BulkUploadTooltip, tooltips } from '@/components/BulkUploadTooltip';
 
@@ -23,6 +23,9 @@ interface PreviewData {
   valid_count: number;
   error_count: number;
   warning_count: number;
+  duplicates_found?: number;
+  images_validated?: number;
+  image_issues?: number;
 }
 
 interface BulkUploadPreviewProps {
@@ -99,6 +102,33 @@ export const BulkUploadPreview = ({ preview, onConfirm, onCancel, processing }: 
           <div className="text-2xl font-bold text-red-600 dark:text-red-400">{preview.error_count}</div>
         </Card>
       </div>
+
+      {/* Validation Info */}
+      {(preview.duplicates_found !== undefined || preview.images_validated !== undefined) && (
+        <div className="flex flex-wrap gap-3">
+          {preview.duplicates_found !== undefined && preview.duplicates_found > 0 && (
+            <Badge variant="outline" className="flex items-center gap-1.5 px-3 py-1.5 border-amber-500/50 text-amber-600 dark:text-amber-400">
+              <Copy className="h-3.5 w-3.5" />
+              {preview.duplicates_found} potential duplicate{preview.duplicates_found !== 1 ? 's' : ''} detected
+            </Badge>
+          )}
+          {preview.images_validated !== undefined && (
+            <Badge variant="outline" className="flex items-center gap-1.5 px-3 py-1.5">
+              <Image className="h-3.5 w-3.5" />
+              {preview.images_validated} image{preview.images_validated !== 1 ? 's' : ''} validated
+              {preview.image_issues !== undefined && preview.image_issues > 0 && (
+                <span className="text-amber-600 dark:text-amber-400">
+                  ({preview.image_issues} issue{preview.image_issues !== 1 ? 's' : ''})
+                </span>
+              )}
+            </Badge>
+          )}
+          <Badge variant="outline" className="flex items-center gap-1.5 px-3 py-1.5 border-blue-500/50 text-blue-600 dark:text-blue-400">
+            <Mail className="h-3.5 w-3.5" />
+            Email notification on completion
+          </Badge>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="flex gap-2">
