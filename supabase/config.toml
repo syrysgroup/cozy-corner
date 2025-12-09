@@ -8,3 +8,6 @@ verify_jwt = true
 
 [functions.process-bulk-import]
 verify_jwt = true
+
+[functions.notify-import-complete]
+verify_jwt = false

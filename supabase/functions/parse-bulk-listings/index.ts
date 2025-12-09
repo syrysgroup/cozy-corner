@@ -16,6 +16,12 @@ interface ParsedRow {
   warnings: string[];
 }
 
+interface DuplicateCheckResult {
+  isDuplicate: boolean;
+  matchType?: 'exact_address' | 'similar_title';
+  existingListingId?: string;
+}
+
 const REQUIRED_FIELDS = ['title_en', 'title_fr', 'listing_type', 'price', 'address_text', 'city', 'province'];
 const VALID_LISTING_TYPES = ['sale', 'rent', 'shared', 'student', 'co_ownership', 'auction', 'ppp'];
 const VALID_PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
@@ -28,6 +34,54 @@ function sanitizeString(value: any): string {
     .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // Remove script tags
     .replace(/javascript:/gi, '') // Remove javascript: protocols
     .replace(/on\w+\s*=/gi, ''); // Remove inline event handlers
+}
+
+// Normalize string for comparison
+function normalizeForComparison(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '')
+    .trim();
+}
+
+// Calculate similarity between two strings (simple Jaccard similarity)
+function calculateSimilarity(str1: string, str2: string): number {
+  const set1 = new Set(str1.toLowerCase().split(/\s+/));
+  const set2 = new Set(str2.toLowerCase().split(/\s+/));
+  const intersection = new Set([...set1].filter(x => set2.has(x)));
+  const union = new Set([...set1, ...set2]);
+  return intersection.size / union.size;
+}
+
+// Check if URL is accessible (with timeout)
+async function validateImageUrl(url: string, timeoutMs: number = 5000): Promise<{ valid: boolean; error?: string }> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    
+    const response = await fetch(url, {
+      method: 'HEAD',
+      signal: controller.signal,
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      return { valid: false, error: `HTTP ${response.status}` };
+    }
+    
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.startsWith('image/')) {
+      return { valid: false, error: 'Not an image' };
+    }
+    
+    return { valid: true };
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      return { valid: false, error: 'Timeout' };
+    }
+    return { valid: false, error: error.message || 'Connection failed' };
+  }
 }
 
 function validateRow(row: any, rowNumber: number): ParsedRow {
@@ -103,7 +157,7 @@ function validateRow(row: any, rowNumber: number): ParsedRow {
     }
   }
 
-  // Validate image URLs
+  // Validate image URLs format (detailed validation done separately)
   if (sanitizedRow.image_urls) {
     const urls = sanitizedRow.image_urls.split(',').map((u: string) => u.trim());
     if (urls.length > 20) {
@@ -120,7 +174,7 @@ function validateRow(row: any, rowNumber: number): ParsedRow {
       }
     });
     if (invalidUrls.length > 0) {
-      warnings.push(`Invalid image URLs (will be skipped): ${invalidUrls.slice(0, 3).join(', ')}${invalidUrls.length > 3 ? '...' : ''}`);
+      warnings.push(`Invalid image URL format (will be skipped): ${invalidUrls.slice(0, 3).join(', ')}${invalidUrls.length > 3 ? '...' : ''}`);
     }
   }
 
@@ -297,6 +351,123 @@ serve(async (req) => {
     // Validate each row
     const parsedRows = rows.map((row, index) => validateRow(row, index + 2)); // +2 because row 1 is headers
 
+    // ==================== DUPLICATE DETECTION ====================
+    console.log('Starting duplicate detection...');
+    
+    // Fetch existing listings for the user to check for duplicates
+    const { data: existingListings, error: listingsError } = await supabase
+      .from('listings')
+      .select('id, title_en, title_fr, address_text, city, province')
+      .eq('user_id', user.id);
+
+    if (listingsError) {
+      console.error('Error fetching existing listings for duplicate check:', listingsError);
+    }
+
+    const duplicatesFound: Array<{ row_number: number; match_type: string; existing_id: string }> = [];
+
+    if (existingListings && existingListings.length > 0) {
+      for (const parsedRow of parsedRows) {
+        if (parsedRow.status === 'error') continue; // Skip rows with errors
+        
+        const rowData = parsedRow.data;
+        
+        // Check for exact address match (normalized)
+        const rowAddressKey = normalizeForComparison(
+          `${rowData.address_text || ''}${rowData.city || ''}${rowData.province || ''}`
+        );
+        
+        for (const existing of existingListings) {
+          const existingAddressKey = normalizeForComparison(
+            `${existing.address_text || ''}${existing.city || ''}${existing.province || ''}`
+          );
+          
+          if (rowAddressKey && existingAddressKey && rowAddressKey === existingAddressKey) {
+            parsedRow.warnings.push(`Potential duplicate: Exact address match with existing listing`);
+            if (parsedRow.status === 'valid') {
+              parsedRow.status = 'warning';
+            }
+            duplicatesFound.push({
+              row_number: parsedRow.row_number,
+              match_type: 'exact_address',
+              existing_id: existing.id
+            });
+            break;
+          }
+          
+          // Check for similar titles (>80% similarity)
+          const titleSimilarity = Math.max(
+            calculateSimilarity(rowData.title_en || '', existing.title_en || ''),
+            calculateSimilarity(rowData.title_fr || '', existing.title_fr || '')
+          );
+          
+          if (titleSimilarity > 0.8) {
+            parsedRow.warnings.push(`Potential duplicate: Similar title found (${Math.round(titleSimilarity * 100)}% match)`);
+            if (parsedRow.status === 'valid') {
+              parsedRow.status = 'warning';
+            }
+            duplicatesFound.push({
+              row_number: parsedRow.row_number,
+              match_type: 'similar_title',
+              existing_id: existing.id
+            });
+            break;
+          }
+        }
+      }
+    }
+
+    console.log(`Duplicate detection complete. Found ${duplicatesFound.length} potential duplicates.`);
+
+    // ==================== IMAGE URL VALIDATION ====================
+    console.log('Starting image URL validation...');
+    
+    const imageValidationResults: Array<{ row_number: number; url: string; error: string }> = [];
+    
+    // Limit validation to avoid timeout (max 3 images per row, max 30 total)
+    let totalImagesValidated = 0;
+    const MAX_TOTAL_VALIDATIONS = 30;
+    const MAX_PER_ROW = 3;
+
+    for (const parsedRow of parsedRows) {
+      if (parsedRow.status === 'error') continue;
+      if (totalImagesValidated >= MAX_TOTAL_VALIDATIONS) break;
+      
+      const imageUrls = parsedRow.data.image_urls;
+      if (!imageUrls) continue;
+      
+      const urls = imageUrls.split(',').map((u: string) => u.trim()).filter((u: string) => u);
+      const urlsToValidate = urls.slice(0, MAX_PER_ROW);
+      
+      for (const url of urlsToValidate) {
+        if (totalImagesValidated >= MAX_TOTAL_VALIDATIONS) break;
+        
+        try {
+          new URL(url); // Basic URL validation
+          const result = await validateImageUrl(url);
+          
+          if (!result.valid) {
+            parsedRow.warnings.push(`Image URL not accessible: ${url.substring(0, 50)}... (${result.error})`);
+            if (parsedRow.status === 'valid') {
+              parsedRow.status = 'warning';
+            }
+            imageValidationResults.push({
+              row_number: parsedRow.row_number,
+              url: url,
+              error: result.error || 'Unknown error'
+            });
+          }
+          
+          totalImagesValidated++;
+        } catch {
+          // URL parsing failed - already handled by format validation
+        }
+      }
+    }
+
+    console.log(`Image URL validation complete. Validated ${totalImagesValidated} images, found ${imageValidationResults.length} issues.`);
+
+    // Recalculate counts after duplicate and image validation
     const validRows = parsedRows.filter(r => r.status === 'valid');
     const errorRows = parsedRows.filter(r => r.status === 'error');
     const warningRows = parsedRows.filter(r => r.status === 'warning');
@@ -310,8 +481,13 @@ serve(async (req) => {
         user_id: user.id,
         file_name: file.name,
         row_count: rows.length,
+        warning_count: warningRows.length,
         status: 'pending',
-        details: { parsed_rows: parsedRows }
+        details: { 
+          parsed_rows: parsedRows,
+          duplicates_found: duplicatesFound,
+          image_validation_results: imageValidationResults
+        }
       });
 
     if (storageError) {
@@ -330,6 +506,9 @@ serve(async (req) => {
           valid_count: validRows.length,
           error_count: errorRows.length,
           warning_count: warningRows.length,
+          duplicates_found: duplicatesFound.length,
+          images_validated: totalImagesValidated,
+          image_issues: imageValidationResults.length,
         },
         parsed_data_id: parsedDataId,
       }),
