@@ -13,6 +13,7 @@ import { BulkUploadTooltip, tooltips } from '@/components/BulkUploadTooltip';
 import { downloadCSVTemplate, downloadExcelTemplate } from '@/lib/templateGenerator';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { Language } from '@/lib/i18n';
 import { 
   Upload, 
   Download, 
@@ -24,9 +25,16 @@ import {
   CheckCircle2,
   FileText,
   Eye,
-  Sparkles
+  Sparkles,
+  Globe
 } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const MAX_ROWS = 1000;
@@ -285,18 +293,45 @@ export default function BulkUpload() {
                 )}
               </div>
               <p className="text-sm text-muted-foreground mb-4">
-                Get a pre-formatted file with all required columns and example data.
+                Get a pre-formatted file with all required columns and example data. Choose your preferred language.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button onClick={downloadCSVTemplate} variant="outline" size="sm" className="gap-2">
-                  <FileText className="h-4 w-4" />
-                  CSV Template
-                </Button>
-                <Button onClick={downloadExcelTemplate} variant="outline" size="sm" className="gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-green-600" />
-                  Excel Template
-                  <Badge variant="secondary" className="ml-1 text-xs">Recommended</Badge>
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <FileText className="h-4 w-4" />
+                      CSV Template
+                      <Globe className="h-3 w-3 ml-1 text-muted-foreground" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => downloadCSVTemplate('en')}>
+                      <span className="mr-2">🇬🇧</span> English
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => downloadCSVTemplate('fr')}>
+                      <span className="mr-2">🇫🇷</span> Français
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <FileSpreadsheet className="h-4 w-4 text-green-600" />
+                      Excel Template
+                      <Badge variant="secondary" className="ml-1 text-xs">Recommended</Badge>
+                      <Globe className="h-3 w-3 ml-1 text-muted-foreground" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => downloadExcelTemplate('en')}>
+                      <span className="mr-2">🇬🇧</span> English
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => downloadExcelTemplate('fr')}>
+                      <span className="mr-2">🇫🇷</span> Français
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </div>
