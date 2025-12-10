@@ -64,6 +64,64 @@ export const translations = {
       secure: 'Bank-level security',
       support: '24/7 customer support',
     },
+    browseCities: {
+      title: 'Browse by City',
+      subtitle: 'Discover properties in Canada\'s most vibrant cities',
+      propertiesLabel: 'properties',
+    },
+    testimonials: {
+      title: 'What Our Clients Say',
+      subtitle: 'Join thousands of satisfied buyers, sellers, and renters',
+    },
+    featuredAgents: {
+      title: 'Meet Our Top Agents',
+      subtitle: 'Work with experienced professionals who know your market',
+      listingsLabel: 'listings',
+      reviewsLabel: 'reviews',
+      emailLabel: 'Email',
+      callLabel: 'Call',
+      viewAllButton: 'View All Agents',
+    },
+    whyChoose: {
+      title: 'Why Choose Multilisting',
+      subtitle: 'The most trusted platform for real estate in Canada',
+      verified: {
+        title: 'Verified Listings',
+        description: 'All properties are verified by our team for authenticity and accuracy',
+      },
+      ai: {
+        title: 'Smart Search',
+        description: 'AI-powered search helps you find the perfect property faster',
+      },
+      secure: {
+        title: 'Secure Transactions',
+        description: 'Your data and transactions are protected with bank-level security',
+      },
+      support: {
+        title: '24/7 Support',
+        description: 'Our dedicated team is here to help you every step of the way',
+      },
+      bilingual: {
+        title: 'Fully Bilingual',
+        description: 'Complete English and French support across the entire platform',
+      },
+      insights: {
+        title: 'Market Insights',
+        description: 'Access real-time market data and pricing trends',
+      },
+    },
+    dualCta: {
+      buy: {
+        title: 'Looking to Buy or Rent?',
+        description: 'Explore thousands of verified listings across Canada. Find your perfect home today.',
+        button: 'Browse Properties',
+      },
+      sell: {
+        title: 'Ready to List Your Property?',
+        description: 'Reach thousands of potential buyers and renters. List your property in minutes.',
+        button: 'Create Listing',
+      },
+    },
     properties: {
       title: 'Property Listings',
       filters: 'Filters',
@@ -135,6 +193,9 @@ export const translations = {
       terms: 'Terms of Service',
       cookies: 'Cookie Policy',
       copyright: '© 2024 Multilisting. All rights reserved.',
+      newsletter: 'Subscribe to Newsletter',
+      newsletterPlaceholder: 'Enter your email',
+      subscribe: 'Subscribe',
     },
   },
   fr: {
@@ -199,6 +260,64 @@ export const translations = {
       verified: 'Toutes les annonces sont vérifiées',
       secure: 'Sécurité de niveau bancaire',
       support: 'Support client 24/7',
+    },
+    browseCities: {
+      title: 'Parcourir par Ville',
+      subtitle: 'Découvrez des propriétés dans les villes les plus dynamiques du Canada',
+      propertiesLabel: 'propriétés',
+    },
+    testimonials: {
+      title: 'Ce que Disent Nos Clients',
+      subtitle: 'Rejoignez des milliers d\'acheteurs, vendeurs et locataires satisfaits',
+    },
+    featuredAgents: {
+      title: 'Rencontrez Nos Meilleurs Agents',
+      subtitle: 'Travaillez avec des professionnels expérimentés qui connaissent votre marché',
+      listingsLabel: 'annonces',
+      reviewsLabel: 'avis',
+      emailLabel: 'Email',
+      callLabel: 'Appeler',
+      viewAllButton: 'Voir Tous les Agents',
+    },
+    whyChoose: {
+      title: 'Pourquoi Choisir Multilisting',
+      subtitle: 'La plateforme immobilière la plus fiable au Canada',
+      verified: {
+        title: 'Annonces Vérifiées',
+        description: 'Toutes les propriétés sont vérifiées par notre équipe pour leur authenticité',
+      },
+      ai: {
+        title: 'Recherche Intelligente',
+        description: 'La recherche IA vous aide à trouver la propriété parfaite plus rapidement',
+      },
+      secure: {
+        title: 'Transactions Sécurisées',
+        description: 'Vos données et transactions sont protégées avec une sécurité de niveau bancaire',
+      },
+      support: {
+        title: 'Support 24/7',
+        description: 'Notre équipe dédiée est là pour vous aider à chaque étape',
+      },
+      bilingual: {
+        title: 'Entièrement Bilingue',
+        description: 'Support complet en anglais et français sur toute la plateforme',
+      },
+      insights: {
+        title: 'Analyses du Marché',
+        description: 'Accédez aux données du marché en temps réel et aux tendances des prix',
+      },
+    },
+    dualCta: {
+      buy: {
+        title: 'Vous Cherchez à Acheter ou Louer?',
+        description: 'Explorez des milliers d\'annonces vérifiées partout au Canada. Trouvez votre maison idéale aujourd\'hui.',
+        button: 'Parcourir les Propriétés',
+      },
+      sell: {
+        title: 'Prêt à Afficher Votre Propriété?',
+        description: 'Atteignez des milliers d\'acheteurs et locataires potentiels. Affichez votre propriété en quelques minutes.',
+        button: 'Créer une Annonce',
+      },
     },
     properties: {
       title: 'Annonces de Propriétés',
@@ -271,6 +390,9 @@ export const translations = {
       terms: 'Conditions d\'Utilisation',
       cookies: 'Politique des Cookies',
       copyright: '© 2024 Multilisting. Tous droits réservés.',
+      newsletter: 'Abonnez-vous à notre infolettre',
+      newsletterPlaceholder: 'Entrez votre email',
+      subscribe: 'S\'abonner',
     },
   },
 };
