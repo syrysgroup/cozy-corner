@@ -717,5 +717,7 @@ export const convertMockToListing = (property: MockProperty) => {
     formatted_address: `${property.address_text}, ${property.city}, ${property.province}`,
     user_id: property.agent_id || 'mock-user',
     updated_at: property.created_at,
+    unit_count: 1,
+    lot_size: null,
   };
 };
