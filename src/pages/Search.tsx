@@ -9,7 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Language } from '@/lib/i18n';
-import { Search as SearchIcon, Map, Grid3X3, X } from 'lucide-react';
+import { Search as SearchIcon, Map, Grid3X3, X, Sparkles } from 'lucide-react';
+import { MOCK_PROPERTIES, convertMockToListing } from '@/data/mockData';
 import {
   Pagination,
   PaginationContent,
@@ -29,6 +30,7 @@ export default function Search() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showMap, setShowMap] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [usingMockData, setUsingMockData] = useState(false);
   const [mapBounds, setMapBounds] = useState<{
     minLat: number;
     maxLat: number;
@@ -65,10 +67,21 @@ export default function Search() {
 
     if (error) {
       console.error('Error fetching listings:', error);
+      // Fall back to mock data on error
+      setListings(MOCK_PROPERTIES.map(convertMockToListing));
+      setUsingMockData(true);
+      setLoading(false);
       return;
     }
 
-    setListings(data || []);
+    // If no data, use mock data
+    if (!data || data.length === 0) {
+      setListings(MOCK_PROPERTIES.map(convertMockToListing));
+      setUsingMockData(true);
+    } else {
+      setListings(data);
+      setUsingMockData(false);
+    }
     setLoading(false);
   };
 
@@ -206,11 +219,19 @@ export default function Search() {
       <Navbar />
       <div className="pt-20 pb-12">
         <div className="container mx-auto px-4">
-          <div className="mb-6">
-            <h1 className="text-4xl font-bold mb-2">Search Properties</h1>
-            <p className="text-muted-foreground">
-              Found {filteredListings.length} properties
-            </p>
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold mb-2">Search Properties</h1>
+              <p className="text-muted-foreground">
+                Found {filteredListings.length} properties
+              </p>
+            </div>
+            {usingMockData && (
+              <Badge variant="secondary" className="gap-1.5">
+                <Sparkles className="h-3 w-3" />
+                Sample Listings
+              </Badge>
+            )}
           </div>
 
           {/* Search Bar */}
