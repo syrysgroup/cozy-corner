@@ -6,9 +6,11 @@ import { ListingsMap } from '@/components/ListingsMap';
 import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Language } from '@/lib/i18n';
-import { Search, Map } from 'lucide-react';
+import { Search, Map, Sparkles } from 'lucide-react';
+import { MOCK_PROPERTIES, convertMockToListing } from '@/data/mockData';
 
 export default function Properties() {
   const [lang] = useState<Language>('en');
@@ -17,6 +19,7 @@ export default function Properties() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [showMap, setShowMap] = useState(false);
+  const [usingMockData, setUsingMockData] = useState(false);
   const [mapBounds, setMapBounds] = useState<{
     minLat: number;
     maxLat: number;
@@ -37,18 +40,29 @@ export default function Properties() {
 
     if (error) {
       console.error('Error fetching listings:', error);
+      // Fall back to mock data on error
+      setListings(MOCK_PROPERTIES.map(convertMockToListing));
+      setUsingMockData(true);
+      setLoading(false);
       return;
     }
 
-    setListings(data || []);
+    // If no data, use mock data
+    if (!data || data.length === 0) {
+      setListings(MOCK_PROPERTIES.map(convertMockToListing));
+      setUsingMockData(true);
+    } else {
+      setListings(data);
+      setUsingMockData(false);
+    }
     setLoading(false);
   };
 
   const filteredListings = listings.filter(listing => {
     const matchesSearch = 
-      listing.title_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      listing.title_fr.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      listing.city.toLowerCase().includes(searchTerm.toLowerCase());
+      listing.title_en?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      listing.title_fr?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      listing.city?.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesType = filterType === 'all' || listing.listing_type === filterType;
     
@@ -68,9 +82,17 @@ export default function Properties() {
       <Navbar />
       <div className="pt-20 pb-12">
         <div className="container mx-auto px-4 space-y-8">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">Browse Properties</h1>
-            <p className="text-muted-foreground">Find your perfect property from our listings</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold mb-2">Browse Properties</h1>
+              <p className="text-muted-foreground">Find your perfect property from our listings</p>
+            </div>
+            {usingMockData && (
+              <Badge variant="secondary" className="gap-1.5">
+                <Sparkles className="h-3 w-3" />
+                Sample Listings
+              </Badge>
+            )}
           </div>
 
           <div className="flex gap-4">

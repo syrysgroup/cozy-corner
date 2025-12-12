@@ -689,3 +689,33 @@ export const formatPrice = (price: number, listing_type: string, lang: Language,
   }
   return formatted;
 };
+
+// Convert mock property to listing format for compatibility with PropertyCard
+export const convertMockToListing = (property: MockProperty) => {
+  return {
+    id: property.id,
+    title_en: property.title_en,
+    title_fr: property.title_fr,
+    description_en: property.description_en,
+    description_fr: property.description_fr,
+    price: property.price,
+    listing_type: property.listing_type,
+    rent_frequency: property.rent_frequency,
+    bedrooms: property.bedrooms,
+    bathrooms: property.bathrooms,
+    property_size: property.property_size,
+    city: property.city,
+    province: property.province,
+    address_text: property.address_text,
+    image_urls: property.image_urls,
+    amenities: property.amenities,
+    latitude: property.latitude,
+    longitude: property.longitude,
+    status: property.status === 'active' ? 'published' : property.status,
+    created_at: property.created_at,
+    country: 'Canada',
+    formatted_address: `${property.address_text}, ${property.city}, ${property.province}`,
+    user_id: property.agent_id || 'mock-user',
+    updated_at: property.created_at,
+  };
+};
