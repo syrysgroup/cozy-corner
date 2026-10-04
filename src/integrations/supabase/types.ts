@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      authority_chairs: {
+        Row: {
+          biography: string | null
+          country_code: string
+          country_name: string
+          created_at: string
+          end_date: string | null
+          full_name: string
+          honorific: string
+          id: string
+          is_published: boolean
+          language_versions: Json
+          official_source: string | null
+          official_title: string
+          portrait_alt: string | null
+          portrait_bucket: string | null
+          portrait_path: string | null
+          published_at: string
+          role: string
+          start_date: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          biography?: string | null
+          country_code: string
+          country_name: string
+          created_at?: string
+          end_date?: string | null
+          full_name: string
+          honorific?: string
+          id?: string
+          is_published?: boolean
+          language_versions?: Json
+          official_source?: string | null
+          official_title: string
+          portrait_alt?: string | null
+          portrait_bucket?: string | null
+          portrait_path?: string | null
+          published_at?: string
+          role?: string
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          biography?: string | null
+          country_code?: string
+          country_name?: string
+          created_at?: string
+          end_date?: string | null
+          full_name?: string
+          honorific?: string
+          id?: string
+          is_published?: boolean
+          language_versions?: Json
+          official_source?: string | null
+          official_title?: string
+          portrait_alt?: string | null
+          portrait_bucket?: string | null
+          portrait_path?: string | null
+          published_at?: string
+          role?: string
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       oag_ai_messages: {
         Row: {
           citations: Json
