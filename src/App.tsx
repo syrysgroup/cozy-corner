@@ -20,6 +20,7 @@ import RiskPage from "@/pages/portal/Risk";
 import { Investigations, IntegrityCases } from "@/pages/portal/Investigations";
 import { Documents, KnowledgePage, Tasks, Notifications } from "@/pages/portal/Workspace";
 import Admin from "@/pages/portal/Admin";
+import OAGAssistant from "@/pages/portal/Assistant";
 
 export default function App() {
   return (
@@ -38,6 +39,8 @@ export default function App() {
               <Route path="integrityline" element={<IntegrityCases />} />
               <Route path="documents" element={<Documents />} />
               <Route path="knowledge" element={<KnowledgePage />} />
+              <Route path="assistant" element={<OAGAssistant />} />
+              <Route path="assistant/:threadId" element={<OAGAssistant />} />
               <Route path="tasks" element={<Tasks />} />
               <Route path="notifications" element={<Notifications />} />
               <Route path="admin" element={<Admin />} />

@@ -9,3 +9,5 @@
 - IntegrityLine calls go only through `src/lib/integrity-service.ts` (placeholder); swap bodies for the secure vault/evidence backend keeping shapes. Identity data never enters case views.
 - The internal portal lives under `/portal` with its own `PortalLayout`; access checks go only through `useAccess` in `src/lib/portal/access.tsx` (RBAC permissions + ABAC scope/clearance) so a real IdP/policy engine can replace it, and the backend must still enforce every check.
 - Portal data comes only from `src/lib/portal/portal-data.ts` (placeholder); the portal is an intelligence layer and never writes to SAP/enterprise systems of record.
+- Keep the OAG assistant in its own portal route with database-backed threads keyed by the URL and user-scoped Supabase RLS, so conversations restore consistently without crossing accounts.
+- Only present assistant evidence from permission-filtered OAG sources; keep placeholder records visibly illustrative and leave AI answers unavailable until an authorized retrieval service exists, so the UI cannot imply verified institutional findings.

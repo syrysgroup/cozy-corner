@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import { LayoutDashboard, FileSearch, ListChecks, Radar, Scale, ShieldCheck, FolderLock, BookOpen, CheckSquare, Bell, Settings2, Lock, Menu, X, Search, Database } from "lucide-react";
+import { LayoutDashboard, FileSearch, ListChecks, Radar, Scale, ShieldCheck, FolderLock, BookOpen, CheckSquare, Bell, Settings2, Lock, Menu, X, Search, Database, Landmark } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Band } from "@/components/ds/primitives";
 import { AccessProvider, ROLES, useAccess, type Permission, type RoleKey } from "@/lib/portal/access";
@@ -15,6 +15,7 @@ export const PORTAL_NAV: { to: string; label: string; icon: React.ElementType; n
   { to: "/portal/integrityline", label: "IntegrityLine", icon: ShieldCheck, need: "il.view" },
   { to: "/portal/documents", label: "Documents", icon: FolderLock, need: "docs.view" },
   { to: "/portal/knowledge", label: "Knowledge", icon: BookOpen, need: "knowledge.view" },
+  { to: "/portal/assistant", label: "Ask OAG Intelligence", icon: Landmark, need: "assistant.view" },
   { to: "/portal/tasks", label: "Tasks", icon: CheckSquare, need: "tasks.view" },
   { to: "/portal/notifications", label: "Notifications", icon: Bell, need: "dashboard.view" },
   { to: "/portal/admin", label: "Administration", icon: Settings2, need: "admin.view" },
