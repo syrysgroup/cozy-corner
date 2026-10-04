@@ -97,6 +97,7 @@ export default function Institutions() {
         </Container>
       </section>
       <Container className="grid gap-section py-section">
+        <AuthoritySection />
         <section id="governance" aria-labelledby="h-gov" className="scroll-mt-28">
           <h2 id="h-gov" className="font-display text-h2">ECOWAS Governance</h2>
           <ul className="mt-6 grid gap-4 md:grid-cols-3">
