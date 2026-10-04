@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowDown, ArrowRight, ChevronDown, FileText, Landmark, UserRound } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
-import { Breadcrumbs, Container, PageHeader } from "@/components/ds/shell/layout-parts";
+import { Container, PageHeader } from "@/components/ds/shell/layout-parts";
 import { NAV, UI } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 import auditTeam from "@/assets/hero-auditors.jpg";
@@ -71,7 +71,9 @@ function AboutLanding() {
         <img src={auditTeam} alt="Audit professionals reviewing documents together" className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_58%]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-transparent" aria-hidden="true" />
         <Container className="pb-12 pt-28 md:pb-16">
-          <Breadcrumbs items={[{ label: UI[lang].home, to: "/" }, { label: about.label[lang] }]} />
+          <nav aria-label="Breadcrumb" className="text-small text-background/80">
+            <ol className="flex items-center gap-2"><li><Link to="/" className="underline-offset-4 hover:underline">{UI[lang].home}</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="font-semibold text-background">{about.label[lang]}</li></ol>
+          </nav>
           <p className="overline mt-12 text-background/75">Office of the Auditor General · ECOWAS Institutions</p>
           <h1 className="mt-4 max-w-3xl font-display text-display-xl text-background">About OAG</h1>
           <p className="mt-5 max-w-2xl text-lead text-background/90">An independent office providing assurance on the use of public resources across ECOWAS Institutions.</p>
