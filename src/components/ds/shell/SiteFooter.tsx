@@ -46,11 +46,11 @@ export function SiteFooter() {
           </nav>
           <div className="flex items-center gap-5">
             <div role="group" aria-label="Language" className="flex gap-3">
-              {LANGS.map((l) => <button key={l.code} type="button" aria-pressed={lang === l.code} onClick={() => setLang(l.code)} className="uppercase hover:text-background aria-pressed:font-bold aria-pressed:text-ecowas-yellow">{l.code}</button>)}
+              {LANGS.map((l) => <button key={l.code} type="button" aria-pressed={lang === l.code} onClick={() => setLang(l.code)} className="inline-flex min-h-11 items-center uppercase hover:text-background aria-pressed:font-bold aria-pressed:text-ecowas-yellow">{l.code}</button>)}
             </div>
             <span className="h-4 w-px bg-background/20" aria-hidden />
             <div className="flex gap-3">
-              {[[Linkedin, "LinkedIn"], [Twitter, "X"], [Youtube, "YouTube"]].map(([Icon, n]) => { const I = Icon as typeof Linkedin; return <a key={n as string} href="#" aria-label={`OAG on ${n}`} className="hover:text-background"><I className="size-4" aria-hidden /></a>; })}
+              {[[Linkedin, "LinkedIn"], [Twitter, "X"], [Youtube, "YouTube"]].map(([Icon, n]) => { const I = Icon as typeof Linkedin; return <a key={n as string} href="#" aria-label={`OAG on ${n}`} className="grid min-h-11 min-w-11 place-items-center hover:text-background"><I className="size-4" aria-hidden /></a>; })}
             </div>
           </div>
         </Container>
