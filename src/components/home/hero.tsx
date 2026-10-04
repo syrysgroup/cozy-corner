@@ -1,19 +1,42 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowRight } from "lucide-react";
-import hero from "@/assets/hero-auditors.jpg";
+import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import heroAuditors from "@/assets/hero-auditors.jpg";
+import editorialBuilding from "@/assets/editorial-building.jpg";
+import editorialMeeting from "@/assets/editorial-meeting.jpg";
+import newsConference from "@/assets/news-conference.jpg";
 import { Button } from "@/components/ds/primitives";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { usePrefersReducedMotion } from "@/hooks/use-motion";
+import { cn } from "@/lib/utils";
 
 const HEADLINE = "Strengthening accountability across ECOWAS institutions.";
 const TICKER = ["Independent assurance", "Audit", "Accountability", "Transparency", "Integrity", "ECOWAS Institutions"];
 
+const SLIDES = [
+  { src: heroAuditors, alt: "Auditors reviewing printed reports together" },
+  { src: editorialBuilding, alt: "ECOWAS institution building" },
+  { src: editorialMeeting, alt: "Delegates at an ECOWAS meeting" },
+  { src: newsConference, alt: "Press conference at an ECOWAS event" },
+];
+const SLIDE_MS = 6000;
+
 export function CinematicHero() {
-  const back = useRef<HTMLImageElement>(null);
+  const back = useRef<HTMLDivElement>(null);
   const front = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const [scrolled, setScrolled] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const go = useCallback((next: number) => setIndex((next + SLIDES.length) % SLIDES.length), []);
+
+  // Auto-advance; paused on hover/focus or when reduced motion is preferred.
+  useEffect(() => {
+    if (reduced || paused) return;
+    const t = window.setInterval(() => setIndex((i) => (i + 1) % SLIDES.length), SLIDE_MS);
+    return () => window.clearInterval(t);
+  }, [reduced, paused]);
 
   useEffect(() => {
     let raf = 0; let px = 0; let py = 0;
@@ -34,8 +57,33 @@ export function CinematicHero() {
 
   const words = HEADLINE.split(" ");
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden bg-ecowas-ocean text-primary-foreground">
-      <img ref={back} src={hero} alt="Auditors reviewing printed reports together" width={1920} height={1088} fetchPriority="high" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center] opacity-60 will-change-transform" />
+    <section
+      aria-labelledby="hero-title"
+      className="relative isolate overflow-hidden bg-ecowas-ocean text-primary-foreground"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <div ref={back} className="absolute inset-0 -z-20 will-change-transform" aria-hidden={false}>
+        {SLIDES.map((s, i) => (
+          <img
+            key={s.src}
+            src={s.src}
+            alt={i === index ? s.alt : ""}
+            aria-hidden={i !== index}
+            width={1920}
+            height={1088}
+            fetchPriority={i === 0 ? "high" : "auto"}
+            loading={i === 0 ? "eager" : "lazy"}
+            decoding="async"
+            className={cn(
+              "absolute inset-0 h-full w-full object-cover object-[70%_center] opacity-60 transition-opacity duration-1000 motion-reduce:transition-none",
+              i === index ? "opacity-60" : "opacity-0",
+            )}
+          />
+        ))}
+      </div>
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ecowas-ocean via-ecowas-ocean/85 to-ecowas-ocean/10 max-lg:via-ecowas-ocean/80 max-lg:to-ecowas-ocean/50" aria-hidden />
       <div ref={front} className="pointer-events-none absolute -right-24 top-24 -z-10 size-[30rem] rounded-full border border-primary-foreground/15 will-change-transform max-md:hidden" aria-hidden>
         <span className="absolute inset-12 rounded-full border border-ecowas-yellow/30" />
@@ -59,9 +107,46 @@ export function CinematicHero() {
             <Button asChild size="lg" className="border border-primary-foreground/50 bg-transparent hover:bg-primary-foreground/10"><Link to="/publications">View Publications</Link></Button>
           </div>
         </div>
-        <a href="#mission" className={`mt-10 inline-flex w-fit items-center gap-2 text-xs uppercase tracking-[0.14em] text-primary-foreground/70 transition-opacity duration-slow hover:text-primary-foreground ${scrolled ? "opacity-0" : "opacity-100"}`}>
-          <ArrowDown className="size-4 animate-bounce motion-reduce:animate-none" aria-hidden />Scroll to explore
-        </a>
+
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+          <a href="#mission" className={`inline-flex w-fit items-center gap-2 text-xs uppercase tracking-[0.14em] text-primary-foreground/70 transition-opacity duration-slow hover:text-primary-foreground ${scrolled ? "opacity-0" : "opacity-100"}`}>
+            <ArrowDown className="size-4 animate-bounce motion-reduce:animate-none" aria-hidden />Scroll to explore
+          </a>
+          <div className="flex items-center gap-3" aria-label="Banner images">
+            <button
+              type="button"
+              onClick={() => go(index - 1)}
+              aria-label="Previous image"
+              className="grid size-10 place-items-center border border-primary-foreground/40 text-primary-foreground/80 transition-colors hover:border-ecowas-yellow hover:text-ecowas-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow"
+            >
+              <ChevronLeft className="size-5" aria-hidden />
+            </button>
+            <div className="flex items-center gap-2" role="tablist" aria-label="Choose banner image">
+              {SLIDES.map((s, i) => (
+                <button
+                  key={s.src}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === index}
+                  aria-label={`Image ${i + 1} of ${SLIDES.length}: ${s.alt}`}
+                  onClick={() => go(i)}
+                  className={cn(
+                    "h-1.5 w-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow",
+                    i === index ? "bg-ecowas-yellow" : "bg-primary-foreground/30 hover:bg-primary-foreground/60",
+                  )}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => go(index + 1)}
+              aria-label="Next image"
+              className="grid size-10 place-items-center border border-primary-foreground/40 text-primary-foreground/80 transition-colors hover:border-ecowas-yellow hover:text-ecowas-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow"
+            >
+              <ChevronRight className="size-5" aria-hidden />
+            </button>
+          </div>
+        </div>
       </Container>
 
       <div className="relative overflow-hidden border-t border-primary-foreground/15 bg-ink/30 py-4" aria-label="Mandate keywords">

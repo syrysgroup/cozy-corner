@@ -6,8 +6,6 @@ import { cn } from "@/lib/utils";
 type C = { id: string; name: string; pts: [number, number][]; institutions: string[] };
 // Simplified outlines (lon, lat). Orientation only — not an authoritative boundary map.
 const COUNTRIES: C[] = [
-  { id: "ML", name: "Mali", institutions: [], pts: [[-12.2,14.7],[-11.4,15.5],[-10.7,15.1],[-5.5,15.5],[-6.5,25],[-4.8,25],[1.2,21],[4.2,19.1],[4.3,16.9],[3.6,15.4],[0.2,14.9],[-1.5,15],[-3.3,13.4],[-4.4,12.5],[-5.4,11.6],[-5.5,10.4],[-6.2,10.5],[-7.9,10.4],[-8.8,12.1],[-11.4,12.4],[-12.2,12.6]] },
-  { id: "NE", name: "Niger", institutions: [], pts: [[3.6,11.7],[2.4,12.3],[0.9,13.2],[0.2,14.9],[3.6,15.4],[4.3,16.9],[4.2,19.1],[5.8,19.4],[12,23.5],[15,23],[15.9,20.4],[15.5,16],[13.6,13.7],[12,13.3],[9,12.8],[6.5,13.6],[4.1,13.5]] },
   { id: "SN", name: "Senegal", institutions: ["GIABA — Inter-Governmental Action Group against Money Laundering (Dakar)", "ECOWAS Gender Development Centre (Dakar)"], pts: [[-17.5,14.7],[-16.7,16.5],[-14,16.6],[-12.2,14.7],[-12.2,12.6],[-16.7,12.4]] },
   { id: "GM", name: "The Gambia", institutions: [], pts: [[-16.8,13.75],[-13.8,13.75],[-13.8,13.15],[-16.8,13.15]] },
   { id: "GW", name: "Guinea-Bissau", institutions: [], pts: [[-16.7,12.4],[-13.7,12.6],[-13.7,11],[-15,10.9],[-16.7,11.6]] },
@@ -15,7 +13,6 @@ const COUNTRIES: C[] = [
   { id: "SL", name: "Sierra Leone", institutions: ["West African Monetary Agency (Freetown)"], pts: [[-13.2,9.2],[-10.7,9.2],[-10.3,8.4],[-11.5,6.9],[-13.2,8]] },
   { id: "LR", name: "Liberia", institutions: [], pts: [[-11.5,6.9],[-10.3,8.4],[-9.5,8.5],[-8.2,7.6],[-7.5,4.4],[-9,5]] },
   { id: "CI", name: "Côte d’Ivoire", institutions: [], pts: [[-8.2,7.6],[-7.9,10.4],[-6.2,10.5],[-5.5,10.4],[-4.7,9.9],[-2.7,9.4],[-3.2,5.1],[-7.5,4.4]] },
-  { id: "BF", name: "Burkina Faso", institutions: ["West African Health Organisation (Bobo-Dioulasso)", "ECOWAS Youth and Sports Development Centre (Ouagadougou)"], pts: [[-5.5,10.4],[-4.7,9.9],[-2.7,9.4],[-2.8,11],[-0.1,11],[0.9,11],[2.4,12.3],[0.9,13.2],[0.2,14.9],[-1.5,15],[-3.3,13.4],[-4.4,12.5],[-5.4,11.6]] },
   { id: "GH", name: "Ghana", institutions: ["ECOWAS Regional Electricity Regulatory Authority (Accra)", "West African Monetary Institute (Accra)"], pts: [[-3.2,5.1],[-2.7,9.4],[-2.8,11],[-0.1,11],[0.5,10],[0.6,6.2],[1.2,6.1],[-1.9,4.8]] },
   { id: "TG", name: "Togo", institutions: ["ECOWAS Bank for Investment and Development (Lomé)", "Regional Agency for Agriculture and Food (Lomé)"], pts: [[0.6,6.2],[0.5,10],[-0.1,11],[0.9,11],[1.6,9],[1.8,6.2]] },
   { id: "BJ", name: "Benin", institutions: ["West African Power Pool (Cotonou)"], pts: [[1.8,6.2],[1.6,9],[0.9,11],[2.4,12.3],[3.6,11.7],[3.8,10],[2.7,6.4]] },
@@ -57,7 +54,7 @@ export function WestAfricaMap() {
     <section aria-labelledby="home-map" className="py-section-lg">
       <Container>
         <p className="overline text-primary">03 · Across the region</p>
-        <h2 id="home-map" className="mt-3 max-w-3xl font-display text-h1">Fifteen member states. One audit mandate.</h2>
+        <h2 id="home-map" className="mt-3 max-w-3xl font-display text-h1">Twelve member states. One audit mandate.</h2>
         <p className="mt-3 max-w-2xl text-small text-muted-foreground">Select a country — or tab in and use the arrow keys — to see the Community institutions hosted there.</p>
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
           <div className="relative border border-border bg-card p-3">

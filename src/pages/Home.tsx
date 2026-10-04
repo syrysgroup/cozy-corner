@@ -1,5 +1,5 @@
 import { AuthorityChairFeature } from "@/components/home/authority-chair";
-import { LatestNews } from "@/components/home/sections";
+import { LatestNews, LeadershipFeature } from "@/components/home/sections";
 import { CinematicHero } from "@/components/home/hero";
 import { MissionStatement } from "@/components/home/mission";
 import { MandateGrid } from "@/components/home/mandate";
@@ -18,6 +18,7 @@ export default function Home() {
       <MandateGrid />
       <WestAfricaMap />
       <AuthorityChairFeature />
+      <LeadershipFeature />
       <TransparencyDashboard />
       <LatestNews />
       <PublicationsShelf />
