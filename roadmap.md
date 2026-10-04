@@ -1,5 +1,6 @@
 # OAG roadmap
 
+- [ ] Homepage refinement: place Authority Chairman and OAG leadership directly after the slider, merge The Office with What OAG Does, follow with ECOWAS Institutions, simplify newsletter to email only, and apply the ECOWAS brand manual.
 - [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
 - [ ] Restore official logo files: public database records are connected, but their storage bucket returns "Bucket not found" and existing CDN fallbacks return 404; requires accessible official image files.
 - [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification.
