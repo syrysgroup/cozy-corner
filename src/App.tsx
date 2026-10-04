@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 import { SectionPage, StatesPage } from "@/pages/SectionPage";
 import { SiteLayout } from "@/components/ds/shell/SiteLayout";
+import AboutOAG, { ContactPage } from "@/pages/AboutOAG";
 
 export default function App() {
   return (
@@ -16,6 +17,9 @@ export default function App() {
           <Routes>
             <Route path="/design-system" element={<DesignSystem />} />
             <Route element={<SiteLayout />}>
+              <Route path="/about" element={<AboutOAG />} />
+              <Route path="/about/:sub" element={<AboutOAG />} />
+              <Route path="/contact" element={<ContactPage />} />
               <Route path="/" element={<Home />} />
               <Route path="/design-system/states" element={<StatesPage />} />
               <Route path="/:section" element={<SectionPage />} />
