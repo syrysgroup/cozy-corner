@@ -82,7 +82,7 @@ export function Progress({ value, className }: { value: number; className?: stri
   );
 }
 
-export function Seg<T extends string>({ value, options, onChange, label }: { value: T; options: readonly T[]; onChange: (v: T) => void; label: string }) {
+export function Seg<T extends string>({ value, options, onChange, label }: { value: T; options: readonly T[]; onChange: (v: NoInfer<T>) => void; label: string }) {
   return (
     <div role="radiogroup" aria-label={label} className="inline-flex border border-border bg-card p-0.5">
       {options.map((o) => (
