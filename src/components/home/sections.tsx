@@ -63,7 +63,7 @@ export function LeadershipFeature() {
         </div>
         <div className="flex flex-col justify-center p-8 md:p-12">
           <p className="overline flex items-center gap-2 text-primary"><span className="h-px w-8 bg-ecowas-yellow" aria-hidden />Head of Office</p>
-          <h3 id="ag-title" className="mt-3 font-display text-display-md">Auditor General</h3>
+          <h3 id="ag-title" className="mt-3 font-display text-h1">Auditor General</h3>
           <p className="mt-2 text-small font-semibold text-ink-soft">Office of the Auditor General of ECOWAS Institutions</p>
           <p className="mt-6 flex items-start gap-2 border-l-2 border-ecowas-yellow pl-4 text-small text-muted-foreground"><UserRound className="mt-0.5 size-4 shrink-0" aria-hidden />The official name, photograph and biography will appear here once approved for publication.</p>
           <div className="mt-8"><Button asChild size="lg"><Link to="/about/leadership">Meet the OAG leadership <ArrowRight /></Link></Button></div>

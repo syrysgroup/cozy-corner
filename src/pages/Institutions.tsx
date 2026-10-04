@@ -28,7 +28,7 @@ function Pending({ children }: { children: React.ReactNode }) {
 function ArmDetail({ slug }: { slug: string }) {
   const a = ARMS.find((x) => x.slug === slug)!;
   return (
-    <Container as="article" className="py-section">
+    <Container as="section" className="py-section">
       <nav aria-label="Breadcrumb" className="text-small text-muted-foreground"><Link to="/institutions" className="hover:text-primary">ECOWAS Institutions</Link> / {a.arm}</nav>
       <div className="mt-6 flex items-center gap-5"><ArmLogo k={a.key} fallback={a.logo} body={a.body} /><div><p className="overline text-primary">{a.arm}</p><h1 className="font-display text-h1">{a.body}</h1></div></div>
       <p className="mt-6 max-w-2xl text-lead text-muted-foreground">{a.role}</p>
