@@ -1,13 +1,1 @@
-project_id = "jwmvnsyvtprtheawgsan"
-
-[functions.geocode]
-verify_jwt = true
-
-[functions.parse-bulk-listings]
-verify_jwt = true
-
-[functions.process-bulk-import]
-verify_jwt = true
-
-[functions.notify-import-complete]
-verify_jwt = false
+project_id = "unglyahbvxpmcczzhflx"
