@@ -5,7 +5,7 @@ import { Search, Menu, X, Globe, ShieldCheck, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Band, Wordmark } from "@/components/ds/primitives";
 import { LANGS, useI18n } from "@/lib/i18n";
-import { NAV, UI } from "@/lib/site";
+import { MAIN_NAV, UI } from "@/lib/site";
 import { useUtilityNavigation } from "@/lib/public-site";
 import { Container } from "./layout-parts";
 import { SearchOverlay } from "./SearchOverlay";
@@ -86,7 +86,7 @@ export function SiteHeader() {
             <Link to="/" aria-label="Office of the Auditor General — home" className="min-w-0 shrink overflow-hidden py-2 pr-1 sm:shrink-0 sm:pr-2"><Wordmark /></Link>
             <nav aria-label="Main" className="hidden shrink-0 xl:block">
               <ul className="flex items-center gap-0">
-                {NAV.map((s) => (
+                {MAIN_NAV.map((s) => (
                   <li key={s.slug}>
                     <NavLink to={`/${s.slug}`} className={({ isActive }) => cn("relative block whitespace-nowrap px-1.5 py-2 text-small font-semibold text-ink-soft transition-colors duration-fast hover:text-primary after:absolute after:inset-x-1.5 after:-bottom-[1.05rem] after:h-0.5 after:scale-x-0 after:bg-primary after:transition-transform after:duration-base", isActive && "text-primary after:scale-x-100")}>
                       {s.label[lang]}
@@ -135,7 +135,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         </div>
         <nav aria-label="Main" className="flex-1 overflow-y-auto px-5 py-4">
           <ul className="divide-y divide-border">
-            {NAV.map((s, i) => {
+            {MAIN_NAV.map((s, i) => {
               const open = expanded === s.slug;
               return (
                 <li key={s.slug}>
