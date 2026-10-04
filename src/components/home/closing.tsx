@@ -29,7 +29,7 @@ export function InstitutionsExplainer() {
   return (
     <section aria-labelledby="home-institutions" className="py-section-lg">
       <Container>
-        <p className="overline text-primary">08 · ECOWAS Institutions</p>
+        <p className="overline text-primary">04 · ECOWAS Institutions</p>
         <h2 id="home-institutions" className="mt-3 font-display text-h1">Three arms of governance.</h2>
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
           <ul className="grid gap-3">

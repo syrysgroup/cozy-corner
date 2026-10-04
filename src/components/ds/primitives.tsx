@@ -93,7 +93,7 @@ export function Wordmark({ inverse, compact }: { inverse?: boolean; compact?: bo
   const logo = useOfficialAsset("oag", OFFICIAL_LOGO_SRC);
   return (
     <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-      <img src={logo.src} alt={logo.alt ?? "Office of the Auditor General logo"} width={72} height={72} fetchPriority="high" className={cn("size-14 shrink-0 object-contain sm:size-[4.5rem]", compact && "size-12 sm:size-14")} />
+      <img src={logo.src} alt={logo.alt ?? "Office of the Auditor General logo"} width={72} height={72} className={cn("size-14 shrink-0 object-contain sm:size-[4.5rem]", compact && "size-12 sm:size-14")} />
       {!compact && (
         <div className={cn("min-w-0 leading-tight", inverse ? "text-background" : "text-ink")}>
           <div className="text-base font-bold sm:text-lg">Office of the Auditor General</div>

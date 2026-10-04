@@ -1,7 +1,6 @@
 import { AuthorityChairFeature } from "@/components/home/authority-chair";
 import { LatestNews, LeadershipFeature } from "@/components/home/sections";
 import { CinematicHero } from "@/components/home/hero";
-import { MissionStatement } from "@/components/home/mission";
 import { MandateGrid } from "@/components/home/mandate";
 import { WestAfricaMap } from "@/components/home/map-section";
 import { TransparencyDashboard } from "@/components/home/stats";
@@ -14,15 +13,14 @@ export default function Home() {
   return (
     <div ref={ref}>
       <CinematicHero />
-      <MissionStatement />
-      <MandateGrid />
-      <WestAfricaMap />
       <AuthorityChairFeature />
       <LeadershipFeature />
+      <MandateGrid />
+      <InstitutionsExplainer />
+      <WestAfricaMap />
       <TransparencyDashboard />
       <LatestNews />
       <PublicationsShelf />
-      <InstitutionsExplainer />
       <IntegrityBand />
       <ClosingBand />
     </div>
