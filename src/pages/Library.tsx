@@ -49,7 +49,7 @@ export default function Library() {
           <legend className="overline mb-2.5">{FACET_LABELS[k]}</legend>
           <div className="flex flex-wrap gap-1.5">
             {FACETS[k].map((v) => (
-              <Button key={v} type="button" size="sm" variant="filter" data-active={sel[k]?.includes(v)} aria-pressed={!!sel[k]?.includes(v)} onClick={() => toggle(k, v)} className="h-8 px-2.5">
+              <Button key={v} type="button" size="sm" variant="filter" data-active={sel[k]?.includes(v)} aria-pressed={!!sel[k]?.includes(v)} onClick={() => toggle(k, v)} className="h-auto min-h-8 max-w-full whitespace-normal px-2.5 py-1 text-left">
                 {v}<span className="text-muted-foreground">{count(k, v)}</span>
               </Button>
             ))}
