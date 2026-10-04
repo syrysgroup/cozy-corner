@@ -45,7 +45,7 @@ function Hero() {
       <Container className="flex min-h-[86vh] flex-col justify-end pb-12 pt-28 md:pb-20">
         <div className="max-w-3xl animate-rise-in motion-reduce:animate-none">
           <p className="flex items-center gap-3 text-overline uppercase text-primary-foreground/80"><span className="h-px w-10 bg-ecowas-yellow" aria-hidden />Office of the Auditor General · ECOWAS</p>
-          <h1 className="mt-6 font-display text-display-lg md:text-display-xl">Strengthening accountability across ECOWAS institutions.</h1>
+          <h1 className="mt-6 text-primary-foreground font-display text-display-lg md:text-display-xl">Strengthening accountability across ECOWAS institutions.</h1>
           <p className="mt-6 max-w-[38rem] text-lead text-primary-foreground/85">The Office provides independent audit and assurance on how Community resources are used — turning evidence into recommendations, and recommendations into public trust.</p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button asChild variant="inverse" size="lg"><a href="#intelligence">Explore Audit Intelligence <ArrowRight /></a></Button>
@@ -160,7 +160,7 @@ function Transparency() {
             <div className="relative">
               <span className="font-mono text-xs text-ecowas-yellow">0{i + 1}</span>
               <p className="mt-2 font-display text-5xl font-bold"><Counter value={it.v} suffix={it.s} /></p>
-              <h3 className="mt-2 font-display text-h4">{it.k}</h3>
+              <h3 className="mt-2 font-display text-h4 text-primary-foreground">{it.k}</h3>
               <p className="mt-1 text-small text-primary-foreground/75">{it.d}</p>
               <ArrowUpRight className="mt-4 size-5 transition-transform duration-base group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden />
             </div>
@@ -193,7 +193,7 @@ function Publications() {
                   <div className="flex justify-between text-xs uppercase tracking-[0.12em] text-primary-foreground/80"><span>OAG</span><span>{p.year}</span></div>
                   <div>
                     <span className="block h-1 w-10 bg-ecowas-yellow" aria-hidden />
-                    <h3 className="mt-4 font-display text-h3 leading-tight">{p.title}</h3>
+                    <h3 className="mt-4 font-display text-h3 leading-tight text-primary-foreground">{p.title}</h3>
                   </div>
                   <p className="text-xs text-primary-foreground/75">{p.institution}</p>
                 </div>
@@ -246,7 +246,7 @@ function IntegrityLine() {
       <Container className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="reveal">
           <p className="text-overline uppercase text-primary-foreground/75">06 · IntegrityLine</p>
-          <h2 className="mt-4 font-display text-display-lg">See something.<br />Say something.</h2>
+          <h2 className="mt-4 font-display text-display-lg text-primary-foreground">See something.<br />Say something.</h2>
           <p className="mt-6 max-w-md text-lead text-primary-foreground/85">IntegrityLine provides protected channels for reporting matters within the Office’s mandate — fraud, waste, abuse or misconduct involving Community resources.</p>
           <Link to="/integrityline/protection" className="mt-6 inline-flex items-center gap-2 text-small font-semibold underline-offset-4 hover:underline">How reporters are protected <ArrowRight className="size-4" /></Link>
         </div>
@@ -338,7 +338,7 @@ function FinalCta() {
   return (
     <section className="bg-ink py-section-lg text-background">
       <Container className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-end">
-        <h2 className="reveal font-display text-display-lg">Explore the work of the Office of the Auditor General.</h2>
+        <h2 className="reveal font-display text-display-lg text-background">Explore the work of the Office of the Auditor General.</h2>
         <ul className="grid border-t border-background/20">
           {links.map((l) => (
             <li key={l.t} className="border-b border-background/20">
