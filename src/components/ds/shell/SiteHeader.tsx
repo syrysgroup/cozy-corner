@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Band, Wordmark } from "@/components/ds/primitives";
 import { LANGS, useI18n } from "@/lib/i18n";
 import { NAV, UI } from "@/lib/site";
+import { useUtilityNavigation } from "@/lib/public-site";
 import { Container } from "./layout-parts";
 import { SearchOverlay } from "./SearchOverlay";
 
@@ -44,6 +45,7 @@ function LanguageSelect({ className, inverse }: { className?: string; inverse?: 
 export function SiteHeader() {
   const { lang } = useI18n();
   const ui = UI[lang];
+  const utility = useUtilityNavigation(lang, ui.utility);
   const { hidden, scrolled } = useHideOnScroll();
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -71,7 +73,7 @@ export function SiteHeader() {
           <Container className="flex h-9 items-center justify-between text-xs">
             <span className="flex items-center gap-2 text-primary-foreground/80"><span className="size-1.5 rounded-full bg-ecowas-yellow" aria-hidden />Independent assurance for ECOWAS Institutions</span>
             <nav aria-label="Utility" className="flex items-center gap-5">
-              {ui.utility.map(([label, to]) => <Link key={to} to={to} className="text-primary-foreground/85 hover:text-primary-foreground hover:underline underline-offset-4">{label}</Link>)}
+              {utility.map(([label, to]) => <UtilityLink key={to} to={to} className="whitespace-nowrap text-primary-foreground/85 hover:text-primary-foreground hover:underline underline-offset-4">{label}</UtilityLink>)}
               <Link to="/integrityline" className="flex items-center gap-1.5 font-semibold text-ecowas-yellow hover:underline underline-offset-4"><ShieldCheck className="size-3.5" aria-hidden />IntegrityLine</Link>
               <span className="h-4 w-px bg-primary-foreground/25" aria-hidden />
               <LanguageSelect inverse />
@@ -113,9 +115,14 @@ export function SiteHeader() {
   );
 }
 
+function UtilityLink({ to, children, className, onClick }: { to: string; children: React.ReactNode; className?: string; onClick?: () => void }) {
+  return to.startsWith("https://") ? <a href={to} className={className} onClick={onClick}>{children}</a> : <Link to={to} className={className} onClick={onClick}>{children}</Link>;
+}
+
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const { lang } = useI18n();
   const ui = UI[lang];
+  const utility = useUtilityNavigation(lang, ui.utility);
   const [expanded, setExpanded] = useState<string | null>(null);
   return (
     <Dialog.Portal>
@@ -153,7 +160,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         </nav>
         <div className="grid gap-4 border-t border-border bg-surface-sunken px-5 py-5">
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-small">
-            {ui.utility.map(([label, to]) => <Link key={to} to={to} onClick={onClose} className="inline-flex min-h-11 items-center font-semibold text-ink-soft hover:text-primary">{label}</Link>)}
+            {utility.map(([label, to]) => <UtilityLink key={to} to={to} onClick={onClose} className="inline-flex min-h-11 items-center font-semibold text-ink-soft hover:text-primary">{label}</UtilityLink>)}
           </div>
           <LanguageSelect className="text-small text-ink" />
         </div>
