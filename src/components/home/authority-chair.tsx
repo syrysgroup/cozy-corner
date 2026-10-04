@@ -37,7 +37,7 @@ export function AuthorityChairFeature() {
               <div className="mt-4 h-24 w-3/4 animate-pulse bg-primary-foreground/10" />
             ) : current && (
               <>
-                <h2 id="home-chair" className="mt-4 font-display text-display-md text-primary-foreground">{current.honorific} {current.fullName}</h2>
+                <h2 id="home-chair" className="mt-4 font-display text-h1 md:text-display-lg text-primary-foreground">{current.honorific} {current.fullName}</h2>
                 <p className="mt-4 text-lead font-semibold text-primary-foreground">{current.officialTitle}</p>
                 <p className="mt-1 text-primary-foreground/85">{current.role}</p>
                 {since && <p className="mt-4 font-mono text-xs uppercase tracking-[0.12em] text-primary-foreground/70">Chairmanship assumed {since}</p>}
