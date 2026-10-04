@@ -87,7 +87,7 @@ export function Seg<T extends string>({ value, options, onChange, label }: { val
     <div role="radiogroup" aria-label={label} className="inline-flex max-w-full flex-wrap border border-border bg-card p-0.5">
       {options.map((o) => (
         <button key={o} type="button" role="radio" aria-checked={value === o} onClick={() => onChange(o)}
-          className={cn("px-3 py-1.5 text-xs font-semibold text-ink-soft hover:text-ink", value === o && "bg-ink text-background hover:text-background")}>{o}</button>
+          className={cn("min-h-9 px-3 py-1.5 text-xs font-semibold text-ink-soft hover:text-ink", value === o && "bg-ink text-background hover:text-background")}>{o}</button>
       ))}
     </div>
   );
