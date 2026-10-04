@@ -30,7 +30,7 @@ export function MissionStatement() {
       <Container>
         <p className="overline flex items-center gap-3 text-primary"><span className="h-1 w-10 band" aria-hidden />01 · The Office</p>
         <h2 id="mission-title" className="sr-only">Who we are</h2>
-        <p className="mt-8 max-w-5xl font-display text-h2 leading-tight text-muted-foreground md:text-display-lg md:leading-[1.08]">
+        <p className="mt-8 max-w-3xl text-lead leading-relaxed text-muted-foreground md:text-h3 md:leading-relaxed">
           {PARTS.map(([t, key], i) => {
             if (!key) return <span key={i}>{t}</span>;
             const lit = progress > (k++ + 0.5) / (keys + 0.5);

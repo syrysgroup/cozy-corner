@@ -57,7 +57,7 @@ export function WestAfricaMap() {
     <section aria-labelledby="home-map" className="py-section-lg">
       <Container>
         <p className="overline text-primary">03 · Across the region</p>
-        <h2 id="home-map" className="mt-3 max-w-3xl font-display text-h1">Fifteen member states. One audit mandate.</h2>
+        <h2 id="home-map" className="mt-3 max-w-3xl font-display text-h1">Twelve member states. One audit mandate.</h2>
         <p className="mt-3 max-w-2xl text-small text-muted-foreground">Select a country — or tab in and use the arrow keys — to see the Community institutions hosted there.</p>
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
           <div className="relative border border-border bg-card p-3">
