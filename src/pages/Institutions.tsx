@@ -18,7 +18,7 @@ const SECTIONS = [
 
 function ArmLogo({ k, fallback, body }: { k: string; fallback: string; body: string }) {
   const logo = useOfficialAsset(k, fallback);
-  return <img src={logo.src} alt={logo.alt ?? `${body} logo`} width={72} height={72} loading="lazy" className="size-18 object-contain" />;
+  return <img src={logo.src} alt={logo.alt ?? `${body} logo`} width={72} height={72} loading="lazy" className="size-[4.5rem] object-contain" />;
 }
 
 function Pending({ children }: { children: React.ReactNode }) {
