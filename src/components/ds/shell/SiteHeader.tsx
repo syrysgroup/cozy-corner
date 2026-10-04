@@ -34,7 +34,7 @@ function LanguageSelect({ className, inverse }: { className?: string; inverse?: 
       <Globe className="size-4" aria-hidden />
       <span className="sr-only">Language</span>
       <select value={lang} onChange={(e) => setLang(e.target.value as typeof lang)}
-        className={cn("cursor-pointer bg-transparent font-semibold outline-none", inverse && "[&>option]:text-ink")}>
+        className={cn("min-h-11 cursor-pointer bg-transparent font-semibold outline-none", inverse && "[&>option]:text-ink")}>
         {LANGS.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}
       </select>
     </label>
@@ -82,11 +82,11 @@ export function SiteHeader() {
         <div className={cn("border-b border-border bg-background/95 backdrop-blur transition-shadow duration-base", scrolled && "shadow-hairline")}>
           <Container className="flex h-[4.5rem] items-center justify-between gap-6 xl:h-20">
             <Link to="/" aria-label="Office of the Auditor General — home" className="shrink-0 py-2 pr-2"><Wordmark /></Link>
-            <nav aria-label="Main" className="hidden xl:block">
-              <ul className="flex items-center gap-1">
+            <nav aria-label="Main" className="hidden shrink-0 xl:block">
+              <ul className="flex items-center gap-0">
                 {NAV.map((s) => (
                   <li key={s.slug}>
-                    <NavLink to={`/${s.slug}`} className={({ isActive }) => cn("relative block px-2.5 py-2 text-small font-semibold text-ink-soft transition-colors duration-fast hover:text-primary after:absolute after:inset-x-2.5 after:-bottom-[1.05rem] after:h-0.5 after:scale-x-0 after:bg-primary after:transition-transform after:duration-base", isActive && "text-primary after:scale-x-100")}>
+                    <NavLink to={`/${s.slug}`} className={({ isActive }) => cn("relative block whitespace-nowrap px-1.5 py-2 text-small font-semibold text-ink-soft transition-colors duration-fast hover:text-primary after:absolute after:inset-x-1.5 after:-bottom-[1.05rem] after:h-0.5 after:scale-x-0 after:bg-primary after:transition-transform after:duration-base", isActive && "text-primary after:scale-x-100")}>
                       {s.label[lang]}
                     </NavLink>
                   </li>
@@ -94,12 +94,12 @@ export function SiteHeader() {
               </ul>
             </nav>
             <div className="flex items-center gap-1">
-              <button type="button" onClick={() => setSearchOpen(true)} className="flex h-10 items-center gap-2 rounded-md px-2.5 text-small font-semibold text-ink hover:bg-muted" aria-label={ui.search} aria-keyshortcuts="Control+K">
+              <button type="button" onClick={() => setSearchOpen(true)} className="flex min-h-11 min-w-11 items-center gap-2 rounded-md px-2.5 text-small font-semibold text-ink hover:bg-muted" aria-label={ui.search} aria-keyshortcuts="Control+K">
                 <Search className="size-5" aria-hidden /><span className="hidden lg:inline">{ui.search}</span>
                 <kbd className="hidden rounded-xs border border-border px-1 font-mono text-[0.65rem] text-muted-foreground 2xl:inline">⌘K</kbd>
               </button>
               <Dialog.Root open={menuOpen} onOpenChange={setMenuOpen}>
-                <Dialog.Trigger className="flex h-10 items-center gap-2 rounded-md px-2.5 text-small font-semibold text-ink hover:bg-muted xl:hidden" aria-label={ui.menu}>
+                <Dialog.Trigger className="flex min-h-11 min-w-11 items-center gap-2 rounded-md px-2.5 text-small font-semibold text-ink hover:bg-muted xl:hidden" aria-label={ui.menu}>
                   <Menu className="size-5" aria-hidden /><span className="hidden sm:inline">{ui.menu}</span>
                 </Dialog.Trigger>
                 <MobileMenu onClose={() => setMenuOpen(false)} />
@@ -124,7 +124,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         <Band />
         <div className="flex h-[4.5rem] items-center justify-between border-b border-border px-5">
           <Dialog.Title asChild><span><Wordmark compact /></span></Dialog.Title>
-          <Dialog.Close className="flex h-10 items-center gap-2 rounded-md px-2.5 text-small font-semibold hover:bg-muted"><X className="size-5" aria-hidden />{ui.close}</Dialog.Close>
+          <Dialog.Close className="flex min-h-11 items-center gap-2 rounded-md px-2.5 text-small font-semibold hover:bg-muted"><X className="size-5" aria-hidden />{ui.close}</Dialog.Close>
         </div>
         <nav aria-label="Main" className="flex-1 overflow-y-auto px-5 py-4">
           <ul className="divide-y divide-border">
@@ -137,7 +137,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
                       <span className="font-mono text-xs text-primary">{String(i + 1).padStart(2, "0")}</span>{s.label[lang]}
                     </Link>
                     <button type="button" aria-expanded={open} aria-controls={`m-${s.slug}`} aria-label={`${s.label[lang]} sections`} onClick={() => setExpanded(open ? null : s.slug)}
-                      className="grid size-10 place-items-center rounded-md text-ink-soft hover:bg-muted">
+                      className="grid size-11 place-items-center rounded-md text-ink-soft hover:bg-muted">
                       <span className={cn("text-xl leading-none transition-transform duration-base", open && "rotate-45")} aria-hidden>+</span>
                     </button>
                   </div>
@@ -153,7 +153,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         </nav>
         <div className="grid gap-4 border-t border-border bg-surface-sunken px-5 py-5">
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-small">
-            {ui.utility.map(([label, to]) => <Link key={to} to={to} onClick={onClose} className="font-semibold text-ink-soft hover:text-primary">{label}</Link>)}
+            {ui.utility.map(([label, to]) => <Link key={to} to={to} onClick={onClose} className="inline-flex min-h-11 items-center font-semibold text-ink-soft hover:text-primary">{label}</Link>)}
           </div>
           <LanguageSelect className="text-small text-ink" />
         </div>

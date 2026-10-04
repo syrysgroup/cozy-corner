@@ -69,13 +69,13 @@ export function SearchOverlay({ open, onOpenChange }: { open: boolean; onOpenCha
               className="h-12 min-w-0 flex-1 bg-transparent text-lead text-ink outline-none placeholder:text-muted-foreground"
             />
             <kbd className="hidden rounded-xs border border-border px-1.5 py-0.5 font-mono text-xs text-muted-foreground md:inline">Esc</kbd>
-            <Dialog.Close className="grid size-10 place-items-center rounded-md text-ink hover:bg-muted" aria-label="Close search"><X className="size-5" /></Dialog.Close>
+            <Dialog.Close className="grid size-11 place-items-center rounded-md text-ink hover:bg-muted" aria-label="Close search"><X className="size-5" /></Dialog.Close>
           </div>
 
           <div className="flex gap-2 overflow-x-auto border-b border-border px-5 py-3 md:px-6" role="group" aria-label="Filter by category">
             {SEARCH_CATEGORIES.map((c) => (
               <button key={c} type="button" aria-pressed={cat === c} onClick={() => setCat(c)}
-                className={cn("shrink-0 rounded-xs border px-3 py-1.5 text-small font-semibold transition-colors duration-fast", cat === c ? "border-primary bg-primary-soft text-primary" : "border-border bg-card text-ink-soft hover:border-ink/40")}>
+               className={cn("min-h-11 shrink-0 rounded-xs border px-3 py-1.5 text-small font-semibold transition-colors duration-fast", cat === c ? "border-primary bg-primary-soft text-primary" : "border-border bg-card text-ink-soft hover:border-ink/40")}>
                 {c}
               </button>
             ))}
@@ -110,12 +110,12 @@ export function SearchOverlay({ open, onOpenChange }: { open: boolean; onOpenCha
                 <div>
                   <p className="overline mb-3 flex items-center gap-2"><Clock className="size-3.5" aria-hidden />Recent searches</p>
                   {recent.length ? (
-                    <ul className="grid gap-1">{recent.map((r) => <li key={r}><button type="button" onClick={() => setQ(r)} className="text-body text-ink-soft underline-offset-4 hover:text-primary hover:underline">{r}</button></li>)}</ul>
+                    <ul className="grid gap-1">{recent.map((r) => <li key={r}><button type="button" onClick={() => setQ(r)} className="inline-flex min-h-11 items-center text-left text-body text-ink-soft underline-offset-4 hover:text-primary hover:underline">{r}</button></li>)}</ul>
                   ) : <p className="text-small text-muted-foreground">Your recent searches will appear here.</p>}
                 </div>
                 <div>
                   <p className="overline mb-3 flex items-center gap-2"><TrendingUp className="size-3.5" aria-hidden />Popular searches</p>
-                  <ul className="grid gap-1">{POPULAR_SEARCHES.map((r) => <li key={r}><button type="button" onClick={() => setQ(r.split(" ")[0])} className="text-body text-ink-soft underline-offset-4 hover:text-primary hover:underline">{r}</button></li>)}</ul>
+                   <ul className="grid gap-1">{POPULAR_SEARCHES.map((r) => <li key={r}><button type="button" onClick={() => setQ(r.split(" ")[0])} className="inline-flex min-h-11 items-center text-left text-body text-ink-soft underline-offset-4 hover:text-primary hover:underline">{r}</button></li>)}</ul>
                 </div>
               </div>
             )}
