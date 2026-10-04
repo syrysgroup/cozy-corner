@@ -9,6 +9,7 @@ export const NAV: NavSection[] = [
     { slug: "mandate", label: { en: "Mandate", fr: "Mandat", pt: "Mandato" }, summary: "The Office’s mandate and institutional basis." },
     { slug: "role-responsibilities", label: { en: "Role and responsibilities", fr: "Rôle et responsabilités", pt: "Papel e responsabilidades" }, summary: "The Office’s role, responsibilities and scope." },
     { slug: "leadership", label: { en: "Leadership", fr: "Direction", pt: "Liderança" }, summary: "Leadership profiles and related publications." },
+    { slug: "strategy", label: { en: "Strategic plan", fr: "Plan stratégique", pt: "Plano estratégico" }, summary: "Priorities and outcomes for the current cycle." },
     { slug: "organizational-structure", label: { en: "Organizational structure", fr: "Structure organisationnelle", pt: "Estrutura organizacional" }, summary: "An interactive view of the Office’s structure." },
     { slug: "audit-approach", label: { en: "Audit approach", fr: "Approche d’audit", pt: "Abordagem de auditoria" }, summary: "The audit journey from planning to closure." },
     { slug: "governance", label: { en: "Governance", fr: "Gouvernance", pt: "Governação" }, summary: "Governance arrangements and institutional documents." },

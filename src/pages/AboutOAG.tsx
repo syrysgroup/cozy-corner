@@ -32,6 +32,10 @@ const sectionCopy: Record<string, { lead: string; note: string }> = {
     lead: "Leadership profiles will be published when approved names, biographies and photographs are available.",
     note: "No individual names or biographies have been provided for this draft.",
   },
+  strategy: {
+    lead: "Strategic priorities and outcomes will be published when an approved plan is available.",
+    note: "The current approved strategic plan has not been supplied.",
+  },
   "organizational-structure": {
     lead: "Explore the structure diagram. Official unit names and reporting lines will replace these placeholders.",
     note: "The approved organizational chart has not been supplied.",
@@ -195,6 +199,10 @@ function AuditJourney() {
 function PageBody({ page }: { page: string }) {
   switch (page) {
     case "leadership": return <LeadershipProfiles />;
+    case "strategy":
+      return <div className="grid gap-6 md:grid-cols-3">
+        {["Priorities", "Outcomes", "Reporting period"].map((item, index) => <div key={item} className="border-t border-border pt-4"><span className="font-mono text-xs text-primary">0{index + 1}</span><h2 className="mt-3 font-display text-h4">{item}</h2><p className="mt-2 text-small text-muted-foreground">Approved plan details to be supplied.</p></div>)}
+      </div>;
     case "organizational-structure": return <OrganizationStructure />;
     case "audit-approach": return <AuditJourney />;
     case "mandate": return <div className="grid gap-6 md:grid-cols-2">
