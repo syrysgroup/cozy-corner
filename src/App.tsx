@@ -1,32 +1,41 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { I18nProvider } from "@/lib/i18n";
-import DesignSystem from "@/pages/DesignSystem";
-import Home from "@/pages/Home";
-import Library from "@/pages/Library";
-import Transparency from "@/pages/Transparency";
-import DocumentDetail from "@/pages/DocumentDetail";
-import IntegrityLine from "@/pages/IntegrityLine";
-import NotFound from "@/pages/NotFound";
-import { SectionPage, StatesPage } from "@/pages/SectionPage";
+const DesignSystem = lazy(() => import("@/pages/DesignSystem"));
+const Home = lazy(() => import("@/pages/Home"));
+const Library = lazy(() => import("@/pages/Library"));
+const Transparency = lazy(() => import("@/pages/Transparency"));
+const DocumentDetail = lazy(() => import("@/pages/DocumentDetail"));
+const IntegrityLine = lazy(() => import("@/pages/IntegrityLine"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const SectionPage = lazy(() => import("@/pages/SectionPage").then((m) => ({ default: m.SectionPage })));
+const StatesPage = lazy(() => import("@/pages/SectionPage").then((m) => ({ default: m.StatesPage })));
 import { SiteLayout } from "@/components/ds/shell/SiteLayout";
-import AboutOAG, { ContactPage } from "@/pages/AboutOAG";
+const AboutOAG = lazy(() => import("@/pages/AboutOAG"));
+const ContactPage = lazy(() => import("@/pages/AboutOAG").then((m) => ({ default: m.ContactPage })));
 import { PortalLayout } from "@/components/portal/PortalLayout";
-import PortalDashboard from "@/pages/portal/Dashboard";
-import { AuditList, AuditDetail } from "@/pages/portal/Audits";
-import Recommendations from "@/pages/portal/Recommendations";
-import RiskPage from "@/pages/portal/Risk";
-import { Investigations, IntegrityCases } from "@/pages/portal/Investigations";
-import { Documents, KnowledgePage, Tasks, Notifications } from "@/pages/portal/Workspace";
-import Admin from "@/pages/portal/Admin";
-import OAGAssistant from "@/pages/portal/Assistant";
+const PortalDashboard = lazy(() => import("@/pages/portal/Dashboard"));
+const AuditList = lazy(() => import("@/pages/portal/Audits").then((m) => ({ default: m.AuditList })));
+const AuditDetail = lazy(() => import("@/pages/portal/Audits").then((m) => ({ default: m.AuditDetail })));
+const Recommendations = lazy(() => import("@/pages/portal/Recommendations"));
+const RiskPage = lazy(() => import("@/pages/portal/Risk"));
+const Investigations = lazy(() => import("@/pages/portal/Investigations").then((m) => ({ default: m.Investigations })));
+const IntegrityCases = lazy(() => import("@/pages/portal/Investigations").then((m) => ({ default: m.IntegrityCases })));
+const Documents = lazy(() => import("@/pages/portal/Workspace").then((m) => ({ default: m.Documents })));
+const KnowledgePage = lazy(() => import("@/pages/portal/Workspace").then((m) => ({ default: m.KnowledgePage })));
+const Tasks = lazy(() => import("@/pages/portal/Workspace").then((m) => ({ default: m.Tasks })));
+const Notifications = lazy(() => import("@/pages/portal/Workspace").then((m) => ({ default: m.Notifications })));
+const Admin = lazy(() => import("@/pages/portal/Admin"));
+const OAGAssistant = lazy(() => import("@/pages/portal/Assistant"));
 
 export default function App() {
   return (
     <I18nProvider>
       <TooltipProvider delayDuration={200}>
         <BrowserRouter>
+          <Suspense fallback={<div className="grid min-h-[60vh] place-items-center" role="status" aria-live="polite"><span className="sr-only">Loading page</span><span className="size-6 animate-spin rounded-full border-2 border-border border-t-primary motion-reduce:animate-none" aria-hidden /></div>}>
           <Routes>
             <Route path="/design-system" element={<DesignSystem />} />
             <Route path="/portal" element={<PortalLayout />}>
@@ -63,6 +72,7 @@ export default function App() {
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
+          </Suspense>
         </BrowserRouter>
         <Toaster position="bottom-right" toastOptions={{ className: "font-sans" }} />
       </TooltipProvider>
