@@ -72,7 +72,7 @@ function AboutLanding() {
   return (
     <>
       <section className="relative isolate flex min-h-[34rem] items-end overflow-hidden bg-ink text-background md:min-h-[39rem]">
-        <img src={auditTeam} alt="Audit professionals reviewing documents together" className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_58%]" />
+        <img src={auditTeam} alt="Audit professionals reviewing documents together" decoding="async" fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_58%]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-transparent" aria-hidden="true" />
         <Container className="pb-12 pt-28 md:pb-16">
           <nav aria-label="Breadcrumb" className="text-small text-background/80">

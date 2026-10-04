@@ -40,7 +40,7 @@ function Hero() {
   const img = useParallax();
   return (
     <section className="relative isolate overflow-hidden bg-ecowas-ocean text-primary-foreground">
-      <img ref={img} src={hero} alt="Auditors reviewing printed reports together" width={1920} height={1088} className="absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center] opacity-70 will-change-transform" />
+      <img ref={img} src={hero} alt="Auditors reviewing printed reports together" width={1920} height={1088} fetchPriority="high" decoding="async" className="absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center] opacity-70 will-change-transform" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ecowas-ocean via-ecowas-ocean/85 to-ecowas-ocean/10 max-lg:via-ecowas-ocean/80 max-lg:to-ecowas-ocean/50" aria-hidden />
       <Container className="flex min-h-[86vh] flex-col justify-end pb-12 pt-28 md:pb-20">
         <div className="max-w-3xl animate-rise-in motion-reduce:animate-none">
@@ -155,7 +155,7 @@ function Transparency() {
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((it, i) => (
           <Link key={it.k} to={it.to} style={stagger(i)} className="reveal group relative flex aspect-[3/4] flex-col justify-end overflow-hidden bg-ecowas-ocean p-6 text-primary-foreground max-sm:aspect-[4/3]">
-            <img src={it.img} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-slow group-hover:scale-105" />
+            <img src={it.img} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-slow group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-ecowas-ocean via-ecowas-ocean/60 to-transparent" aria-hidden />
             <div className="relative">
               <span className="font-mono text-xs text-ecowas-yellow">0{i + 1}</span>
@@ -316,7 +316,7 @@ function News() {
             {side.map((n, i) => (
               <li key={n.t} className="reveal" style={stagger(i + 1)}>
                 <Link to="/knowledge/news" className="group grid grid-cols-[7rem_1fr] gap-4 sm:grid-cols-[10rem_1fr]">
-                  <div className="overflow-hidden"><img src={n.img} alt="" loading="lazy" className="aspect-square w-full object-cover transition-transform duration-slow group-hover:scale-105" /></div>
+                  <div className="overflow-hidden"><img src={n.img} alt="" loading="lazy" decoding="async" className="aspect-square w-full object-cover transition-transform duration-slow group-hover:scale-105" /></div>
                   <div><p className="text-xs text-muted-foreground">{n.d}</p><h3 className="mt-1 font-display text-h4 group-hover:text-primary">{n.t}</h3></div>
                 </Link>
               </li>
