@@ -1,5 +1,8 @@
 import { ArrowDown, Gavel, Landmark, Scale, ShieldCheck, Building2, Network, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
+import commissionLogo from "@/assets/commission-logo.png.asset.json";
+import parliamentLogo from "@/assets/parliament-logo.png.asset.json";
+import courtLogo from "@/assets/court-logo.png.asset.json";
 
 /**
  * Canonical ECOWAS institutional model.
@@ -10,9 +13,9 @@ export const OAG_POSITIONING =
   "OAG is an independent assurance office supporting accountability, good corporate governance and value for money across ECOWAS Institutions.";
 
 export const GOVERNANCE_ARMS = [
-  { arm: "Executive", body: "ECOWAS Commission", icon: Briefcase, role: "Performs executive functions and implements Community programmes and activities." },
-  { arm: "Legislature", body: "ECOWAS Parliament", icon: Landmark, role: "Provides legislative and representative functions and parliamentary scrutiny." },
-  { arm: "Judiciary", body: "Community Court of Justice", icon: Scale, role: "Interprets and applies Community law." },
+  { arm: "Executive", body: "ECOWAS Commission", icon: Briefcase, logo: commissionLogo.url, role: "Performs executive functions and implements Community programmes and activities." },
+  { arm: "Legislature", body: "ECOWAS Parliament", icon: Landmark, logo: parliamentLogo.url, role: "Provides legislative and representative functions and parliamentary scrutiny." },
+  { arm: "Judiciary", body: "Community Court of Justice", icon: Scale, logo: courtLogo.url, role: "Interprets and applies Community law." },
 ];
 
 export const ECOSYSTEM = [
@@ -35,8 +38,9 @@ export function GovernanceArms() {
       <h3 id="gov-heading" className="mt-2 font-display text-h3">ECOWAS Governance</h3>
       <p className="mt-2 max-w-2xl text-small text-muted-foreground">ECOWAS has three arms of governance.</p>
       <ul className="mt-6 grid gap-4 md:grid-cols-3">
-        {GOVERNANCE_ARMS.map(({ arm, body, icon: Icon, role }) => (
+        {GOVERNANCE_ARMS.map(({ arm, body, icon: Icon, logo, role }) => (
           <li key={arm} className="border-t-2 border-ink pt-4">
+            <img src={logo} alt={`${body} logo`} width={80} height={80} loading="lazy" className="mb-4 size-20 object-contain" />
             <div className="flex items-center gap-2 text-ink-soft"><Icon className="size-4" aria-hidden="true" /><span className="overline">{arm}</span></div>
             <p className="mt-2 font-display text-h4 text-ink">{body}</p>
             <p className="mt-2 text-small text-muted-foreground">{role}</p>
