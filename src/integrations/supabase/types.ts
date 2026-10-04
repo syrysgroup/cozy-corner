@@ -79,6 +79,81 @@ export type Database = {
         }
         Relationships: []
       }
+      site_assets: {
+        Row: {
+          alt_text: string
+          asset_key: string
+          bucket_id: string
+          created_at: string
+          display_order: number
+          id: string
+          institution_name: string
+          is_active: boolean
+          storage_path: string
+          updated_at: string
+        }
+        Insert: {
+          alt_text: string
+          asset_key: string
+          bucket_id?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          institution_name: string
+          is_active?: boolean
+          storage_path: string
+          updated_at?: string
+        }
+        Update: {
+          alt_text?: string
+          asset_key?: string
+          bucket_id?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          institution_name?: string
+          is_active?: boolean
+          storage_path?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          content: Json
+          content_key: string
+          created_at: string
+          display_order: number
+          id: string
+          is_placeholder: boolean
+          is_published: boolean
+          section: string
+          updated_at: string
+        }
+        Insert: {
+          content: Json
+          content_key: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_placeholder?: boolean
+          is_published?: boolean
+          section: string
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          content_key?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_placeholder?: boolean
+          is_published?: boolean
+          section?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
