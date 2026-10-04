@@ -10,6 +10,7 @@ const Transparency = lazy(() => import("@/pages/Transparency"));
 const DocumentDetail = lazy(() => import("@/pages/DocumentDetail"));
 const IntegrityLine = lazy(() => import("@/pages/IntegrityLine"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
+const Institutions = lazy(() => import("@/pages/Institutions"));
 const SectionPage = lazy(() => import("@/pages/SectionPage").then((m) => ({ default: m.SectionPage })));
 const StatesPage = lazy(() => import("@/pages/SectionPage").then((m) => ({ default: m.StatesPage })));
 import { SiteLayout } from "@/components/ds/shell/SiteLayout";
@@ -58,6 +59,8 @@ export default function App() {
               <Route path="/about" element={<AboutOAG />} />
               <Route path="/about/:sub" element={<AboutOAG />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/institutions" element={<Institutions />} />
+              <Route path="/institutions/:sub" element={<Institutions />} />
               <Route path="/" element={<Home />} />
               <Route path="/integrityline" element={<IntegrityLine />} />
               <Route path="/integrityline/:sub" element={<IntegrityLine />} />
