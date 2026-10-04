@@ -4,6 +4,8 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { I18nProvider } from "@/lib/i18n";
 import DesignSystem from "@/pages/DesignSystem";
 import Home from "@/pages/Home";
+import Library from "@/pages/Library";
+import DocumentDetail from "@/pages/DocumentDetail";
 import NotFound from "@/pages/NotFound";
 import { SectionPage, StatesPage } from "@/pages/SectionPage";
 import { SiteLayout } from "@/components/ds/shell/SiteLayout";
@@ -21,6 +23,9 @@ export default function App() {
               <Route path="/about/:sub" element={<AboutOAG />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/" element={<Home />} />
+              <Route path="/publications" element={<Library />} />
+              <Route path="/publications/document/:id" element={<DocumentDetail />} />
+              <Route path="/publications/:sub" element={<Library />} />
               <Route path="/design-system/states" element={<StatesPage />} />
               <Route path="/:section" element={<SectionPage />} />
               <Route path="/:section/:sub" element={<SectionPage />} />
