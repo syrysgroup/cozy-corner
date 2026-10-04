@@ -84,7 +84,7 @@ export function Progress({ value, className }: { value: number; className?: stri
 
 export function Seg<T extends string>({ value, options, onChange, label }: { value: T; options: readonly T[]; onChange: (v: NoInfer<T>) => void; label: string }) {
   return (
-    <div role="radiogroup" aria-label={label} className="inline-flex border border-border bg-card p-0.5">
+    <div role="radiogroup" aria-label={label} className="inline-flex max-w-full flex-wrap border border-border bg-card p-0.5">
       {options.map((o) => (
         <button key={o} type="button" role="radio" aria-checked={value === o} onClick={() => onChange(o)}
           className={cn("px-3 py-1.5 text-xs font-semibold text-ink-soft hover:text-ink", value === o && "bg-ink text-background hover:text-background")}>{o}</button>
