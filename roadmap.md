@@ -1,6 +1,7 @@
 # OAG roadmap
 
-- [ ] Finish public official-logo display and replace header Careers/Procurement with Opportunities alongside ECOWAS Institutions.
+- [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
+- [ ] Restore official logo files: public database records are connected, but their storage bucket returns "Bucket not found" and existing CDN fallbacks return 404; requires accessible official image files.
 
 - [x] Design-system showcase (now at /design-system).
 - [x] Global website shell: header, mobile menu, footer, search, breadcrumbs, states, 404.
