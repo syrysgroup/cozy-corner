@@ -67,7 +67,7 @@ export default function Library() {
         <Container className="py-4">
           <form role="search" onSubmit={(e) => { e.preventDefault(); setParams(q ? { q } : {}); }} className="flex items-center gap-3 border border-ink/20 bg-card px-4 focus-within:border-primary focus-within:shadow-focus">
             <Search className="size-5 text-primary" aria-hidden />
-            <input value={q} onChange={(e) => setQ(e.target.value)} type="search" aria-label="Search the library" placeholder="Search titles, findings, recommendations, reference numbers…" className="h-13 min-w-0 flex-1 bg-transparent py-3.5 text-lead text-ink outline-none placeholder:text-muted-foreground" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} type="text" aria-label="Search the library" placeholder="Search titles, findings, recommendations, reference numbers…" className="h-13 min-w-0 flex-1 bg-transparent py-3.5 text-lead text-ink outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none placeholder:text-muted-foreground" />
             {q && <button type="button" onClick={() => setQ("")} aria-label="Clear search" className="grid size-9 place-items-center text-muted-foreground hover:text-ink"><X className="size-4" /></button>}
           </form>
           <div className="mt-3 flex flex-wrap items-center gap-2 text-small">
