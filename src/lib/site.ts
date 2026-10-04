@@ -41,6 +41,7 @@ export const NAV: NavSection[] = [
   ] },
   { slug: "integrityline", label: { en: "IntegrityLine", fr: "IntegrityLine", pt: "IntegrityLine" }, lead: "A confidential channel to report concerns about fraud, waste or misconduct.", children: [
     { slug: "report", label: { en: "Make a report", fr: "Faire un signalement", pt: "Fazer uma denúncia" }, summary: "Submit a concern securely and confidentially." },
+    { slug: "track", label: { en: "Track a report", fr: "Suivre un signalement", pt: "Acompanhar denúncia" }, summary: "Check status and message investigators." },
     { slug: "protection", label: { en: "Whistleblower protection", fr: "Protection des lanceurs d’alerte", pt: "Proteção de denunciantes" }, summary: "How your identity and rights are protected." },
   ] },
 ];
