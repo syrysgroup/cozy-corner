@@ -29,7 +29,7 @@ export function MandateGrid() {
                   className="group relative flex h-full min-h-[15rem] w-full flex-col overflow-hidden border border-border bg-card p-6 text-left transition-shadow duration-base hover:shadow-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                   <span className={cn("absolute inset-0 origin-bottom transition-transform duration-slow ease-out", tone, isOpen ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100")} aria-hidden />
                   <span className={cn("absolute inset-x-0 top-0 h-1.5", tone)} aria-hidden />
-                  <span className={cn("relative flex items-start justify-between transition-colors duration-base", isOpen ? text : `group-hover:${text.replace("text-", "text-")}`)}>
+                  <span className={cn("relative flex items-start justify-between transition-colors duration-base", isOpen ? text : cn("text-ink", text === "text-ink" ? "" : "group-hover:text-primary-foreground"))}>
                     <span className="font-mono text-xs opacity-70">0{i + 1}</span>
                     <Plus className={cn("size-5 transition-transform duration-base", isOpen && "rotate-45")} aria-hidden />
                   </span>
