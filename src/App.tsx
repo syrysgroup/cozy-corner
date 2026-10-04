@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import Library from "@/pages/Library";
 import Transparency from "@/pages/Transparency";
 import DocumentDetail from "@/pages/DocumentDetail";
+import IntegrityLine from "@/pages/IntegrityLine";
 import NotFound from "@/pages/NotFound";
 import { SectionPage, StatesPage } from "@/pages/SectionPage";
 import { SiteLayout } from "@/components/ds/shell/SiteLayout";
@@ -24,6 +25,8 @@ export default function App() {
               <Route path="/about/:sub" element={<AboutOAG />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/" element={<Home />} />
+              <Route path="/integrityline" element={<IntegrityLine />} />
+              <Route path="/integrityline/:sub" element={<IntegrityLine />} />
               <Route path="/transparency" element={<Transparency />} />
               <Route path="/transparency/:sub" element={<Transparency />} />
               <Route path="/publications" element={<Library />} />
