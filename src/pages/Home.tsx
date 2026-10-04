@@ -8,6 +8,7 @@ import building from "@/assets/editorial-building.jpg";
 import { Button, StatusBadge, Badge } from "@/components/ds/primitives";
 import { SectionHeading } from "@/components/ds/showcase";
 import { Container } from "@/components/ds/shell/layout-parts";
+import { InstitutionalArchitecture } from "@/components/ds/institutional";
 import { useCountUp, useReveal, usePrefersReducedMotion } from "@/hooks/use-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -358,6 +359,13 @@ export default function Home() {
   return (
     <div ref={ref}>
       <Hero />
+      <Container as="section" aria-labelledby="home-architecture" className="py-section">
+        <div className="mb-8 max-w-3xl">
+          <p className="overline text-primary">Institutional architecture</p>
+          <h2 id="home-architecture" className="mt-3 font-display text-h2">Three arms of governance. One independent assurance office.</h2>
+        </div>
+        <InstitutionalArchitecture />
+      </Container>
       <Intelligence />
       <AuditMap />
       <Transparency />
