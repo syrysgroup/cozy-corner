@@ -54,7 +54,7 @@ export function LeadershipFeature() {
   const [broken, setBroken] = useState(false);
   return (
     <Container as="section" aria-labelledby="home-leadership" className="py-section-lg">
-      <p className="overline text-primary">03 · Leadership</p>
+      <p className="overline text-primary">02 · Leadership</p>
       <h2 id="home-leadership" className="mt-3 max-w-3xl font-display text-h1">Leadership of the Office of the Auditor General</h2>
       <p className="mt-4 max-w-2xl text-lead text-muted-foreground">The Auditor General leads the Office’s independent audit and assurance work across ECOWAS Institutions.</p>
       <article aria-labelledby="ag-title" className="mt-10 grid overflow-hidden border border-border bg-card shadow-raised md:grid-cols-[minmax(16rem,0.9fr)_1.1fr]">

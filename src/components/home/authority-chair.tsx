@@ -13,9 +13,9 @@ export function AuthorityChairFeature() {
 
   return (
     <section aria-labelledby="home-chair" className="relative overflow-hidden bg-ecowas-ocean py-section-lg text-primary-foreground">
-      <span className="pointer-events-none absolute -left-40 top-1/2 size-[36rem] -translate-y-1/2 rounded-full border border-primary-foreground/10" aria-hidden />
+      <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 border-r border-primary-foreground/10 pattern-dots opacity-20" aria-hidden />
       <Container>
-        <p className="overline flex items-center gap-3 text-primary-foreground/80"><span className="h-px w-10 bg-ecowas-yellow" aria-hidden />Chairman of the Authority</p>
+        <p className="overline flex items-center gap-3 text-primary-foreground/80"><span className="h-px w-10 bg-ecowas-yellow" aria-hidden />01 · Chairman of the Authority</p>
         <p className="mt-3 max-w-3xl text-small text-primary-foreground/75">Chairman of the Authority of Heads of State and Government of the Economic Community of West African States (ECOWAS)</p>
 
         <div className="mt-10 grid gap-10 md:grid-cols-[minmax(16rem,0.85fr)_1.15fr] md:items-center">
