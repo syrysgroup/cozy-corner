@@ -1,9 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Landmark, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, ECOSYSTEM, OAG_POSITIONING, OAG_ROLES } from "@/components/ds/institutional";
 import { ECOWAS_LINKS } from "@/lib/site";
 import { useOfficialAsset } from "@/lib/public-site";
+import { useAuthorityChairs, formatChairDate } from "@/lib/authority-data";
 
 const ARMS = [
   { slug: "commission", key: "commission", site: "https://ecowas.int", ...GOVERNANCE_ARMS[0] },
@@ -12,7 +13,7 @@ const ARMS = [
 ];
 
 const SECTIONS = [
-  ["governance", "ECOWAS Governance"], ["other", "Other Institutions"], ["agencies", "Specialized Agencies"],
+  ["authority", "The Authority"], ["governance", "ECOWAS Governance"], ["other", "Other Institutions"], ["agencies", "Specialized Agencies"],
   ["directory", "Institution Directory"], ["audit-universe", "OAG Audit Universe"],
 ] as const;
 
