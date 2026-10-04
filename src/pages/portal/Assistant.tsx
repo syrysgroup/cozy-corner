@@ -180,7 +180,7 @@ export default function OAGAssistant() {
       } else {
         const restored = (result.data ?? []).map(storedToChat);
         setMessages(restored);
-        const latestCitation = restored.toReversed().find((item) => item.role === "assistant" && item.citations.length)?.citations[0];
+        const latestCitation = [...restored].reverse().find((item) => item.role === "assistant" && item.citations.length)?.citations[0];
         const citationDoc = latestCitation ? searchAssistantCatalogue(latestCitation).find((item) => item.document.id === latestCitation) : undefined;
         if (citationDoc) setSelectedMatch(citationDoc);
       }
@@ -377,7 +377,7 @@ export default function OAGAssistant() {
                             <span className="assistant-confidence">Context only · confidence not assessed</span>
                           </div>
                         )}
-                        {message.parts.filter((part) => part.type === "text").map((part, index) => <MessageResponse key={`${message.id}-${index}`} isAnimating={sending && index === message.parts.length - 1}>{part.text}</MessageResponse>)}
+                        <MessageResponse isAnimating={false}>{message.text}</MessageResponse>
                         {message.role === "assistant" && message.citations.length > 0 && (
                           <div className="assistant-citations">
                             <div className="assistant-citations-head"><FileSearch className="size-4" aria-hidden="true" /><span>Source documents</span><span className="assistant-citation-count">{message.citations.length}</span></div>
