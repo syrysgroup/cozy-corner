@@ -17,3 +17,4 @@
 - ECOWAS institutional model (three governance arms; OAG separate as independent assurance) lives only in `src/components/ds/institutional.tsx`; reuse it so OAG is never shown as a fourth arm.
 - Primary navigation renders `MAIN_NAV` from `src/lib/site.ts`, which excludes destinations already in the utility bar; avoids duplicate header destinations.
 - Homepage news reads only from `fetchLatestNews` in `src/lib/news-data.ts` (empty until approved content); never hardcode articles on pages.
+- Authority chair data comes only from `useAuthorityChairs` in `src/lib/authority-data.ts` (public read of published rows, current + archive); chairs rotate yearly so nothing is hardcoded and history is never deleted.

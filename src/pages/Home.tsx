@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Download, EyeOff, Lock, UserCheck, Search } from "lucide-react";
+import { AuthorityChairFeature } from "@/components/home/authority-chair";
 import { HomeIntro, WhatOAGDoes, LeadershipFeature, InstitutionsTeaser, AuditAssurance, LatestNews, KnowledgeGateway, Newsletter } from "@/components/home/sections";
 import hero from "@/assets/hero-auditors.jpg";
 import conference from "@/assets/news-conference.jpg";
@@ -201,6 +202,7 @@ export default function Home() {
       <HomeIntro />
       <WhatOAGDoes />
       <LeadershipFeature />
+      <AuthorityChairFeature />
       <InstitutionsTeaser />
       <AuditAssurance />
       <Transparency />
