@@ -74,7 +74,6 @@ export function CinematicHero() {
             aria-hidden={i !== index}
             width={1920}
             height={1088}
-            fetchPriority={i === 0 ? "high" : "auto"}
             loading={i === 0 ? "eager" : "lazy"}
             decoding="async"
             className={cn(
