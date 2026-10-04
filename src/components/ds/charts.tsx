@@ -89,7 +89,7 @@ export function TrendChart({ data, series }: { data: { label: string; values: nu
         const last = data[data.length - 1].values[si];
         return (
           <g key={s.name} className={s.className}>
-            <polyline points={pts} fill="none" className="stroke-current chart-draw" strokeWidth="2" strokeDasharray={si ? "5 3" : undefined} />
+            <polyline points={pts} fill="none" className={cn("stroke-current", !si && "[stroke-dasharray:600] motion-safe:animate-draw")} strokeWidth="2" strokeDasharray={si ? "5 3" : undefined} />
             {data.map((d, i) => si === 0
               ? <circle key={i} cx={x(i)} cy={y(d.values[si])} r="3" className="fill-card stroke-current" strokeWidth="1.5" />
               : <rect key={i} x={x(i) - 2.5} y={y(d.values[si]) - 2.5} width="5" height="5" className="fill-card stroke-current" strokeWidth="1.5" />)}
