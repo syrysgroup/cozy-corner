@@ -15,3 +15,5 @@
 - Only present assistant evidence from permission-filtered OAG sources; keep placeholder records visibly illustrative and leave AI answers unavailable until an authorized retrieval service exists, so the UI cannot imply verified institutional findings.
 - Route pages are lazy-loaded in `src/App.tsx` behind one Suspense fallback; keeps the first load small as sections grow.
 - ECOWAS institutional model (three governance arms; OAG separate as independent assurance) lives only in `src/components/ds/institutional.tsx`; reuse it so OAG is never shown as a fourth arm.
+- Primary navigation renders `MAIN_NAV` from `src/lib/site.ts`, which excludes destinations already in the utility bar; avoids duplicate header destinations.
+- Homepage news reads only from `fetchLatestNews` in `src/lib/news-data.ts` (empty until approved content); never hardcode articles on pages.
