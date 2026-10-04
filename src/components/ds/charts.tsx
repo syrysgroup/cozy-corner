@@ -78,7 +78,7 @@ export function KpiCard({ label, value, suffix, delta, question }: { label: stri
 export function TrendChart({ data, series }: { data: { label: string; values: number[] }[]; series: { name: string; className: string }[] }) {
   const W = 320, H = 170, P = 26;
   const max = Math.max(...data.flatMap((d) => d.values)) * 1.15;
-  const x = (i: number) => P + (i * (W - P * 2.6)) / (data.length - 1);
+  const x = (i: number) => P + (i * (W - P * 3.6)) / (data.length - 1);
   const y = (v: number) => H - P - (v / max) * (H - P * 2);
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={series.map((s, si) => `${s.name}: ${data.map((d) => `${d.label} ${d.values[si]}`).join(", ")}`).join(". ")}>
