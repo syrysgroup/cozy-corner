@@ -1,0 +1,121 @@
+import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
+
+const token = (name: string) => `hsl(var(--${name}) / <alpha-value>)`;
+
+export default {
+  darkMode: ["class"],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  theme: {
+    screens: {
+      xs: "390px",
+      sm: "480px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1440px",
+    },
+    container: {
+      center: true,
+      padding: { DEFAULT: "1.25rem", md: "2rem", xl: "3rem" },
+      screens: { "2xl": "1440px" },
+    },
+    extend: {
+      fontFamily: {
+        sans: ["'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
+        display: ["'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
+        serif: ["'Source Serif 4'", "Georgia", "serif"],
+      },
+      fontSize: {
+        "display-xl": ["var(--fs-display-xl)", { lineHeight: "1.02", letterSpacing: "-0.025em", fontWeight: "700" }],
+        "display-lg": ["var(--fs-display-lg)", { lineHeight: "1.05", letterSpacing: "-0.02em", fontWeight: "700" }],
+        h1: ["var(--fs-h1)", { lineHeight: "1.1", letterSpacing: "-0.015em", fontWeight: "700" }],
+        h2: ["var(--fs-h2)", { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "700" }],
+        h3: ["var(--fs-h3)", { lineHeight: "1.25", fontWeight: "600" }],
+        h4: ["var(--fs-h4)", { lineHeight: "1.3", fontWeight: "600" }],
+        lead: ["var(--fs-lead)", { lineHeight: "1.55" }],
+        body: ["var(--fs-body)", { lineHeight: "1.6" }],
+        small: ["var(--fs-small)", { lineHeight: "1.5" }],
+        overline: ["0.75rem", { lineHeight: "1", letterSpacing: "0.14em", fontWeight: "600" }],
+      },
+      colors: {
+        border: token("border"),
+        input: token("input"),
+        ring: token("ring"),
+        background: token("background"),
+        foreground: token("foreground"),
+        surface: { DEFAULT: token("surface"), raised: token("surface-raised"), sunken: token("surface-sunken") },
+        primary: { DEFAULT: token("primary"), foreground: token("primary-foreground"), soft: token("primary-soft") },
+        secondary: { DEFAULT: token("secondary"), foreground: token("secondary-foreground") },
+        muted: { DEFAULT: token("muted"), foreground: token("muted-foreground") },
+        accent: { DEFAULT: token("accent"), foreground: token("accent-foreground") },
+        destructive: { DEFAULT: token("destructive"), foreground: token("destructive-foreground") },
+        card: { DEFAULT: token("card"), foreground: token("card-foreground") },
+        popover: { DEFAULT: token("popover"), foreground: token("popover-foreground") },
+        ink: { DEFAULT: token("ink"), soft: token("ink-soft") },
+        ecowas: {
+          green: token("ecowas-green"),
+          brown: token("ecowas-brown"),
+          yellow: token("ecowas-yellow"),
+          lime: token("ecowas-lime"),
+          orange: token("ecowas-orange"),
+          sky: token("ecowas-sky"),
+          ocean: token("ecowas-ocean"),
+          slate: token("ecowas-slate"),
+          red: token("ecowas-red"),
+        },
+        status: {
+          positive: token("status-positive"),
+          attention: token("status-attention"),
+          warning: token("status-warning"),
+          critical: token("status-critical"),
+          info: token("status-info"),
+          neutral: token("status-neutral"),
+        },
+      },
+      spacing: {
+        "section-sm": "var(--space-section-sm)",
+        section: "var(--space-section)",
+        "section-lg": "var(--space-section-lg)",
+      },
+      borderRadius: {
+        none: "0",
+        xs: "2px",
+        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 2px)",
+        lg: "var(--radius)",
+        xl: "calc(var(--radius) + 4px)",
+      },
+      boxShadow: {
+        hairline: "var(--shadow-hairline)",
+        raised: "var(--shadow-raised)",
+        overlay: "var(--shadow-overlay)",
+        focus: "var(--shadow-focus)",
+      },
+      transitionTimingFunction: {
+        institutional: "cubic-bezier(0.2, 0.7, 0.2, 1)",
+      },
+      transitionDuration: {
+        fast: "150ms",
+        base: "250ms",
+        slow: "450ms",
+      },
+      keyframes: {
+        "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
+        "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
+        "rise-in": { from: { opacity: "0", transform: "translateY(16px)" }, to: { opacity: "1", transform: "translateY(0)" } },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
+        "slide-in-right": { from: { transform: "translateX(100%)" }, to: { transform: "translateX(0)" } },
+        shimmer: { "100%": { transform: "translateX(100%)" } },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.25s cubic-bezier(0.2,0.7,0.2,1)",
+        "accordion-up": "accordion-up 0.2s cubic-bezier(0.2,0.7,0.2,1)",
+        "rise-in": "rise-in 0.6s cubic-bezier(0.2,0.7,0.2,1) both",
+        "fade-in": "fade-in 0.3s ease-out both",
+        shimmer: "shimmer 1.6s infinite",
+      },
+    },
+  },
+  plugins: [animate],
+} satisfies Config;
