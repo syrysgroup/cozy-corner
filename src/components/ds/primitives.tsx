@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { CheckCircle2, AlertTriangle, AlertOctagon, Info, Circle, Eye, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useOfficialAsset } from "@/lib/public-site";
 
 /* ---------------- Button ---------------- */
 export const buttonVariants = cva(
@@ -89,9 +90,10 @@ import auditorGeneralLogo from "@/assets/auditor-general-logo.png.asset.json";
 export const OFFICIAL_LOGO_SRC: string = auditorGeneralLogo.url;
 
 export function Wordmark({ inverse, compact }: { inverse?: boolean; compact?: boolean }) {
+  const logo = useOfficialAsset("oag", OFFICIAL_LOGO_SRC);
   return (
     <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-      <img src={OFFICIAL_LOGO_SRC} alt="Office of the Auditor General logo" width={72} height={72} fetchPriority="high" className={cn("size-14 shrink-0 object-contain sm:size-[4.5rem]", compact && "size-12 sm:size-14")} />
+      <img src={logo.src} alt={logo.alt ?? "Office of the Auditor General logo"} width={72} height={72} fetchPriority="high" className={cn("size-14 shrink-0 object-contain sm:size-[4.5rem]", compact && "size-12 sm:size-14")} />
       {!compact && (
         <div className={cn("min-w-0 leading-tight", inverse ? "text-background" : "text-ink")}>
           <div className="text-base font-bold sm:text-lg">Office of the Auditor General</div>

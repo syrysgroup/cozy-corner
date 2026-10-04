@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import commissionLogo from "@/assets/commission-logo.png.asset.json";
 import parliamentLogo from "@/assets/parliament-logo.png.asset.json";
 import courtLogo from "@/assets/court-logo.png.asset.json";
+import { useOfficialAsset } from "@/lib/public-site";
 
 /**
  * Canonical ECOWAS institutional model.
@@ -31,6 +32,11 @@ export const ASSURANCE_CHAIN = [
   "Management Response", "Corrective Action", "Follow-up", "Verification", "Accountability", "Transparency",
 ];
 
+function InstitutionLogo({ assetKey, fallback, body }: { assetKey: string; fallback: string; body: string }) {
+  const logo = useOfficialAsset(assetKey, fallback);
+  return <img src={logo.src} alt={logo.alt ?? `${body} logo`} width={80} height={80} loading="lazy" className="mb-4 size-20 object-contain" />;
+}
+
 export function GovernanceArms() {
   return (
     <section aria-labelledby="gov-heading" className="border border-border bg-card p-6 md:p-8">
@@ -40,7 +46,7 @@ export function GovernanceArms() {
       <ul className="mt-6 grid gap-4 md:grid-cols-3">
         {GOVERNANCE_ARMS.map(({ arm, body, icon: Icon, logo, role }) => (
           <li key={arm} className="border-t-2 border-ink pt-4">
-            <img src={logo} alt={`${body} logo`} width={80} height={80} loading="lazy" className="mb-4 size-20 object-contain" />
+            <InstitutionLogo assetKey={arm === "Executive" ? "commission" : arm === "Legislature" ? "parliament" : "court"} fallback={logo} body={body} />
             <div className="flex items-center gap-2 text-ink-soft"><Icon className="size-4" aria-hidden="true" /><span className="overline">{arm}</span></div>
             <p className="mt-2 font-display text-h4 text-ink">{body}</p>
             <p className="mt-2 text-small text-muted-foreground">{role}</p>
