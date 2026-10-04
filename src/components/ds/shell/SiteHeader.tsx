@@ -80,8 +80,8 @@ export function SiteHeader() {
         </div>
         {/* Main bar */}
         <div className={cn("border-b border-border bg-background/95 backdrop-blur transition-shadow duration-base", scrolled && "shadow-hairline")}>
-          <Container className="flex h-[4.5rem] items-center justify-between gap-6 xl:h-20">
-            <Link to="/" aria-label="Office of the Auditor General — home" className="shrink-0 py-2 pr-2"><Wordmark /></Link>
+          <Container className="flex h-[4.5rem] items-center justify-between gap-2 sm:gap-6 xl:h-20">
+            <Link to="/" aria-label="Office of the Auditor General — home" className="min-w-0 shrink overflow-hidden py-2 pr-1 sm:shrink-0 sm:pr-2"><Wordmark /></Link>
             <nav aria-label="Main" className="hidden shrink-0 xl:block">
               <ul className="flex items-center gap-0">
                 {NAV.map((s) => (
