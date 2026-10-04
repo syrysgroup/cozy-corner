@@ -84,7 +84,13 @@ export function Band({ className }: { className?: string }) {
 }
 
 /* Wordmark placeholder — replace with the official OAG / ECOWAS lockup (respect clear-space; never distort). */
+/** Set to the official OAG logo URL once supplied; it is rendered as-is (no redraw, no distortion). */
+export const OFFICIAL_LOGO_SRC: string | null = null;
+
 export function Wordmark({ inverse, compact }: { inverse?: boolean; compact?: boolean }) {
+  if (OFFICIAL_LOGO_SRC) {
+    return <img src={OFFICIAL_LOGO_SRC} alt="Office of the Auditor General, ECOWAS Institutions" className={cn("h-11 w-auto object-contain p-1", compact && "h-9")} />;
+  }
   return (
     <div className="flex items-center gap-3">
       <div className={cn("grid size-10 place-items-center rounded-full border-2", inverse ? "border-background text-background" : "border-primary text-primary")} aria-hidden>

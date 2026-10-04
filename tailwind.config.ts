@@ -24,7 +24,7 @@ export default {
       fontFamily: {
         sans: ["'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
         display: ["'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
-        serif: ["'Source Serif 4'", "Georgia", "serif"],
+        serif: ["'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
       },
       fontSize: {
         "display-xl": ["var(--fs-display-xl)", { lineHeight: "1.02", letterSpacing: "-0.025em", fontWeight: "700" }],
@@ -42,6 +42,9 @@ export default {
         border: token("border"),
         input: token("input"),
         ring: token("ring"),
+        interactive: { DEFAULT: token("interactive"), hover: token("interactive-hover"), active: token("interactive-active"), selected: token("interactive-selected") },
+        focus: token("focus"),
+        text: { DEFAULT: token("text"), muted: token("text-muted") },
         background: token("background"),
         foreground: token("foreground"),
         surface: { DEFAULT: token("surface"), raised: token("surface-raised"), sunken: token("surface-sunken") },
