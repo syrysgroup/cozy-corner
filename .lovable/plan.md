@@ -1,49 +1,30 @@
-# Homepage Redesign — Interactive ECOWAS Brand Experience
+# Homepage fixes
 
-## Goal
-Rebuild the homepage as a modern, highly interactive, aesthetically striking experience driven by the ECOWAS Corporate Design Manual (Nov 2020). The top header (utility bar + main navigation) stays exactly as it is. All content sections below the header are redesigned.
+## 1. Restore the Auditor General section
+The rebuilt homepage dropped the Auditor General leadership section, so no OAG image appears. Re-add it (after the Chairman of the Authority section) using the existing `LeadershipFeature` block, which shows the Office of the Auditor General emblem with the striped accent treatment, plus the "Meet the OAG leadership" link. Portrait stays as an approved-placeholder note until an official photo is supplied.
 
-## Brand foundations (from the manual, already in our tokens)
-- Primary: ECOWAS Green #008244, Yellow #E4CA00, Brown #AD4F2E
-- Secondary: Lime #AEBD39, Orange #F07E26, Deep Red #8E1D36, Sky #5EA3B3, Ocean #004C71, Blue-grey #335D68
-- Typeface: Source Sans Pro (manual-mandated); keep existing fluid display scale
-- Signature motif: the green/yellow/brown tri-band (`--band`) used as a recurring design device
-- All motion respects `prefers-reduced-motion` (existing `usePrefersReducedMotion` hook)
+## 2. ECOWAS membership: 15 → 12
+Mali, Burkina Faso and Niger left ECOWAS in January 2025.
+- Remove those three countries from the map data in `src/components/home/map-section.tsx`.
+- Change the map heading from "Fifteen member states. One audit mandate." to "Twelve member states. One audit mandate."
+- Keep the existing note that institution locations should be checked against official sources.
 
-## New homepage structure (top to bottom)
+## 3. Opening banner becomes a slider
+Convert the full-height hero photo into an auto-advancing image slider:
+- Cycles through the existing photos (hero auditors, editorial building, editorial meeting, news conference) with a smooth crossfade.
+- Previous/next arrows and position dots, pauses on hover, respects reduced-motion settings.
+- Keeps the word-by-word headline, the green/yellow/brown stripe, and the scrolling keywords.
 
-1. **Cinematic hero** — full-viewport, layered parallax imagery over Ocean blue, oversized display headline with a staggered word-by-word reveal, animated tri-band underline, and a live ticker strip of the six mandate keywords scrolling horizontally. Scroll indicator that fades on scroll.
+## 4. Logos for the three arms of governance
+In the "Three arms of governance" section, show each institution's official logo (Commission, Parliament, Court — the logo files already exist in the project) next to its name in the clickable rows, instead of the generic icons.
 
-2. **Mission statement** — large editorial typography where key phrases highlight in ECOWAS yellow as they scroll into view (scroll-linked text reveal), replacing the current static intro.
+## 5. Tone down the mission statement
+The "Who we are" mission text currently renders at an oversized display size with heavy bold words. Reduce it to a calmer, readable size with normal weight, keeping the scroll-highlight of key phrases in ECOWAS yellow.
 
-3. **What the OAG does** — interactive card grid: each of the mandate areas gets a hover/tap card that flips or expands to show detail, colour-coded with the secondary palette (lime, orange, sky, ocean). Cards animate in with stagger on scroll.
-
-4. **Interactive West Africa map** — new signature section: an SVG map of the 15 ECOWAS member states. Hovering/tapping a country highlights it in ECOWAS green and shows its name; selecting a country shows which institutions fall under the audit mandate there. Pure SVG + CSS, no map library.
-
-5. **Chairman of the Authority** — keep the existing data-driven `AuthorityChairFeature` (Supabase-backed), restyled: portrait in a duotone Ocean-blue treatment with a yellow tri-band accent frame, smoother entrance animation.
-
-6. **Transparency in numbers** — the four stat cards become a scroll-triggered count-up dashboard with animated progress arcs/rings, images cross-fading on hover. Placeholder-data notice retained.
-
-7. **Publications shelf** — keep the horizontal snap rail but upgrade it: cover cards tilt in 3D on pointer move, with a drag-to-scroll interaction and progress bar showing position in the rail.
-
-8. **Institutions teaser** — three-arms-of-governance diagram becomes an interactive explainer: clicking each arm (Commission, Parliament, Court) expands its description while OAG stays visually separate as independent assurance (per our institutional model rule).
-
-9. **IntegrityLine** — keep the green band but add animated concentric rings that respond subtly to pointer position, and cards that lift with a coloured edge on hover.
-
-10. **Newsletter + final CTA** — merged into one closing band on ink background with the tri-band divider, oversized link list with sliding arrow hover states (existing pattern, refined).
-
-## What stays untouched
-- Top header / utility bar / navigation — no changes
-- Footer, SiteLayout, routing, all other pages
-- Data sources: `home-data.ts`, `authority-data.ts`, `news-data.ts` shapes unchanged — no fabricated stats
-- Design tokens in `index.css` — only additive changes (new keyframes/utilities), no token removals
+## 6. Verify
+Check the homepage loads cleanly and click through it at desktop and mobile sizes, fixing anything broken.
 
 ## Technical notes
-- New components in `src/components/home/` (e.g. `hero.tsx`, `map-section.tsx`, `stats.tsx`); `Home.tsx` recomposes the page
-- Map: hand-built simplified SVG paths of the 15 member states, keyboard-accessible (focusable, arrow-key navigation, aria-labels)
-- Animations: CSS keyframes + existing `useReveal`/`useCountUp` hooks; pointer parallax via rAF like the current hero; no new heavy dependencies
-- Accessibility: every interactive element keyboard-operable, reduced-motion fallbacks, colour never the only signal
-- Performance: hero image stays `fetchPriority="high"`, below-fold images lazy; map SVG inlined and small
-
-## Verification
-- Build check, then Playwright pass over the homepage at desktop and mobile widths: hero reveal, map hover/keyboard, count-up trigger, rail drag, reduced-motion emulation.
+- Files touched: `src/pages/Home.tsx`, `src/components/home/hero.tsx`, `map-section.tsx`, `mission.tsx`, `closing.tsx`, `sections.tsx`.
+- Logos/emblem load via the existing `useOfficialAsset` hook with the bundled asset files as fallback.
+- No new dependencies; slider built with existing motion hooks.
