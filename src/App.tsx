@@ -12,6 +12,14 @@ import NotFound from "@/pages/NotFound";
 import { SectionPage, StatesPage } from "@/pages/SectionPage";
 import { SiteLayout } from "@/components/ds/shell/SiteLayout";
 import AboutOAG, { ContactPage } from "@/pages/AboutOAG";
+import { PortalLayout } from "@/components/portal/PortalLayout";
+import PortalDashboard from "@/pages/portal/Dashboard";
+import { AuditList, AuditDetail } from "@/pages/portal/Audits";
+import Recommendations from "@/pages/portal/Recommendations";
+import RiskPage from "@/pages/portal/Risk";
+import { Investigations, IntegrityCases } from "@/pages/portal/Investigations";
+import { Documents, KnowledgePage, Tasks, Notifications } from "@/pages/portal/Workspace";
+import Admin from "@/pages/portal/Admin";
 
 export default function App() {
   return (
@@ -20,6 +28,20 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/design-system" element={<DesignSystem />} />
+            <Route path="/portal" element={<PortalLayout />}>
+              <Route index element={<PortalDashboard />} />
+              <Route path="audits" element={<AuditList />} />
+              <Route path="audits/:id" element={<AuditDetail />} />
+              <Route path="recommendations" element={<Recommendations />} />
+              <Route path="risk" element={<RiskPage />} />
+              <Route path="investigations" element={<Investigations />} />
+              <Route path="integrityline" element={<IntegrityCases />} />
+              <Route path="documents" element={<Documents />} />
+              <Route path="knowledge" element={<KnowledgePage />} />
+              <Route path="tasks" element={<Tasks />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route path="admin" element={<Admin />} />
+            </Route>
             <Route element={<SiteLayout />}>
               <Route path="/about" element={<AboutOAG />} />
               <Route path="/about/:sub" element={<AboutOAG />} />
