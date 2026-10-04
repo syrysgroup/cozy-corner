@@ -54,9 +54,9 @@ export const STANDALONE: Record<string, { title: string; lead: string }> = {
 };
 
 export const UI: Record<Lang, { search: string; menu: string; close: string; skip: string; home: string; utility: [string, string][] }> = {
-  en: { search: "Search", menu: "Menu", close: "Close", skip: "Skip to content", home: "Home", utility: [["Careers", "/opportunities/careers"], ["Procurement", "/opportunities/procurement"], ["Contact", "/contact"]] },
-  fr: { search: "Rechercher", menu: "Menu", close: "Fermer", skip: "Aller au contenu", home: "Accueil", utility: [["Carrières", "/opportunities/careers"], ["Marchés", "/opportunities/procurement"], ["Contact", "/contact"]] },
-  pt: { search: "Pesquisar", menu: "Menu", close: "Fechar", skip: "Ir para o conteúdo", home: "Início", utility: [["Carreiras", "/opportunities/careers"], ["Aquisições", "/opportunities/procurement"], ["Contacto", "/contact"]] },
+  en: { search: "Search", menu: "Menu", close: "Close", skip: "Skip to content", home: "Home", utility: [["ECOWAS Institutions", "/about/governance"], ["Opportunities", "/opportunities"], ["Contact", "/contact"]] },
+  fr: { search: "Rechercher", menu: "Menu", close: "Fermer", skip: "Aller au contenu", home: "Accueil", utility: [["Institutions de la CEDEAO", "/about/governance"], ["Opportunités", "/opportunities"], ["Contact", "/contact"]] },
+  pt: { search: "Pesquisar", menu: "Menu", close: "Fechar", skip: "Ir para o conteúdo", home: "Início", utility: [["Instituições da CEDEAO", "/about/governance"], ["Oportunidades", "/opportunities"], ["Contacto", "/contact"]] },
 };
 
 export const SEARCH_CATEGORIES = ["All", "Audits", "Reports", "Recommendations", "Institutions", "Publications", "News", "Opportunities", "Knowledge"] as const;
