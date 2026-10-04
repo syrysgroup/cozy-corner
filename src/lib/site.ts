@@ -5,7 +5,7 @@ export type NavChild = { slug: string; label: L; summary: string };
 export type NavSection = { slug: string; label: L; lead: string; children: NavChild[] };
 
 export const NAV: NavSection[] = [
-  { slug: "about", label: { en: "About OAG", fr: "À propos du BVG", pt: "Sobre o GAG" }, lead: "An independent office providing assurance on the use of public resources across ECOWAS Institutions.", children: [
+  { slug: "about", label: { en: "About OAG", fr: "À propos du BVG", pt: "Sobre o GAG" }, lead: "OAG is an independent assurance office supporting accountability, good corporate governance and value for money across ECOWAS Institutions.", children: [
     { slug: "mandate", label: { en: "Mandate", fr: "Mandat", pt: "Mandato" }, summary: "The Office’s mandate and institutional basis." },
     { slug: "role-responsibilities", label: { en: "Role and responsibilities", fr: "Rôle et responsabilités", pt: "Papel e responsabilidades" }, summary: "The Office’s role, responsibilities and scope." },
     { slug: "leadership", label: { en: "Leadership", fr: "Direction", pt: "Liderança" }, summary: "Leadership profiles and related publications." },

@@ -6,6 +6,7 @@ import { Container, PageHeader } from "@/components/ds/shell/layout-parts";
 import { NAV, UI } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
 import auditTeam from "@/assets/hero-auditors.jpg";
+import { InstitutionalArchitecture, OAG_POSITIONING } from "@/components/ds/institutional";
 
 const stages = [
   { title: "Planning", description: "Set out the engagement and its intended scope." },
@@ -94,11 +95,20 @@ function AboutLanding() {
             <h2 className="mt-3 font-display text-h2">Purpose. Practice. People.</h2>
           </div>
           <div className="grid gap-5">
-            <p className="max-w-3xl text-lead text-ink-soft">The Office of the Auditor General provides assurance on public resources across ECOWAS Institutions.</p>
+            <p className="max-w-3xl text-lead text-ink-soft">{OAG_POSITIONING}</p>
             <p className="max-w-3xl text-small text-muted-foreground">Explore the mandate, responsibilities, leadership, structure, audit approach and governance of the Office.</p>
           </div>
         </Container>
       </section>
+
+      <Container as="section" aria-labelledby="architecture-heading" className="border-b border-border py-section">
+        <div className="mb-8 max-w-3xl">
+          <p className="overline text-primary">Institutional architecture</p>
+          <h2 id="architecture-heading" className="mt-3 font-display text-h2">ECOWAS governance and OAG independent assurance</h2>
+          <p className="mt-3 text-small text-muted-foreground">ECOWAS has three arms of governance. OAG sits separately within the institutional ecosystem as an independent assurance office.</p>
+        </div>
+        <InstitutionalArchitecture />
+      </Container>
 
       <Container className="py-section">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
@@ -205,8 +215,9 @@ function PageBody({ page }: { page: string }) {
       </div>;
     case "organizational-structure": return <OrganizationStructure />;
     case "audit-approach": return <AuditJourney />;
-    case "mandate": return <div className="grid gap-6 md:grid-cols-2">
-      {["Independence", "Assurance", "Public resources", "ECOWAS Institutions"].map((item, index) => <div key={item} className="border-t-2 border-primary pt-4"><p className="font-mono text-xs text-primary">0{index + 1}</p><h2 className="mt-3 font-display text-h4">{item}</h2></div>)}
+    case "mandate": return <div className="grid gap-10">
+      <p className="max-w-3xl text-lead text-ink-soft">{OAG_POSITIONING}</p>
+      <InstitutionalArchitecture />
     </div>;
     case "role-responsibilities":
       return <div className="grid gap-0 border-y border-border">
