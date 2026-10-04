@@ -23,7 +23,7 @@ export default function RiskPage() {
       <PageHead overline="Risk intelligence" title="Risk dashboard" lead="Composite scores (0–100) derived from findings, overdue actions and integrity signals. Model is illustrative." />
       <div className="mt-5 grid gap-4 xl:grid-cols-[1.3fr_1fr]">
         <Panel title="Institution risk profiles" meta="click to inspect">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Risk scores by institution">
             <table className="w-full text-small">
               <thead><tr className="text-left text-xs uppercase tracking-[0.06em] text-muted-foreground"><th className="py-2 pr-3">Institution</th><th className="px-1">Overall</th>{p?.domains.map((d) => <th key={d.name} className="px-1 text-center">{d.name}</th>)}<th className="pl-2">Trend</th></tr></thead>
               <tbody>
