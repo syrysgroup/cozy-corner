@@ -39,6 +39,50 @@ function ArmDetail({ slug }: { slug: string }) {
   );
 }
 
+function AuthoritySection() {
+  const { current, archive, loading } = useAuthorityChairs();
+  const since = formatChairDate(current?.startDate);
+  const initials = current?.fullName.split(" ").map((p) => p[0]).slice(0, 2).join("");
+  return (
+    <section id="authority" aria-labelledby="h-authority" className="scroll-mt-28 border border-border bg-card p-6 md:p-8">
+      <p className="overline flex items-center gap-2 text-primary"><Landmark className="size-4" aria-hidden />Highest decision-making body</p>
+      <h2 id="h-authority" className="mt-2 font-display text-h2">The Authority of Heads of State and Government</h2>
+      <p className="mt-3 max-w-2xl text-small text-muted-foreground">
+        The Authority is the supreme institution of ECOWAS. Its Chairmanship rotates among Heads of State and Government and is held for a defined term.
+      </p>
+      {loading ? (
+        <div className="mt-6 h-20 w-2/3 animate-pulse bg-surface-sunken" />
+      ) : current ? (
+        <div className="mt-6 flex flex-wrap items-center gap-6">
+          <figure className="relative aspect-[4/5] w-36 overflow-hidden bg-surface-sunken">
+            {current.portrait ? (
+              <img src={current.portrait.src} alt={current.portrait.alt} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+            ) : (
+              <div className="grid h-full place-items-center">
+                <span className="font-display text-h2 text-muted-foreground/40" aria-hidden>{initials}</span>
+                <figcaption className="absolute inset-x-2 bottom-2 text-[0.65rem] text-muted-foreground">Official portrait to be published once supplied.</figcaption>
+              </div>
+            )}
+          </figure>
+          <div>
+            <p className="font-display text-h3">{current.honorific} {current.fullName}</p>
+            <p className="mt-1 text-small font-semibold text-ink-soft">{current.officialTitle}</p>
+            <p className="text-small text-muted-foreground">{current.role}</p>
+            {since && <p className="mt-3 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Chairmanship assumed {since}</p>}
+          </div>
+        </div>
+      ) : (
+        <div className="mt-6 max-w-2xl"><Pending>The current Chairman of the Authority will be shown here once published.</Pending></div>
+      )}
+      {archive.length > 0 && (
+        <p className="mt-6 text-xs text-muted-foreground">
+          Previous Chairman: {archive.map((c) => `${c.honorific} ${c.fullName} (${c.countryName})`).join(" · ")}
+        </p>
+      )}
+    </section>
+  );
+}
+
 export default function Institutions() {
   const { sub } = useParams();
   if (sub && ARMS.some((a) => a.slug === sub)) return <ArmDetail slug={sub} />;
