@@ -49,7 +49,7 @@ export default function RiskPage() {
               <div className="grid grid-cols-5 gap-1">
                 {[...RISK_MATRIX].reverse().map((row, ri) => row.map((n, ci) => {
                   const l = 4 - ri;
-                  return <div key={`${ri}-${ci}`} className={cn("num grid aspect-square place-items-center text-small font-bold", cellTone(l, ci))} aria-label={`Likelihood ${l + 1}, impact ${ci + 1}: ${n} items`}>{n || ""}</div>;
+                  return <div key={`${ri}-${ci}`} role="img" className={cn("num grid aspect-square place-items-center text-small font-bold", cellTone(l, ci))} aria-label={`Likelihood ${l + 1}, impact ${ci + 1}: ${n} items`}>{n || ""}</div>;
                 }))}
               </div>
               <p className="mt-2 text-center text-[0.65rem] uppercase tracking-wider text-muted-foreground">Impact →</p>
