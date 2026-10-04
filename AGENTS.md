@@ -11,3 +11,4 @@
 - Portal data comes only from `src/lib/portal/portal-data.ts` (placeholder); the portal is an intelligence layer and never writes to SAP/enterprise systems of record.
 - Keep the OAG assistant in its own portal route with database-backed threads keyed by the URL and user-scoped Supabase RLS, so conversations restore consistently without crossing accounts.
 - Only present assistant evidence from permission-filtered OAG sources; keep placeholder records visibly illustrative and leave AI answers unavailable until an authorized retrieval service exists, so the UI cannot imply verified institutional findings.
+- Route pages are lazy-loaded in `src/App.tsx` behind one Suspense fallback; keeps the first load small as sections grow.
