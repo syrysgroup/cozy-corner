@@ -13,15 +13,9 @@ export function ChartPatterns() {
   return (
     <svg width="0" height="0" className="absolute" aria-hidden focusable="false">
       <defs>
-        <pattern id="p-diag" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <rect width="6" height="6" className="fill-current" opacity="0.35" /><line x1="0" y1="0" x2="0" y2="6" className="stroke-current" strokeWidth="3" />
-        </pattern>
-        <pattern id="p-dots" width="5" height="5" patternUnits="userSpaceOnUse">
-          <rect width="5" height="5" className="fill-current" opacity="0.2" /><circle cx="2.5" cy="2.5" r="1.3" className="fill-current" />
-        </pattern>
-        <pattern id="p-cross" width="6" height="6" patternUnits="userSpaceOnUse">
-          <rect width="6" height="6" className="fill-current" opacity="0.15" /><path d="M0 3H6M3 0V6" className="stroke-current" strokeWidth="1" />
-        </pattern>
+        <pattern id="p-diag" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" className="stroke-card" strokeWidth="1.6" /></pattern>
+        <pattern id="p-dots" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.9" className="fill-card" /></pattern>
+        <pattern id="p-cross" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M0 2.5H5M2.5 0V5" className="stroke-card" strokeWidth="0.9" /></pattern>
       </defs>
     </svg>
   );
@@ -31,7 +25,7 @@ export const PATTERNS = ["", "url(#p-diag)", "url(#p-dots)", "url(#p-cross)"];
 export function Swatch({ i, className }: { i: number; className: string }) {
   return (
     <svg width="14" height="14" className={cn("shrink-0", className)} aria-hidden>
-      <rect width="14" height="14" fill={PATTERNS[i] || "currentColor"} className={PATTERNS[i] ? "" : "fill-current"} stroke="currentColor" />
+      <rect width="14" height="14" className="fill-current" />{PATTERNS[i] && <rect width="14" height="14" fill={PATTERNS[i]} />}
     </svg>
   );
 }
@@ -137,8 +131,8 @@ export function Donut({ data, centre, centreLabel }: { data: { label: string; va
           const len = (d.value / total) * C; const off = acc; acc += len;
           return (
             <g key={d.label} className={d.className}>
-              <circle cx="60" cy="60" r={R} fill="none" strokeWidth="16" className="stroke-current" strokeDasharray={`${len} ${C - len}`} strokeDashoffset={-off} transform="rotate(-90 60 60)" opacity={i ? 0.55 + 0.15 * (3 - i) : 1} />
-              {i > 0 && <circle cx="60" cy="60" r={R} fill="none" strokeWidth="1.2" className="stroke-card" strokeDasharray={`1 ${i + 1.5}`} strokeDashoffset={-off} transform="rotate(-90 60 60)" style={{ strokeDasharray: undefined }} />}
+              <circle cx="60" cy="60" r={R} fill="none" strokeWidth="16" className="stroke-current" strokeDasharray={`${len} ${C - len}`} strokeDashoffset={-off} transform="rotate(-90 60 60)" />
+              {PATTERNS[i] && <circle cx="60" cy="60" r={R} fill="none" strokeWidth="16" stroke={PATTERNS[i]} strokeDasharray={`${len} ${C - len}`} strokeDashoffset={-off} transform="rotate(-90 60 60)" />}
             </g>
           );
         })}
@@ -148,7 +142,7 @@ export function Donut({ data, centre, centreLabel }: { data: { label: string; va
       <ul className="grid gap-2 text-small">
         {data.map((d, i) => (
           <li key={d.label} className="flex items-center justify-between gap-3 border-b border-border/60 pb-2">
-            <span className="flex items-center gap-2"><Swatch i={i} className={d.className} /><span className="font-mono text-xs text-muted-foreground">{["■", "▨", "▦", "▩"][i]}</span>{d.label}</span>
+            <span className="flex items-center gap-2"><Swatch i={i} className={d.className} />{d.label}</span>
             <span className="num font-semibold">{d.value} <span className="font-normal text-muted-foreground">({Math.round((d.value / total) * 100)}%)</span></span>
           </li>
         ))}
@@ -170,7 +164,7 @@ export function StackedRows({ rows, keys }: { rows: { label: string; values: num
               <span className="truncate font-semibold">{r.label}</span>
               <svg viewBox="0 0 100 10" preserveAspectRatio="none" className="h-7 w-full" role="img" aria-label={`${r.label}: ${keys.map((k, i) => `${k.name} ${Math.round((r.values[i] / t) * 100)}%`).join(", ")}`}>
                 {(() => { let acc = 0; return r.values.map((v, i) => { const w = (v / t) * 100; const xx = acc; acc += w; return (
-                  <g key={i} className={keys[i].className}><rect x={xx} y="0" width={w} height="10" fill={PATTERNS[i] || "currentColor"} className={PATTERNS[i] ? "" : "fill-current"} /><rect x={xx} y="0" width={w} height="10" fill="none" className="stroke-card" strokeWidth="0.4" vectorEffect="non-scaling-stroke" /></g>
+                  <g key={i} className={keys[i].className}><rect x={xx} y="0" width={w} height="10" className="fill-current" />{PATTERNS[i] && <rect x={xx} y="0" width={w} height="10" fill={PATTERNS[i]} />}<rect x={xx} y="0" width={w} height="10" fill="none" className="stroke-card" strokeWidth="0.4" vectorEffect="non-scaling-stroke" /></g>
                 ); }); })()}
               </svg>
             </div>
