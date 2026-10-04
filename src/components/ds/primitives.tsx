@@ -83,19 +83,15 @@ export function Band({ className }: { className?: string }) {
   return <div className={cn("band h-1 w-full", className)} aria-hidden />;
 }
 
-/* Wordmark placeholder — replace with the official OAG / ECOWAS lockup (respect clear-space; never distort). */
-/** Set to the official OAG logo URL once supplied; it is rendered as-is (no redraw, no distortion). */
-export const OFFICIAL_LOGO_SRC: string | null = null;
+/* Official ECOWAS emblem, supplied by the Office — rendered as-is (no redraw, no distortion). */
+import ecowasLogo from "@/assets/ecowas-logo.png.asset.json";
+
+export const OFFICIAL_LOGO_SRC: string = ecowasLogo.url;
 
 export function Wordmark({ inverse, compact }: { inverse?: boolean; compact?: boolean }) {
-  if (OFFICIAL_LOGO_SRC) {
-    return <img src={OFFICIAL_LOGO_SRC} alt="Office of the Auditor General, ECOWAS Institutions" className={cn("h-11 w-auto object-contain p-1", compact && "h-9")} />;
-  }
   return (
     <div className="flex items-center gap-3">
-      <div className={cn("grid size-10 place-items-center rounded-full border-2", inverse ? "border-background text-background" : "border-primary text-primary")} aria-hidden>
-        <span className="text-[0.7rem] font-bold tracking-tight">OAG</span>
-      </div>
+      <img src={OFFICIAL_LOGO_SRC} alt="" className={cn("size-10 shrink-0 object-contain", compact && "size-9")} />
       {!compact && (
         <div className={cn("leading-tight", inverse ? "text-background" : "text-ink")}>
           <div className="text-[0.95rem] font-bold">Office of the Auditor General</div>
