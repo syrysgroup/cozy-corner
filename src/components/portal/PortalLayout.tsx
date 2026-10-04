@@ -60,9 +60,10 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 function RoleSwitcher() {
   const { session, setRole } = useAccess();
   return (
-    <label className="flex items-center gap-2 text-xs">
+    <label className="flex min-w-0 items-center gap-2 text-xs">
       <span className="hidden font-mono uppercase tracking-[0.1em] text-muted-foreground md:inline">Viewing as</span>
-      <select value={session.role.key} onChange={(e) => setRole(e.target.value as RoleKey)} className="h-9 border border-border bg-card px-2 text-small font-semibold text-ink outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <span className="sr-only md:hidden">Viewing as</span>
+      <select value={session.role.key} onChange={(e) => setRole(e.target.value as RoleKey)} className="h-9 w-full max-w-[8.5rem] truncate border border-border bg-card px-2 text-small font-semibold text-ink outline-none focus-visible:ring-2 focus-visible:ring-ring sm:max-w-none">
         {ROLES.map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
       </select>
     </label>
@@ -84,12 +85,12 @@ function Shell() {
         </div>
       )}
       <div className="min-w-0">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur md:px-6">
-          <button className="grid size-9 place-items-center lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">{open ? <X className="size-5" /> : <Menu className="size-5" />}</button>
-          <div className="flex h-9 flex-1 items-center gap-2 border border-border bg-card px-3 text-small text-muted-foreground md:max-w-md">
-            <Search className="size-4" aria-hidden /><span className="truncate">Search audits, REC-, INV-, institutions…</span>
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-border bg-background/95 px-3 backdrop-blur sm:gap-3 md:px-6">
+          <button className="grid size-11 shrink-0 place-items-center lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">{open ? <X className="size-5" /> : <Menu className="size-5" />}</button>
+          <div className="flex h-9 min-w-0 flex-1 items-center gap-2 border border-border bg-card px-3 text-small text-muted-foreground md:max-w-md">
+            <Search className="size-4 shrink-0" aria-hidden /><span className="truncate">Search audits, REC-, INV-, institutions…</span>
           </div>
-          <RoleSwitcher />
+          <div className="min-w-0 shrink"><RoleSwitcher /></div>
           <span className="hidden items-center gap-1.5 border border-border px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-ink-soft xl:inline-flex">
             Clearance · {session.attrs.clearance}
           </span>
