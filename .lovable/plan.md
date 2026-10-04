@@ -21,7 +21,12 @@ In the "Three arms of governance" section, show each institution's official logo
 ## 5. Tone down the mission statement
 The "Who we are" mission text currently renders at an oversized display size with heavy bold words. Reduce it to a calmer, readable size with normal weight, keeping the scroll-highlight of key phrases in ECOWAS yellow.
 
-## 6. Verify
+## 6. Apply the ECOWAS Design Manual rules
+Reviewed the uploaded ECOWAS Corporate Design Manual (Nov 2020). The site's colours already match the official values (Green #008244, Yellow #E4CA00, Brown #AD4F2E, plus the secondary palette) and the typeface is Source Sans. Applying the remaining rules:
+- Logos (OAG emblem and the three institution logos) sit only on white or very light backgrounds with clear space around them — never on photos or coloured panels, per the manual's background and bounding-box rules.
+- Logo pairs (badge + name) are not separated or rearranged.
+
+## 7. Verify
 Check the homepage loads cleanly and click through it at desktop and mobile sizes, fixing anything broken.
 
 ## Technical notes
