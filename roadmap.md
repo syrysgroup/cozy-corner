@@ -10,6 +10,8 @@
 - [x] Internal OAG Intelligence Portal at /portal: shell, executive dashboard, audit workspace, recommendations, risk, investigations, IntegrityLine cases, documents, knowledge, tasks, notifications, admin (placeholder data + demo role switcher).
 - [x] OAG Knowledge and AI Assistant at /portal/assistant/:threadId with private persisted threads, source-aware keyword search, and explicit demo/source readiness states.
 - [x] Premium refinement pass (round 1): phone header fixes (360–390px), portal header + view switcher, on-demand page loading, image priority, error cleanup.
-- [ ] Further refinement rounds: French/Portuguese layout checks, chart transitions, deeper per-page polish.
+- [x] French/Portuguese layout check (360–1440px): no breakage.
+- [ ] Translate page body content into French/Portuguese (only menus/labels are translated today; needs approved translations).
+- [ ] Further refinement rounds: chart transitions, deeper per-page polish, accessibility pass.
 - [ ] Connect the assistant to an approved identity provider and authorized OAG retrieval sources (pending provider and source endpoints).
 - [ ] Connect real identity provider and SAP/enterprise integrations (needs credentials/endpoints).
