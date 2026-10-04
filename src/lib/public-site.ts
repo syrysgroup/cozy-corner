@@ -36,7 +36,10 @@ export function useUtilityNavigation(lang: Lang, fallback: [string, string][]): 
     const label = item.label;
     if (!label || typeof label !== "object" || Array.isArray(label)) continue;
     const translated = label[lang];
-    if (typeof translated === "string" && typeof item.href === "string" && (/^\/(?!\/)/.test(item.href) || /^https:\/\//.test(item.href))) links.push([translated, item.href]);
+    if (typeof translated !== "string" || typeof item.href !== "string") continue;
+    // The ECOWAS Institutions utility link always opens the Institutions Hub, never a single institution.
+    const href = /ecowas|cedeao/i.test(translated) && /institu/i.test(translated) ? "/institutions" : item.href;
+    if (/^\/(?!\/)/.test(href) || /^https:\/\//.test(href)) links.push([translated, href]);
   }
   return links.length ? links : fallback;
 }

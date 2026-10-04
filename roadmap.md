@@ -3,6 +3,8 @@
 - [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
 - [ ] Restore official logo files: public database records are connected, but their storage bucket returns "Bucket not found" and existing CDN fallbacks return 404; requires accessible official image files.
 
+- [x] IA refinement: main nav de-duplicated, ECOWAS Institutions → /institutions hub, homepage restructured (How assurance flows removed, leadership, news, newsletter).
+- [ ] Publish Auditor General name/photo/bio, news items and newsletter service (awaiting approved content and mailing service).
 - [x] Design-system showcase (now at /design-system).
 - [x] Global website shell: header, mobile menu, footer, search, breadcrumbs, states, 404.
 - [x] Homepage: hero, audit intelligence, regional map, transparency, publications, insights, IntegrityLine, opportunities, news, final CTA (placeholder data in src/lib/home-data.ts).
