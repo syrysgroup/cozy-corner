@@ -38,8 +38,8 @@ export function InstitutionsExplainer() {
               return (
                 <li key={arm} className={cn("border border-border bg-card transition-shadow duration-base", isOpen && "shadow-raised")}>
                   <button type="button" aria-expanded={isOpen} onClick={() => setOpen(i)} className="flex w-full items-center gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                    <span className={cn("grid size-12 place-items-center transition-colors duration-base", isOpen ? "bg-primary text-primary-foreground" : "bg-surface-sunken text-ink")}><Icon className="size-5" aria-hidden /></span>
-                    <span className="flex-1"><span className="overline">{arm}</span><span className="block font-display text-h3">{body}</span></span>
+                    <ArmLogo armKey={SLUGS[i]} fallback={LOGOS[i]} body={body} />
+                    <span className="flex-1"><span className="overline flex items-center gap-1.5"><Icon className="size-3.5" aria-hidden />{arm}</span><span className="block font-display text-h3">{body}</span></span>
                     <Plus className={cn("size-5 transition-transform duration-base", isOpen && "rotate-45")} aria-hidden />
                   </button>
                   <div className={cn("grid transition-[grid-template-rows] duration-slow", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
