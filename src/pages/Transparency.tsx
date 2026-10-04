@@ -91,7 +91,7 @@ function RecommendationSection({ d, n = "02" }: { d: TransparencyData; n?: strin
               return (
                 <div key={r.level} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
                   <span className="num text-small font-semibold">{r.count}</span>
-                  <span className={cn("w-full origin-bottom animate-rise-in border-t-4 border-current bg-current/15 motion-reduce:animate-none", riskCls[i])} style={{ height: `${(r.count / max) * 75}%`, animationDelay: `${i * 80}ms` }} />
+                  <span className={cn("w-full origin-bottom animate-rise-in relative border-t-4 border-current motion-reduce:animate-none", riskCls[i])} style={{ height: `${(r.count / max) * 75}%`, animationDelay: `${i * 80}ms` }}><span className="absolute inset-0 bg-current opacity-15" /></span>
                   <span className="text-xs font-semibold">{"▲".repeat(i + 1)}</span>
                   <span className="text-xs text-muted-foreground">{r.level}</span>
                 </div>
