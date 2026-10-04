@@ -21,9 +21,9 @@
     --ecowas-red: 347 66% 34%;      /* #8E1D36 */
 
     /* Status semantics (never colour alone — always paired with icon + label) */
-    --status-positive: var(--ecowas-green);
-    --status-attention: 50 100% 36%;
-    --status-warning: 24 85% 42%;
+    --status-positive: 151 100% 21%;
+    --status-attention: 45 100% 25%;
+    --status-warning: 22 85% 33%;
     --status-critical: var(--ecowas-red);
     --status-info: var(--ecowas-ocean);
     --status-neutral: var(--ecowas-slate);
@@ -42,7 +42,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 200 28% 11%;
 
-    --primary: var(--ecowas-green);
+    --primary: 151 100% 22%;
     --primary-foreground: 0 0% 100%;
     --primary-soft: 150 40% 93%;
     --secondary: 40 16% 92%;

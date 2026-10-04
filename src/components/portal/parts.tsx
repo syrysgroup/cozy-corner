@@ -74,9 +74,9 @@ export function Table({ head, children, className }: { head: string[]; children:
   );
 }
 
-export function Progress({ value, className }: { value: number; className?: string }) {
+export function Progress({ value, className, label }: { value: number; className?: string; label?: string }) {
   return (
-    <div className={cn("h-1.5 w-full bg-muted", className)} role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={100}>
+    <div className={cn("h-1.5 w-full bg-muted", className)} role="progressbar" aria-label={label ?? `${value}% complete`} aria-valuenow={value} aria-valuemin={0} aria-valuemax={100}>
       <div className="h-full bg-primary" style={{ width: `${value}%` }} />
     </div>
   );

@@ -23,7 +23,7 @@ export default function RiskPage() {
       <PageHead overline="Risk intelligence" title="Risk dashboard" lead="Composite scores (0–100) derived from findings, overdue actions and integrity signals. Model is illustrative." />
       <div className="mt-5 grid gap-4 xl:grid-cols-[1.3fr_1fr]">
         <Panel title="Institution risk profiles" meta="click to inspect">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Risk scores by institution">
             <table className="w-full text-small">
               <thead><tr className="text-left text-xs uppercase tracking-[0.06em] text-muted-foreground"><th className="py-2 pr-3">Institution</th><th className="px-1">Overall</th>{p?.domains.map((d) => <th key={d.name} className="px-1 text-center">{d.name}</th>)}<th className="pl-2">Trend</th></tr></thead>
               <tbody>
@@ -49,7 +49,7 @@ export default function RiskPage() {
               <div className="grid grid-cols-5 gap-1">
                 {[...RISK_MATRIX].reverse().map((row, ri) => row.map((n, ci) => {
                   const l = 4 - ri;
-                  return <div key={`${ri}-${ci}`} className={cn("num grid aspect-square place-items-center text-small font-bold", cellTone(l, ci))} aria-label={`Likelihood ${l + 1}, impact ${ci + 1}: ${n} items`}>{n || ""}</div>;
+                  return <div key={`${ri}-${ci}`} role="img" className={cn("num grid aspect-square place-items-center text-small font-bold", cellTone(l, ci))} aria-label={`Likelihood ${l + 1}, impact ${ci + 1}: ${n} items`}>{n || ""}</div>;
                 }))}
               </div>
               <p className="mt-2 text-center text-[0.65rem] uppercase tracking-wider text-muted-foreground">Impact →</p>
