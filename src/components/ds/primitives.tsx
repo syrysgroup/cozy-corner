@@ -84,18 +84,18 @@ export function Band({ className }: { className?: string }) {
 }
 
 /* Official ECOWAS emblem, supplied by the Office — rendered as-is (no redraw, no distortion). */
-import ecowasLogo from "@/assets/ecowas-logo.png.asset.json";
+import auditorGeneralLogo from "@/assets/auditor-general-logo.png.asset.json";
 
-export const OFFICIAL_LOGO_SRC: string = ecowasLogo.url;
+export const OFFICIAL_LOGO_SRC: string = auditorGeneralLogo.url;
 
 export function Wordmark({ inverse, compact }: { inverse?: boolean; compact?: boolean }) {
   return (
-    <div className="flex items-center gap-3">
-      <img src={OFFICIAL_LOGO_SRC} alt="" className={cn("size-10 shrink-0 object-contain", compact && "size-9")} />
+    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+      <img src={OFFICIAL_LOGO_SRC} alt="Office of the Auditor General logo" width={72} height={72} fetchPriority="high" className={cn("size-14 shrink-0 object-contain sm:size-[4.5rem]", compact && "size-12 sm:size-14")} />
       {!compact && (
-        <div className={cn("leading-tight", inverse ? "text-background" : "text-ink")}>
-          <div className="text-[0.95rem] font-bold">Office of the Auditor General</div>
-          <div className={cn("text-[0.75rem] font-semibold uppercase tracking-[0.12em]", inverse ? "text-background/70" : "text-muted-foreground")}>ECOWAS Institutions</div>
+        <div className={cn("min-w-0 leading-tight", inverse ? "text-background" : "text-ink")}>
+          <div className="text-base font-bold sm:text-lg">Office of the Auditor General</div>
+          <div className={cn("mt-1 text-xs font-semibold uppercase tracking-normal", inverse ? "text-background/70" : "text-muted-foreground")}>ECOWAS Institutions</div>
         </div>
       )}
     </div>
