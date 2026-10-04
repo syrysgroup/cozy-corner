@@ -5,3 +5,4 @@
 - Homepage figures live in `src/lib/home-data.ts` as clearly labelled placeholders; replace with authorised data sources keeping the same shapes, so no fabricated OAG stats ship.
 - Keep About OAG content in a dedicated route-aware page while sharing navigation labels from `src/lib/site.ts`; this supports progressive disclosure without changing the site shell.
 - Library records live in `src/lib/library-data.ts`; only `publicDocuments`/`getPublicDoc` may be consumed so restricted documents can never render.
+- Transparency figures come only from `fetchTransparencyData` in `src/lib/transparency-data.ts` (placeholder today); swap its body for an authorised API returning the same shape so pages need no changes. Charts in `src/components/ds/charts.tsx` always pair colour with patterns/labels and a table view.

@@ -5,6 +5,7 @@ import { I18nProvider } from "@/lib/i18n";
 import DesignSystem from "@/pages/DesignSystem";
 import Home from "@/pages/Home";
 import Library from "@/pages/Library";
+import Transparency from "@/pages/Transparency";
 import DocumentDetail from "@/pages/DocumentDetail";
 import NotFound from "@/pages/NotFound";
 import { SectionPage, StatesPage } from "@/pages/SectionPage";
@@ -23,6 +24,8 @@ export default function App() {
               <Route path="/about/:sub" element={<AboutOAG />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/" element={<Home />} />
+              <Route path="/transparency" element={<Transparency />} />
+              <Route path="/transparency/:sub" element={<Transparency />} />
               <Route path="/publications" element={<Library />} />
               <Route path="/publications/document/:id" element={<DocumentDetail />} />
               <Route path="/publications/:sub" element={<Library />} />

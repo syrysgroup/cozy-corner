@@ -21,8 +21,11 @@ export const NAV: NavSection[] = [
     { slug: "methodology", label: { en: "Methodology", fr: "Méthodologie", pt: "Metodologia" }, summary: "Standards and professional practice we apply." },
   ] },
   { slug: "transparency", label: { en: "Transparency", fr: "Transparence", pt: "Transparência" }, lead: "Open information on findings, implementation progress and institutional performance.", children: [
-    { slug: "dashboard", label: { en: "Accountability dashboard", fr: "Tableau de redevabilité", pt: "Painel de responsabilização" }, summary: "Key indicators across institutions." },
-    { slug: "institutions", label: { en: "Institutions", fr: "Institutions", pt: "Instituições" }, summary: "Profiles of audited ECOWAS Institutions." },
+    { slug: "dashboard", label: { en: "Transparency dashboard", fr: "Tableau de transparence", pt: "Painel de transparência" }, summary: "Key public indicators at a glance." },
+    { slug: "activity", label: { en: "Audit activity", fr: "Activité d’audit", pt: "Atividade de auditoria" }, summary: "Audit volume, types and recurring themes." },
+    { slug: "recommendations", label: { en: "Recommendations", fr: "Recommandations", pt: "Recomendações" }, summary: "How recommendations are progressing." },
+    { slug: "institutions", label: { en: "Institutional coverage", fr: "Couverture institutionnelle", pt: "Cobertura institucional" }, summary: "Published audit information by institution." },
+    { slug: "map", label: { en: "ECOWAS audit map", fr: "Carte d’audit CEDEAO", pt: "Mapa de auditoria CEDEAO" }, summary: "Audit activity across Member States." },
   ] },
   { slug: "publications", label: { en: "Publications", fr: "Publications", pt: "Publicações" }, lead: "Audit reports, annual reports and guidance from the Office.", children: [
     { slug: "reports", label: { en: "Audit reports", fr: "Rapports d’audit", pt: "Relatórios de auditoria" }, summary: "Final reports by year and institution." },
