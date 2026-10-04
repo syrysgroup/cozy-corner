@@ -58,9 +58,9 @@ export function LeadershipFeature() {
       <h2 id="home-leadership" className="mt-3 max-w-3xl font-display text-h1">Leadership of the Office of the Auditor General</h2>
       <p className="mt-4 max-w-2xl text-lead text-muted-foreground">The Auditor General leads the Office’s independent audit and assurance work across ECOWAS Institutions.</p>
       <article aria-labelledby="ag-title" className="mt-10 grid overflow-hidden border border-border bg-card shadow-raised md:grid-cols-[minmax(16rem,0.9fr)_1.1fr]">
-        <div className="relative grid min-h-[20rem] place-items-center bg-ecowas-ocean p-10">
-          {broken ? <ShieldCheck className="size-24 text-primary-foreground/70" aria-hidden /> : <img src={emblem.src} alt={emblem.alt ?? "Office of the Auditor General emblem"} width={200} height={200} loading="lazy" onError={() => setBroken(true)} className="max-h-52 w-auto object-contain" />}
-          <p className="absolute bottom-4 left-4 right-4 text-xs text-primary-foreground/80">Official portrait to be published once approved.</p>
+        <div className="relative grid min-h-[20rem] place-items-center border-r border-border bg-card p-10">
+          {broken ? <ShieldCheck className="size-24 text-primary/70" aria-hidden /> : <img src={emblem.src} alt={emblem.alt ?? "Office of the Auditor General emblem"} width={200} height={200} loading="lazy" onError={() => setBroken(true)} className="max-h-52 w-auto object-contain" />}
+          <p className="absolute bottom-4 left-4 right-4 text-xs text-muted-foreground">Official portrait to be published once approved.</p>
         </div>
         <div className="flex flex-col justify-center p-8 md:p-12">
           <p className="overline flex items-center gap-2 text-primary"><span className="h-px w-8 bg-ecowas-yellow" aria-hidden />Head of Office</p>
