@@ -23,7 +23,7 @@ const COUNTRIES: C[] = [
 ];
 const CABO_VERDE = { id: "CV", name: "Cabo Verde", institutions: ["ECOWAS Centre for Renewable Energy and Energy Efficiency (Praia)"] };
 const ALL = [...COUNTRIES.map(({ id, name, institutions }) => ({ id, name, institutions })), CABO_VERDE].sort((a, b) => a.name.localeCompare(b.name));
-const CV_ISLANDS: [number, number, number][] = [[-25,17],[-24.4,16.6],[-22.9,16.7],[-22.8,16.1],[-23.6,15.1],[-24.4,14.9]];
+const CV_ISLANDS: [number, number][] = [[-25,17],[-24.4,16.6],[-22.9,16.7],[-22.8,16.1],[-23.6,15.1],[-24.4,14.9]];
 
 const X = (lon: number) => (lon + 26) * 22;
 const Y = (lat: number) => (25.5 - lat) * 22;
