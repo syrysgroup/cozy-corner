@@ -46,9 +46,9 @@ export function AuthorityChairFeature() {
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Button asChild variant="inverse" size="lg">
-                    <a href={current.officialSource ?? "https://www.ecowas.int"} target="_blank" rel="noopener noreferrer" className="group/cta">View ECOWAS Leadership <ArrowRight className="transition-transform group-hover/cta:translate-x-1" /></a>
+                    <Link to="/institutions#authority" className="group/cta">View ECOWAS Leadership <ArrowRight className="transition-transform group-hover/cta:translate-x-1" /></Link>
                   </Button>
-                  <Button asChild size="lg" className="border border-primary-foreground/50 bg-transparent hover:bg-primary-foreground/10"><Link to="/institutions">About the Authority</Link></Button>
+                  <Button asChild size="lg" className="border border-primary-foreground/50 bg-transparent hover:bg-primary-foreground/10"><Link to="/institutions#authority">About the Authority</Link></Button>
                 </div>
                 {archive.length > 0 && (
                   <p className="mt-8 text-xs text-primary-foreground/65">
