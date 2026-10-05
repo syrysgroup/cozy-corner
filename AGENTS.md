@@ -21,3 +21,4 @@
 - Homepage narrative order is Authority Chair, OAG leadership, combined Office/mandate, then ECOWAS Institutions; this preserves the approved institutional hierarchy before supporting content.
 - Keep Commission-specific profile and leadership data in the shared institution profile source and render its distinct institution-first presentation there; this prevents duplicate data while preserving Parliament and Court profiles.
 - Keep supporting-institution cards and profiles sourced from `src/lib/institution-data.ts`; one record drives each logo, link, summary and mandate to prevent hub/profile drift.
+- Careers vacancies come only from `fetchVacancies` in `src/lib/careers-data.ts` (empty until approved notices); never fabricate roles or counts.
