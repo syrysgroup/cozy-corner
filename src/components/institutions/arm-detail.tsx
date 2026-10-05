@@ -131,15 +131,15 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
           )}
           <div className="mt-12">
             <h3 className="font-display text-h2">Commissioners and portfolios</h3>
-            <ul className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+            <ul className="mt-6 grid grid-flow-col auto-cols-[minmax(10rem,1fr)] gap-px overflow-x-auto border border-border bg-border md:grid-flow-row md:grid-cols-5 md:auto-cols-auto md:overflow-visible">
               {commissioners.map((commissioner) => (
-                <li key={commissioner.portfolio} className="flex min-h-52 flex-col bg-card">
+                <li key={commissioner.portfolio} className="flex min-w-0 flex-col bg-card">
                   <figure className="aspect-[4/3] overflow-hidden bg-surface-sunken"><LeadershipPortrait path={commissioner.portraitPath} name={`${commissioner.name}, Commissioner for ${commissioner.portfolio}`} /></figure>
-                  <div className="flex flex-1 flex-col p-6">
-                    <p className="overline text-primary">{commissioner.role} · {commissioner.country}</p>
-                    <h4 className="mt-3 font-display text-h3">{commissioner.name}</h4>
-                    <p className="mt-2 flex-1 text-small text-ink-soft">{commissioner.portfolio}</p>
-                    <a href={commissioner.link} target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline">Official department <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+                  <div className="flex flex-1 flex-col p-4">
+                    <p className="text-xs font-semibold uppercase text-primary">{commissioner.country}</p>
+                    <h4 className="mt-2 font-display text-base font-bold leading-snug text-ink">{commissioner.name}</h4>
+                    <p className="mt-2 flex-1 text-xs leading-relaxed text-ink-soft">{commissioner.portfolio}</p>
+                    <a href={commissioner.link} target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-1 text-xs font-semibold text-primary hover:underline">Department <ArrowUpRight className="size-3.5 shrink-0" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
                   </div>
                 </li>
               ))}
