@@ -131,9 +131,11 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
           )}
           <div className="mt-12">
             <h3 className="font-display text-h2">Commissioners and portfolios</h3>
-            <ul className="mt-6 flex gap-px overflow-x-auto border border-border bg-border">
-              {commissioners.map((commissioner) => (
-                <li key={commissioner.portfolio} className="flex w-40 shrink-0 flex-col bg-card">
+            <div className="mt-6 grid gap-4 lg:grid-cols-[50rem_minmax(0,1fr)]">
+              <div className="overflow-x-auto">
+                <ul className="grid w-[50rem] grid-cols-5 gap-px border border-border bg-border">
+                  {commissioners.map((commissioner) => (
+                    <li key={commissioner.portfolio} className="flex flex-col bg-card">
                   <figure className="aspect-[4/5] overflow-hidden bg-surface-sunken"><LeadershipPortrait path={commissioner.portraitPath} name={`${commissioner.name}, Commissioner for ${commissioner.portfolio}`} /></figure>
                   <div className="flex flex-1 flex-col p-4">
                     <p className="text-xs font-semibold uppercase text-primary">{commissioner.country}</p>
@@ -141,9 +143,17 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
                     <p className="mt-2 flex-1 text-xs leading-relaxed text-ink-soft">{commissioner.portfolio}</p>
                     <a href={commissioner.link} target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-1 text-xs font-semibold text-primary hover:underline">Department <ArrowUpRight className="size-3.5 shrink-0" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
                   </div>
-                </li>
-              ))}
-            </ul>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <aside className="flex flex-col justify-center border border-border bg-surface-sunken p-6">
+                <p className="overline text-primary">Portfolio overview</p>
+                <h4 className="mt-2 font-display text-h3">Regional priorities, one Commission</h4>
+                <p className="mt-3 text-small leading-relaxed text-muted-foreground">These portfolios cover peace and security, economic affairs and agriculture, internal services, infrastructure and digitalization, and human development and social affairs.</p>
+                <p className="mt-5 border-t border-border pt-4 text-xs text-muted-foreground">Select a department link on a commissioner’s profile for its official ECOWAS page.</p>
+              </aside>
+            </div>
           </div>
         </Container>
       </section>
