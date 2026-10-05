@@ -131,10 +131,10 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
           )}
           <div className="mt-12">
             <h3 className="font-display text-h2">Commissioners and portfolios</h3>
-            <ul className="mt-6 grid grid-flow-col auto-cols-[minmax(10rem,1fr)] gap-px overflow-x-auto border border-border bg-border md:grid-flow-row md:grid-cols-5 md:auto-cols-auto md:overflow-visible">
+            <ul className="mt-6 flex gap-px overflow-x-auto border border-border bg-border">
               {commissioners.map((commissioner) => (
-                <li key={commissioner.portfolio} className="flex min-w-0 flex-col bg-card">
-                  <figure className="aspect-[4/3] overflow-hidden bg-surface-sunken"><LeadershipPortrait path={commissioner.portraitPath} name={`${commissioner.name}, Commissioner for ${commissioner.portfolio}`} /></figure>
+                <li key={commissioner.portfolio} className="flex w-40 shrink-0 flex-col bg-card">
+                  <figure className="aspect-[4/5] overflow-hidden bg-surface-sunken"><LeadershipPortrait path={commissioner.portraitPath} name={`${commissioner.name}, Commissioner for ${commissioner.portfolio}`} /></figure>
                   <div className="flex flex-1 flex-col p-4">
                     <p className="text-xs font-semibold uppercase text-primary">{commissioner.country}</p>
                     <h4 className="mt-2 font-display text-base font-bold leading-snug text-ink">{commissioner.name}</h4>
