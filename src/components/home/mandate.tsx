@@ -46,7 +46,7 @@ export function MandateGrid() {
           {ITEMS.map(({ icon: Icon, t, d, more, tone, text }, i) => {
             const on = active === i;
             return (
-              <li key={t} className="w-[80%] shrink-0 snap-start sm:w-[calc((100%-0.75rem)/2)] lg:w-[calc((100%-2.25rem)/4)]">
+              <li key={t} className="w-[70%] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-2.25rem)/4)]">
                 <button type="button" aria-pressed={on} onClick={() => setActive(on ? null : i)} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)}
                   className="group relative flex h-64 w-full flex-col overflow-hidden border border-border bg-card p-5 text-left transition-transform duration-base hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                   <span className={cn("absolute inset-0 origin-bottom transition-transform duration-slow ease-out", tone, on ? "scale-y-100" : "scale-y-0")} aria-hidden />
