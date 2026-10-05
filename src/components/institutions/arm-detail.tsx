@@ -11,6 +11,7 @@ export type ArmInfo = { slug: string; key: string; site: string; arm: string; bo
 
 type Profile = {
   summary: string;
+  building?: { path: string; alt: string; caption: string };
   facts: [string, string][];
   leader: { title: string; name: string; country: string; since: string; portraitPath?: string };
   additionalLeaders?: { role: string; name: string; country: string; portfolio: string; link: string; portraitPath?: string }[];
@@ -23,6 +24,7 @@ type Profile = {
 const PROFILES: Record<string, Profile> = {
   commission: {
     summary: "The ECOWAS Commission is the Community’s executive arm. It implements decisions and regional programmes, coordinates Community institutions, and advances cooperation among Member States.",
+    building: { path: "Building/commission headquarter.jpeg", alt: "ECOWAS Commission headquarters in Abuja, Nigeria", caption: "ECOWAS Commission headquarters · Abuja, Nigeria" },
     facts: [["Headquarters", "Abuja, Nigeria"], ["Established", "1975"], ["Member States", "12"], ["Leadership term", "2026–2030"], ["Legal basis", "Revised ECOWAS Treaty, 1993"]],
     leader: { title: "President of the ECOWAS Commission", name: "H.E. General Birame Diop", country: "Senegal", since: "1 September 2026", portraitPath: "Leadership/commission-president.jpeg" },
     additionalLeaders: [
@@ -39,6 +41,7 @@ const PROFILES: Record<string, Profile> = {
   },
   parliament: {
     summary: "The ECOWAS Parliament is the Community’s assembly of peoples. It brings together representatives of Member State parliaments to debate regional issues, give opinions on Community acts and strengthen democratic oversight.",
+    building: { path: "Building/parliament building.JPG", alt: "ECOWAS Parliament building in Abuja, Nigeria", caption: "ECOWAS Parliament building · Abuja, Nigeria" },
     facts: [["Headquarters", "Abuja, Nigeria"], ["Established", "Protocol of 1994; inaugurated in 2000"], ["Seats", "115 representatives from Member States"], ["Working languages", "English, French, Portuguese"]],
     leader: { title: "Speaker of the ECOWAS Parliament", name: "Rt. Hon. Hadja Mémounatou Ibrahima", country: "Togo", since: "2024", portraitPath: "Leadership/parliament speaker.jpg" },
     additionalLeaders: [
@@ -76,6 +79,27 @@ function LeadershipPortrait({ path, name, className = "h-full w-full object-cove
   );
 }
 
+function InstitutionBuilding({ building }: { building?: Profile["building"] }) {
+  const [unavailable, setUnavailable] = useState(false);
+  if (!building || unavailable) return null;
+
+  return (
+    <figure className="relative w-full overflow-hidden border-y border-border bg-surface-sunken">
+      <img
+        src={leadershipPortraitUrl(building.path)}
+        alt={building.alt}
+        loading="eager"
+        decoding="async"
+        className="h-[clamp(18rem,52vw,44rem)] w-full object-cover"
+        onError={() => setUnavailable(true)}
+      />
+      <figcaption className="absolute bottom-0 right-0 bg-ink/90 px-4 py-2 text-xs font-semibold uppercase text-primary-foreground md:px-6">
+        {building.caption}
+      </figcaption>
+    </figure>
+  );
+}
+
 function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src: string; alt?: string } }) {
   const commissioners = p.additionalLeaders?.filter((leader) => leader.role === "Commissioner") ?? [];
   const vicePresident = p.additionalLeaders?.find((leader) => leader.role === "Vice-President of the ECOWAS Commission");
@@ -101,6 +125,8 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
           </figure>
         </Container>
       </section>
+
+      <InstitutionBuilding building={p.building} />
 
       <Container as="section" aria-label="Commission facts" className="py-8">
         <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
@@ -213,6 +239,8 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
           </div>
         </Container>
       </section>
+
+      <InstitutionBuilding building={p.building} />
 
       <Container as="section" className="py-10">
         <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
