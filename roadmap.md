@@ -4,6 +4,7 @@
 - [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
 - [ ] Restore official logo files: public database records are connected, but their storage bucket returns "Bucket not found" and existing CDN fallbacks return 404; requires accessible official image files.
 - [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification.
+- [ ] Redesign `/institutions/commission` around the Commission’s mandate and collective leadership; use the uploaded President portrait as supporting content, add officially verified Commissioners, and follow the ECOWAS Corporate Design Manual.
 
 - [x] IA refinement: main nav de-duplicated, ECOWAS Institutions → /institutions hub, homepage restructured (How assurance flows removed, leadership, news, newsletter).
 - [ ] Publish Auditor General name/photo/bio, news items and newsletter service (awaiting approved content and mailing service).
