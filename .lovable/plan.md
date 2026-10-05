@@ -1,0 +1,15 @@
+# Redesign the ECOWAS Commission profile
+
+## What changes
+- Redesign `/institutions/commission` as an **institution-first** profile. Lead with the Commission’s name, official emblem, executive role and concise mandate; the President’s portrait belongs in a smaller leadership section, not the main visual.
+- Replace the outdated Commission leadership details with the current 2026–2030 leadership shown by ECOWAS: President H.E. General Birame Diop, Vice-President Oluwatosin Anthony Ogunjimi, and the five Commissioners responsible for Political Affairs, Peace & Security; Economic Affairs & Agriculture; Infrastructure, Energy & Digitalisation; Human Development & Social Affairs; and Internal Services. Give each Commissioner a clearly labelled portfolio and a link to the corresponding official department page. Use official spelling and titles as published on the linked source pages at implementation time.
+- Use the supplied `institution-assets/Leadership/commission-president.jpeg` for the President’s secondary portrait, with meaningful alternative text and a dignified unavailable-image state if it fails. Do not invent portraits or biographies for other leaders.
+- Organise the rest of the page around the Commission’s mandate and functions, its departmental structure, key institutional facts, and a restrained OAG independent-assurance connection. Keep the links to the ECOWAS site prominent. Remove or correct stale facts, including the former President and superseded leadership term.
+- Apply the attached ECOWAS Corporate Design Manual: protect the emblem’s clear space and proportions, use the existing Source Sans typography and semantic ECOWAS colour tokens, and keep text legible on solid-colour surfaces. Match the current OAG site shell rather than changing the rest of the website.
+- Verify the desktop and mobile hierarchy, image loading, official links, accessibility, and factual source alignment before treating implementation as complete. **This plan does not implement or test the redesign.**
+
+## Technical details
+- Adapt the existing Commission branch of the shared institution profile, preserving Parliament and Court pages. Keep Commission content in one reusable source so the profile and institution listings cannot disagree; do not add a separate copy in page markup.
+- Use the supplied public storage bucket/path for the President portrait rather than embedding the image or treating it as the hero. Retain official asset handling for the Commission emblem.
+- Source institutional mandate and structure from [The Commission](https://www.ecowas.int/institutions/the-commission/) and [Office of the President](https://www.ecowas.int/departments/office-of-the-president/); cross-check the other leaders against the [ECOWAS homepage](https://www.ecowas.int/) and their individual department pages. Some background text on the institution page still refers to 15 Member States while the current site says 12, so avoid an unsourced member count.
+- Do not imply the OAG is a fourth governance arm or subordinate to the Commission. Keep this change limited to the Commission profile and directly shared Commission data.
