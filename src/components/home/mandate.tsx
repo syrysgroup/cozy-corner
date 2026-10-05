@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FileSearch, Search, ClipboardCheck, RefreshCcw, BadgeCheck, Megaphone, Plus, ArrowRight, ShieldCheck } from "lucide-react";
+import { useRef, useState } from "react";
+import { FileSearch, Search, ClipboardCheck, RefreshCcw, BadgeCheck, Megaphone, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ds/primitives";
 import { Container } from "@/components/ds/shell/layout-parts";
@@ -15,53 +15,54 @@ const ITEMS = [
 ];
 
 export function MandateGrid() {
-  const [open, setOpen] = useState<number | null>(null);
+  const track = useRef<HTMLUListElement>(null);
+  const [active, setActive] = useState<number | null>(null);
+  const scroll = (dir: number) => {
+    const el = track.current; if (!el) return;
+    const card = el.querySelector("li"); const w = card ? card.getBoundingClientRect().width + 12 : el.clientWidth;
+    el.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
   return (
-    <section id="mission" aria-labelledby="home-functions" className="relative overflow-hidden border-y border-border bg-surface-sunken py-section-lg">
+    <section id="mission" aria-labelledby="home-functions" className="relative overflow-hidden border-y border-border bg-surface-sunken py-section">
       <div className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[minmax(17rem,0.72fr)_minmax(0,1.28fr)] lg:gap-16">
-          <div className="reveal lg:sticky lg:top-28 lg:self-start">
+        <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr] lg:items-end">
+          <div className="reveal">
             <p className="overline flex items-center gap-3 text-primary"><span className="h-px w-10 bg-primary" aria-hidden />03 · The Office &amp; what we do</p>
-            <h2 id="home-functions" className="mt-4 font-display text-h1">Independent assurance, from evidence to public trust.</h2>
-            <p className="mt-6 text-lead text-ink-soft">The Office of the Auditor General supports accountability, good corporate governance and value for money across ECOWAS Institutions.</p>
-            <div className="mt-8 border-l-2 border-ecowas-yellow pl-5">
-              <ShieldCheck className="size-6 text-primary" aria-hidden />
-              <p className="mt-3 text-small text-muted-foreground">We examine how Community resources are used, turn findings into practical recommendations and verify that corrective action works.</p>
-            </div>
-            <Button asChild variant="secondary" className="mt-8"><Link to="/about">Discover the Office <ArrowRight /></Link></Button>
+            <h2 id="home-functions" className="mt-3 font-display text-h1">Independent assurance, from evidence to public trust.</h2>
           </div>
-
-          <div>
-            <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
-              <div><p className="overline text-primary">Six core functions</p><h3 className="mt-2 font-display text-h2">How assurance moves.</h3></div>
-              <p className="max-w-xs text-small text-muted-foreground">Select a function to explore its role in the assurance cycle.</p>
+          <div className="reveal">
+            <p className="text-small text-ink-soft">The Office of the Auditor General supports accountability, good corporate governance and value for money across ECOWAS Institutions.</p>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+              <Button asChild variant="secondary" size="sm"><Link to="/about">Discover the Office <ArrowRight /></Link></Button>
+              <div className="flex gap-2">
+                <Button type="button" variant="secondary" size="icon" aria-label="Previous functions" onClick={() => scroll(-1)}><ChevronLeft /></Button>
+                <Button type="button" variant="secondary" size="icon" aria-label="Next functions" onClick={() => scroll(1)}><ChevronRight /></Button>
+              </div>
             </div>
-            <ul className="grid border-b border-border sm:grid-cols-2">
-              {ITEMS.map(({ icon: Icon, t, d, more, tone, text }, i) => {
-                const isOpen = open === i;
-                return (
-                  <li key={t} className="reveal border-x border-t border-border sm:odd:border-r-0" style={{ transitionDelay: `${i * 70}ms` }}>
-                    <Button variant="ghost" type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : i)}
-                      className="group relative flex h-full min-h-[13rem] w-full flex-col items-stretch justify-start overflow-hidden rounded-none bg-card p-6 text-left whitespace-normal hover:bg-card">
-                      <span className={cn("absolute inset-0 origin-bottom transition-transform duration-slow ease-out", tone, isOpen ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100")} aria-hidden />
-                      <span className={cn("absolute inset-x-0 top-0 h-1", tone)} aria-hidden />
-                      <span className={cn("relative flex w-full items-start justify-between transition-colors duration-base", isOpen ? text : cn("text-ink", text === "text-ink" ? "" : "group-hover:text-primary-foreground"))}>
-                        <span className="font-mono text-xs opacity-70">0{i + 1}</span>
-                        <Plus className={cn("size-5 transition-transform duration-base", isOpen && "rotate-45")} aria-hidden />
-                      </span>
-                      <span className={cn("relative mt-auto block w-full transition-colors duration-base", isOpen ? text : cn("text-ink", text === "text-ink" ? "" : "group-hover:text-primary-foreground"))}>
-                        <Icon className="size-7" aria-hidden />
-                        <span className="mt-4 block font-display text-h3">{t}</span>
-                        <span className="mt-1 block text-small font-normal opacity-80">{isOpen ? more : d}</span>
-                      </span>
-                    </Button>
-                  </li>
-                );
-              })}
-            </ul>
           </div>
         </div>
+        <ul ref={track} aria-label="Six core functions" className="mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {ITEMS.map(({ icon: Icon, t, d, more, tone, text }, i) => {
+            const on = active === i;
+            return (
+              <li key={t} className="w-[80%] shrink-0 snap-start sm:w-[calc((100%-0.75rem)/2)] lg:w-[calc((100%-2.25rem)/4)]">
+                <button type="button" aria-pressed={on} onClick={() => setActive(on ? null : i)} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)}
+                  className="group relative flex h-64 w-full flex-col overflow-hidden border border-border bg-card p-5 text-left transition-transform duration-base hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                  <span className={cn("absolute inset-0 origin-bottom transition-transform duration-slow ease-out", tone, on ? "scale-y-100" : "scale-y-0")} aria-hidden />
+                  <span className={cn("absolute inset-x-0 top-0 h-1", tone)} aria-hidden />
+                  <span className={cn("relative flex items-center justify-between transition-colors", on ? text : "text-ink")}>
+                    <Icon className="size-7" aria-hidden /><span className="font-mono text-xs opacity-70">0{i + 1}/06</span>
+                  </span>
+                  <span className={cn("relative mt-auto block transition-colors", on ? text : "text-ink")}>
+                    <span className="block font-display text-h3">{t}</span>
+                    <span className="mt-1 block text-small opacity-80">{on ? more : d}</span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </Container>
     </section>
   );

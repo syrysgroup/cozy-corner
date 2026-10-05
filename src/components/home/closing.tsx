@@ -37,7 +37,7 @@ export function InstitutionsExplainer() {
           <p className="reveal max-w-xl text-lead text-ink-soft">ECOWAS governance is exercised by the Executive, the Legislature and the Judiciary — each with a distinct Community mandate.</p>
         </div>
 
-        <ol className="mt-12 grid gap-px border border-border bg-border md:grid-cols-3">
+        <ol className="mt-6 grid gap-px border border-border bg-border md:grid-cols-3">
           {GOVERNANCE_ARMS.map(({ arm, body, icon: Icon, role }, i) => (
             <li key={arm} className="reveal" style={{ transitionDelay: `${i * 100}ms` }}>
               <Link to={`/institutions/${SLUGS[i]}`} className="group relative flex h-full flex-col bg-card p-8 transition-colors duration-base hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring">
@@ -132,7 +132,7 @@ export function ClosingBand() {
       <Container className="grid gap-14 py-section-lg lg:grid-cols-[1fr_1fr]">
         <div>
           <h2 id="home-closing" className="reveal font-display text-display-lg text-background">Explore the work of the Office.</h2>
-          <form className="mt-10 max-w-md" onSubmit={(e) => { e.preventDefault(); setStatus("unavailable"); }}>
+          <form className="mt-6 max-w-md" onSubmit={(e) => { e.preventDefault(); setStatus("unavailable"); }}>
             <label htmlFor={`${id}-email`} className="text-small font-semibold">Stay informed — newsletter</label>
             <div className="mt-2 flex gap-2">
               <input id={`${id}-email`} type="email" required autoComplete="email" placeholder="you@example.org" className="min-h-11 flex-1 border border-background/30 bg-transparent px-3 text-small text-background placeholder:text-background/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow" />
