@@ -4,6 +4,7 @@ import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, ECOSYSTEM, OAG_POSITIONING, OAG_ROLES } from "@/components/ds/institutional";
 import { ECOWAS_LINKS } from "@/lib/site";
 import { useOfficialAsset } from "@/lib/public-site";
+import { ArmDetailPage } from "@/components/institutions/arm-detail";
 import { useAuthorityChairs, formatChairDate } from "@/lib/authority-data";
 
 const ARMS = [
@@ -27,16 +28,7 @@ function Pending({ children }: { children: React.ReactNode }) {
 }
 
 function ArmDetail({ slug }: { slug: string }) {
-  const a = ARMS.find((x) => x.slug === slug)!;
-  return (
-    <Container as="section" className="py-section">
-      <nav aria-label="Breadcrumb" className="text-small text-muted-foreground"><Link to="/institutions" className="hover:text-primary">ECOWAS Institutions</Link> / {a.arm}</nav>
-      <div className="mt-6 flex items-center gap-5"><ArmLogo k={a.key} fallback={a.logo} body={a.body} /><div><p className="overline text-primary">{a.arm}</p><h1 className="font-display text-h1">{a.body}</h1></div></div>
-      <p className="mt-6 max-w-2xl text-lead text-muted-foreground">{a.role}</p>
-      <a href={a.site} target="_blank" rel="noreferrer" className="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-primary hover:underline">Official website <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
-      <div className="mt-10 max-w-2xl"><Pending>Published OAG audit information for this institution will appear here once approved for release.</Pending></div>
-    </Container>
-  );
+  return <ArmDetailPage a={ARMS.find((x) => x.slug === slug)!} />;
 }
 
 function AuthoritySection() {
