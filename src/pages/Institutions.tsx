@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Landmark, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, ECOSYSTEM, OAG_POSITIONING, OAG_ROLES } from "@/components/ds/institutional";
 import { ECOWAS_LINKS } from "@/lib/site";
+import { SPECIAL_AGENCIES } from "@/lib/special-agencies";
 import { useOfficialAsset } from "@/lib/public-site";
 import { ArmDetailPage } from "@/components/institutions/arm-detail";
 import { useAuthorityChairs, formatChairDate } from "@/lib/authority-data";
@@ -107,7 +108,19 @@ export default function Institutions() {
           </ul>
         </section>
         <section id="other" aria-labelledby="h-other" className="scroll-mt-28"><h2 id="h-other" className="font-display text-h2">{ECOSYSTEM[0].label}</h2><div className="mt-4 max-w-2xl"><Pending>The approved list of other ECOWAS institutions will be published here.</Pending></div></section>
-        <section id="agencies" aria-labelledby="h-ag" className="scroll-mt-28"><h2 id="h-ag" className="font-display text-h2">{ECOSYSTEM[1].label}</h2><div className="mt-4 max-w-2xl"><Pending>The approved list of specialized agencies will be published here.</Pending></div></section>
+        <section id="agencies" aria-labelledby="h-ag" className="scroll-mt-28">
+          <h2 id="h-ag" className="font-display text-h2">{ECOSYSTEM[1].label}</h2>
+          <p className="mt-3 max-w-2xl text-small text-muted-foreground">Specialized agencies that carry out ECOWAS programmes across health, energy, finance, water, agriculture, youth, gender and transport.</p>
+          <ol className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {SPECIAL_AGENCIES.map((agency, i) => (
+              <li key={agency.name} className="flex flex-col bg-card p-5">
+                <p className="font-mono text-xs text-primary" aria-hidden>{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="mt-2 font-display text-base font-bold leading-snug text-ink">{agency.name}</h3>
+                <p className="mt-2 text-small text-ink-soft">{agency.description}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
         <section id="directory" aria-labelledby="h-dir" className="scroll-mt-28">
           <h2 id="h-dir" className="font-display text-h2">Institution Directory</h2>
           <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
