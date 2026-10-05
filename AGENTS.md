@@ -19,3 +19,4 @@
 - Homepage news reads only from `fetchLatestNews` in `src/lib/news-data.ts` (empty until approved content); never hardcode articles on pages.
 - Authority chair data comes only from `useAuthorityChairs` in `src/lib/authority-data.ts` (public read of published rows, current + archive); chairs rotate yearly so nothing is hardcoded and history is never deleted.
 - Homepage narrative order is Authority Chair, OAG leadership, combined Office/mandate, then ECOWAS Institutions; this preserves the approved institutional hierarchy before supporting content.
+- Keep Commission-specific profile and leadership data in the shared institution profile source and render its distinct institution-first presentation there; this prevents duplicate data while preserving Parliament and Court profiles.
