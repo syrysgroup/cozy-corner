@@ -7,7 +7,6 @@ import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, OAG_POSITIONING } from "@/components/ds/institutional";
 import { useOfficialAsset } from "@/lib/public-site";
 import { fetchLatestNews, type NewsItem } from "@/lib/news-data";
-import oagLogo from "@/assets/auditor-general-logo.png.asset.json";
 import commissionLogo from "@/assets/commission-logo.png.asset.json";
 
 const ARM_KEYS = ["commission", "parliament", "court"];
@@ -50,7 +49,6 @@ export function WhatOAGDoes() {
 }
 
 export function LeadershipFeature() {
-  const emblem = useOfficialAsset("auditor-general", oagLogo.url);
   const trackRef = useRef<HTMLUListElement>(null);
   const [active, setActive] = useState(0);
   const roles = ["Auditor General", "Leadership role 02", "Leadership role 03", "Leadership role 04"];
@@ -118,15 +116,9 @@ export function LeadershipFeature() {
                   <div className="relative flex h-full flex-col p-6">
                     <span className="font-mono text-xs text-primary-foreground/65">{String(index + 1).padStart(2, "0")}</span>
                     <div className="grid flex-1 place-items-center">
-                      {index === 0 ? (
-                        <span className="grid size-32 place-items-center rounded-full bg-card p-5 shadow-raised">
-                          <img src={emblem.src} alt={emblem.alt ?? "Office of the Auditor General emblem"} width={104} height={104} loading="lazy" className="size-full object-contain" />
-                        </span>
-                      ) : (
-                        <span className="grid size-28 place-items-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10">
-                          <UserRound className="size-12 text-primary-foreground/70" aria-hidden />
-                        </span>
-                      )}
+                      <span className="grid size-28 place-items-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10">
+                        {index === 0 ? <ShieldCheck className="size-12 text-primary-foreground/70" aria-hidden /> : <UserRound className="size-12 text-primary-foreground/70" aria-hidden />}
+                      </span>
                     </div>
                     <div className="border-t border-primary-foreground/25 pt-5">
                       <h3 className="font-display text-h3 text-primary-foreground">{role}</h3>
