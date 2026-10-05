@@ -1,6 +1,6 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, FileSearch, Search, ClipboardCheck, RefreshCcw, BadgeCheck, Megaphone, ShieldCheck, UserRound } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, FileSearch, Search, ClipboardCheck, RefreshCcw, BadgeCheck, Megaphone, ShieldCheck, UserRound } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
 import { SectionHeading } from "@/components/ds/showcase";
 import { Container } from "@/components/ds/shell/layout-parts";
@@ -51,26 +51,98 @@ export function WhatOAGDoes() {
 
 export function LeadershipFeature() {
   const emblem = useOfficialAsset("auditor-general", oagLogo.url);
-  const [broken, setBroken] = useState(false);
+  const trackRef = useRef<HTMLUListElement>(null);
+  const [active, setActive] = useState(0);
+  const roles = ["Auditor General", "Leadership role 02", "Leadership role 03", "Leadership role 04"];
+
+  const moveTo = (index: number) => {
+    const next = Math.max(0, Math.min(roles.length - 1, index));
+    const track = trackRef.current;
+    const card = track?.children.item(next);
+    if (!(card instanceof HTMLElement)) return;
+    card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    setActive(next);
+  };
+
+  const syncActive = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = Array.from(track.children).filter((item): item is HTMLElement => item instanceof HTMLElement);
+    if (!cards.length) return;
+    const nearest = cards.reduce((best, card, index) => {
+      const distance = Math.abs(card.offsetLeft - track.scrollLeft);
+      return distance < best.distance ? { index, distance } : best;
+    }, { index: 0, distance: Number.POSITIVE_INFINITY });
+    setActive(nearest.index);
+  };
+
   return (
-    <Container as="section" aria-labelledby="home-leadership" className="py-section-lg">
-      <p className="overline text-primary">02 · Leadership</p>
-      <h2 id="home-leadership" className="mt-3 max-w-3xl font-display text-h1">Leadership of the Office of the Auditor General</h2>
-      <p className="mt-4 max-w-2xl text-lead text-muted-foreground">The Auditor General leads the Office’s independent audit and assurance work across ECOWAS Institutions.</p>
-      <article aria-labelledby="ag-title" className="mt-6 grid overflow-hidden border border-border bg-card shadow-raised md:grid-cols-[minmax(16rem,0.9fr)_1.1fr]">
-        <div className="relative grid min-h-[20rem] place-items-center border-r border-border bg-card p-10">
-          {broken ? <ShieldCheck className="size-24 text-primary/70" aria-hidden /> : <img src={emblem.src} alt={emblem.alt ?? "Office of the Auditor General emblem"} width={200} height={200} loading="lazy" onError={() => setBroken(true)} className="max-h-52 w-auto object-contain" />}
-          <p className="absolute bottom-4 left-4 right-4 text-xs text-muted-foreground">Official portrait to be published once approved.</p>
+    <section aria-labelledby="home-leadership" className="overflow-hidden border-b border-border bg-background py-section-lg">
+      <Container>
+        <div className="grid gap-10 lg:grid-cols-[minmax(17rem,0.72fr)_minmax(0,1.28fr)] lg:items-center">
+          <div className="max-w-xl">
+            <p className="overline text-primary">02 · OAG Leadership</p>
+            <h2 id="home-leadership" className="mt-4 font-display text-h1">Leadership of the Office of the Auditor General</h2>
+            <p className="mt-5 text-lead text-ink-soft">The people responsible for directing the Office’s independent audit and assurance mandate.</p>
+            <p className="mt-4 border-l-2 border-ecowas-yellow pl-4 text-small text-muted-foreground">Names, portraits and biographies will be published only after formal approval.</p>
+            <div className="mt-8 flex items-center gap-3">
+              <Button type="button" variant="secondary" size="icon" aria-label="Previous leadership profile" onClick={() => moveTo(active - 1)} disabled={active === 0} className="size-12 rounded-full">
+                <ArrowLeft aria-hidden />
+              </Button>
+              <Button type="button" variant="secondary" size="icon" aria-label="Next leadership profile" onClick={() => moveTo(active + 1)} disabled={active === roles.length - 1} className="size-12 rounded-full">
+                <ArrowRight aria-hidden />
+              </Button>
+              <span className="ml-2 font-mono text-xs text-muted-foreground" aria-live="polite">{String(active + 1).padStart(2, "0")} / {String(roles.length).padStart(2, "0")}</span>
+            </div>
+            <div className="mt-6">
+              <Button asChild variant="tertiary"><Link to="/about/leadership">View leadership page <ArrowRight /></Link></Button>
+            </div>
+          </div>
+
+          <div className="min-w-0">
+            <ul
+              ref={trackRef}
+              aria-label="OAG leadership profiles"
+              tabIndex={0}
+              onScroll={syncActive}
+              onKeyDown={(event) => {
+                if (event.key === "ArrowRight") { event.preventDefault(); moveTo(active + 1); }
+                if (event.key === "ArrowLeft") { event.preventDefault(); moveTo(active - 1); }
+              }}
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-5 pr-8 [scrollbar-width:thin]"
+            >
+              {roles.map((role, index) => (
+                <li key={role} className="relative aspect-[3/4] w-[min(78vw,18.5rem)] shrink-0 snap-start overflow-hidden rounded-md border border-border bg-ecowas-ocean text-primary-foreground shadow-raised sm:w-72">
+                  <div className="absolute inset-0 pattern-dots opacity-10" aria-hidden />
+                  <div className="absolute inset-x-0 top-0 h-1 band" aria-hidden />
+                  <div className="relative flex h-full flex-col p-6">
+                    <span className="font-mono text-xs text-primary-foreground/65">{String(index + 1).padStart(2, "0")}</span>
+                    <div className="grid flex-1 place-items-center">
+                      {index === 0 ? (
+                        <span className="grid size-32 place-items-center rounded-full bg-card p-5 shadow-raised">
+                          <img src={emblem.src} alt={emblem.alt ?? "Office of the Auditor General emblem"} width={104} height={104} loading="lazy" className="size-full object-contain" />
+                        </span>
+                      ) : (
+                        <span className="grid size-28 place-items-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10">
+                          <UserRound className="size-12 text-primary-foreground/70" aria-hidden />
+                        </span>
+                      )}
+                    </div>
+                    <div className="border-t border-primary-foreground/25 pt-5">
+                      <h3 className="font-display text-h3 text-primary-foreground">{role}</h3>
+                      <p className="mt-2 text-small font-semibold uppercase text-primary-foreground/75">Details awaiting approval</p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-1 flex gap-2" aria-hidden="true">
+              {roles.map((role, index) => <span key={role} className={`h-1 flex-1 transition-colors ${index === active ? "bg-primary" : "bg-border"}`} />)}
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col justify-center p-8 md:p-12">
-          <p className="overline flex items-center gap-2 text-primary"><span className="h-px w-8 bg-ecowas-yellow" aria-hidden />Head of Office</p>
-          <h3 id="ag-title" className="mt-3 font-display text-h1">Auditor General</h3>
-          <p className="mt-2 text-small font-semibold text-ink-soft">Office of the Auditor General of ECOWAS Institutions</p>
-          <p className="mt-6 flex items-start gap-2 border-l-2 border-ecowas-yellow pl-4 text-small text-muted-foreground"><UserRound className="mt-0.5 size-4 shrink-0" aria-hidden />The official name, photograph and biography will appear here once approved for publication.</p>
-          <div className="mt-8"><Button asChild size="lg"><Link to="/about/leadership">Meet the OAG leadership <ArrowRight /></Link></Button></div>
-        </div>
-      </article>
-    </Container>
+      </Container>
+    </section>
   );
 }
 
