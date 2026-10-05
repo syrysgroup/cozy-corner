@@ -19,7 +19,7 @@ export function AuthorityChairFeature() {
         <p className="mt-3 max-w-3xl text-small text-primary-foreground/75">Chairman of the Authority of Heads of State and Government of the Economic Community of West African States (ECOWAS)</p>
 
         <div className="mt-6 grid gap-10 md:grid-cols-[minmax(16rem,0.85fr)_1.15fr] md:items-center">
-          <div className="reveal relative"><span className="absolute -bottom-3 -right-3 left-3 top-3 band opacity-90" aria-hidden /><figure className="duotone group relative aspect-[4/5] overflow-hidden bg-ecowas-ocean ring-1 ring-primary-foreground/20 transition-transform duration-slow hover:-translate-x-1 hover:-translate-y-1">
+          <div className="reveal relative"><span className="absolute -bottom-3 -right-3 left-3 top-3 band opacity-90" aria-hidden /><figure className="group relative aspect-[4/5] overflow-hidden bg-ecowas-ocean ring-1 ring-primary-foreground/20 transition-transform duration-slow hover:-translate-x-1 hover:-translate-y-1">
             {current?.portrait ? (
               <img src={current.portrait.src} alt={current.portrait.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-slow group-hover:scale-[1.03]" />
             ) : (
@@ -29,7 +29,7 @@ export function AuthorityChairFeature() {
               </div>
             )}
             <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-ecowas-yellow transition-transform duration-slow group-hover:scale-x-100" aria-hidden />
-          <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ecowas-ocean/70 to-transparent" aria-hidden /></figure></div>
+          </figure></div>
 
           <div className="reveal" aria-live="polite">
             <p className="overline flex items-center gap-2 text-ecowas-yellow"><Landmark className="size-4" aria-hidden />ECOWAS Authority</p>
