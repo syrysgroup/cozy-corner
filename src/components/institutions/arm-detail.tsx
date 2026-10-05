@@ -65,7 +65,7 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
           </div>
           <div className="relative mx-auto grid aspect-square w-full max-w-sm place-items-center border border-border bg-card p-10 shadow-raised">
             <span className="absolute inset-4 border border-dashed border-border" aria-hidden />
-            <img src={logo.src} alt={logo.alt ?? `Official logo of the ${a.body}`} width={320} height={320} className="relative max-h-64 w-auto object-contain" />
+            <img src={logo.src} alt={logo.alt ?? `Official logo of the ${a.body}`} width={320} height={320} className="relative h-full w-full scale-125 object-contain" />
             <p className="absolute inset-x-0 bottom-3 text-center text-xs uppercase tracking-[0.14em] text-muted-foreground">Official emblem</p>
           </div>
         </Container>
@@ -81,8 +81,8 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
         <p className="overline text-primary">Leadership</p>
         <h2 id="leader-title" className="mt-3 font-display text-h1">Current leader</h2>
         <article className="mt-8 grid overflow-hidden border border-border bg-card md:grid-cols-[16rem_1fr]">
-          <div className="grid min-h-56 place-items-center bg-ecowas-ocean p-8">
-            <img src={logo.src} alt="" className="max-h-28 w-auto object-contain opacity-90" />
+          <div className="grid min-h-56 place-items-center border-r border-border bg-surface-sunken p-6">
+            <img src={logo.src} alt="" className="max-h-44 w-auto object-contain" />
           </div>
           <div className="p-8">
             <p className="overline flex items-center gap-2 text-primary"><UserRound className="size-4" aria-hidden />{p.leader.title}</p>
