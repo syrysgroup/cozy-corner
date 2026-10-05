@@ -7,6 +7,8 @@ import { SPECIAL_AGENCIES } from "@/lib/special-agencies";
 import { useOfficialAsset } from "@/lib/public-site";
 import { ArmDetailPage } from "@/components/institutions/arm-detail";
 import { useAuthorityChairs, formatChairDate } from "@/lib/authority-data";
+import { SUPPORTING_INSTITUTIONS, institutionAssetUrl } from "@/lib/institution-data";
+import { SupportingInstitutionPage } from "@/components/institutions/supporting-institution";
 
 const ARMS = [
   { slug: "commission", key: "commission", site: "https://ecowas.int", ...GOVERNANCE_ARMS[0] },
@@ -19,30 +21,6 @@ const SECTIONS = [
   ["directory", "Institution Directory"], ["audit-universe", "OAG Audit Universe"],
 ] as const;
 
-const OTHER_INSTITUTIONS = [
-  {
-    name: "ECOWAS Bank for Investment and Development (EBID)",
-    description: "The Community’s financial institution, financing public- and private-sector projects that support regional economic development and integration.",
-    link: "https://www.ecowas.int/institutions/ecowas-bank-for-investment-and-development-ebid/",
-  },
-  {
-    name: "West African Health Organisation (WAHO)",
-    description: "The regional health agency that harmonizes Member States’ health policies, pools resources and coordinates responses to shared health challenges.",
-    link: "https://www.ecowas.int/institutions/west-african-health-organisation-waho/",
-  },
-  {
-    name: "GIABA",
-    description: "The regional body that strengthens Member States’ capacity to prevent and control money laundering and terrorist financing.",
-    link: "https://www.ecowas.int/institutions/the-inter-governmental-action-group-against-money-laundering-and-terrorism-financing-in-africa-giaba/",
-  },
-  {
-    name: "Office of the Auditor General (OAG)",
-    description: "Provides independent audit and assurance across ECOWAS institutions; it is separate from the three governance arms.",
-    link: "https://www.ecowas.int/institutions/office-of-the-auditor-general/",
-    independent: true,
-  },
-];
-
 function ArmLogo({ k, fallback, body }: { k: string; fallback: string; body: string }) {
   const logo = useOfficialAsset(k, fallback);
   return <img src={logo.src} alt={logo.alt ?? `${body} logo`} width={72} height={72} loading="lazy" className="size-[4.5rem] object-contain" />;
@@ -53,7 +31,8 @@ function Pending({ children }: { children: React.ReactNode }) {
 }
 
 function ArmDetail({ slug }: { slug: string }) {
-  return <ArmDetailPage a={ARMS.find((x) => x.slug === slug)!} />;
+  const arm = ARMS.find((item) => item.slug === slug);
+  return arm ? <ArmDetailPage a={arm} /> : null;
 }
 
 function AuthoritySection() {
@@ -103,6 +82,8 @@ function AuthoritySection() {
 export default function Institutions() {
   const { sub } = useParams();
   if (sub && ARMS.some((a) => a.slug === sub)) return <ArmDetail slug={sub} />;
+  const supportingInstitution = sub ? SUPPORTING_INSTITUTIONS.find((institution) => institution.slug === sub) : undefined;
+  if (supportingInstitution) return <SupportingInstitutionPage institution={supportingInstitution} />;
   return (
     <>
       <section className="border-b border-border bg-surface-sunken py-section">
@@ -134,17 +115,16 @@ export default function Institutions() {
         <section id="other" aria-labelledby="h-other" className="scroll-mt-28">
           <h2 id="h-other" className="font-display text-h2">{ECOSYSTEM[0].label}</h2>
           <p className="mt-3 max-w-2xl text-small text-muted-foreground">Regional institutions and independent assurance bodies that support the work of the Community.</p>
-          <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
-            {OTHER_INSTITUTIONS.map((institution) => (
-              <li key={institution.link}>
-                <a href={institution.link} target="_blank" rel="noreferrer" className="group flex h-full min-h-40 flex-col bg-card p-5 hover:bg-surface-sunken">
-                  <span className="flex items-start justify-between gap-3">
-                    <span className="font-display text-h4 group-hover:text-primary">{institution.name}</span>
-                    {institution.independent && <span className="shrink-0 border border-primary/40 px-2 py-1 text-xs font-semibold text-primary">Independent assurance</span>}
-                  </span>
-                  <span className="mt-3 flex-1 text-small text-muted-foreground">{institution.description}</span>
-                  <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary">Official profile <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></span>
-                </a>
+          <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-4">
+            {SUPPORTING_INSTITUTIONS.map((institution) => (
+              <li key={institution.slug}>
+                <Link to={`/institutions/${institution.slug}`} className="group flex h-full min-h-72 flex-col bg-card p-5 hover:bg-surface-sunken">
+                  <span className="grid h-24 place-items-start"><img src={institutionAssetUrl(institution.logoPath)} alt={institution.logoAlt} width={120} height={88} loading="lazy" className="h-20 w-28 object-contain object-left" /></span>
+                  <span className="overline mt-3 text-primary">{institution.category}</span>
+                  <span className="mt-2 font-display text-h4 group-hover:text-primary">{institution.shortName}</span>
+                  <span className="mt-2 flex-1 text-small text-muted-foreground">{institution.summary}</span>
+                  <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary">View institution <ArrowRight className="size-4" aria-hidden /></span>
+                </Link>
               </li>
             ))}
           </ul>

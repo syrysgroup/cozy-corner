@@ -3,7 +3,7 @@
 - [x] Homepage refinement: place Authority Chairman and OAG leadership directly after the slider, merge The Office with What OAG Does, follow with ECOWAS Institutions, simplify newsletter to email only, and apply the ECOWAS brand manual.
 - [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
 - [x] Restore official logo display through active public storage records; the Auditor General logo path now points to the supplied logo image.
-- [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification.
+- [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification. EBID, WAHO, GIABA, OAG profiles and Parliament portraits implemented.
 - [x] Show all five Commission commissioners in one compact row; wider institution redesign and sitemap changes cancelled by request.
 - [x] Redesign the Commission profile around its emblem, verified 2026–2030 leadership and portfolios, mandate, structure, official links, and ECOWAS brand guide; preserve Parliament and Court profiles.
 - [x] Remove “03 · Across the region” from the homepage.

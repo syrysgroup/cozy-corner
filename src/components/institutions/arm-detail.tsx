@@ -40,12 +40,12 @@ const PROFILES: Record<string, Profile> = {
   parliament: {
     summary: "The ECOWAS Parliament is the Community’s assembly of peoples. It brings together representatives of Member State parliaments to debate regional issues, give opinions on Community acts and strengthen democratic oversight.",
     facts: [["Headquarters", "Abuja, Nigeria"], ["Established", "Protocol of 1994; inaugurated in 2000"], ["Seats", "115 representatives from Member States"], ["Working languages", "English, French, Portuguese"]],
-    leader: { title: "Speaker of the ECOWAS Parliament", name: "Rt. Hon. Hadja Mémounatou Ibrahima", country: "Togo", since: "2024", portraitPath: "Leadership/parliament-speaker.jpeg" },
+    leader: { title: "Speaker of the ECOWAS Parliament", name: "Rt. Hon. Hadja Mémounatou Ibrahima", country: "Togo", since: "2024", portraitPath: "Leadership/parliament speaker.jpg" },
     additionalLeaders: [
-      { role: "First Deputy Speaker", name: "Rt. Hon. Jibrin Barau", country: "Nigeria", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-1st-deputy.jpeg" },
-      { role: "Second Deputy Speaker", name: "Hon. Adjaratou Traore Coulibaly", country: "Côte d’Ivoire", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-2nd-deputy.jpeg" },
-      { role: "Third Deputy Speaker", name: "Hon. Alexander Afenyo-Markin", country: "Ghana", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-3rd-deputy.jpeg" },
-      { role: "Fourth Deputy Speaker", name: "Hon. Billay Tunkara", country: "Gambia", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-4th-deputy.jpeg" },
+      { role: "First Deputy Speaker", name: "Rt. Hon. Jibrin Barau", country: "Nigeria", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament 1st deputy speaker.jpeg" },
+      { role: "Second Deputy Speaker", name: "Hon. Adjaratou Traore Coulibaly", country: "Côte d’Ivoire", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament 2nd deputy speaker.jpeg" },
+      { role: "Third Deputy Speaker", name: "Hon. Alexander Afenyo-Markin", country: "Ghana", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament 3rd deputy speaker.jpeg" },
+      { role: "Fourth Deputy Speaker", name: "Hon. Billay Tunkara", country: "Gambia", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament 4th deputy speaker.jpeg" },
     ],
     mandate: ["Consider matters on human rights, integration and regional policy", "Give opinions on Community acts and the budget", "Promote democratic governance and citizen participation", "Strengthen links between national parliaments"],
     structure: ["Speaker and Bureau", "Plenary of Members of Parliament", "Standing committees", "General Secretariat"],
@@ -240,7 +240,7 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
               <li className="flex items-center gap-2"><MapPin className="size-4" aria-hidden />{p.leader.country}</li>
               <li className="flex items-center gap-2"><CalendarDays className="size-4" aria-hidden />In office since {p.leader.since}</li>
             </ul>
-            <p className="mt-6 border-l-2 border-ecowas-yellow pl-4 text-xs text-muted-foreground">Based on the institution’s latest public information. Official portrait and biography will be added once confirmed.</p>
+            <p className="mt-6 border-l-2 border-ecowas-yellow pl-4 text-xs text-muted-foreground">Based on the institution’s latest public information.</p>
           </div>
         </article>
 
