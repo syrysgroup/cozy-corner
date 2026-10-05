@@ -163,8 +163,8 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
           )}
           <div className="mt-12">
             <h3 className="font-display text-h2">Commissioners and portfolios</h3>
-            <div className="mt-6 grid gap-4 lg:grid-cols-[50rem_minmax(0,1fr)]">
-              <div className="overflow-x-auto">
+            <div className="mt-6 grid min-w-0 gap-4 lg:grid-cols-[50rem_minmax(0,1fr)]">
+              <div className="min-w-0 max-w-full overflow-x-auto">
                 <ul className="grid w-[50rem] grid-cols-5 gap-px border border-border bg-border">
                   {commissioners.map((commissioner) => (
                     <li key={commissioner.portfolio} className="flex flex-col bg-card">
