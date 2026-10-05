@@ -37,6 +37,17 @@ const toChair = (r: Row): AuthorityChair => ({
 
 let request: Promise<AuthorityChair[]> | undefined;
 
+const CURRENT_CHAIR_FALLBACK: AuthorityChair = {
+  id: "authority-chair-2026-2027",
+  fullName: "Bassirou Diomaye Faye",
+  honorific: "H.E.",
+  countryName: "Senegal",
+  officialTitle: "Chairman of the Authority",
+  role: "President of the Republic of Senegal",
+  portrait: { src: CURRENT_CHAIR_PORTRAIT, alt: "Official portrait of H.E. Bassirou Diomaye Faye" },
+  status: "current",
+};
+
 /** Published ECOWAS Authority chairs (current first, then archive). Read-only. */
 export function useAuthorityChairs() {
   const [chairs, setChairs] = useState<AuthorityChair[] | null>(null);
@@ -46,7 +57,7 @@ export function useAuthorityChairs() {
     request ??= (supabase.from("authority_chairs" as never) as any)
       .select("*").eq("is_published", true).order("start_date", { ascending: false, nullsFirst: false })
       .then(({ data }: { data: Row[] | null }) => (data ?? []).map(toChair));
-    request!.then((v) => active && setChairs(v)).catch(() => active && setChairs([]));
+    request!.then((v) => active && setChairs(v.length ? v : [CURRENT_CHAIR_FALLBACK])).catch(() => active && setChairs([CURRENT_CHAIR_FALLBACK]));
     return () => { active = false; };
   }, []);
   return {
