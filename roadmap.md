@@ -4,7 +4,7 @@
 - [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
 - [x] Restore official logo display through active public storage records; the Auditor General logo path now points to the supplied logo image.
 - [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification.
-- [ ] Redesign every individual institution profile with the ECOWAS Design Manual, show all five Commission commissioners in one compact desktop row, and remove page-level sitemap navigation.
+- [ ] Show all five Commission commissioners in one compact row; wider institution redesign and sitemap changes cancelled by request.
 - [x] Redesign the Commission profile around its emblem, verified 2026–2030 leadership and portfolios, mandate, structure, official links, and ECOWAS brand guide; preserve Parliament and Court profiles.
 - [x] Remove “03 · Across the region” from the homepage.
 
