@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, CalendarDays, MapPin, ShieldCheck, UserRound } from "lucide-react";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { Button } from "@/components/ds/primitives";
 import { useOfficialAsset } from "@/lib/public-site";
+import { supabase } from "@/integrations/supabase/client";
 import type { LucideIcon } from "lucide-react";
 
 export type ArmInfo = { slug: string; key: string; site: string; arm: string; body: string; role: string; logo: string; icon: LucideIcon };
@@ -11,17 +13,26 @@ type Profile = {
   summary: string;
   facts: [string, string][];
   leader: { title: string; name: string; country: string; since: string };
+  additionalLeaders?: { role: string; name: string; country: string; portfolio: string; link: string }[];
   mandate: string[];
   structure: string[];
   history: [string, string][];
 };
 
-// Leadership and facts as last published by the institution; verify against official sources before launch.
+// Commission information is centralized here so profile views and listings share one record.
 const PROFILES: Record<string, Profile> = {
   commission: {
-    summary: "The ECOWAS Commission is the executive arm of the Community. It drafts and implements Community acts, runs regional programmes and coordinates the work of specialised agencies on behalf of Member States.",
-    facts: [["Headquarters", "Abuja, Nigeria"], ["Established", "1975 (as Executive Secretariat); Commission since 2007"], ["Legal basis", "Revised ECOWAS Treaty, 1993"], ["Working languages", "English, French, Portuguese"]],
-    leader: { title: "President of the ECOWAS Commission", name: "H.E. Dr Omar Alieu Touray", country: "The Gambia", since: "July 2022" },
+    summary: "The ECOWAS Commission is the Community’s executive arm. It implements decisions and regional programmes, coordinates Community institutions, and advances cooperation among Member States.",
+    facts: [["Headquarters", "Abuja, Nigeria"], ["Established", "1975"], ["Member States", "12"], ["Leadership term", "2026–2030"], ["Legal basis", "Revised ECOWAS Treaty, 1993"]],
+    leader: { title: "President of the ECOWAS Commission", name: "H.E. General Birame Diop", country: "Senegal", since: "31 August 2026" },
+    additionalLeaders: [
+      { role: "Vice-President of the ECOWAS Commission", name: "H.E. Anthony Oluwatosin Ogunjimi", country: "Nigeria", portfolio: "Office of the Vice-President", link: "https://www.ecowas.int/departments/office-of-the-vice-president/" },
+      { role: "Commissioner", name: "Francess Piagie Alghali", country: "Sierra Leone", portfolio: "Political Affairs, Peace and Security", link: "https://www.ecowas.int/departments/political-affairs-peace-security/" },
+      { role: "Commissioner", name: "Dehpue Yenpea Zuo", country: "Liberia", portfolio: "Economic Affairs and Agriculture", link: "https://www.ecowas.int/departments/economic-affairs-agriculture/" },
+      { role: "Commissioner", name: "Kalilou Sylla", country: "Côte d’Ivoire", portfolio: "Internal Services", link: "https://www.ecowas.int/departments/internal-affairs/" },
+      { role: "Commissioner", name: "Amin Amidu Sulemani", country: "Ghana", portfolio: "Infrastructure, Energy and Digitalization", link: "https://www.ecowas.int/departments/infrastructure-energy-digitalization/" },
+      { role: "Commissioner", name: "Nassirou Bako-Arifari", country: "Benin", portfolio: "Human Development and Social Affairs", link: "https://www.ecowas.int/departments/human-development-social-affairs/" },
+    ],
     mandate: ["Prepare and implement decisions of the Authority and Council of Ministers", "Propose Community legislation and regional policies", "Manage Community programmes, budget and resources", "Represent the Community in international relations"],
     structure: ["President", "Vice-President", "Commissioners leading thematic departments", "Directorates and specialised agencies"],
     history: [["1975", "Treaty of Lagos creates ECOWAS and its Executive Secretariat"], ["1993", "Revised Treaty broadens Community institutions"], ["2007", "Executive Secretariat transformed into the Commission"]],
@@ -44,9 +55,113 @@ const PROFILES: Record<string, Profile> = {
   },
 };
 
+const COMMISSION_PRESIDENT_PORTRAIT = supabase.storage
+  .from("institution-assets")
+  .getPublicUrl("Leadership/commission-president.jpeg").data.publicUrl;
+
+function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src: string; alt?: string } }) {
+  const [portraitUnavailable, setPortraitUnavailable] = useState(false);
+  const commissioners = p.additionalLeaders?.filter((leader) => leader.role === "Commissioner") ?? [];
+  const vicePresident = p.additionalLeaders?.find((leader) => leader.role === "Vice-President of the ECOWAS Commission");
+
+  return (
+    <>
+      <section aria-labelledby="arm-title" className="relative overflow-hidden border-b border-border bg-surface-sunken">
+        <span className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
+        <Container className="grid gap-10 py-section lg:grid-cols-[1fr_20rem] lg:items-center">
+          <div>
+            <nav aria-label="Breadcrumb" className="text-small text-muted-foreground"><Link to="/institutions" className="inline-flex items-center gap-1 hover:text-primary"><ArrowLeft className="size-4" aria-hidden />ECOWAS Institutions</Link> / ECOWAS Commission</nav>
+            <p className="overline mt-8 flex items-center gap-2 text-primary"><a.icon className="size-4" aria-hidden />Executive arm of ECOWAS</p>
+            <h1 id="arm-title" className="mt-3 font-display text-display-lg">{a.body}</h1>
+            <p className="mt-6 max-w-2xl text-lead text-ink-soft">{p.summary}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="lg"><a href={a.site} target="_blank" rel="noreferrer">Official website <ArrowUpRight /><span className="sr-only">(opens in a new tab)</span></a></Button>
+              <Button asChild variant="secondary" size="lg"><a href="#leadership">Current leadership</a></Button>
+            </div>
+          </div>
+          <figure className="mx-auto grid aspect-square w-full max-w-xs place-items-center border border-border bg-card p-10">
+            <img src={logo.src} alt={logo.alt ?? "Official ECOWAS Commission emblem"} width={320} height={320} className="h-full w-full object-contain" />
+            <figcaption className="mt-3 text-center text-xs uppercase text-muted-foreground">Official Commission emblem</figcaption>
+          </figure>
+        </Container>
+      </section>
+
+      <Container as="section" aria-label="Commission facts" className="py-8">
+        <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+          {p.facts.map(([label, value]) => <div key={label} className="bg-card p-5"><dt className="overline">{label}</dt><dd className="mt-2 font-display text-h4">{value}</dd></div>)}
+        </dl>
+      </Container>
+
+      <section id="leadership" aria-labelledby="leadership-title" className="scroll-mt-24 py-section">
+        <Container>
+          <p className="overline text-primary">Executive leadership · 2026–2030</p>
+          <h2 id="leadership-title" className="mt-3 font-display text-h1">Commission leadership</h2>
+          <article className="mt-8 grid overflow-hidden border border-border bg-card md:grid-cols-[14rem_1fr]">
+            <figure className="grid min-h-64 place-items-center bg-surface-sunken p-5">
+              {portraitUnavailable ? (
+                <figcaption className="grid justify-items-center gap-3 text-center text-small text-muted-foreground"><UserRound className="size-10" aria-hidden />Official portrait is currently unavailable.</figcaption>
+              ) : (
+                <img src={COMMISSION_PRESIDENT_PORTRAIT} alt="Official portrait of H.E. General Birame Diop, President of the ECOWAS Commission" loading="lazy" decoding="async" className="h-full max-h-80 w-full object-cover" onError={() => setPortraitUnavailable(true)} />
+              )}
+            </figure>
+            <div className="p-6 md:p-8">
+              <p className="overline flex items-center gap-2 text-primary"><UserRound className="size-4" aria-hidden />{p.leader.title}</p>
+              <h3 className="mt-3 font-display text-h2">{p.leader.name}</h3>
+              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-small text-ink-soft">
+                <li className="flex items-center gap-2"><MapPin className="size-4" aria-hidden />{p.leader.country}</li>
+                <li className="flex items-center gap-2"><CalendarDays className="size-4" aria-hidden />In office since {p.leader.since}</li>
+              </ul>
+              <a href="https://www.ecowas.int/departments/office-of-the-president/" target="_blank" rel="noreferrer" className="mt-6 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline">Office of the President <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+            </div>
+          </article>
+          {vicePresident && (
+            <article className="mt-5 border border-border bg-card p-6 md:flex md:items-center md:justify-between md:gap-6">
+              <div><p className="overline text-primary">{vicePresident.role}</p><h3 className="mt-2 font-display text-h3">{vicePresident.name}</h3><p className="mt-1 text-small text-muted-foreground">{vicePresident.country}</p></div>
+              <a href={vicePresident.link} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline md:mt-0">{vicePresident.portfolio}<ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+            </article>
+          )}
+          <div className="mt-12">
+            <h3 className="font-display text-h2">Commissioners and portfolios</h3>
+            <ul className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+              {commissioners.map((commissioner) => (
+                <li key={commissioner.portfolio} className="flex min-h-52 flex-col bg-card p-6">
+                  <p className="overline text-primary">{commissioner.role} · {commissioner.country}</p>
+                  <h4 className="mt-3 font-display text-h3">{commissioner.name}</h4>
+                  <p className="mt-2 flex-1 text-small text-ink-soft">{commissioner.portfolio}</p>
+                  <a href={commissioner.link} target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline">Official department <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Container>
+      </section>
+
+      <section aria-label="Mandate and structure" className="border-y border-border bg-surface-sunken py-section">
+        <Container className="grid gap-10 lg:grid-cols-2">
+          <div><h2 className="font-display text-h2">Mandate</h2><ul className="mt-6 grid gap-3">{p.mandate.map((item, index) => <li key={item} className="flex gap-4 border-b border-border pb-3"><span className="font-mono text-xs text-primary">0{index + 1}</span>{item}</li>)}</ul></div>
+          <div><h2 className="font-display text-h2">Departmental structure</h2><ul className="mt-6 grid gap-3">{p.structure.map((item) => <li key={item} className="border-l-4 border-ecowas-green bg-card px-4 py-3">{item}</li>)}</ul></div>
+        </Container>
+      </section>
+
+      <Container as="section" className="py-section">
+        <h2 className="font-display text-h2">Key milestones</h2>
+        <ol className="mt-8 grid gap-6 md:grid-cols-3">{p.history.map(([year, item]) => <li key={year} className="border-t-4 border-ecowas-yellow pt-4"><p className="font-display text-h2 text-primary">{year}</p><p className="mt-2 text-small text-ink-soft">{item}</p></li>)}</ol>
+      </Container>
+
+      <Container as="section" className="pb-section">
+        <div className="flex flex-col gap-4 border-2 border-primary bg-card p-6 md:flex-row md:items-center md:justify-between">
+          <p className="flex items-start gap-3 text-small text-ink-soft"><ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden /><span><strong className="text-ink">Independent assurance.</strong> The Office of the Auditor General provides independent audit and assurance across ECOWAS institutions; it is not a fourth governance arm or subordinate to the Commission.</span></p>
+          <Button asChild variant="secondary" className="shrink-0"><Link to="/institutions">All ECOWAS Institutions</Link></Button>
+        </div>
+      </Container>
+    </>
+  );
+}
+
 export function ArmDetailPage({ a }: { a: ArmInfo }) {
   const p = PROFILES[a.slug];
   const logo = useOfficialAsset(a.key, a.logo);
+  if (a.slug === "commission") return <CommissionProfile a={a} p={p} logo={logo} />;
   const Icon = a.icon;
   return (
     <>
