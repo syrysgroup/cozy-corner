@@ -5,6 +5,7 @@
 - [ ] Restore official logo files: public database records are connected, but their storage bucket returns "Bucket not found" and existing CDN fallbacks return 404; requires accessible official image files.
 - [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification.
 - [ ] Plan the Commission profile redesign around the institution, verified President and Commissioners, and the ECOWAS brand guide; implementation and testing await plan approval.
+- [ ] Remove “03 · Across the region” from the homepage.
 
 - [x] IA refinement: main nav de-duplicated, ECOWAS Institutions → /institutions hub, homepage restructured (How assurance flows removed, leadership, news, newsletter).
 - [ ] Publish Auditor General name/photo/bio, news items and newsletter service (awaiting approved content and mailing service).
