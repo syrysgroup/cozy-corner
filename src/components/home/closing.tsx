@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, EyeOff, Lock, UserCheck, Search, ShieldCheck, Plus } from "lucide-react";
+import { ArrowRight, EyeOff, Lock, UserCheck, Search, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, OAG_POSITIONING } from "@/components/ds/institutional";
