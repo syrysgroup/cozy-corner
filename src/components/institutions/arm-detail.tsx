@@ -11,7 +11,7 @@ export type ArmInfo = { slug: string; key: string; site: string; arm: string; bo
 
 type Profile = {
   summary: string;
-  building?: { path: string; alt: string; caption: string; position?: string };
+  building?: { path: string; alt: string; caption: string };
   facts: [string, string][];
   leader: { title: string; name: string; country: string; since: string; portraitPath?: string };
   additionalLeaders?: { role: string; name: string; country: string; portfolio: string; link: string; portraitPath?: string }[];
@@ -91,7 +91,6 @@ function InstitutionBuilding({ building }: { building?: Profile["building"] }) {
         loading="eager"
         decoding="async"
         className="h-[clamp(18rem,52vw,44rem)] w-full object-cover"
-        style={building.position ? { objectPosition: building.position } : undefined}
         onError={() => setUnavailable(true)}
       />
       <figcaption className="absolute bottom-0 right-0 bg-ink/90 px-4 py-2 text-xs font-semibold uppercase text-primary-foreground md:px-6">

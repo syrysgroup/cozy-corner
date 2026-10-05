@@ -6,6 +6,7 @@
 - [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification. EBID, WAHO, GIABA, OAG profiles and Parliament portraits implemented.
 - [x] Show all five Commission commissioners in one compact row; wider institution redesign and sitemap changes cancelled by request.
 - [x] Redesign the Commission profile around its emblem, verified 2026–2030 leadership and portfolios, mandate, structure, official links, and ECOWAS brand guide; preserve Parliament and Court profiles.
+- [x] Add the official Commission headquarters and Parliament building photographs as full-width imagery on their individual institution pages.
 - [x] Remove “03 · Across the region” from the homepage.
 
 - [x] IA refinement: main nav de-duplicated, ECOWAS Institutions → /institutions hub, homepage restructured (How assurance flows removed, leadership, news, newsletter).
