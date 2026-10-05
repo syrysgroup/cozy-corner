@@ -25,43 +25,54 @@ function ArmLogo({ armKey, fallback, body }: { armKey: string; fallback: string;
 }
 
 export function InstitutionsExplainer() {
-  const [open, setOpen] = useState(0);
+  const accents = ["bg-ecowas-green", "bg-ecowas-yellow", "bg-ecowas-ocean"];
   return (
-    <section aria-labelledby="home-institutions" className="py-section-lg">
+    <section aria-labelledby="home-institutions" className="relative overflow-hidden bg-surface-sunken py-section-lg">
       <Container>
-        <p className="overline text-primary">04 · ECOWAS Institutions</p>
-        <h2 id="home-institutions" className="mt-3 font-display text-h1">Three arms of governance.</h2>
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <ul className="grid gap-3">
-            {GOVERNANCE_ARMS.map(({ arm, body, icon: Icon, role }, i) => {
-              const isOpen = open === i;
-              return (
-                <li key={arm} className={cn("border border-border bg-card transition-shadow duration-base", isOpen && "shadow-raised")}>
-                  <button type="button" aria-expanded={isOpen} onClick={() => setOpen(i)} className="flex w-full items-center gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                    <ArmLogo armKey={SLUGS[i]} fallback={LOGOS[i]} body={body} />
-                    <span className="flex-1"><span className="overline flex items-center gap-1.5"><Icon className="size-3.5" aria-hidden />{arm}</span><span className="block font-display text-h3">{body}</span></span>
-                    <Plus className={cn("size-5 transition-transform duration-base", isOpen && "rotate-45")} aria-hidden />
-                  </button>
-                  <div className={cn("grid transition-[grid-template-rows] duration-slow", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
-                    <div className="overflow-hidden"><div className="flex flex-wrap items-end justify-between gap-4 border-t border-border px-5 py-5">
-                      <p className="max-w-md text-small text-ink-soft">{role}</p>
-                      <Link to={`/institutions/${SLUGS[i]}`} className="inline-flex items-center gap-1 text-small font-semibold text-primary hover:underline">About the {body} <ArrowRight className="size-4" /></Link>
-                    </div></div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          <aside className="relative flex flex-col justify-between overflow-hidden border-2 border-dashed border-primary bg-surface-sunken p-6">
-            <span className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
-            <div>
-              <p className="overline flex items-center gap-2 text-primary"><ShieldCheck className="size-4" aria-hidden />Independent assurance</p>
-              <h3 className="mt-3 font-display text-h2">OAG — not a fourth arm.</h3>
-              <p className="mt-3 text-small text-ink-soft">{OAG_POSITIONING}</p>
-            </div>
-            <Button asChild variant="secondary" className="mt-6 w-fit"><Link to="/institutions">Explore ECOWAS Institutions <ArrowRight /></Link></Button>
-          </aside>
+        <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+          <div className="reveal">
+            <p className="overline text-primary">04 · ECOWAS Institutions</p>
+            <h2 id="home-institutions" className="mt-3 font-display text-h1">Three arms of governance.</h2>
+          </div>
+          <p className="reveal max-w-xl text-lead text-ink-soft">ECOWAS governance is exercised by the Executive, the Legislature and the Judiciary — each with a distinct Community mandate.</p>
         </div>
+
+        <ol className="mt-12 grid gap-px border border-border bg-border md:grid-cols-3">
+          {GOVERNANCE_ARMS.map(({ arm, body, icon: Icon, role }, i) => (
+            <li key={arm} className="reveal" style={{ transitionDelay: `${i * 100}ms` }}>
+              <Link to={`/institutions/${SLUGS[i]}`} className="group relative flex h-full flex-col bg-card p-8 transition-colors duration-base hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring">
+                <span aria-hidden className={cn("absolute inset-x-0 top-0 h-1 origin-left scale-x-0 transition-transform duration-slow group-hover:scale-x-100", accents[i])} />
+                <div className="flex items-start justify-between">
+                  <ArmLogo armKey={SLUGS[i]} fallback={LOGOS[i]} body={body} />
+                  <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
+                </div>
+                <p className="overline mt-8 flex items-center gap-1.5 text-ink-soft"><Icon className="size-3.5" aria-hidden />{arm}</p>
+                <h3 className="mt-2 font-display text-h3 transition-colors group-hover:text-primary">{body}</h3>
+                <p className="mt-3 flex-1 text-small text-muted-foreground">{role}</p>
+                <span className="mt-8 inline-flex items-center gap-2 text-small font-semibold text-primary">
+                  Learn more <ArrowRight className="size-4 transition-transform duration-base group-hover:translate-x-1" aria-hidden />
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+
+        <aside className="reveal relative mt-8 overflow-hidden bg-ecowas-green p-8 text-primary-foreground md:p-10">
+          <span className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
+          <span aria-hidden className="pointer-events-none absolute -right-16 -bottom-24 size-72 rounded-full border border-primary-foreground/15" />
+          <span aria-hidden className="pointer-events-none absolute -right-4 -bottom-12 size-44 rounded-full border border-primary-foreground/15" />
+          <div className="relative grid gap-6 md:grid-cols-[auto_1fr_auto] md:items-center">
+            <ShieldCheck className="size-12 text-ecowas-yellow" aria-hidden />
+            <div>
+              <p className="text-overline uppercase text-primary-foreground/75">Independent assurance</p>
+              <h3 className="mt-1 font-display text-h2 text-primary-foreground">OAG — not a fourth arm.</h3>
+              <p className="mt-2 max-w-2xl text-small text-primary-foreground/85">{OAG_POSITIONING}</p>
+            </div>
+            <Link to="/institutions" className="inline-flex min-h-11 w-fit items-center gap-2 bg-primary-foreground px-5 text-small font-semibold text-ecowas-green transition-transform duration-base hover:-translate-y-0.5">
+              Explore ECOWAS Institutions <ArrowRight className="size-4" aria-hidden />
+            </Link>
+          </div>
+        </aside>
       </Container>
     </section>
   );
