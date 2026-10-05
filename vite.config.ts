@@ -5,5 +5,5 @@ import path from "path";
 export default defineConfig({
   server: { host: "::", port: 8080 },
   plugins: [react()],
-  resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
+  resolve: { alias: { "@": path.resolve(__dirname, "./src") }, dedupe: ["react", "react-dom", "react/jsx-runtime"] },
 });
