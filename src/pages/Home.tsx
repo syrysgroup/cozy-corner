@@ -2,7 +2,6 @@ import { AuthorityChairFeature } from "@/components/home/authority-chair";
 import { LatestNews, LeadershipFeature } from "@/components/home/sections";
 import { CinematicHero } from "@/components/home/hero";
 import { MandateGrid } from "@/components/home/mandate";
-import { WestAfricaMap } from "@/components/home/map-section";
 import { TransparencyDashboard } from "@/components/home/stats";
 import { PublicationsShelf } from "@/components/home/shelf";
 import { InstitutionsExplainer, IntegrityBand, ClosingBand } from "@/components/home/closing";
@@ -17,7 +16,6 @@ export default function Home() {
       <LeadershipFeature />
       <MandateGrid />
       <InstitutionsExplainer />
-      <WestAfricaMap />
       <TransparencyDashboard />
       <LatestNews />
       <PublicationsShelf />
