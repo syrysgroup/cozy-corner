@@ -13,7 +13,7 @@ type Profile = {
   summary: string;
   facts: [string, string][];
   leader: { title: string; name: string; country: string; since: string; portraitPath?: string };
-  additionalLeaders?: { role: string; name: string; country: string; portfolio: string; link: string; portraitPath: string }[];
+  additionalLeaders?: { role: string; name: string; country: string; portfolio: string; link: string; portraitPath?: string }[];
   mandate: string[];
   structure: string[];
   history: [string, string][];
@@ -40,7 +40,13 @@ const PROFILES: Record<string, Profile> = {
   parliament: {
     summary: "The ECOWAS Parliament is the Community’s assembly of peoples. It brings together representatives of Member State parliaments to debate regional issues, give opinions on Community acts and strengthen democratic oversight.",
     facts: [["Headquarters", "Abuja, Nigeria"], ["Established", "Protocol of 1994; inaugurated in 2000"], ["Seats", "115 representatives from Member States"], ["Working languages", "English, French, Portuguese"]],
-    leader: { title: "Speaker of the ECOWAS Parliament", name: "Rt. Hon. Hadja Mémounatou Ibrahima", country: "Togo", since: "2024" },
+    leader: { title: "Speaker of the ECOWAS Parliament", name: "Rt. Hon. Hadja Mémounatou Ibrahima", country: "Togo", since: "2024", portraitPath: "Leadership/parliament-speaker.jpeg" },
+    additionalLeaders: [
+      { role: "First Deputy Speaker", name: "Rt. Hon. Jibrin Barau", country: "Nigeria", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-1st-deputy.jpeg" },
+      { role: "Second Deputy Speaker", name: "Hon. Adjaratou Traore Coulibaly", country: "Côte d’Ivoire", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-2nd-deputy.jpeg" },
+      { role: "Third Deputy Speaker", name: "Hon. Alexander Afenyo-Markin", country: "Ghana", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-3rd-deputy.jpeg" },
+      { role: "Fourth Deputy Speaker", name: "Hon. Billay Tunkara", country: "Gambia", portfolio: "Bureau Member", link: "https://www.parl.ecowas.int/structure-parliament/", portraitPath: "Leadership/parliament-4th-deputy.jpeg" },
+    ],
     mandate: ["Consider matters on human rights, integration and regional policy", "Give opinions on Community acts and the budget", "Promote democratic governance and citizen participation", "Strengthen links between national parliaments"],
     structure: ["Speaker and Bureau", "Plenary of Members of Parliament", "Standing committees", "General Secretariat"],
     history: [["1993", "Revised Treaty provides for a Community Parliament"], ["1994", "Protocol relating to the Parliament adopted"], ["2000", "First Legislature inaugurated"]],
@@ -218,9 +224,15 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
         <p className="overline text-primary">Leadership</p>
         <h2 id="leader-title" className="mt-3 font-display text-h1">Current leader</h2>
         <article className="mt-8 grid overflow-hidden border border-border bg-card md:grid-cols-[16rem_1fr]">
-          <div className="grid min-h-56 place-items-center border-r border-border bg-surface-sunken p-6">
-            <img src={logo.src} alt="" className="max-h-44 w-auto object-contain" />
-          </div>
+          <figure className="aspect-[4/5] min-h-64 overflow-hidden border-r border-border bg-surface-sunken">
+            {p.leader.portraitPath ? (
+              <LeadershipPortrait path={p.leader.portraitPath} name={`${p.leader.name}, ${p.leader.title}`} />
+            ) : (
+              <div className="grid h-full place-items-center p-8">
+                <img src={logo.src} alt="" className="max-h-44 w-auto object-contain" />
+              </div>
+            )}
+          </figure>
           <div className="p-8">
             <p className="overline flex items-center gap-2 text-primary"><UserRound className="size-4" aria-hidden />{p.leader.title}</p>
             <h3 className="mt-3 font-display text-h2">{p.leader.name}</h3>
@@ -231,6 +243,26 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
             <p className="mt-6 border-l-2 border-ecowas-yellow pl-4 text-xs text-muted-foreground">Based on the institution’s latest public information. Official portrait and biography will be added once confirmed.</p>
           </div>
         </article>
+
+        {p.additionalLeaders && (
+          <div className="mt-12">
+            <h3 className="font-display text-h3">Bureau and Leadership</h3>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {p.additionalLeaders.map((leader) => (
+                <article key={leader.name} className="flex flex-col border border-border bg-card">
+                  <figure className="aspect-[4/5] overflow-hidden bg-surface-sunken">
+                    {leader.portraitPath && <LeadershipPortrait path={leader.portraitPath} name={`${leader.name}, ${leader.role}`} />}
+                  </figure>
+                  <div className="flex flex-1 flex-col p-4">
+                    <p className="text-xs font-semibold uppercase text-primary">{leader.country}</p>
+                    <h4 className="mt-2 font-display text-base font-bold leading-snug text-ink">{leader.name}</h4>
+                    <p className="mt-2 flex-1 text-xs leading-relaxed text-ink-soft">{leader.role}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
       </Container></section>
 
       <section aria-label="Mandate and structure" className="border-y border-border bg-surface-sunken py-section">
