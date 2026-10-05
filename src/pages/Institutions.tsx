@@ -19,6 +19,30 @@ const SECTIONS = [
   ["directory", "Institution Directory"], ["audit-universe", "OAG Audit Universe"],
 ] as const;
 
+const OTHER_INSTITUTIONS = [
+  {
+    name: "ECOWAS Bank for Investment and Development (EBID)",
+    description: "The Community’s financial institution, financing public- and private-sector projects that support regional economic development and integration.",
+    link: "https://www.ecowas.int/institutions/ecowas-bank-for-investment-and-development-ebid/",
+  },
+  {
+    name: "West African Health Organisation (WAHO)",
+    description: "The regional health agency that harmonizes Member States’ health policies, pools resources and coordinates responses to shared health challenges.",
+    link: "https://www.ecowas.int/institutions/west-african-health-organisation-waho/",
+  },
+  {
+    name: "GIABA",
+    description: "The regional body that strengthens Member States’ capacity to prevent and control money laundering and terrorist financing.",
+    link: "https://www.ecowas.int/institutions/the-inter-governmental-action-group-against-money-laundering-and-terrorism-financing-in-africa-giaba/",
+  },
+  {
+    name: "Office of the Auditor General (OAG)",
+    description: "Provides independent audit and assurance across ECOWAS institutions; it is separate from the three governance arms.",
+    link: "https://www.ecowas.int/institutions/office-of-the-auditor-general/",
+    independent: true,
+  },
+];
+
 function ArmLogo({ k, fallback, body }: { k: string; fallback: string; body: string }) {
   const logo = useOfficialAsset(k, fallback);
   return <img src={logo.src} alt={logo.alt ?? `${body} logo`} width={72} height={72} loading="lazy" className="size-[4.5rem] object-contain" />;
@@ -107,16 +131,36 @@ export default function Institutions() {
             ))}
           </ul>
         </section>
-        <section id="other" aria-labelledby="h-other" className="scroll-mt-28"><h2 id="h-other" className="font-display text-h2">{ECOSYSTEM[0].label}</h2><div className="mt-4 max-w-2xl"><Pending>The approved list of other ECOWAS institutions will be published here.</Pending></div></section>
+        <section id="other" aria-labelledby="h-other" className="scroll-mt-28">
+          <h2 id="h-other" className="font-display text-h2">{ECOSYSTEM[0].label}</h2>
+          <p className="mt-3 max-w-2xl text-small text-muted-foreground">Regional institutions and independent assurance bodies that support the work of the Community.</p>
+          <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
+            {OTHER_INSTITUTIONS.map((institution) => (
+              <li key={institution.link}>
+                <a href={institution.link} target="_blank" rel="noreferrer" className="group flex h-full min-h-40 flex-col bg-card p-5 hover:bg-surface-sunken">
+                  <span className="flex items-start justify-between gap-3">
+                    <span className="font-display text-h4 group-hover:text-primary">{institution.name}</span>
+                    {institution.independent && <span className="shrink-0 border border-primary/40 px-2 py-1 text-xs font-semibold text-primary">Independent assurance</span>}
+                  </span>
+                  <span className="mt-3 flex-1 text-small text-muted-foreground">{institution.description}</span>
+                  <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary">Official profile <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
         <section id="agencies" aria-labelledby="h-ag" className="scroll-mt-28">
           <h2 id="h-ag" className="font-display text-h2">{ECOSYSTEM[1].label}</h2>
           <p className="mt-3 max-w-2xl text-small text-muted-foreground">Specialized agencies that carry out ECOWAS programmes across health, energy, finance, water, agriculture, youth, gender and transport.</p>
           <ol className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {SPECIAL_AGENCIES.map((agency, i) => (
-              <li key={agency.name} className="flex flex-col bg-card p-5">
+              <li key={agency.name}>
+                <a href={agency.link} target="_blank" rel="noreferrer" className="group flex h-full flex-col bg-card p-5 hover:bg-surface-sunken">
                 <p className="font-mono text-xs text-primary" aria-hidden>{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-2 font-display text-base font-bold leading-snug text-ink">{agency.name}</h3>
+                <h3 className="mt-2 flex-1 font-display text-base font-bold leading-snug text-ink group-hover:text-primary">{agency.name}</h3>
                 <p className="mt-2 text-small text-ink-soft">{agency.description}</p>
+                <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary">Official agency page <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></span>
+                </a>
               </li>
             ))}
           </ol>
