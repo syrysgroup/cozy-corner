@@ -35,7 +35,7 @@ function LanguageSelect({ className, inverse }: { className?: string; inverse?: 
       <Globe className="size-4" aria-hidden />
       <span className="sr-only">Language</span>
       <select value={lang} onChange={(e) => setLang(e.target.value as typeof lang)}
-        className={cn("min-h-11 cursor-pointer bg-transparent font-semibold outline-none", inverse && "[&>option]:text-ink")}>
+        className={cn("min-h-11 cursor-pointer appearance-none border-0 bg-transparent pr-1 font-semibold shadow-none outline-none ring-0 hover:border-0 focus:outline-none focus:ring-0 focus-visible:underline", inverse && "[&>option]:text-ink")}>
         {LANGS.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}
       </select>
     </label>

@@ -56,7 +56,7 @@ export function WestAfricaMap() {
         <p className="overline text-primary">03 · Across the region</p>
         <h2 id="home-map" className="mt-3 max-w-3xl font-display text-h1">Twelve member states. One audit mandate.</h2>
         <p className="mt-3 max-w-2xl text-small text-muted-foreground">Select a country — or tab in and use the arrow keys — to see the Community institutions hosted there.</p>
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
           <div className="relative border border-border bg-card p-3">
             <svg viewBox="0 0 900 470" className="h-auto w-full" role="group" aria-label="Map of ECOWAS member states">
               <defs><pattern id="sea" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.8" fill="hsl(var(--ecowas-ocean) / 0.12)" /></pattern></defs>

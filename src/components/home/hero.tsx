@@ -107,7 +107,7 @@ export function CinematicHero() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
           <a href="#mission" className={`inline-flex w-fit items-center gap-2 text-xs uppercase tracking-[0.14em] text-primary-foreground/70 transition-opacity duration-slow hover:text-primary-foreground ${scrolled ? "opacity-0" : "opacity-100"}`}>
             <ArrowDown className="size-4 animate-bounce motion-reduce:animate-none" aria-hidden />Scroll to explore
           </a>

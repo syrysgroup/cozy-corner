@@ -53,7 +53,7 @@ export function PublicationsShelf() {
         onPointerUp={() => { if (rail.current) rail.current.style.scrollSnapType = ""; setTimeout(() => (drag.current = null), 0); }}
         onPointerLeave={() => { if (rail.current) rail.current.style.scrollSnapType = ""; drag.current = null; }}
         onClickCapture={(e) => { if (drag.current?.moved) { e.preventDefault(); e.stopPropagation(); } }}
-        className="mt-10 cursor-grab snap-x snap-mandatory overflow-x-auto pb-6 active:cursor-grabbing [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-scrollbar]:hidden">
+        className="mt-6 cursor-grab snap-x snap-mandatory overflow-x-auto pb-6 active:cursor-grabbing [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-scrollbar]:hidden">
         <ul className="mx-auto flex w-max select-none gap-6 px-5 md:px-8 xl:px-[max(3rem,calc((100vw-82rem)/2+3rem))]">
           {publications.map((p, i) => (
             <li key={p.title} className="reveal w-[15rem] shrink-0 snap-start md:w-[17rem]" style={{ transitionDelay: `${i * 80}ms` }}>

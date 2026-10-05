@@ -18,7 +18,7 @@ export function AuthorityChairFeature() {
         <p className="overline flex items-center gap-3 text-primary-foreground/80"><span className="h-px w-10 bg-ecowas-yellow" aria-hidden />01 · Chairman of the Authority</p>
         <p className="mt-3 max-w-3xl text-small text-primary-foreground/75">Chairman of the Authority of Heads of State and Government of the Economic Community of West African States (ECOWAS)</p>
 
-        <div className="mt-10 grid gap-10 md:grid-cols-[minmax(16rem,0.85fr)_1.15fr] md:items-center">
+        <div className="mt-6 grid gap-10 md:grid-cols-[minmax(16rem,0.85fr)_1.15fr] md:items-center">
           <div className="reveal relative"><span className="absolute -bottom-3 -right-3 left-3 top-3 band opacity-90" aria-hidden /><figure className="duotone group relative aspect-[4/5] overflow-hidden bg-ecowas-ocean ring-1 ring-primary-foreground/20 transition-transform duration-slow hover:-translate-x-1 hover:-translate-y-1">
             {current?.portrait ? (
               <img src={current.portrait.src} alt={current.portrait.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-slow group-hover:scale-[1.03]" />
