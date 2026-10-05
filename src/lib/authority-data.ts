@@ -16,6 +16,7 @@ export type AuthorityChair = {
 };
 
 type Row = Record<string, unknown>;
+const CURRENT_CHAIR_PORTRAIT = "https://unglyahbvxpmcczzhflx.supabase.co/storage/v1/object/public/institution-assets/Leadership/chairman-authority-2026-2027.png";
 const toChair = (r: Row): AuthorityChair => ({
   id: String(r.id),
   fullName: String(r.full_name),
@@ -25,6 +26,8 @@ const toChair = (r: Row): AuthorityChair => ({
   role: String(r.role),
   portrait: r.portrait_bucket && r.portrait_path
     ? { src: supabase.storage.from(String(r.portrait_bucket)).getPublicUrl(String(r.portrait_path)).data.publicUrl, alt: String(r.portrait_alt ?? `Official portrait of ${r.full_name}`) }
+    : r.status === "current"
+      ? { src: CURRENT_CHAIR_PORTRAIT, alt: String(r.portrait_alt ?? `Official portrait of ${r.full_name}`) }
     : undefined,
   startDate: (r.start_date as string) ?? undefined,
   endDate: (r.end_date as string) ?? undefined,
