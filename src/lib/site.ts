@@ -78,7 +78,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { title: "West African Health Organisation (WAHO)", category: "Institutions", meta: "Bobo-Dioulasso, Burkina Faso", href: "/transparency/institutions" },
   { title: "Guide to audit follow-up for institutions", category: "Publications", meta: "Guidance · 2025", href: "/publications/reports" },
   { title: "OAG presents annual findings to the Audit Committee", category: "News", meta: "12 September 2025", href: "/knowledge/news" },
-  { title: "Senior Performance Auditor (P4)", category: "Opportunities", meta: "Closes 30 October 2025", href: "/opportunities/careers" },
+  { title: "Careers at the OAG", category: "Opportunities", meta: "Professional opportunities", href: "/opportunities/careers" },
   { title: "Call for tenders: audit analytics platform", category: "Opportunities", meta: "Procurement · Open", href: "/opportunities/procurement" },
   { title: "Five lessons from three years of recommendation tracking", category: "Knowledge", meta: "Insight · 8 min read", href: "/knowledge/insights" },
 ];

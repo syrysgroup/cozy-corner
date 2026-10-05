@@ -60,6 +60,7 @@ export default {
           green: token("ecowas-green"),
           brown: token("ecowas-brown"),
           yellow: token("ecowas-yellow"),
+          "yellow-12": token("ecowas-yellow-12"),
           lime: token("ecowas-lime"),
           orange: token("ecowas-orange"),
           sky: token("ecowas-sky"),

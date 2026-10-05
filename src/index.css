@@ -19,6 +19,8 @@
     --ecowas-ocean: 200 100% 22%;   /* #004C71 */
     --ecowas-slate: 192 34% 30%;    /* #335D68 */
     --ecowas-red: 347 66% 34%;      /* #8E1D36 */
+    /* Manual treatment: ECOWAS Yellow at 12% on white, pre-mixed so text contrast stays predictable */
+    --ecowas-yellow-12: 53 70% 92%;
 
     /* Status semantics (never colour alone — always paired with icon + label) */
     --status-positive: 151 100% 21%;
