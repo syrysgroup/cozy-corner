@@ -49,7 +49,7 @@ export default function Careers() {
       {/* Green feature — purpose */}
       <section className="bg-primary text-primary-foreground">
         <div className="container grid gap-10 py-section-sm md:grid-cols-3 lg:py-section">
-          <h2 className="font-display text-h2 md:col-span-1">Why work at the OAG</h2>
+          <h2 className="font-display text-h2 text-primary-foreground md:col-span-1">Why work at the OAG</h2>
           <div className="grid gap-8 sm:grid-cols-3 md:col-span-2">
             {[
               ["Regional impact", "Your work informs decisions across ECOWAS Institutions and the citizens they serve."],
@@ -57,7 +57,7 @@ export default function Careers() {
               ["Career development", "Structured learning, certification support and exposure to diverse audit engagements."],
             ].map(([t, b]) => (
               <div key={t} className="border-t-2 border-ecowas-yellow pt-4">
-                <h3 className="font-display text-h4">{t}</h3>
+                <h3 className="font-display text-h4 text-primary-foreground">{t}</h3>
                 <p className="mt-2 text-body text-primary-foreground/90">{b}</p>
               </div>
             ))}
@@ -159,12 +159,12 @@ export default function Careers() {
       {/* Ocean — process timeline */}
       <section id="process" className="scroll-mt-24 bg-ecowas-ocean text-background" aria-labelledby="proc-h">
         <div className="container py-section-sm lg:py-section">
-          <h2 id="proc-h" className="font-display text-h2">How recruitment works</h2>
+          <h2 id="proc-h" className="font-display text-h2 text-background">How recruitment works</h2>
           <ol className="mt-10 grid gap-8 md:grid-cols-4">
             {PROCESS_STEPS.map((s, i) => (
               <li key={s.title} className="border-t-2 border-ecowas-sky pt-4">
                 <span className="font-mono text-small text-background/80">Step {i + 1}</span>
-                <h3 className="mt-1 font-display text-h4">{s.title}</h3>
+                <h3 className="mt-1 font-display text-h4 text-background">{s.title}</h3>
                 <p className="mt-2 text-body text-background/90">{s.body}</p>
               </li>
             ))}
@@ -192,7 +192,7 @@ export default function Careers() {
       <section className="bg-primary text-primary-foreground">
         <div className="container flex flex-col gap-6 py-section-sm md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="font-display text-h2">Contribute to regional accountability</h2>
+            <h2 className="font-display text-h2 text-primary-foreground">Contribute to regional accountability</h2>
             <p className="mt-2 text-lead text-primary-foreground/90">Follow official ECOWAS channels for new professional opportunities.</p>
           </div>
           <Button asChild size="lg" variant="inverse">
