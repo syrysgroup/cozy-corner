@@ -71,13 +71,13 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
         </Container>
       </section>
 
-      <Container as="section" aria-label="Key facts" className="py-10">
+      <Container as="section" className="py-10">
         <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
           {p.facts.map(([k, v]) => <div key={k} className="bg-card p-5"><dt className="overline">{k}</dt><dd className="mt-2 font-display text-h4">{v}</dd></div>)}
         </dl>
       </Container>
 
-      <Container as="section" id="leader" aria-labelledby="leader-title" className="scroll-mt-24 py-section">
+      <section id="leader" aria-labelledby="leader-title" className="scroll-mt-24 py-section"><Container>
         <p className="overline text-primary">Leadership</p>
         <h2 id="leader-title" className="mt-3 font-display text-h1">Current leader</h2>
         <article className="mt-8 grid overflow-hidden border border-border bg-card md:grid-cols-[16rem_1fr]">
@@ -94,7 +94,7 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
             <p className="mt-6 border-l-2 border-ecowas-yellow pl-4 text-xs text-muted-foreground">Based on the institution’s latest public information. Official portrait and biography will be added once confirmed.</p>
           </div>
         </article>
-      </Container>
+      </Container></section>
 
       <section aria-label="Mandate and structure" className="border-y border-border bg-surface-sunken py-section">
         <Container className="grid gap-10 lg:grid-cols-2">
@@ -109,7 +109,7 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
         </Container>
       </section>
 
-      <Container as="section" aria-labelledby="history-title" className="py-section">
+      <Container as="section" className="py-section">
         <h2 id="history-title" className="font-display text-h2">Key milestones</h2>
         <ol className="mt-8 grid gap-6 md:grid-cols-3">
           {p.history.map(([y, t]) => <li key={y} className="border-t-4 border-ecowas-yellow pt-4"><p className="font-display text-h2 text-primary">{y}</p><p className="mt-2 text-small text-ink-soft">{t}</p></li>)}
