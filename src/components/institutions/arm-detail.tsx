@@ -12,8 +12,8 @@ export type ArmInfo = { slug: string; key: string; site: string; arm: string; bo
 type Profile = {
   summary: string;
   facts: [string, string][];
-  leader: { title: string; name: string; country: string; since: string };
-  additionalLeaders?: { role: string; name: string; country: string; portfolio: string; link: string }[];
+  leader: { title: string; name: string; country: string; since: string; portraitPath?: string };
+  additionalLeaders?: { role: string; name: string; country: string; portfolio: string; link: string; portraitPath: string }[];
   mandate: string[];
   structure: string[];
   history: [string, string][];
@@ -24,14 +24,14 @@ const PROFILES: Record<string, Profile> = {
   commission: {
     summary: "The ECOWAS Commission is the Community’s executive arm. It implements decisions and regional programmes, coordinates Community institutions, and advances cooperation among Member States.",
     facts: [["Headquarters", "Abuja, Nigeria"], ["Established", "1975"], ["Member States", "12"], ["Leadership term", "2026–2030"], ["Legal basis", "Revised ECOWAS Treaty, 1993"]],
-    leader: { title: "President of the ECOWAS Commission", name: "H.E. General Birame Diop", country: "Senegal", since: "31 August 2026" },
+    leader: { title: "President of the ECOWAS Commission", name: "H.E. General Birame Diop", country: "Senegal", since: "31 August 2026", portraitPath: "Leadership/commission-president.jpeg" },
     additionalLeaders: [
-      { role: "Vice-President of the ECOWAS Commission", name: "H.E. Anthony Oluwatosin Ogunjimi", country: "Nigeria", portfolio: "Office of the Vice-President", link: "https://www.ecowas.int/departments/office-of-the-vice-president/" },
-      { role: "Commissioner", name: "Francess Piagie Alghali", country: "Sierra Leone", portfolio: "Political Affairs, Peace and Security", link: "https://www.ecowas.int/departments/political-affairs-peace-security/" },
-      { role: "Commissioner", name: "Dehpue Yenpea Zuo", country: "Liberia", portfolio: "Economic Affairs and Agriculture", link: "https://www.ecowas.int/departments/economic-affairs-agriculture/" },
-      { role: "Commissioner", name: "Kalilou Sylla", country: "Côte d’Ivoire", portfolio: "Internal Services", link: "https://www.ecowas.int/departments/internal-affairs/" },
-      { role: "Commissioner", name: "Amin Amidu Sulemani", country: "Ghana", portfolio: "Infrastructure, Energy and Digitalization", link: "https://www.ecowas.int/departments/infrastructure-energy-digitalization/" },
-      { role: "Commissioner", name: "Nassirou Bako-Arifari", country: "Benin", portfolio: "Human Development and Social Affairs", link: "https://www.ecowas.int/departments/human-development-social-affairs/" },
+      { role: "Vice-President of the ECOWAS Commission", name: "H.E. Oluwatosin Anthony Ogunjimi", country: "Nigeria", portfolio: "Office of the Vice-President", link: "https://www.ecowas.int/departments/office-of-the-vice-president/", portraitPath: "Leadership/commission vice president.jpeg" },
+      { role: "Commissioner", name: "Francess Piagie Alghali", country: "Sierra Leone", portfolio: "Political Affairs, Peace and Security", link: "https://www.ecowas.int/departments/political-affairs-peace-security/", portraitPath: "Leadership/commissioner political affairs.jpeg" },
+      { role: "Commissioner", name: "Dehpue Yenpea Zuo", country: "Liberia", portfolio: "Economic Affairs and Agriculture", link: "https://www.ecowas.int/departments/economic-affairs-agriculture/", portraitPath: "Leadership/commissioner economic affairs and agriculture.jpeg" },
+      { role: "Commissioner", name: "Kalilou Sylla", country: "Côte d’Ivoire", portfolio: "Internal Services", link: "https://www.ecowas.int/departments/internal-affairs/", portraitPath: "Leadership/commissioner for internal services.jpeg" },
+      { role: "Commissioner", name: "Amin Amidu Sulemani", country: "Ghana", portfolio: "Infrastructure, Energy and Digitalisation", link: "https://www.ecowas.int/departments/infrastructure-energy-digitalization/", portraitPath: "Leadership/commissioner for infrastructure, Energy & Digital.jpeg" },
+      { role: "Commissioner", name: "Nassirou Bako-Arifari", country: "Benin", portfolio: "Human Development and Social Affairs", link: "https://www.ecowas.int/departments/human-development-social-affairs/", portraitPath: "Leadership/commissioner human development and social affairs.jpeg" },
     ],
     mandate: ["Prepare and implement decisions of the Authority and Council of Ministers", "Propose Community legislation and regional policies", "Manage Community programmes, budget and resources", "Represent the Community in international relations"],
     structure: ["President", "Vice-President", "Commissioners leading thematic departments", "Directorates and specialised agencies"],
@@ -55,12 +55,22 @@ const PROFILES: Record<string, Profile> = {
   },
 };
 
-const COMMISSION_PRESIDENT_PORTRAIT = supabase.storage
-  .from("institution-assets")
-  .getPublicUrl("Leadership/commission-president.jpeg").data.publicUrl;
+function leadershipPortraitUrl(path: string) {
+  return supabase.storage.from("institution-assets").getPublicUrl(path).data.publicUrl;
+}
+
+function LeadershipPortrait({ path, name, className = "h-full w-full object-cover" }: { path: string; name: string; className?: string }) {
+  const [unavailable, setUnavailable] = useState(false);
+  return unavailable ? (
+    <div className="grid h-full min-h-52 place-items-center bg-surface-sunken px-5 text-center text-small text-muted-foreground">
+      <div className="grid justify-items-center gap-3"><UserRound className="size-10" aria-hidden /><span>Official portrait is currently unavailable.</span></div>
+    </div>
+  ) : (
+    <img src={leadershipPortraitUrl(path)} alt={`Official portrait of ${name}`} loading="lazy" decoding="async" className={className} onError={() => setUnavailable(true)} />
+  );
+}
 
 function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src: string; alt?: string } }) {
-  const [portraitUnavailable, setPortraitUnavailable] = useState(false);
   const commissioners = p.additionalLeaders?.filter((leader) => leader.role === "Commissioner") ?? [];
   const vicePresident = p.additionalLeaders?.find((leader) => leader.role === "Vice-President of the ECOWAS Commission");
 
@@ -97,12 +107,8 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
           <p className="overline text-primary">Executive leadership · 2026–2030</p>
           <h2 id="leadership-title" className="mt-3 font-display text-h1">Commission leadership</h2>
           <article className="mt-8 grid overflow-hidden border border-border bg-card md:grid-cols-[14rem_1fr]">
-            <figure className="grid min-h-64 place-items-center bg-surface-sunken p-5">
-              {portraitUnavailable ? (
-                <figcaption className="grid justify-items-center gap-3 text-center text-small text-muted-foreground"><UserRound className="size-10" aria-hidden />Official portrait is currently unavailable.</figcaption>
-              ) : (
-                <img src={COMMISSION_PRESIDENT_PORTRAIT} alt="Official portrait of H.E. General Birame Diop, President of the ECOWAS Commission" loading="lazy" decoding="async" className="h-full max-h-80 w-full object-cover" onError={() => setPortraitUnavailable(true)} />
-              )}
+            <figure className="aspect-[4/5] min-h-64 overflow-hidden bg-surface-sunken">
+              {p.leader.portraitPath && <LeadershipPortrait path={p.leader.portraitPath} name={`${p.leader.name}, ${p.leader.title}`} />}
             </figure>
             <div className="p-6 md:p-8">
               <p className="overline flex items-center gap-2 text-primary"><UserRound className="size-4" aria-hidden />{p.leader.title}</p>
@@ -115,20 +121,26 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
             </div>
           </article>
           {vicePresident && (
-            <article className="mt-5 border border-border bg-card p-6 md:flex md:items-center md:justify-between md:gap-6">
-              <div><p className="overline text-primary">{vicePresident.role}</p><h3 className="mt-2 font-display text-h3">{vicePresident.name}</h3><p className="mt-1 text-small text-muted-foreground">{vicePresident.country}</p></div>
-              <a href={vicePresident.link} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline md:mt-0">{vicePresident.portfolio}<ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+            <article className="mt-5 grid overflow-hidden border border-border bg-card sm:grid-cols-[10rem_1fr]">
+              <figure className="aspect-[4/5] overflow-hidden bg-surface-sunken sm:aspect-auto"><LeadershipPortrait path={vicePresident.portraitPath} name={`${vicePresident.name}, ${vicePresident.role}`} /></figure>
+              <div className="flex flex-col justify-center p-6 md:flex-row md:items-center md:justify-between md:gap-6">
+                <div><p className="overline text-primary">{vicePresident.role}</p><h3 className="mt-2 font-display text-h3">{vicePresident.name}</h3><p className="mt-1 text-small text-muted-foreground">{vicePresident.country}</p></div>
+                <a href={vicePresident.link} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline md:mt-0">{vicePresident.portfolio}<ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+              </div>
             </article>
           )}
           <div className="mt-12">
             <h3 className="font-display text-h2">Commissioners and portfolios</h3>
             <ul className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
               {commissioners.map((commissioner) => (
-                <li key={commissioner.portfolio} className="flex min-h-52 flex-col bg-card p-6">
-                  <p className="overline text-primary">{commissioner.role} · {commissioner.country}</p>
-                  <h4 className="mt-3 font-display text-h3">{commissioner.name}</h4>
-                  <p className="mt-2 flex-1 text-small text-ink-soft">{commissioner.portfolio}</p>
-                  <a href={commissioner.link} target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline">Official department <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+                <li key={commissioner.portfolio} className="flex min-h-52 flex-col bg-card">
+                  <figure className="aspect-[4/3] overflow-hidden bg-surface-sunken"><LeadershipPortrait path={commissioner.portraitPath} name={`${commissioner.name}, Commissioner for ${commissioner.portfolio}`} /></figure>
+                  <div className="flex flex-1 flex-col p-6">
+                    <p className="overline text-primary">{commissioner.role} · {commissioner.country}</p>
+                    <h4 className="mt-3 font-display text-h3">{commissioner.name}</h4>
+                    <p className="mt-2 flex-1 text-small text-ink-soft">{commissioner.portfolio}</p>
+                    <a href={commissioner.link} target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary hover:underline">Official department <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></a>
+                  </div>
                 </li>
               ))}
             </ul>
