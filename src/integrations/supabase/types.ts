@@ -83,6 +83,167 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_audit: {
+        Row: {
+          action: string
+          actor_id: string
+          created_at: string
+          id: string
+          record_id: string | null
+        }
+        Insert: {
+          action: string
+          actor_id: string
+          created_at?: string
+          id?: string
+          record_id?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string
+          created_at?: string
+          id?: string
+          record_id?: string | null
+        }
+        Relationships: []
+      }
+      contact_enquiries: {
+        Row: {
+          assigned_unit: string | null
+          consent_recorded: boolean
+          country: string | null
+          created_at: string
+          email: string
+          enquiry_type: string
+          first_name: string
+          id: string
+          last_name: string
+          message: string
+          organization: string | null
+          preferred_language: string
+          reference_number: string
+          resolved_at: string | null
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_unit?: string | null
+          consent_recorded: boolean
+          country?: string | null
+          created_at?: string
+          email: string
+          enquiry_type: string
+          first_name: string
+          id?: string
+          last_name: string
+          message: string
+          organization?: string | null
+          preferred_language: string
+          reference_number?: string
+          resolved_at?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_unit?: string | null
+          consent_recorded?: boolean
+          country?: string | null
+          created_at?: string
+          email?: string
+          enquiry_type?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          message?: string
+          organization?: string | null
+          preferred_language?: string
+          reference_number?: string
+          resolved_at?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      contact_notes: {
+        Row: {
+          actor_id: string
+          created_at: string
+          enquiry_id: string
+          id: string
+          note: string
+        }
+        Insert: {
+          actor_id: string
+          created_at?: string
+          enquiry_id: string
+          id?: string
+          note: string
+        }
+        Update: {
+          actor_id?: string
+          created_at?: string
+          enquiry_id?: string
+          id?: string
+          note?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_notes_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "contact_enquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contact_routes: {
+        Row: {
+          assigned_unit: string
+          created_at: string
+          destination_email: string | null
+          enabled: boolean
+          enquiry_type: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_unit: string
+          created_at?: string
+          destination_email?: string | null
+          enabled?: boolean
+          enquiry_type: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_unit?: string
+          created_at?: string
+          destination_email?: string | null
+          enabled?: boolean
+          enquiry_type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      contact_staff: {
+        Row: {
+          can_export: boolean
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          can_export?: boolean
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          can_export?: boolean
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       oag_ai_messages: {
         Row: {
           citations: Json
