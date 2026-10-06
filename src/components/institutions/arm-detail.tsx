@@ -79,24 +79,28 @@ function LeadershipPortrait({ path, name, className = "h-full w-full object-cove
   );
 }
 
-function InstitutionBuilding({ building }: { building?: Profile["building"] }) {
+function InstitutionHero({ a, p, logo, leadershipId }: { a: ArmInfo; p: Profile; logo: { src: string; alt?: string }; leadershipId: string }) {
   const [unavailable, setUnavailable] = useState(false);
-  if (!building || unavailable) return null;
-
   return (
-    <figure className="relative w-full overflow-hidden border-y border-border bg-surface-sunken">
-      <img
-        src={leadershipPortraitUrl(building.path)}
-        alt={building.alt}
-        loading="eager"
-        decoding="async"
-        className="h-[clamp(18rem,52vw,44rem)] w-full object-cover"
-        onError={() => setUnavailable(true)}
-      />
-      <figcaption className="absolute bottom-0 right-0 bg-ink/90 px-4 py-2 text-xs font-semibold uppercase text-primary-foreground md:px-6">
-        {building.caption}
-      </figcaption>
-    </figure>
+    <section aria-labelledby="arm-title" className="institution-photo-header relative isolate overflow-hidden bg-ink">
+      {p.building && !unavailable && <img src={leadershipPortraitUrl(p.building.path)} alt={p.building.alt} loading="eager" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" onError={() => setUnavailable(true)} />}
+      <div className="institution-photo-overlay absolute inset-0 -z-10" aria-hidden />
+      <span className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
+      <Container className="relative py-10 md:py-14">
+        <nav aria-label="Breadcrumb" className="text-small text-primary-foreground/90"><Link to="/institutions" className="inline-flex min-h-11 items-center gap-1 hover:underline"><ArrowLeft className="size-4" aria-hidden />ECOWAS Institutions</Link> / {a.body}</nav>
+        <div className="mt-6 flex items-center gap-4">
+          <img src={logo.src} alt={logo.alt ?? `Official logo of the ${a.body}`} width={80} height={80} className="size-16 shrink-0 bg-card p-2 object-contain md:size-20" />
+          <p className="text-small font-semibold uppercase text-primary-foreground"><a.icon className="mb-2 size-5" aria-hidden />{a.arm} arm of ECOWAS</p>
+        </div>
+        <h1 id="arm-title" className="mt-5 max-w-3xl font-display text-4xl text-primary-foreground md:text-6xl">{a.body}</h1>
+        <p className="mt-5 max-w-2xl text-lead text-primary-foreground/95">{p.summary}</p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <Button asChild variant="inverse" size="lg"><a href={a.site} target="_blank" rel="noreferrer">Official website <ArrowUpRight /><span className="sr-only">(opens in a new tab)</span></a></Button>
+          <Button asChild variant="secondary" size="lg" className="border-primary-foreground/80 text-primary-foreground hover:bg-primary-foreground hover:text-ink"><a href={`#${leadershipId}`}>Current leadership</a></Button>
+        </div>
+        {p.building && <p className="mt-8 text-xs text-primary-foreground/80">{p.building.caption}</p>}
+      </Container>
+    </section>
   );
 }
 
@@ -106,27 +110,7 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
 
   return (
     <>
-      <section aria-labelledby="arm-title" className="relative overflow-hidden border-b border-border bg-surface-sunken">
-        <span className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
-        <Container className="grid gap-10 py-section lg:grid-cols-[1fr_20rem] lg:items-center">
-          <div>
-            <nav aria-label="Breadcrumb" className="text-small text-muted-foreground"><Link to="/institutions" className="inline-flex items-center gap-1 hover:text-primary"><ArrowLeft className="size-4" aria-hidden />ECOWAS Institutions</Link> / ECOWAS Commission</nav>
-            <p className="overline mt-8 flex items-center gap-2 text-primary"><a.icon className="size-4" aria-hidden />Executive arm of ECOWAS</p>
-            <h1 id="arm-title" className="mt-3 font-display text-display-lg">{a.body}</h1>
-            <p className="mt-6 max-w-2xl text-lead text-ink-soft">{p.summary}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg"><a href={a.site} target="_blank" rel="noreferrer">Official website <ArrowUpRight /><span className="sr-only">(opens in a new tab)</span></a></Button>
-              <Button asChild variant="secondary" size="lg"><a href="#leadership">Current leadership</a></Button>
-            </div>
-          </div>
-          <figure className="mx-auto grid aspect-square w-full max-w-xs place-items-center border border-border bg-card p-10">
-            <img src={logo.src} alt={logo.alt ?? "Official ECOWAS Commission emblem"} width={320} height={320} className="h-full w-full object-contain" />
-            <figcaption className="mt-3 text-center text-xs uppercase text-muted-foreground">Official Commission emblem</figcaption>
-          </figure>
-        </Container>
-      </section>
-
-      <InstitutionBuilding building={p.building} />
+      <InstitutionHero a={a} p={p} logo={logo} leadershipId="leadership" />
 
       <Container as="section" aria-label="Commission facts" className="py-8">
         <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
@@ -163,8 +147,8 @@ function CommissionProfile({ a, p, logo }: { a: ArmInfo; p: Profile; logo: { src
           )}
           <div className="mt-12">
             <h3 className="font-display text-h2">Commissioners and portfolios</h3>
-            <div className="mt-6 grid gap-4 lg:grid-cols-[50rem_minmax(0,1fr)]">
-              <div className="overflow-x-auto">
+            <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,50rem)_minmax(0,1fr)]">
+              <div className="min-w-0 overflow-x-auto">
                 <ul className="grid w-[50rem] grid-cols-5 gap-px border border-border bg-border">
                   {commissioners.map((commissioner) => (
                     <li key={commissioner.portfolio} className="flex flex-col bg-card">
@@ -219,7 +203,7 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
   const Icon = a.icon;
   return (
     <>
-      <section aria-labelledby="arm-title" className="relative overflow-hidden bg-surface-sunken">
+      {a.slug === "parliament" ? <InstitutionHero a={a} p={p} logo={logo} leadershipId="leader" /> : <section aria-labelledby="arm-title" className="relative overflow-hidden bg-surface-sunken">
         <span className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
         <Container className="grid gap-10 py-section lg:grid-cols-[1.3fr_1fr] lg:items-center">
           <div>
@@ -238,9 +222,7 @@ export function ArmDetailPage({ a }: { a: ArmInfo }) {
             <p className="absolute inset-x-0 bottom-3 text-center text-xs uppercase tracking-[0.14em] text-muted-foreground">Official emblem</p>
           </div>
         </Container>
-      </section>
-
-      <InstitutionBuilding building={p.building} />
+      </section>}
 
       <Container as="section" className="py-10">
         <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">

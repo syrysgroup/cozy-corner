@@ -1,5 +1,8 @@
 # OAG roadmap
 
+- [x] Place Commission and Parliament building photos behind their introductory titles with a readable overlay.
+- [x] Automatically retrieve official ECOWAS news on page opening and generate brief local article pages linking to the original article (no unattended scraping or stored archive).
+
 - [x] Homepage refinement: place Authority Chairman and OAG leadership directly after the slider, merge The Office with What OAG Does, follow with ECOWAS Institutions, simplify newsletter to email only, and apply the ECOWAS brand manual.
 - [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
 - [x] Restore official logo display through active public storage records; the Auditor General logo path now points to the supplied logo image.

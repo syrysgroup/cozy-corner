@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
 import { Container } from "@/components/ds/shell/layout-parts";
-import { fetchEcowasNews, type EcowasNewsItem } from "@/lib/ecowas-news-data";
-
-const ECOWAS_HOME = "https://www.ecowas.int/";
+import { ecowasNewsPath, fetchEcowasNews, type EcowasNewsItem } from "@/lib/ecowas-news-data";
 
 function formatDate(value: string): string {
   return new Intl.DateTimeFormat("en-GB", {
@@ -49,9 +48,9 @@ export function EcowasNews() {
             <p className="overline text-primary">Official updates from the Community</p>
             <h2 id="ecowas-news-title" className="mt-2 font-display text-h1">ECOWAS News</h2>
           </div>
-          <a href={ECOWAS_HOME} target="_blank" rel="noreferrer" className="group inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary underline-offset-4 hover:underline">
-            More from ECOWAS <ExternalLink className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-          </a>
+          <Link to="/knowledge/ecowas-news" className="group inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary underline-offset-4 hover:underline">
+            More from ECOWAS <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </Link>
         </div>
 
         <div className="mt-8" aria-live="polite">
@@ -73,7 +72,7 @@ export function EcowasNews() {
           ) : (
             <div className="grid gap-9 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12">
               <article>
-                <a href={feature.href} target="_blank" rel="noreferrer" className="group block">
+                <Link to={ecowasNewsPath(feature.id)} className="group block">
                   {feature.image && <img src={feature.image} alt="" loading="lazy" decoding="async" className="aspect-[16/9] w-full bg-muted object-cover" />}
                   <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1">
                     <span className="overline text-primary">Latest</span>
@@ -82,21 +81,21 @@ export function EcowasNews() {
                   </div>
                   <h3 className="mt-2 max-w-3xl font-display text-h2 group-hover:text-primary">{feature.title}</h3>
                   {feature.summary && <p className="mt-3 max-w-2xl text-small leading-relaxed text-muted-foreground">{feature.summary}</p>}
-                  <span className="mt-5 inline-flex items-center gap-2 text-small font-semibold text-primary">Read on ecowas.int <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden /></span>
-                </a>
+                  <span className="mt-5 inline-flex items-center gap-2 text-small font-semibold text-primary">Read brief <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden /></span>
+                </Link>
               </article>
 
               {recent.length > 0 && (
                 <ul className="divide-y divide-border border-y border-border">
                   {recent.map((item) => (
                     <li key={item.id}>
-                      <a href={item.href} target="_blank" rel="noreferrer" className="group grid min-h-28 grid-cols-[5rem_minmax(0,1fr)] items-center gap-4 py-4">
+                      <Link to={ecowasNewsPath(item.id)} className="group grid min-h-28 grid-cols-[5rem_minmax(0,1fr)] items-center gap-4 py-4">
                         {item.image && <img src={item.image} alt="" loading="lazy" decoding="async" className="aspect-square w-20 bg-muted object-cover" />}
                         <span className="min-w-0">
                           <ArticleDate value={item.publishedAt} />
                           <span className="mt-1 block font-display text-h4 group-hover:text-primary">{item.title}</span>
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

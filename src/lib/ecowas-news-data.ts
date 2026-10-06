@@ -14,7 +14,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function safeEcowasUrl(value: unknown): string | undefined {
+export function safeEcowasUrl(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
   try {
     const url = new URL(value);
@@ -46,7 +46,7 @@ function summarize(value: string): string {
 }
 
 export async function fetchEcowasNews(limit = 4, signal?: AbortSignal): Promise<EcowasNewsItem[]> {
-  const perPage = Math.min(8, Math.max(1, Math.floor(limit)));
+  const perPage = Math.min(24, Math.max(1, Math.floor(limit)));
   const url = new URL(ECOWAS_API);
   url.searchParams.set("categories", "12");
   url.searchParams.set("per_page", String(perPage));
@@ -62,6 +62,10 @@ export async function fetchEcowasNews(limit = 4, signal?: AbortSignal): Promise<
   const payload: unknown = await response.json();
   if (!Array.isArray(payload)) throw new Error("ECOWAS news response was not a list");
 
+  return parseEcowasPosts(payload);
+}
+
+function parseEcowasPosts(payload: unknown[]): EcowasNewsItem[] {
   return payload.flatMap((entry): EcowasNewsItem[] => {
     if (!isRecord(entry) || typeof entry.id !== "number" || typeof entry.date !== "string") return [];
     const title = renderedText(entry.title);
@@ -71,9 +75,26 @@ export async function fetchEcowasNews(limit = 4, signal?: AbortSignal): Promise<
       id: entry.id,
       title,
       publishedAt: entry.date,
-      summary: summarize(renderedText(entry.excerpt)),
+      summary: summarize(renderedText(entry.excerpt) || renderedText(entry.content)),
       image: featuredImage(entry),
       href,
     }];
   });
+}
+
+export function ecowasNewsPath(id: number): string {
+  return `/knowledge/ecowas-news/${id}`;
+}
+
+export async function fetchEcowasArticle(id: string, signal?: AbortSignal): Promise<EcowasNewsItem | null> {
+  if (!/^\d+$/.test(id)) return null;
+  const url = new URL(ECOWAS_API);
+  url.searchParams.set("include", id);
+  url.searchParams.set("categories", "12");
+  url.searchParams.set("_embed", "1");
+  const response = await fetch(url, { headers: { Accept: "application/json" }, credentials: "omit", signal });
+  if (!response.ok) throw new Error(`ECOWAS news request failed (${response.status})`);
+  const payload: unknown = await response.json();
+  if (!Array.isArray(payload)) throw new Error("ECOWAS news response was not a list");
+  return parseEcowasPosts(payload)[0] ?? null;
 }

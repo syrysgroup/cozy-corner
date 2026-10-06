@@ -5,6 +5,7 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { I18nProvider } from "@/lib/i18n";
 const DesignSystem = lazy(() => import("@/pages/DesignSystem"));
 const Home = lazy(() => import("@/pages/Home"));
+const EcowasNewsPage = lazy(() => import("@/pages/EcowasNews"));
 const Library = lazy(() => import("@/pages/Library"));
 const Transparency = lazy(() => import("@/pages/Transparency"));
 const DocumentDetail = lazy(() => import("@/pages/DocumentDetail"));
@@ -64,6 +65,8 @@ export default function App() {
               <Route path="/institutions" element={<Institutions />} />
               <Route path="/institutions/:sub" element={<Institutions />} />
               <Route path="/" element={<Home />} />
+              <Route path="/knowledge/ecowas-news" element={<EcowasNewsPage />} />
+              <Route path="/knowledge/ecowas-news/:id" element={<EcowasNewsPage />} />
               <Route path="/integrityline" element={<IntegrityLine />} />
               <Route path="/integrityline/:sub" element={<IntegrityLine />} />
               <Route path="/transparency" element={<Transparency />} />

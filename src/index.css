@@ -150,6 +150,8 @@
 
 @layer components {
   .band { background: var(--band); }
+  .institution-photo-header { --institution-scrim: var(--ink); }
+  .institution-photo-overlay { background: linear-gradient(90deg, hsl(var(--institution-scrim) / 0.9), hsl(var(--institution-scrim) / 0.7) 55%, hsl(var(--institution-scrim) / 0.3)); }
   .overline { @apply text-overline uppercase text-muted-foreground; }
   .num { font-variant-numeric: tabular-nums; }
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity var(--dur-slow) var(--ease-institutional), transform var(--dur-slow) var(--ease-institutional); }
