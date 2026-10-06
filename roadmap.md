@@ -8,6 +8,7 @@
 - [x] Redesign the Commission profile around its emblem, verified 2026–2030 leadership and portfolios, mandate, structure, official links, and ECOWAS brand guide; preserve Parliament and Court profiles.
 - [x] Add the official Commission headquarters and Parliament building photographs as full-width imagery on their individual institution pages.
 - [x] Remove “03 · Across the region” from the homepage.
+- [x] Add an ECOWAS News section on the homepage, sourced from the official ECOWAS public news feed.
 
 - [x] IA refinement: main nav de-duplicated, ECOWAS Institutions → /institutions hub, homepage restructured (How assurance flows removed, leadership, news, newsletter).
 - [ ] Publish Auditor General name/photo/bio, news items and newsletter service (awaiting approved content and mailing service).

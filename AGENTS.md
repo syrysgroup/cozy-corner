@@ -16,7 +16,7 @@
 - Route pages are lazy-loaded in `src/App.tsx` behind one Suspense fallback; keeps the first load small as sections grow.
 - ECOWAS institutional model (three governance arms; OAG separate as independent assurance) lives only in `src/components/ds/institutional.tsx`; reuse it so OAG is never shown as a fourth arm.
 - Primary navigation renders `MAIN_NAV` from `src/lib/site.ts`, which excludes destinations already in the utility bar; avoids duplicate header destinations.
-- Homepage news reads only from `fetchLatestNews` in `src/lib/news-data.ts` (empty until approved content); never hardcode articles on pages.
+- The homepage ECOWAS News section reads published Community posts only through `src/lib/ecowas-news-data.ts`; keep it distinct from OAG news, which remains approval-gated in `src/lib/news-data.ts`.
 - Authority chair data comes only from `useAuthorityChairs` in `src/lib/authority-data.ts` (public read of published rows, current + archive); chairs rotate yearly so nothing is hardcoded and history is never deleted.
 - Homepage narrative order is Authority Chair, OAG leadership, combined Office/mandate, then ECOWAS Institutions; this preserves the approved institutional hierarchy before supporting content.
 - Keep Commission-specific profile and leadership data in the shared institution profile source and render its distinct institution-first presentation there; this prevents duplicate data while preserving Parliament and Court profiles.

@@ -1,5 +1,6 @@
 import { AuthorityChairFeature } from "@/components/home/authority-chair";
-import { LatestNews, LeadershipFeature } from "@/components/home/sections";
+import { LeadershipFeature } from "@/components/home/sections";
+import { EcowasNews } from "@/components/home/ecowas-news";
 import { CinematicHero } from "@/components/home/hero";
 import { MandateGrid } from "@/components/home/mandate";
 import { TransparencyDashboard } from "@/components/home/stats";
@@ -17,7 +18,7 @@ export default function Home() {
       <MandateGrid />
       <InstitutionsExplainer />
       <TransparencyDashboard />
-      <LatestNews />
+      <EcowasNews />
       <PublicationsShelf />
       <IntegrityBand />
       <ClosingBand />
