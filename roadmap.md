@@ -1,5 +1,6 @@
 # OAG roadmap
 
+- [ ] Upgrade the existing Contact & Institutional Enquiries hub: verified CMS contacts/FAQs, multilingual routing and form, secure submission and administration, shared footer contact information, phone/accessibility/security checks.
 - [ ] Refine the menu and homepage, especially a creative ECOWAS News presentation; select a visual direction, then finish phone layouts and final checks.
 - [x] Restore compact leadership groups across all institution templates, preserving every deputy’s role; remove inline charts and interlink dedicated organogram pages; verify hierarchy and table views against the supplied PDF. All 22 profiles/pages checked; original assets restored. Hierarchy/table remain labelled transcribed overviews, with full detailed establishment available in original source pages.
 - [ ] Complete diplomatic editorial homepage ECOWAS News, news index and fuller official article views; verify source content and unavailable states without invented reporting.
