@@ -5,6 +5,7 @@ import { Search, X, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ds/primitives";
 import { NotFoundState } from "./layout-parts";
+import { fetchNews, newsPath, categoryLabel } from "@/lib/news-data";
 import { POPULAR_SEARCHES, SEARCH_CATEGORIES, SEARCH_INDEX, type SearchCategory } from "@/lib/site";
 
 const RECENT_KEY = "oag-recent-searches";
@@ -21,10 +22,12 @@ export function SearchOverlay({ open, onOpenChange }: { open: boolean; onOpenCha
     else { setQ(""); setCat("All"); }
   }, [open]);
 
+  const [newsIndex, setNewsIndex] = useState<typeof SEARCH_INDEX>([]);
+  useEffect(() => { if (open) fetchNews().then((n) => setNewsIndex(n.map((i) => ({ title: i.title, category: "News" as const, meta: `${categoryLabel(i.category)} · ${i.date}`, href: newsPath(i.slug) })))); }, [open]);
   const results = useMemo(() => {
     const term = q.trim().toLowerCase();
-    return SEARCH_INDEX.filter((i) => (cat === "All" || i.category === cat) && (!term || `${i.title} ${i.meta} ${i.category}`.toLowerCase().includes(term))).slice(0, 8);
-  }, [q, cat]);
+    return [...SEARCH_INDEX, ...newsIndex].filter((i) => (cat === "All" || i.category === cat) && (!term || `${i.title} ${i.meta} ${i.category}`.toLowerCase().includes(term))).slice(0, 8);
+  }, [q, cat, newsIndex]);
   useEffect(() => setActive(0), [q, cat]);
 
   const showResults = q.trim().length > 0 || cat !== "All";

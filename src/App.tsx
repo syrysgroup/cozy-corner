@@ -10,6 +10,7 @@ const Library = lazy(() => import("@/pages/Library"));
 const Transparency = lazy(() => import("@/pages/Transparency"));
 const DocumentDetail = lazy(() => import("@/pages/DocumentDetail"));
 const IntegrityLine = lazy(() => import("@/pages/IntegrityLine"));
+const NewsPage = lazy(() => import("@/pages/News"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 const Institutions = lazy(() => import("@/pages/Institutions"));
 const SectionPage = lazy(() => import("@/pages/SectionPage").then((m) => ({ default: m.SectionPage })));
@@ -64,9 +65,12 @@ export default function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/institutions" element={<Institutions />} />
               <Route path="/institutions/:sub" element={<Institutions />} />
+              <Route path="/institutions/:sub/organogram" element={<Institutions />} />
               <Route path="/" element={<Home />} />
               <Route path="/knowledge/ecowas-news" element={<EcowasNewsPage />} />
               <Route path="/knowledge/ecowas-news/:id" element={<EcowasNewsPage />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/news/:sub" element={<NewsPage />} />
               <Route path="/integrityline" element={<IntegrityLine />} />
               <Route path="/integrityline/:sub" element={<IntegrityLine />} />
               <Route path="/transparency" element={<Transparency />} />

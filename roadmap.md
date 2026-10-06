@@ -1,5 +1,11 @@
 # OAG roadmap
 
+- [x] Restore compact leadership groups across all institution templates, preserving every deputy’s role; remove inline charts and interlink dedicated organogram pages; verify hierarchy and table views against the supplied PDF. All 22 profiles/pages checked; original assets restored. Hierarchy/table remain labelled transcribed overviews, with full detailed establishment available in original source pages.
+- [ ] Complete diplomatic editorial homepage ECOWAS News, news index and fuller official article views; verify source content and unavailable states without invented reporting.
+- [ ] Apply equal-sized, uncropped leadership portraits across all institution profiles.
+- [ ] Add an interactive organogram subpage and entry button for every institution; integrate the supplied 71-page approved English document with accurate hierarchy, table views and source pages, retaining summary labels for institutions absent from the document.
+- [ ] Add an Authority of Heads of State and Government page and connect its homepage/hub links.
+
 - [x] Place Commission and Parliament building photos behind their introductory titles with a readable overlay.
 - [x] Automatically retrieve official ECOWAS news on page opening and generate brief local article pages linking to the original article (no unattended scraping or stored archive).
 

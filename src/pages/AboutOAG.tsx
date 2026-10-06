@@ -89,31 +89,16 @@ function AboutLanding() {
       </section>
 
       <section id="about-sections" className="scroll-mt-28 border-b border-border bg-card">
-        <Container className="grid gap-10 py-section md:grid-cols-[minmax(13rem,0.7fr)_1.3fr]">
-          <div>
-            <p className="overline text-primary">About the Office</p>
-            <h2 className="mt-3 font-display text-h2">Purpose. Practice. People.</h2>
-          </div>
-          <div className="grid gap-5">
-            <p className="max-w-3xl text-lead text-ink-soft">{OAG_POSITIONING}</p>
-            <p className="max-w-3xl text-small text-muted-foreground">Explore the mandate, responsibilities, leadership, structure, audit approach and governance of the Office.</p>
-          </div>
+        <Container className="max-w-3xl py-section">
+          <p className="overline text-primary">About the Office</p>
+          <p className="mt-4 text-lead text-ink-soft">{OAG_POSITIONING}</p>
         </Container>
       </section>
 
-      <Container as="section" aria-labelledby="architecture-heading" className="border-b border-border py-section">
-        <div className="mb-8 max-w-3xl">
-          <p className="overline text-primary">Institutional architecture</p>
-          <h2 id="architecture-heading" className="mt-3 font-display text-h2">ECOWAS governance and OAG independent assurance</h2>
-          <p className="mt-3 text-small text-muted-foreground">ECOWAS has three arms of governance. OAG sits separately within the institutional ecosystem as an independent assurance office.</p>
-        </div>
-        <InstitutionalArchitecture />
-      </Container>
-
       <Container className="py-section">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
-          <div><p className="overline text-primary">Inside OAG</p><h2 className="mt-3 font-display text-h2">Explore the Office</h2></div>
-          <p className="max-w-md text-small text-muted-foreground">Institutional details that have not yet been provided are clearly identified as placeholders.</p>
+        <div className="mb-8 border-b border-border pb-5">
+          <p className="overline text-primary">Inside OAG</p>
+          <h2 className="mt-3 font-display text-h2">Explore the Office</h2>
         </div>
         <ul className="grid gap-x-10 md:grid-cols-2">
           {about.children.map((item, index) => (

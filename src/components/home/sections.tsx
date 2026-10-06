@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ds/showcase";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, OAG_POSITIONING } from "@/components/ds/institutional";
 import { useOfficialAsset } from "@/lib/public-site";
-import { fetchLatestNews, type NewsItem } from "@/lib/news-data";
+import { categoryLabel, fetchLatestNews, type NewsItem } from "@/lib/news-data";
 import commissionLogo from "@/assets/commission-logo.png.asset.json";
 
 const ARM_KEYS = ["commission", "parliament", "court"];
@@ -194,7 +194,7 @@ export function LatestNews() {
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading index="07" eyebrow="Latest news" title="From the Office." className="mb-0 flex-1 border-0 pb-0" />
-          <Button asChild variant="secondary" size="sm"><Link to="/knowledge/news">View all news <ArrowRight /></Link></Button>
+          <Button asChild variant="secondary" size="sm"><Link to="/news">View all news <ArrowRight /></Link></Button>
         </div>
         <div className="mt-8" aria-live="polite">
           {items === null ? <p className="text-small text-muted-foreground">Loading news…</p>
@@ -203,11 +203,11 @@ export function LatestNews() {
               <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
                 <Link to={feature.href} className="group block">
                   {feature.image && <img src={feature.image} alt="" loading="lazy" className="aspect-[16/10] w-full object-cover" />}
-                  <p className="overline mt-5 text-primary">{feature.category} · <time>{feature.date}</time></p>
+                  <p className="overline mt-5 text-primary">{categoryLabel(feature.category)} · <time dateTime={feature.date}>{feature.date}</time></p>
                   <h3 className="mt-2 font-display text-h2 group-hover:text-primary">{feature.title}</h3>
                   <p className="mt-3 text-small text-muted-foreground">{feature.summary}</p>
                 </Link>
-                <ul className="grid content-start gap-6">{rest.map((n) => <li key={n.id}><Link to={n.href} className="group block"><p className="text-xs text-muted-foreground">{n.category} · <time>{n.date}</time></p><h3 className="mt-1 font-display text-h4 group-hover:text-primary">{n.title}</h3></Link></li>)}</ul>
+                <ul className="grid content-start gap-6">{rest.map((n) => <li key={n.id}><Link to={n.href} className="group block"><p className="text-xs text-muted-foreground">{categoryLabel(n.category)} · <time dateTime={n.date}>{n.date}</time></p><h3 className="mt-1 font-display text-h4 group-hover:text-primary">{n.title}</h3></Link></li>)}</ul>
               </div>
             )}
         </div>

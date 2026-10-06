@@ -8,7 +8,25 @@ export type EcowasNewsItem = {
   summary: string;
   image?: string;
   href: string;
+  body: EcowasArticleBlock[];
 };
+
+export type EcowasArticleBlock = { type: "paragraph" | "heading" | "quote" | "list"; text: string; items?: string[] };
+
+/** Extract source text only; scripts, embeds and arbitrary markup never reach React. */
+export function parseArticleBody(value: unknown): EcowasArticleBlock[] {
+  if (!isRecord(value) || typeof value.rendered !== "string") return [];
+  const doc = new DOMParser().parseFromString(value.rendered, "text/html");
+  doc.querySelectorAll("script,style,iframe,form,nav,figure,table").forEach((node) => node.remove());
+  const text = (node: Element) => node.textContent?.replace(/\s+/g, " ").trim() ?? "";
+  return Array.from(doc.body.querySelectorAll("p,h2,h3,h4,blockquote,ul,ol")).flatMap((node): EcowasArticleBlock[] => {
+    if (node.parentElement?.closest("blockquote,ul,ol")) return [];
+    const content = text(node);
+    if (!content) return [];
+    if (node.matches("ul,ol")) return [{ type: "list", text: content, items: Array.from(node.querySelectorAll("li")).map(text).filter(Boolean) }];
+    return [{ type: node.matches("h2,h3,h4") ? "heading" : node.matches("blockquote") ? "quote" : "paragraph", text: content }];
+  });
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -78,6 +96,7 @@ function parseEcowasPosts(payload: unknown[]): EcowasNewsItem[] {
       summary: summarize(renderedText(entry.excerpt) || renderedText(entry.content)),
       image: featuredImage(entry),
       href,
+      body: parseArticleBody(entry.content),
     }];
   });
 }

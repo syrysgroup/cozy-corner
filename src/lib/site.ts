@@ -33,7 +33,18 @@ export const NAV: NavSection[] = [
   ] },
   { slug: "knowledge", label: { en: "Knowledge", fr: "Savoirs", pt: "Conhecimento" }, lead: "Insights, guidance and learning resources on public-sector audit.", children: [
     { slug: "insights", label: { en: "Insights", fr: "Analyses", pt: "Análises" }, summary: "Themes and lessons drawn from audit work." },
-    { slug: "news", label: { en: "News", fr: "Actualités", pt: "Notícias" }, summary: "Announcements and events." },
+  ] },
+  { slug: "news", label: { en: "News & Media", fr: "Actualités et médias", pt: "Notícias e media" }, lead: "Approved announcements, statements, speeches, events and media from the Office.", children: [
+    { slug: "latest", label: { en: "Latest", fr: "Dernières", pt: "Recentes" }, summary: "The most recent approved OAG news." },
+    { slug: "press-releases", label: { en: "Press releases", fr: "Communiqués", pt: "Comunicados" }, summary: "Official announcements." },
+    { slug: "statements", label: { en: "Statements", fr: "Déclarations", pt: "Declarações" }, summary: "Formal statements of the Office." },
+    { slug: "speeches", label: { en: "Speeches", fr: "Discours", pt: "Discursos" }, summary: "Remarks by OAG leadership." },
+    { slug: "events", label: { en: "Events", fr: "Événements", pt: "Eventos" }, summary: "Upcoming and past events." },
+    { slug: "photos", label: { en: "Photos", fr: "Photos", pt: "Fotos" }, summary: "Approved photo galleries." },
+    { slug: "videos", label: { en: "Videos", fr: "Vidéos", pt: "Vídeos" }, summary: "Approved video content." },
+    { slug: "resources", label: { en: "Media resources", fr: "Ressources médias", pt: "Recursos de media" }, summary: "Logos and press materials." },
+    { slug: "newsletter", label: { en: "Newsletter", fr: "Lettre d’information", pt: "Boletim" }, summary: "Newsletter availability." },
+    { slug: "archive", label: { en: "Archive", fr: "Archives", pt: "Arquivo" }, summary: "Browse past news by year." },
   ] },
   { slug: "opportunities", label: { en: "Opportunities", fr: "Opportunités", pt: "Oportunidades" }, lead: "Careers, procurement notices and partnerships.", children: [
     { slug: "careers", label: { en: "Careers", fr: "Carrières", pt: "Carreiras" }, summary: "Open roles and internships." },
@@ -77,7 +88,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { title: "ECOWAS Court of Justice", category: "Institutions", meta: "Abuja, Nigeria", href: "/transparency/institutions" },
   { title: "West African Health Organisation (WAHO)", category: "Institutions", meta: "Bobo-Dioulasso, Burkina Faso", href: "/transparency/institutions" },
   { title: "Guide to audit follow-up for institutions", category: "Publications", meta: "Guidance · 2025", href: "/publications/reports" },
-  { title: "OAG presents annual findings to the Audit Committee", category: "News", meta: "12 September 2025", href: "/knowledge/news" },
+  { title: "News & Media newsroom", category: "News", meta: "OAG newsroom", href: "/news" },
   { title: "Careers at the OAG", category: "Opportunities", meta: "Professional opportunities", href: "/opportunities/careers" },
   { title: "Call for tenders: audit analytics platform", category: "Opportunities", meta: "Procurement · Open", href: "/opportunities/procurement" },
   { title: "Five lessons from three years of recommendation tracking", category: "Knowledge", meta: "Insight · 8 min read", href: "/knowledge/insights" },

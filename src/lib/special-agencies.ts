@@ -1,6 +1,15 @@
 // Specialized ECOWAS agencies, sourced from the ECOWAS Special Agencies brief.
 // Centralized so the Institutions Hub and any other views share one record.
-export type SpecialAgency = { name: string; description: string; link: string };
+export type SpecialAgency = { name: string; description: string; link: string; organogramPath?: string };
+
+/** URL slug from the acronym in brackets, e.g. "West African Power Pool (WAPP)" -> "wapp". */
+export function agencySlug(a: SpecialAgency) {
+  const m = a.name.match(/\(([^)]+)\)/);
+  return (m ? m[1] : a.name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+export function agencyShortName(a: SpecialAgency) {
+  return a.name.match(/\(([^)]+)\)/)?.[1] ?? a.name;
+}
 
 export const SPECIAL_AGENCIES: SpecialAgency[] = [
   { name: "Regional Centre for Surveillance & Disease Control (RCSDC)", description: "Supports regional surveillance, preparedness and response to public-health threats and disease outbreaks.", link: "https://www.ecowas.int/special_agency/regional-center-for-surveillance-and-disease-control-rcsdc/" },

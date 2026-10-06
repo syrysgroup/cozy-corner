@@ -3,12 +3,15 @@ import { ArrowRight, ArrowUpRight, Landmark, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, ECOSYSTEM, OAG_POSITIONING, OAG_ROLES } from "@/components/ds/institutional";
 import { ECOWAS_LINKS } from "@/lib/site";
-import { SPECIAL_AGENCIES } from "@/lib/special-agencies";
+import { SPECIAL_AGENCIES, agencySlug } from "@/lib/special-agencies";
+import { AgencyProfilePage } from "@/components/institutions/agency-profile";
 import { useOfficialAsset } from "@/lib/public-site";
 import { ArmDetailPage } from "@/components/institutions/arm-detail";
 import { useAuthorityChairs, formatChairDate } from "@/lib/authority-data";
 import { SUPPORTING_INSTITUTIONS, institutionAssetUrl } from "@/lib/institution-data";
 import { SupportingInstitutionPage } from "@/components/institutions/supporting-institution";
+import { AuthorityProfilePage } from "@/components/institutions/authority-profile";
+import { Button } from "@/components/ds/primitives";
 
 const ARMS = [
   { slug: "commission", key: "commission", site: "https://ecowas.int", ...GOVERNANCE_ARMS[0] },
@@ -81,9 +84,12 @@ function AuthoritySection() {
 
 export default function Institutions() {
   const { sub } = useParams();
+  if (sub === "authority") return <AuthorityProfilePage />;
   if (sub && ARMS.some((a) => a.slug === sub)) return <ArmDetail slug={sub} />;
   const supportingInstitution = sub ? SUPPORTING_INSTITUTIONS.find((institution) => institution.slug === sub) : undefined;
   if (supportingInstitution) return <SupportingInstitutionPage institution={supportingInstitution} />;
+  const agency = sub ? SPECIAL_AGENCIES.find((x) => agencySlug(x) === sub) : undefined;
+  if (agency) return <AgencyProfilePage agency={agency} />;
   return (
     <>
       <section className="border-b border-border bg-surface-sunken py-section">
@@ -135,12 +141,12 @@ export default function Institutions() {
           <ol className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {SPECIAL_AGENCIES.map((agency, i) => (
               <li key={agency.name}>
-                <a href={agency.link} target="_blank" rel="noreferrer" className="group flex h-full flex-col bg-card p-5 hover:bg-surface-sunken">
+                <Link to={`/institutions/${agencySlug(agency)}`} className="group flex h-full flex-col bg-card p-5 hover:bg-surface-sunken">
                 <p className="font-mono text-xs text-primary" aria-hidden>{String(i + 1).padStart(2, "0")}</p>
                 <h3 className="mt-2 flex-1 font-display text-base font-bold leading-snug text-ink group-hover:text-primary">{agency.name}</h3>
                 <p className="mt-2 text-small text-ink-soft">{agency.description}</p>
-                <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary">Official agency page <ArrowUpRight className="size-4" aria-hidden /><span className="sr-only">(opens in a new tab)</span></span>
-                </a>
+                <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-small font-semibold text-primary">View agency <ArrowRight className="size-4" aria-hidden /></span>
+                </Link>
               </li>
             ))}
           </ol>

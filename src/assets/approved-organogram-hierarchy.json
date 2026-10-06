@@ -1,0 +1,1704 @@
+{
+  "oag": [
+    {
+      "id": "0",
+      "title": "Auditor General",
+      "grade": "S",
+      "page": 33
+    },
+    {
+      "id": "1",
+      "title": "Executive Assistant",
+      "parent": "0",
+      "grade": "P4",
+      "page": 33
+    },
+    {
+      "id": "2",
+      "title": "Inspection Investigation & Special Audit",
+      "parent": "0",
+      "grade": "P5",
+      "page": 33
+    },
+    {
+      "id": "3",
+      "title": "2 × 3 Team Audit Inspectors: Outsource, Investigations, Special Audit",
+      "parent": "2",
+      "grade": "P3/P4",
+      "page": 33
+    },
+    {
+      "id": "4",
+      "title": "Information Systems",
+      "parent": "0",
+      "grade": "P5",
+      "page": 33
+    },
+    {
+      "id": "5",
+      "title": "1 PO Outsources Part of Audit Team",
+      "parent": "4",
+      "grade": "P3/P4",
+      "page": 33
+    },
+    {
+      "id": "6",
+      "title": "Office Manager",
+      "parent": "0",
+      "grade": "G5/G6/G7",
+      "page": 33
+    },
+    {
+      "id": "7",
+      "title": "Office Aide",
+      "parent": "0",
+      "grade": "G1/G2/G3",
+      "page": 33
+    },
+    {
+      "id": "8",
+      "title": "IT Program Officer",
+      "parent": "0",
+      "grade": "P3/P4",
+      "page": 33
+    },
+    {
+      "id": "9",
+      "title": "Account Officer",
+      "parent": "0",
+      "grade": "P3",
+      "page": 33
+    },
+    {
+      "id": "10",
+      "title": "HR Officer",
+      "parent": "0",
+      "grade": "P3",
+      "page": 33
+    },
+    {
+      "id": "11",
+      "title": "Director Internal Audit",
+      "parent": "0",
+      "grade": "D1",
+      "page": 33
+    },
+    {
+      "id": "12",
+      "title": "Office Manager / Office Aide",
+      "parent": "11",
+      "grade": "G5/G6/G7 · G1/G2/G3",
+      "page": 33
+    },
+    {
+      "id": "13",
+      "title": "Principal Internal Auditor: Abuja + Agencies — Commission, Parliament, CCJ, ERERA, WRCC, EYSDC, ECREEE",
+      "parent": "11",
+      "grade": "P5",
+      "page": 33
+    },
+    {
+      "id": "14",
+      "title": "2 Teams × 3 Auditors (Staff); 2 Teams × 3 (Borrowed) PPP",
+      "parent": "13",
+      "grade": "P3/P4",
+      "page": 33
+    },
+    {
+      "id": "15",
+      "title": "Principal Internal Auditor: Institutions Outside Abuja — WAHO, GIABA, etc.",
+      "parent": "11",
+      "grade": "P5",
+      "page": 33
+    },
+    {
+      "id": "16",
+      "title": "2 Teams × 3 Auditors (Staff); 2 Teams × 3 (Borrowed)",
+      "parent": "15",
+      "grade": "P3/P4",
+      "page": 33
+    },
+    {
+      "id": "17",
+      "title": "Director Program Performance Audit",
+      "parent": "0",
+      "grade": "D1",
+      "page": 33
+    },
+    {
+      "id": "18",
+      "title": "Office Manager / Office Aide",
+      "parent": "17",
+      "grade": "G5/G6/G7 · G1/G2/G3",
+      "page": 33
+    },
+    {
+      "id": "19",
+      "title": "Principal Internal Auditor: Operational Compliance (Institutions)",
+      "parent": "17",
+      "grade": "P5",
+      "page": 33
+    },
+    {
+      "id": "20",
+      "title": "2 Teams × 3 Auditors",
+      "parent": "19",
+      "grade": "P3/P4",
+      "page": 33
+    },
+    {
+      "id": "21",
+      "title": "PIA: Project Inspection & Evaluation",
+      "parent": "17",
+      "grade": "P5",
+      "page": 33
+    },
+    {
+      "id": "22",
+      "title": "1 Team × 3 Auditors",
+      "parent": "21",
+      "grade": "P3/P4",
+      "page": 33
+    }
+  ],
+  "commission": [
+    {
+      "id": "0",
+      "title": "President",
+      "page": 35
+    },
+    {
+      "id": "1",
+      "title": "2 Senior Office Managers",
+      "parent": "0",
+      "grade": "P2",
+      "page": 35
+    },
+    {
+      "id": "2",
+      "title": "2 Office Aides",
+      "parent": "0",
+      "grade": "G1/G2/G3",
+      "page": 35
+    },
+    {
+      "id": "3",
+      "title": "Executive Assistant",
+      "parent": "0",
+      "grade": "P4",
+      "page": 35
+    },
+    {
+      "id": "4",
+      "title": "2 Special Advisors (non permanent)",
+      "parent": "0",
+      "grade": "P5",
+      "page": 35
+    },
+    {
+      "id": "5",
+      "title": "Director of Cabinet",
+      "parent": "0",
+      "grade": "D1",
+      "page": 35
+    },
+    {
+      "id": "6",
+      "title": "Ombudsman",
+      "parent": "0",
+      "grade": "P5",
+      "page": 35
+    },
+    {
+      "id": "7",
+      "title": "Secretary General",
+      "parent": "0",
+      "grade": "D2",
+      "page": 35
+    },
+    {
+      "id": "8",
+      "title": "Resident / Permanent / Special Representatives",
+      "parent": "0",
+      "grade": "D2",
+      "page": 35
+    },
+    {
+      "id": "9",
+      "title": "Director Legal",
+      "parent": "7",
+      "grade": "D1",
+      "page": 35
+    },
+    {
+      "id": "10",
+      "title": "Director Communication",
+      "parent": "7",
+      "grade": "D1",
+      "page": 35
+    },
+    {
+      "id": "11",
+      "title": "Director External Relations",
+      "parent": "7",
+      "grade": "D1",
+      "page": 35
+    },
+    {
+      "id": "vp",
+      "title": "Vice President",
+      "page": 41
+    },
+    {
+      "id": "sp",
+      "parent": "vp",
+      "title": "Director Strategic Planning, Monitoring & Evaluation",
+      "grade": "D1",
+      "page": 41
+    },
+    {
+      "id": "ew",
+      "parent": "vp",
+      "title": "Directorate Early Warning",
+      "grade": "D1",
+      "page": 41
+    }
+  ],
+  "parliament": [
+    {
+      "id": "0",
+      "title": "Honourable Speaker",
+      "page": 22
+    },
+    {
+      "id": "1",
+      "title": "Office Aide",
+      "parent": "0",
+      "grade": "G1/G2/G3",
+      "page": 22
+    },
+    {
+      "id": "2",
+      "title": "Communication Adviser",
+      "parent": "0",
+      "grade": "P3/P4",
+      "page": 22
+    },
+    {
+      "id": "3",
+      "title": "Executive Assistant",
+      "parent": "0",
+      "grade": "P4",
+      "page": 22
+    },
+    {
+      "id": "4",
+      "title": "Administrative Assistant",
+      "parent": "0",
+      "grade": "G4/G5/G6",
+      "page": 22
+    },
+    {
+      "id": "5",
+      "title": "Secretary General",
+      "parent": "0",
+      "grade": "D2",
+      "page": 22
+    },
+    {
+      "id": "6",
+      "title": "Director Administration & Finance",
+      "parent": "5",
+      "grade": "D1",
+      "page": 22
+    },
+    {
+      "id": "7",
+      "title": "Director Parliamentary Affairs & Research",
+      "parent": "5",
+      "grade": "D1",
+      "page": 22
+    }
+  ],
+  "court": [
+    {
+      "id": "0",
+      "title": "President of the Court",
+      "page": 6
+    },
+    {
+      "id": "1",
+      "title": "Public Information / External Relation",
+      "parent": "0",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "2",
+      "title": "Senior Office Manager",
+      "parent": "0",
+      "grade": "P2",
+      "page": 6
+    },
+    {
+      "id": "3",
+      "title": "Office Aide",
+      "parent": "0",
+      "grade": "G1/G2",
+      "page": 6
+    },
+    {
+      "id": "4",
+      "title": "Monitoring & Evaluation / Planning",
+      "parent": "0",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "5",
+      "title": "Executive Assistant",
+      "parent": "0",
+      "grade": "P4",
+      "page": 6
+    },
+    {
+      "id": "6",
+      "title": "Chief Registrar",
+      "parent": "0",
+      "grade": "D2",
+      "page": 6
+    },
+    {
+      "id": "7",
+      "title": "Office Manager",
+      "parent": "6",
+      "grade": "G5/G6/G7",
+      "page": 6
+    },
+    {
+      "id": "8",
+      "title": "Legal Officer",
+      "parent": "6",
+      "grade": "P2/P3",
+      "page": 6
+    },
+    {
+      "id": "9",
+      "title": "Office Aide",
+      "parent": "6",
+      "grade": "G1/G2/G3",
+      "page": 6
+    },
+    {
+      "id": "10",
+      "title": "Director Research & Documentation",
+      "parent": "6",
+      "grade": "D1",
+      "page": 6
+    },
+    {
+      "id": "11",
+      "title": "Library & Documentation",
+      "parent": "10",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "12",
+      "title": "Legal Services & Research",
+      "parent": "10",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "13",
+      "title": "Deputy Chief Registrar — Registry",
+      "parent": "6",
+      "grade": "D1",
+      "page": 6
+    },
+    {
+      "id": "14",
+      "title": "Registrar & Verbatim Report",
+      "parent": "13",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "15",
+      "title": "Judicial Certified Translation & Interpretation",
+      "parent": "13",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "16",
+      "title": "Judicial Process & Case Management",
+      "parent": "13",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "17",
+      "title": "Judicial Records Archives & Publications",
+      "parent": "13",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "18",
+      "title": "Appeals, Arbitration & Enforcement",
+      "parent": "13",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "19",
+      "title": "Director Administration and Finance",
+      "parent": "6",
+      "grade": "D1",
+      "page": 6
+    },
+    {
+      "id": "20",
+      "title": "Protocol & Conference",
+      "parent": "19",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "21",
+      "title": "Finance",
+      "parent": "19",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "22",
+      "title": "Administration & HR",
+      "parent": "19",
+      "grade": "P5",
+      "page": 6
+    },
+    {
+      "id": "23",
+      "title": "Vice President",
+      "page": 6,
+      "note": "Shown alongside the President; arrow in the original is not treated as a reporting line."
+    },
+    {
+      "id": "24",
+      "title": "3 Judges",
+      "page": 6,
+      "note": "Shown alongside the President; judicial relationship retained in the source chart."
+    }
+  ],
+  "giaba": [
+    {
+      "id": "0",
+      "title": "Director General",
+      "grade": "S3",
+      "page": 18
+    },
+    {
+      "id": "1",
+      "title": "Communication Advocacy Officer",
+      "parent": "0",
+      "grade": "P5",
+      "page": 18
+    },
+    {
+      "id": "2",
+      "title": "Information Centre Managers (Lagos & Abidjan)",
+      "parent": "1",
+      "page": 18
+    },
+    {
+      "id": "3",
+      "title": "Communication Assistant",
+      "parent": "1",
+      "grade": "G4/G5/G6",
+      "page": 18
+    },
+    {
+      "id": "4",
+      "title": "Strategic Planning and Resource Mobilization",
+      "parent": "0",
+      "grade": "P5",
+      "page": 18
+    },
+    {
+      "id": "5",
+      "title": "Monitoring & Evaluation",
+      "parent": "4",
+      "grade": "P4",
+      "page": 18
+    },
+    {
+      "id": "6",
+      "title": "Executive Assistant",
+      "parent": "0",
+      "grade": "P4",
+      "page": 18
+    },
+    {
+      "id": "7",
+      "title": "Office Manager",
+      "parent": "0",
+      "grade": "G5/G6/G7",
+      "page": 18
+    },
+    {
+      "id": "8",
+      "title": "Office Aide",
+      "parent": "0",
+      "grade": "G1/G2/G3",
+      "page": 18
+    },
+    {
+      "id": "9",
+      "title": "Director Administration & Finance — pooling with EGDC",
+      "parent": "0",
+      "page": 18
+    },
+    {
+      "id": "10",
+      "title": "Administration & Human Resources",
+      "parent": "9",
+      "grade": "P5",
+      "page": 18
+    },
+    {
+      "id": "11",
+      "title": "Principal Accountant",
+      "parent": "9",
+      "grade": "P5",
+      "page": 18
+    },
+    {
+      "id": "12",
+      "title": "Director Evaluation & Compliance",
+      "parent": "0",
+      "grade": "D1",
+      "page": 18
+    },
+    {
+      "id": "13",
+      "title": "Legal and Law Enforcement",
+      "parent": "12",
+      "grade": "P5",
+      "page": 18
+    },
+    {
+      "id": "14",
+      "title": "Financial Institutions and Non-Financial Entities",
+      "parent": "12",
+      "grade": "P5",
+      "page": 18
+    },
+    {
+      "id": "15",
+      "title": "Director Policy & Research",
+      "parent": "0",
+      "grade": "D1",
+      "page": 18
+    },
+    {
+      "id": "16",
+      "title": "Policy",
+      "parent": "15",
+      "grade": "P5",
+      "page": 18
+    },
+    {
+      "id": "17",
+      "title": "Research",
+      "parent": "15",
+      "grade": "P5",
+      "page": 18
+    }
+  ],
+  "waho": [
+    {
+      "id": "0",
+      "title": "Director General",
+      "grade": "S3",
+      "page": 27
+    },
+    {
+      "id": "1",
+      "title": "Strategic Partnership and Resource Mobilization",
+      "parent": "0",
+      "grade": "P5",
+      "page": 27
+    },
+    {
+      "id": "2",
+      "title": "PO Monitoring & Evaluation",
+      "parent": "1",
+      "grade": "P4",
+      "page": 27
+    },
+    {
+      "id": "3",
+      "title": "Office Manager",
+      "parent": "0",
+      "grade": "G5/G6/G7",
+      "page": 27
+    },
+    {
+      "id": "4",
+      "title": "Administrative Assistant",
+      "parent": "3",
+      "grade": "G2/G3",
+      "page": 27
+    },
+    {
+      "id": "5",
+      "title": "Regional Centre for Surveillance & Disease Control (Abuja)",
+      "parent": "0",
+      "grade": "D1",
+      "page": 27
+    },
+    {
+      "id": "6",
+      "title": "PO Communication",
+      "parent": "0",
+      "grade": "P3/P4",
+      "page": 27
+    },
+    {
+      "id": "7",
+      "title": "Legal Officer",
+      "parent": "0",
+      "grade": "P4",
+      "page": 27
+    },
+    {
+      "id": "8",
+      "title": "Executive Assistant",
+      "parent": "0",
+      "grade": "P4",
+      "page": 27
+    },
+    {
+      "id": "9",
+      "title": "Director Admin & Finance",
+      "parent": "0",
+      "grade": "D1",
+      "page": 27
+    },
+    {
+      "id": "10",
+      "title": "Director Planning & Health Information",
+      "parent": "0",
+      "grade": "D1",
+      "page": 27
+    },
+    {
+      "id": "11",
+      "title": "Director Public Health & Research",
+      "parent": "0",
+      "grade": "D1",
+      "page": 27
+    },
+    {
+      "id": "12",
+      "title": "Director Healthcare Services",
+      "parent": "0",
+      "grade": "D1",
+      "page": 27
+    }
+  ],
+  "raaf": [
+    {
+      "id": "0",
+      "title": "Commissioner for Agriculture, Environment and Natural Resources",
+      "page": 2
+    },
+    {
+      "id": "1",
+      "title": "ECOWAS Regional Office for Projects and Services (ECOPS – ex RAAF/ARAA): Executive Director",
+      "parent": "0",
+      "grade": "D1",
+      "page": 2
+    },
+    {
+      "id": "2",
+      "title": "PO Advocacy & Communications",
+      "parent": "1",
+      "grade": "P3/P4",
+      "page": 2
+    },
+    {
+      "id": "3",
+      "title": "PO Strategic Planning / M&E",
+      "parent": "1",
+      "grade": "P3/P4",
+      "page": 2
+    },
+    {
+      "id": "4",
+      "title": "Office Manager / Office Aide",
+      "parent": "1",
+      "grade": "G5/G6/G7 · G1/G2/G3",
+      "page": 2
+    },
+    {
+      "id": "5",
+      "title": "Technical Operations",
+      "parent": "1",
+      "grade": "P5",
+      "page": 2
+    },
+    {
+      "id": "6",
+      "title": "Food Security & Vulnerability Management",
+      "parent": "5",
+      "grade": "P3/P4",
+      "page": 2
+    },
+    {
+      "id": "7",
+      "title": "Program Assistant Food Security",
+      "parent": "6",
+      "grade": "G4/G5/G6",
+      "page": 2
+    },
+    {
+      "id": "8",
+      "title": "Environment and Natural Resources",
+      "parent": "5",
+      "grade": "P3/P4",
+      "page": 2
+    },
+    {
+      "id": "9",
+      "title": "Program Assistant Environment & Natural Resources",
+      "parent": "8",
+      "grade": "G4/G5/G6",
+      "page": 2
+    },
+    {
+      "id": "10",
+      "title": "Food Security Reserve",
+      "parent": "1",
+      "grade": "P5",
+      "page": 2
+    },
+    {
+      "id": "11",
+      "title": "Market Analysis & Data Management",
+      "parent": "10",
+      "grade": "P3/P4",
+      "page": 2
+    },
+    {
+      "id": "12",
+      "title": "Statistician & Database Assistant",
+      "parent": "11",
+      "grade": "G4/G5/G6",
+      "page": 2
+    },
+    {
+      "id": "13",
+      "title": "Stock Management",
+      "parent": "10",
+      "grade": "P3/P4",
+      "page": 2
+    },
+    {
+      "id": "14",
+      "title": "Administration & Finance — possible pool with PPDU, Permanent Representative, CCC",
+      "parent": "1",
+      "grade": "P5",
+      "page": 2
+    },
+    {
+      "id": "15",
+      "title": "Accountant",
+      "parent": "14",
+      "grade": "P3",
+      "page": 2
+    },
+    {
+      "id": "16",
+      "title": "2 Accounting Assistants: Payables & Receivables",
+      "parent": "15",
+      "grade": "G4/G5/G6",
+      "page": 2
+    },
+    {
+      "id": "17",
+      "title": "Procurement",
+      "parent": "14",
+      "grade": "P3",
+      "page": 2
+    },
+    {
+      "id": "18",
+      "title": "2 Admin Assistants: Protocol/Travel & Procurement/HR",
+      "parent": "14",
+      "grade": "G4/G5/G6",
+      "page": 2
+    },
+    {
+      "id": "19",
+      "title": "Office Manager Pool",
+      "parent": "14",
+      "grade": "G5/G6/G7",
+      "page": 2
+    },
+    {
+      "id": "20",
+      "title": "2 Drivers",
+      "parent": "14",
+      "grade": "G1/G2/G3",
+      "page": 2
+    }
+  ],
+  "wrcc": [
+    {
+      "id": "0",
+      "title": "Commissioner for Agriculture, Environment and Natural Resources",
+      "page": 4
+    },
+    {
+      "id": "1",
+      "title": "Water Resources Management Centre (Ouagadougou) — WRMC",
+      "parent": "0",
+      "grade": "D1",
+      "page": 4
+    },
+    {
+      "id": "2",
+      "title": "PO Public Relation & ICT",
+      "parent": "1",
+      "grade": "P3",
+      "page": 4
+    },
+    {
+      "id": "3",
+      "title": "Office Manager / Office Aide",
+      "parent": "1",
+      "grade": "G5/G6/G7 · G1/G2/G3",
+      "page": 4
+    },
+    {
+      "id": "4",
+      "title": "Water Governance and Policies",
+      "parent": "1",
+      "grade": "P5",
+      "page": 4
+    },
+    {
+      "id": "5",
+      "title": "PO Regional Water Observatory",
+      "parent": "4",
+      "grade": "P3/P4",
+      "page": 4
+    },
+    {
+      "id": "6",
+      "title": "PO Water Modeling and Analysis",
+      "parent": "4",
+      "grade": "P3/P4",
+      "page": 4
+    },
+    {
+      "id": "7",
+      "title": "Water Supply and Sanitation",
+      "parent": "1",
+      "grade": "P5",
+      "page": 4
+    },
+    {
+      "id": "8",
+      "title": "PO Sanitation",
+      "parent": "7",
+      "grade": "P3/P4",
+      "page": 4
+    },
+    {
+      "id": "9",
+      "title": "PO Water Supply",
+      "parent": "7",
+      "grade": "P3/P4",
+      "page": 4
+    }
+  ],
+  "eysdc": [
+    {
+      "id": "0",
+      "title": "Commissioner Social Affairs and Gender",
+      "page": 5
+    },
+    {
+      "id": "1",
+      "title": "ECOWAS Youth & Sport Development Centre",
+      "parent": "0",
+      "grade": "D1",
+      "page": 5
+    },
+    {
+      "id": "2",
+      "title": "Office Manager / Office Aide",
+      "parent": "1",
+      "grade": "G5/G6/G7 · G1/G2/G3",
+      "page": 5
+    },
+    {
+      "id": "3",
+      "title": "Strategic Partnership & Resource Mobilisation",
+      "parent": "1",
+      "grade": "P3/P4",
+      "page": 5
+    },
+    {
+      "id": "4",
+      "title": "Communication / Knowledge Management Officer",
+      "parent": "1",
+      "grade": "P2/P3",
+      "page": 5
+    },
+    {
+      "id": "5",
+      "title": "Monitoring & Evaluation",
+      "parent": "1",
+      "grade": "P3/P4",
+      "page": 5
+    },
+    {
+      "id": "6",
+      "title": "Sports Policy & Programmes Development",
+      "parent": "1",
+      "grade": "P5",
+      "page": 5
+    },
+    {
+      "id": "7",
+      "title": "Sports Development",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 5
+    },
+    {
+      "id": "8",
+      "title": "Traditional Sports Development",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 5
+    },
+    {
+      "id": "9",
+      "title": "Youth Policy & Programmes Implementation",
+      "parent": "1",
+      "grade": "P5",
+      "page": 5
+    },
+    {
+      "id": "10",
+      "title": "Youth Employment & Empowerment",
+      "parent": "9",
+      "grade": "P4",
+      "page": 5
+    },
+    {
+      "id": "11",
+      "title": "Youth Capacity Building and Insertion",
+      "parent": "10",
+      "grade": "P4",
+      "page": 5
+    },
+    {
+      "id": "12",
+      "title": "Volunteer Programme Coordination",
+      "parent": "9",
+      "grade": "P4",
+      "page": 5
+    },
+    {
+      "id": "13",
+      "title": "Volunteer Deployment & Data Management",
+      "parent": "12",
+      "grade": "P3",
+      "page": 5
+    }
+  ],
+  "rahc": [
+    {
+      "id": "0",
+      "title": "Commissioner for Agriculture, Environment & Water Resources",
+      "page": 10
+    },
+    {
+      "id": "1",
+      "title": "Executive Director RAHC/CRSA — Bamako",
+      "parent": "0",
+      "grade": "D1",
+      "page": 10
+    },
+    {
+      "id": "2",
+      "title": "Office Manager / Office Aide",
+      "parent": "1",
+      "grade": "G5/G6/G7 · G1/G2/G3",
+      "page": 10
+    },
+    {
+      "id": "3",
+      "title": "Communication and Public Relation",
+      "parent": "1",
+      "grade": "P3",
+      "page": 10
+    },
+    {
+      "id": "4",
+      "title": "Legal Adviser",
+      "parent": "1",
+      "grade": "P3",
+      "page": 10
+    },
+    {
+      "id": "5",
+      "title": "Monitoring & Evaluation",
+      "parent": "1",
+      "grade": "P3",
+      "page": 10
+    },
+    {
+      "id": "6",
+      "title": "Administration & Finance",
+      "parent": "1",
+      "grade": "P5",
+      "page": 10
+    },
+    {
+      "id": "7",
+      "title": "Administration",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 10
+    },
+    {
+      "id": "8",
+      "title": "Accountant",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 10
+    },
+    {
+      "id": "9",
+      "title": "Accounting Assistant",
+      "parent": "8",
+      "grade": "G4/G5/G6",
+      "page": 10
+    },
+    {
+      "id": "10",
+      "title": "Animal Health and Epidemia Surveillance",
+      "parent": "1",
+      "grade": "P5",
+      "page": 10
+    },
+    {
+      "id": "11",
+      "title": "Epidemia Surveillance",
+      "parent": "10",
+      "grade": "P3/P4",
+      "page": 10
+    },
+    {
+      "id": "12",
+      "title": "TADs and Diseases Control",
+      "parent": "10",
+      "grade": "P4",
+      "page": 10
+    },
+    {
+      "id": "13",
+      "title": "Veterinary Governance",
+      "parent": "1",
+      "grade": "P5",
+      "page": 10
+    },
+    {
+      "id": "14",
+      "title": "Regulations & International Regulations",
+      "parent": "13",
+      "grade": "P4",
+      "page": 10
+    },
+    {
+      "id": "15",
+      "title": "Policy & Strategies",
+      "parent": "13",
+      "grade": "P3/P4",
+      "page": 10
+    }
+  ],
+  "ecreee": [
+    {
+      "id": "0",
+      "title": "Commissioner Energy & Mines",
+      "page": 16
+    },
+    {
+      "id": "1",
+      "title": "Executive Director ECREEE",
+      "parent": "0",
+      "grade": "D2",
+      "page": 16
+    },
+    {
+      "id": "2",
+      "title": "Office Manager",
+      "parent": "1",
+      "grade": "G4/G5/G6",
+      "page": 16
+    },
+    {
+      "id": "3",
+      "title": "Office Aide",
+      "parent": "1",
+      "grade": "G1/G2/G3",
+      "page": 16
+    },
+    {
+      "id": "4",
+      "title": "M&E Officer",
+      "parent": "1",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "5",
+      "title": "Director Administration & Finance & ICT",
+      "parent": "1",
+      "grade": "D1",
+      "page": 16
+    },
+    {
+      "id": "6",
+      "title": "Administration & Finance",
+      "parent": "5",
+      "grade": "P5",
+      "page": 16
+    },
+    {
+      "id": "7",
+      "title": "Admin Officer",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "8",
+      "title": "Finance Officer",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "9",
+      "title": "Communication Officer",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "10",
+      "title": "Information, Communication & Technology",
+      "parent": "5",
+      "grade": "P5",
+      "page": 16
+    },
+    {
+      "id": "11",
+      "title": "Information & Technology Officer",
+      "parent": "10",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "12",
+      "title": "Director RE&EE & Project Development and Funds Mobilisation",
+      "parent": "1",
+      "grade": "D1",
+      "page": 16
+    },
+    {
+      "id": "13",
+      "title": "Renewable Energy",
+      "parent": "12",
+      "grade": "P5",
+      "page": 16
+    },
+    {
+      "id": "14",
+      "title": "Renewable Energy Technologies",
+      "parent": "13",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "15",
+      "title": "Renewable Energy & Renewable Efficiency Policy & Regulations",
+      "parent": "14",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "16",
+      "title": "Energy Efficiency",
+      "parent": "12",
+      "grade": "P5",
+      "page": 16
+    },
+    {
+      "id": "17",
+      "title": "Energy Efficiency Officer",
+      "parent": "16",
+      "grade": "P3/P4",
+      "page": 16
+    },
+    {
+      "id": "18",
+      "title": "Project Development & Funds Mobilisation",
+      "parent": "12",
+      "grade": "P5",
+      "page": 16
+    },
+    {
+      "id": "19",
+      "title": "Resource Mobilisation & Project Development",
+      "parent": "18",
+      "grade": "P3/P4",
+      "page": 16
+    }
+  ],
+  "egdc": [
+    {
+      "id": "0",
+      "title": "Commissioner Social Affairs & Gender",
+      "page": 17
+    },
+    {
+      "id": "1",
+      "title": "Director ECOWAS Gender Development Centre",
+      "parent": "0",
+      "page": 17
+    },
+    {
+      "id": "2",
+      "title": "Office Manager",
+      "parent": "1",
+      "grade": "G5/G6/G7",
+      "page": 17
+    },
+    {
+      "id": "3",
+      "title": "Office Aide",
+      "parent": "1",
+      "grade": "G1/G2/G3",
+      "page": 17
+    },
+    {
+      "id": "4",
+      "title": "PO Communication",
+      "parent": "1",
+      "grade": "P3",
+      "page": 17
+    },
+    {
+      "id": "5",
+      "title": "Strategic Partnership & Resource Mobilization",
+      "parent": "1",
+      "grade": "P3/P4",
+      "page": 17
+    },
+    {
+      "id": "6",
+      "title": "Gender Programme Analysis and Implementation & Resources Mobilisation",
+      "parent": "1",
+      "grade": "P5",
+      "page": 17
+    },
+    {
+      "id": "7",
+      "title": "Women Economic Empowerment",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 17
+    },
+    {
+      "id": "8",
+      "title": "Programme Assistant",
+      "parent": "7",
+      "grade": "G4/G5/G6",
+      "page": 17
+    },
+    {
+      "id": "9",
+      "title": "Gender & Civil Society",
+      "parent": "6",
+      "grade": "P3/P4",
+      "page": 17
+    },
+    {
+      "id": "10",
+      "title": "Programme Assistant",
+      "parent": "9",
+      "grade": "G4/G5/G6",
+      "page": 17
+    },
+    {
+      "id": "11",
+      "title": "Planning, Research, Monitoring & Evaluation",
+      "parent": "1",
+      "grade": "P5",
+      "page": 17
+    },
+    {
+      "id": "12",
+      "title": "Monitoring & Evaluation",
+      "parent": "11",
+      "grade": "P3/P4",
+      "page": 17
+    },
+    {
+      "id": "13",
+      "title": "Planning and Research Assistant",
+      "parent": "12",
+      "grade": "G4/G5/G6",
+      "page": 17
+    }
+  ],
+  "ppdu": [
+    {
+      "id": "0",
+      "title": "Steering Committee / Commissioner Infrastructure",
+      "page": 26
+    },
+    {
+      "id": "1",
+      "title": "Director",
+      "parent": "0",
+      "grade": "D2",
+      "page": 26
+    },
+    {
+      "id": "2",
+      "title": "Senior Bilingual Secretary",
+      "parent": "1",
+      "grade": "G5",
+      "page": 26
+    },
+    {
+      "id": "3",
+      "title": "Office Aide",
+      "parent": "1",
+      "page": 26
+    },
+    {
+      "id": "4",
+      "title": "Head of Division Project Preparation",
+      "parent": "1",
+      "grade": "P5",
+      "page": 26
+    },
+    {
+      "id": "5",
+      "title": "Economic and Financial Analyst / Resource Mobilisation",
+      "parent": "4",
+      "grade": "P4",
+      "page": 26
+    },
+    {
+      "id": "6",
+      "title": "Infrastructure Project Preparation Officer: Transport",
+      "parent": "4",
+      "grade": "P3/P4",
+      "page": 26
+    },
+    {
+      "id": "7",
+      "title": "Infrastructure Project Preparation Officer: ICT",
+      "parent": "4",
+      "grade": "P3/P4",
+      "page": 26
+    },
+    {
+      "id": "8",
+      "title": "Infrastructure Project Preparation Officer: Energy",
+      "parent": "4",
+      "grade": "P3/P4",
+      "page": 26
+    },
+    {
+      "id": "9",
+      "title": "Programme / Assistant",
+      "parent": "4",
+      "grade": "P1/P2",
+      "page": 26
+    },
+    {
+      "id": "10",
+      "title": "Head of Admin & Finance Division — pooling Lomé",
+      "parent": "1",
+      "grade": "P5",
+      "page": 26
+    },
+    {
+      "id": "11",
+      "title": "Staff / Pooling Lomé",
+      "parent": "10",
+      "page": 26
+    }
+  ],
+  "rcsdc": [
+    {
+      "id": "0",
+      "title": "Director General WAHO",
+      "page": 32
+    },
+    {
+      "id": "1",
+      "title": "Executive Director",
+      "parent": "0",
+      "grade": "D1",
+      "page": 32
+    },
+    {
+      "id": "2",
+      "title": "Office Manager",
+      "parent": "1",
+      "grade": "G5/G6/G7",
+      "page": 32
+    },
+    {
+      "id": "3",
+      "title": "Office Aide",
+      "parent": "1",
+      "grade": "G1/G2/G3",
+      "page": 32
+    },
+    {
+      "id": "4",
+      "title": "Surveillance & Early Warning",
+      "parent": "1",
+      "grade": "P5",
+      "page": 32
+    },
+    {
+      "id": "5",
+      "title": "Specialist on Health Event & Communication",
+      "parent": "4",
+      "grade": "P3/P4",
+      "page": 32
+    },
+    {
+      "id": "6",
+      "title": "Laboratory Services",
+      "parent": "1",
+      "grade": "P5",
+      "page": 32
+    },
+    {
+      "id": "7",
+      "title": "Health Emergency and Disaster Management",
+      "parent": "1",
+      "grade": "P5",
+      "page": 32
+    },
+    {
+      "id": "8",
+      "title": "Incident Manager",
+      "parent": "7",
+      "grade": "P3/P4",
+      "page": 32
+    },
+    {
+      "id": "9",
+      "title": "Administration & Finance",
+      "parent": "1",
+      "grade": "P5",
+      "page": 32
+    },
+    {
+      "id": "10",
+      "title": "Driver",
+      "parent": "9",
+      "grade": "G1/G2/G3",
+      "page": 32
+    },
+    {
+      "id": "11",
+      "title": "Accountant",
+      "parent": "9",
+      "grade": "P3/P4",
+      "page": 32
+    },
+    {
+      "id": "12",
+      "title": "Accounting Assistant",
+      "parent": "11",
+      "grade": "G5/G6/G7",
+      "page": 32
+    },
+    {
+      "id": "13",
+      "title": "Technology Information & Communication",
+      "parent": "9",
+      "grade": "P3/P4",
+      "page": 32
+    },
+    {
+      "id": "14",
+      "title": "Logistician",
+      "parent": "9",
+      "grade": "P3/P4",
+      "page": 32
+    }
+  ],
+  "erera": [
+    {
+      "id": "0",
+      "title": "Regulatory Council",
+      "page": 3
+    },
+    {
+      "id": "1",
+      "title": "Chairman",
+      "parent": "0",
+      "grade": "D2",
+      "page": 3
+    },
+    {
+      "id": "2",
+      "title": "Council Member Engineer",
+      "parent": "0",
+      "grade": "D1",
+      "page": 3
+    },
+    {
+      "id": "3",
+      "title": "*Council Member Finance / Accountant",
+      "parent": "0",
+      "grade": "D1",
+      "page": 3
+    },
+    {
+      "id": "4",
+      "title": "*Council Member Lawyer",
+      "parent": "0",
+      "grade": "D1",
+      "page": 3
+    },
+    {
+      "id": "5",
+      "title": "Council Member Economist",
+      "parent": "0",
+      "grade": "D1",
+      "page": 3
+    },
+    {
+      "id": "6",
+      "title": "*Head Technical Regulation Division",
+      "page": 3,
+      "note": "Council relationships and consultative connections are retained in the original page; only clear divisional branches are transcribed."
+    },
+    {
+      "id": "7",
+      "title": "Information System — Senior IT Expert",
+      "parent": "6",
+      "grade": "P5",
+      "page": 3
+    },
+    {
+      "id": "8",
+      "title": "*Junior IT Expert",
+      "parent": "7",
+      "page": 3
+    },
+    {
+      "id": "9",
+      "title": "Economic Unit — Senior Economist",
+      "parent": "6",
+      "grade": "P5",
+      "page": 3
+    },
+    {
+      "id": "10",
+      "title": "Junior Economist",
+      "parent": "9",
+      "page": 3
+    },
+    {
+      "id": "11",
+      "title": "Engineering & Development Unit — Senior Engineer",
+      "parent": "6",
+      "grade": "P5",
+      "page": 3
+    },
+    {
+      "id": "12",
+      "title": "Junior Engineer",
+      "parent": "11",
+      "page": 3
+    },
+    {
+      "id": "13",
+      "title": "Legal Unit — Senior Lawyer",
+      "parent": "6",
+      "grade": "P5",
+      "page": 3
+    },
+    {
+      "id": "14",
+      "title": "Junior Lawyer",
+      "parent": "13",
+      "page": 3
+    },
+    {
+      "id": "15",
+      "title": "Finance & Administration Division",
+      "page": 3
+    },
+    {
+      "id": "16",
+      "title": "Principal Officer Admin, HR & Finance",
+      "parent": "15",
+      "grade": "P5",
+      "page": 3
+    },
+    {
+      "id": "17",
+      "title": "Human Resources and Administration Officer",
+      "parent": "16",
+      "grade": "P3",
+      "page": 3
+    },
+    {
+      "id": "18",
+      "title": "Finance & Account Officer",
+      "parent": "16",
+      "grade": "P3",
+      "page": 3
+    },
+    {
+      "id": "19",
+      "title": "Accounts Assistant Payables",
+      "parent": "18",
+      "grade": "G4",
+      "page": 3
+    },
+    {
+      "id": "20",
+      "title": "Accounts Assistant Receivables",
+      "parent": "18",
+      "grade": "G4",
+      "page": 3
+    }
+  ]
+}
