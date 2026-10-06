@@ -1,0 +1,21 @@
+CREATE TABLE public.contact_staff (user_id uuid PRIMARY KEY, can_export boolean NOT NULL DEFAULT false, created_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.contact_staff TO service_role;
+ALTER TABLE public.contact_staff ENABLE ROW LEVEL SECURITY;
+CREATE TABLE public.contact_enquiries (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), reference_number text UNIQUE NOT NULL DEFAULT ('OAG-CON-' || upper(substr(replace(gen_random_uuid()::text,'-',''),1,12))), first_name text NOT NULL, last_name text NOT NULL, email text NOT NULL, organization text, country text, enquiry_type text NOT NULL, subject text NOT NULL, message text NOT NULL, preferred_language text NOT NULL, consent_recorded boolean NOT NULL, status text NOT NULL DEFAULT 'Received', assigned_unit text, resolved_at timestamptz, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.contact_enquiries TO service_role;
+ALTER TABLE public.contact_enquiries ENABLE ROW LEVEL SECURITY;
+CREATE TABLE public.contact_routes (enquiry_type text PRIMARY KEY, assigned_unit text NOT NULL, destination_email text, enabled boolean NOT NULL DEFAULT false, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.contact_routes TO service_role;
+ALTER TABLE public.contact_routes ENABLE ROW LEVEL SECURITY;
+CREATE TABLE public.contact_notes (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), enquiry_id uuid NOT NULL REFERENCES public.contact_enquiries(id), actor_id uuid NOT NULL, note text NOT NULL, created_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.contact_notes TO service_role;
+ALTER TABLE public.contact_notes ENABLE ROW LEVEL SECURITY;
+CREATE TABLE public.contact_audit (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), actor_id uuid NOT NULL, action text NOT NULL, record_id text, created_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.contact_audit TO service_role;
+ALTER TABLE public.contact_audit ENABLE ROW LEVEL SECURITY;
+CREATE OR REPLACE FUNCTION public.validate_contact_enquiry() RETURNS trigger LANGUAGE plpgsql SET search_path = public AS $$ BEGIN
+IF length(trim(NEW.first_name)) NOT BETWEEN 1 AND 100 OR length(trim(NEW.last_name)) NOT BETWEEN 1 AND 100 OR length(NEW.email)>255 OR NEW.email !~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$' OR length(trim(NEW.subject)) NOT BETWEEN 1 AND 200 OR length(trim(NEW.message)) NOT BETWEEN 1 AND 5000 OR length(coalesce(NEW.organization,''))>200 OR length(coalesce(NEW.country,''))>100 THEN RAISE EXCEPTION 'Invalid enquiry fields'; END IF;
+IF NEW.enquiry_type NOT IN ('general','institutional','publications','website','accessibility','media','other') OR NEW.preferred_language NOT IN ('en','fr','pt') OR NEW.consent_recorded IS DISTINCT FROM true OR NEW.status NOT IN ('Received','Assigned','In Review','Responded','Closed') THEN RAISE EXCEPTION 'Invalid enquiry classification or consent'; END IF;
+NEW.updated_at=now(); RETURN NEW; END $$;
+CREATE TRIGGER contact_enquiry_validation BEFORE INSERT OR UPDATE ON public.contact_enquiries FOR EACH ROW EXECUTE FUNCTION public.validate_contact_enquiry();
+CREATE TRIGGER contact_routes_updated BEFORE UPDATE ON public.contact_routes FOR EACH ROW EXECUTE FUNCTION public.set_site_updated_at();
