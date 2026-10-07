@@ -120,7 +120,7 @@ function parseEcowasPosts(payload: unknown[]): EcowasNewsItem[] {
       summary: summarize(renderedText(entry.excerpt) || renderedText(entry.content)),
       image: featuredImage(entry),
       href,
-      source: "ECOWAS",
+      source: "ECOWAS Commission",
       body: parseArticleBody(entry.content),
     }];
   });
