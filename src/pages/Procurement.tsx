@@ -5,6 +5,7 @@ import {
   ScrollText, Search, ShieldAlert, Trophy, BookOpen, Building2,
 } from "lucide-react";
 import { Button, Badge } from "@/components/ds/primitives";
+import { filterNotices, noticeSearchParams, DEFAULT_NOTICE_FILTERS } from "@/lib/opportunity-filters";
 import {
   NOTICE_TYPES, RESOURCE_KINDS,
   fetchNotices, fetchPlans, fetchAwards, fetchProjects, fetchResources,
@@ -42,29 +43,23 @@ function NoticesView({ overview = false }: { overview?: boolean }) {
   const [params, setParams] = useSearchParams();
   const [notices, setNotices] = useState<ProcurementNotice[] | null>(null);
   const q = params.get("q") ?? "";
-  const setQ = (value: string) => { const next = new URLSearchParams(params); value ? next.set("q", value) : next.delete("q"); setParams(next, { replace: true }); };
+  const setQ = (value: string) => setParams(noticeSearchParams(params, value), { replace: true });
   const [failed, setFailed] = useState(false);
   const [type, setType] = useState<NoticeType | "all">("all");
   const [status, setStatus] = useState<"all" | "open" | "closed" | "cancelled">(overview ? "open" : "all");
 
   const load = () => { setFailed(false); setNotices(null); fetchNotices().then(setNotices).catch(() => setFailed(true)); };
   useEffect(load, []);
-  const filtered = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    return (notices ?? []).filter((n) =>
-      (type === "all" || n.type === type) &&
-      (status === "all" || n.status === status) &&
-      (!term || `${n.title} ${n.reference} ${n.institution}`.toLowerCase().includes(term)));
-  }, [notices, q, type, status]);
+  const filtered = useMemo(() => filterNotices(notices ?? [], q, type, status), [notices, q, type, status]);
 
   return (
-    <section className="container py-section-sm lg:py-section" aria-labelledby="notices-h">
+    <section lang="en" className="container py-section-sm" aria-labelledby="notices-h">
       <Crumb current={overview ? "" : "Notices"} />
       <p className="overline text-primary">Procurement</p>
       <h1 id="notices-h" className="mt-3 font-display text-h1">{overview ? "Procurement" : "Procurement notices"}</h1>
       <p className="mt-4 max-w-2xl text-lead text-ink-soft">Calls for tenders, expressions of interest and other published procurement opportunities.</p>
 
-      <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2"><Button asChild variant="tertiary"><Link to="/opportunities#procurement-guidance">Participation guidance <ArrowRight /></Link></Button>{overview && <Button asChild variant="tertiary"><Link to="/opportunities/procurement/notices">All published notices <ArrowRight /></Link></Button>}</div>
+      <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2"><Button asChild variant="tertiary"><Link to="/opportunities#procurement-guidance">Participation guidance <ArrowRight /></Link></Button>{overview && <Button asChild variant="tertiary"><Link to={{ pathname: "/opportunities/procurement/notices", search: params.toString() }}>All published notices <ArrowRight /></Link></Button>}</div>
       <h2 className="mt-8 font-display text-h3">{status === "open" ? "Open notices" : "Published notices"}</h2>
       <div className="mt-5 grid gap-4 border-b border-border pb-5 sm:grid-cols-[minmax(0,1fr)_auto_auto]">
         <label className="grid min-w-0 gap-1 text-small font-semibold text-ink">
@@ -97,7 +92,7 @@ function NoticesView({ overview = false }: { overview?: boolean }) {
           <p className="text-muted-foreground">Loading notices…</p>
         ) : filtered.length === 0 ? (
           <><EmptyPanel icon={ScrollText} title={notices.length === 0 ? "No procurement notices are currently published here" : "No notices match your filters"}
-            body={notices.length === 0 ? "There are no approved procurement notices listed on this page. Check the official ECOWAS channels for further announcements." : "Try a different search, notice type or status."} />{(q || type !== "all" || status !== "all") && <Button variant="secondary" className="mt-4" onClick={() => { setQ(""); setType("all"); setStatus("all"); }}>Reset filters</Button>}</>
+            body={notices.length === 0 ? "There are no approved procurement notices listed on this page. Check the official ECOWAS channels for further announcements." : "Try a different search, notice type or status."} />{(q || type !== "all" || status !== "all") && <Button variant="secondary" className="mt-4" onClick={() => { setQ(DEFAULT_NOTICE_FILTERS.q); setType(DEFAULT_NOTICE_FILTERS.type); setStatus(DEFAULT_NOTICE_FILTERS.status); }}>Reset filters</Button>}</>
         ) : (
           <ul className="grid gap-4">
             {filtered.map((n) => (
@@ -108,7 +103,7 @@ function NoticesView({ overview = false }: { overview?: boolean }) {
                   {n.donorFunded && <Badge tone="outline">Donor-funded</Badge>}
                 </div>
                 <h2 className="mt-3 font-display text-h3 text-ink">
-                  <Link to={`/opportunities/procurement/notices/${n.id}`} className="underline-offset-4 hover:text-primary hover:underline">{n.title}</Link>
+                  <Link to={{ pathname: `/opportunities/procurement/notices/${n.id}`, search: params.toString() }} className="underline-offset-4 hover:text-primary hover:underline">{n.title}</Link>
                 </h2>
                 <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-small text-ink-soft">
                   <div className="flex items-center gap-1.5"><FileText className="size-4" aria-hidden /><dt className="sr-only">Reference</dt><dd className="font-mono">{n.reference}</dd></div>
@@ -127,13 +122,16 @@ function NoticesView({ overview = false }: { overview?: boolean }) {
 }
 
 function NoticeDetailView({ id }: { id: string }) {
+  const [params] = useSearchParams();
   const [notice, setNotice] = useState<ProcurementNotice | null | undefined>(undefined);
-  useEffect(() => { fetchNotices().then((all) => setNotice(all.find((n) => n.id === id) ?? null)); }, [id]);
+  const [failed, setFailed] = useState(false);
+  const load = () => { setFailed(false); setNotice(undefined); fetchNotices().then((all) => setNotice(all.find((n) => n.id === id) ?? null)).catch(() => setFailed(true)); };
+  useEffect(load, [id]);
 
   return (
     <section className="container py-section-sm lg:py-section">
       <Crumb current="Notice detail" />
-      {notice === undefined ? (
+      {failed ? <div role="alert"><h1 className="font-display text-h3">Notice could not be loaded</h1><p className="mt-2 text-ink-soft">Availability cannot be confirmed right now.</p><Button variant="secondary" className="mt-4" onClick={load}>Try again</Button></div> : notice === undefined ? (
         <p className="text-muted-foreground">Loading notice…</p>
       ) : notice === null ? (
         <EmptyPanel as="h1" icon={ScrollText} title="Notice not available"
@@ -149,6 +147,7 @@ function NoticeDetailView({ id }: { id: string }) {
             <div><dt className="overline text-muted-foreground">Status</dt><dd className="mt-1 text-body text-ink">{notice.status}</dd></div>
           </dl>
           <p className="mt-6 text-lead text-ink-soft">{notice.summary}</p>
+          <p className="mt-5 flex items-start gap-2 text-small text-ink-soft"><ShieldAlert className="size-4 shrink-0 text-accent" aria-hidden /><span>Never pay to participate. Follow the submission channel named in the official notice.</span></p>
           {notice.documents.length > 0 && (
             <ul className="mt-8 grid gap-2">
               {notice.documents.map((d) => (
@@ -158,7 +157,7 @@ function NoticeDetailView({ id }: { id: string }) {
           )}
         </article>
       )}
-      <Button asChild variant="secondary" className="mt-10"><Link to="/opportunities/procurement/notices">All notices</Link></Button>
+      <Button asChild variant="secondary" className="mt-10"><Link to={{ pathname: "/opportunities/procurement/notices", search: params.toString() }}>All notices</Link></Button>
     </section>
   );
 }
