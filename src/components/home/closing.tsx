@@ -31,7 +31,7 @@ export function InstitutionsExplainer() {
       <Container>
         <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
           <div className="reveal">
-            <p className="overline text-primary">04 · ECOWAS Institutions</p>
+            <p className="overline text-primary">ECOWAS Institutions</p>
             <h2 id="home-institutions" className="mt-3 font-display text-h1">Three arms of governance.</h2>
           </div>
           <p className="reveal max-w-xl text-lead text-ink-soft">ECOWAS governance is exercised by the Executive, the Legislature and the Judiciary, each with a distinct Community mandate.</p>
@@ -99,15 +99,15 @@ export function IntegrityBand() {
         <span key={s} aria-hidden className="pointer-events-none absolute -right-24 -top-24 rounded-full border border-primary-foreground/15 transition-transform duration-slow ease-out"
           style={{ width: `${s}rem`, height: `${s}rem`, transform: `translate(calc(var(--rx,0px) * ${(i + 1) * 0.5}), calc(var(--ry,0px) * ${(i + 1) * 0.5}))` }} />
       ))}
-      <Container className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <Container className="relative grid gap-10">
         <div className="reveal">
-          <p className="text-overline uppercase text-primary-foreground/75">09 · IntegrityLine</p>
+          <p className="text-overline uppercase text-primary-foreground/75">IntegrityLine</p>
           <h2 id="home-integrity" className="mt-4 font-display text-display-lg text-primary-foreground">See something.<br />Say something.</h2>
           <p className="mt-6 max-w-md text-lead text-primary-foreground/85">IntegrityLine provides protected channels for reporting matters within the Office’s mandate, fraud, waste, abuse or misconduct involving Community resources.</p>
           <p className="mt-4 max-w-md text-small text-primary-foreground/75">Secure case handling is being finalised; reporting channels are not yet in production use.</p>
           <Link to="/integrityline/protection" className="mt-6 inline-flex items-center gap-2 text-small font-semibold underline-offset-4 hover:underline">How reporters are protected <ArrowRight className="size-4" /></Link>
         </div>
-        <ul className="grid gap-3 sm:grid-cols-2">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {opts.map((o, i) => (
             <li key={o.t} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
               <Link to="/integrityline/report" className={cn("group flex h-full flex-col gap-6 border border-l-4 border-primary-foreground/20 bg-primary-foreground/5 p-6 transition-all duration-base hover:-translate-y-1 hover:bg-primary-foreground hover:text-ecowas-green hover:shadow-raised", o.c)}>

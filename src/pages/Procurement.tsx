@@ -27,16 +27,6 @@ function EmptyPanel({ icon: Icon, title, body, as: Heading = "h3" }: { icon: typ
   );
 }
 
-function Crumb({ current }: { current: string }) {
-  return (
-    <nav aria-label="Breadcrumb" className="mb-6 text-small text-muted-foreground">
-      <Link to="/" className="hover:text-primary hover:underline">Home</Link> /{" "}
-      <Link to="/opportunities" className="hover:text-primary hover:underline">Opportunities</Link> /{" "}
-      <Link to="/opportunities/procurement" className="hover:text-primary hover:underline">Procurement</Link>
-      {current && <> / <span aria-current="page" className="text-ink">{current}</span></>}
-    </nav>
-  );
-}
 
 // ---------- Notices ----------
 function NoticesView({ overview = false }: { overview?: boolean }) {
@@ -54,7 +44,7 @@ function NoticesView({ overview = false }: { overview?: boolean }) {
 
   return (
     <section lang="en" className="container py-section-sm" aria-labelledby="notices-h">
-      <Crumb current={overview ? "" : "Notices"} />
+      
       <p className="overline text-primary">Procurement</p>
       <h1 id="notices-h" className="mt-3 font-display text-h1">{overview ? "Procurement" : "Procurement notices"}</h1>
       <p className="mt-4 max-w-2xl text-lead text-ink-soft">Calls for tenders, expressions of interest and other published procurement opportunities.</p>
@@ -130,7 +120,7 @@ function NoticeDetailView({ id }: { id: string }) {
 
   return (
     <section className="container py-section-sm lg:py-section">
-      <Crumb current="Notice detail" />
+      
       {failed ? <div role="alert"><h1 className="font-display text-h3">Notice could not be loaded</h1><p className="mt-2 text-ink-soft">Availability cannot be confirmed right now.</p><Button variant="secondary" className="mt-4" onClick={load}>Try again</Button></div> : notice === undefined ? (
         <p className="text-muted-foreground">Loading notice…</p>
       ) : notice === null ? (
@@ -168,7 +158,7 @@ function PlansView() {
   useEffect(() => { fetchPlans().then(setPlans); }, []);
   return (
     <section className="container py-section-sm lg:py-section" aria-labelledby="plans-h">
-      <Crumb current="Plans" />
+      
       <p className="overline text-primary">Procurement</p>
       <h1 id="plans-h" className="mt-3 font-display text-h1">Procurement plans</h1>
       <p className="mt-4 max-w-2xl text-lead text-ink-soft">Published annual procurement plans give advance notice of upcoming opportunities.</p>
@@ -207,7 +197,7 @@ function AwardsView() {
   }, [awards, q]);
   return (
     <section className="container py-section-sm lg:py-section" aria-labelledby="awards-h">
-      <Crumb current="Awards" />
+      
       <p className="overline text-primary">Procurement</p>
       <h1 id="awards-h" className="mt-3 font-display text-h1">Contract awards</h1>
       <p className="mt-4 max-w-2xl text-lead text-ink-soft">Published contract award decisions, subject to any applicable standstill period.</p>
@@ -246,7 +236,7 @@ function ProjectsView() {
   useEffect(() => { fetchProjects().then(setProjects); }, []);
   return (
     <section className="container py-section-sm lg:py-section" aria-labelledby="projects-h">
-      <Crumb current="Projects" />
+      
       <p className="overline text-primary">Procurement</p>
       <h1 id="projects-h" className="mt-3 font-display text-h1">Procurement projects</h1>
       <p className="mt-4 max-w-2xl text-lead text-ink-soft">Programmes and projects with procurement activity, including donor-funded operations.</p>
@@ -279,7 +269,7 @@ function ResourcesView() {
   useEffect(() => { fetchResources().then(setResources); }, []);
   return (
     <section className="container py-section-sm lg:py-section" aria-labelledby="res-h">
-      <Crumb current="Resources" />
+      
       <p className="overline text-primary">Procurement</p>
       <h1 id="res-h" className="mt-3 font-display text-h1">Procurement resources</h1>
       <p className="mt-4 max-w-2xl text-lead text-ink-soft">Guides, regulations, templates and policies for suppliers and partners.</p>
@@ -312,7 +302,7 @@ function ResourceDetailView({ id }: { id: string }) {
   useEffect(() => { fetchResources().then((all) => setResource(all.find((r) => r.id === id) ?? null)); }, [id]);
   return (
     <section className="container py-section-sm lg:py-section">
-      <Crumb current="Resource detail" />
+      
       {resource === undefined ? (
         <p className="text-muted-foreground">Loading resource…</p>
       ) : resource === null ? (
@@ -332,7 +322,7 @@ function ResourceDetailView({ id }: { id: string }) {
 }
 
 function FaqsView() {
-  return <section className="container py-section"><Crumb current="FAQs" /><h1 className="font-display text-h1">Procurement FAQs</h1><p className="mt-4 text-lead text-ink-soft">Find procurement questions and participation guidance in Opportunities.</p><Button asChild className="mt-6"><Link to="/opportunities#procurement-faqs">View procurement FAQs <ArrowRight /></Link></Button></section>;
+  return <section className="container py-section"><h1 className="font-display text-h1">Procurement FAQs</h1><p className="mt-4 text-lead text-ink-soft">Find procurement questions and participation guidance in Opportunities.</p><Button asChild className="mt-6"><Link to="/opportunities#procurement-faqs">View procurement FAQs <ArrowRight /></Link></Button></section>;
 }
 
 export default function Procurement() {

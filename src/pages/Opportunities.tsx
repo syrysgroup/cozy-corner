@@ -4,7 +4,7 @@ import { Button, Band, Wordmark } from "@/components/ds/primitives";
 import { CAREER_AREAS, PROCESS_STEPS, FAQS } from "@/lib/careers-data";
 import { NOTICE_TYPES, PARTICIPATION_STEPS, PROCUREMENT_FAQS } from "@/lib/procurement-data";
 import { useI18n } from "@/lib/i18n";
-import { NAV, UI } from "@/lib/site";
+import { NAV } from "@/lib/site";
 import meetingImg from "@/assets/editorial-meeting.jpg";
 
 function Questions({ items }: { items: { q: string; a: string }[] }) {
@@ -22,7 +22,7 @@ export default function Opportunities() {
   const procurementLabel = section?.children[1]?.label[lang] ?? "Procurement";
   return <div lang="en">
     <section className="container py-section-sm">
-      <nav aria-label="Breadcrumb" className="mb-6 text-small text-muted-foreground"><Link to="/" className="hover:text-primary">{UI[lang].home}</Link> / <span aria-current="page">{section?.label[lang] ?? "Opportunities"}</span></nav>
+      
       <div className="flex flex-wrap items-end justify-between gap-6"><div><p className="overline text-primary">Work with the Office</p><h1 className="mt-3 font-display text-h1">{section?.label[lang] ?? "Opportunities"}</h1><p className="mt-4 max-w-2xl text-lead text-ink-soft">Careers and procurement at the Office of the Auditor General of ECOWAS Institutions.</p></div><Wordmark compact /></div>
       <div className="mt-8 grid gap-5 md:grid-cols-2">
         {[{ title: careersLabel, icon: BriefcaseBusiness, body: "Professional roles, internships and consultancy opportunities. Find approved vacancy notices and their application requirements.", action: "View current vacancies", to: "/opportunities/careers" }, { title: procurementLabel, icon: ScrollText, body: "Calls for tenders, expressions of interest and requests for quotation. Find published notices and their submission requirements.", action: "View procurement notices", to: "/opportunities/procurement" }].map(({ title, icon: Icon, body, action, to }) => <article key={to} className="flex flex-col border border-border border-t-4 border-t-primary bg-card p-6"><div className="flex items-center gap-3"><Icon className="size-6 text-primary" aria-hidden /><h2 className="font-display text-h3">{title}</h2></div><p className="mt-3 max-w-xl flex-1 text-body text-ink-soft">{body}</p><Button asChild className="mt-6 self-start max-w-full whitespace-normal text-left"><Link to={to}>{action}<ArrowRight /></Link></Button></article>)}

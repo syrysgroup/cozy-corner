@@ -13,7 +13,7 @@ export function AuthorityProfilePage() {
       name: "Authority of Heads of State and Government", shortName: "The Authority", eyebrow: "Supreme institution of ECOWAS", icon: Landmark,
       logo: { src: logo.src, alt: logo.alt ?? "ECOWAS emblem" },
       summary: "The Authority of Heads of State and Government is the highest decision-making body of ECOWAS. It brings together the Heads of State and Government of Member States and provides overall direction for the Community.",
-      site: "https://www.ecowas.int/", officialProfile: "https://www.ecowas.int/institutions/authority-of-heads-of-state-and-government/",
+      hasOrganogram: false,
       facts: [["Institutional position", "Supreme institution"], ["Composition", "Heads of State and Government"], ["Chairmanship", "Rotating, defined term"], ["Legal basis", "Revised ECOWAS Treaty, Article 7"]],
       leader: current ? { role: current.officialTitle, name: `${current.honorific} ${current.fullName}`, country: current.countryName, since: formatChairDate(current.startDate), portraitSrc: current.portrait?.src, officeLink: current.officialSource } : undefined,
       leadershipTitle: "Chairmanship of the Authority",

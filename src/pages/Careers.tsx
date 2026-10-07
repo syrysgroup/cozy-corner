@@ -26,7 +26,7 @@ export default function Careers() {
   return (
     <div lang="en">
       <section className="container pt-section-sm pb-6">
-        <nav aria-label="Breadcrumb" className="mb-6 text-small text-muted-foreground"><Link to="/" className="hover:text-primary">Home</Link> / <Link to="/opportunities" className="hover:text-primary">Opportunities</Link> / <span aria-current="page">Careers</span></nav>
+        
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="overline text-primary">Professional opportunities</p><h1 className="mt-3 font-display text-h1">Careers</h1><p className="mt-4 text-lead text-ink-soft">Published vacancies and official application channels.</p></div><Button asChild variant="tertiary"><Link to="/opportunities#careers-guidance">Recruitment guidance <ArrowRight /></Link></Button></div>
       </section>
 

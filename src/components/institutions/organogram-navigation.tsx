@@ -6,7 +6,6 @@ import { SPECIAL_AGENCIES, agencySlug, agencyShortName } from "@/lib/special-age
 import { getApprovedOrganogram } from "@/lib/organogram-data";
 
 const institutions = [
-  { slug: "authority", name: "The Authority" },
   ...GOVERNANCE_ARMS.map((arm, index) => ({ slug: ["commission", "parliament", "court"][index], name: arm.body })),
   ...SUPPORTING_INSTITUTIONS.map((institution) => ({ slug: institution.slug, name: institution.shortName })),
   ...SPECIAL_AGENCIES.map((agency) => ({ slug: agencySlug(agency), name: agencyShortName(agency) })),

@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, CalendarDays, MapPin, ShieldCheck, UserRound, Network, type LucideIcon } from "lucide-react";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import { ArrowUpRight, CalendarDays, MapPin, ShieldCheck, UserRound, Network, type LucideIcon } from "lucide-react";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { Button } from "@/components/ds/primitives";
 import { institutionAssetUrl } from "@/lib/institution-data";
@@ -33,6 +33,7 @@ export type InstitutionProfile = {
   structure: string[];
   /** Path in the public institution asset store, e.g. "Organogram/commission.png". */
   organogramPath?: string;
+  hasOrganogram?: boolean;
   history?: [string, string][];
   oagNote?: string;
 };
@@ -62,10 +63,7 @@ function Hero({ p, organogramPath }: { p: InstitutionProfile; organogramPath: st
       <span className="absolute inset-x-0 top-0 h-1.5 band" aria-hidden />
       <Container className={cn("grid gap-10 py-12 md:py-16", !photo && "lg:grid-cols-[1.4fr_1fr] lg:items-center")}>
         <div>
-          <nav aria-label="Breadcrumb" className={cn("text-small", photo ? "text-primary-foreground/90" : "text-muted-foreground")}>
-            <Link to="/institutions" className="inline-flex min-h-11 items-center gap-1 hover:underline"><ArrowLeft className="size-4" aria-hidden />ECOWAS Institutions</Link> / {p.shortName ?? p.name}
-          </nav>
-          <div className="mt-6 flex items-center gap-4">
+          <div className="flex items-center gap-4">
             {photo && <img src={p.logo.src} alt={p.logo.alt ?? `${p.name} logo`} width={80} height={80} className="size-16 shrink-0 bg-card p-2 object-contain md:size-20" />}
             <p className={cn("overline flex items-center gap-2", photo ? "text-primary-foreground" : "text-primary")}><Icon className="size-4" aria-hidden />{p.eyebrow}</p>
           </div>
@@ -73,7 +71,7 @@ function Hero({ p, organogramPath }: { p: InstitutionProfile; organogramPath: st
           <p className={cn("mt-5 max-w-2xl text-lead", photo ? "text-primary-foreground/95" : "text-ink-soft")}>{p.summary}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             {p.site && <Button asChild size="lg" variant={photo ? "inverse" : "primary"}><a href={p.site} target="_blank" rel="noreferrer">Official website <ArrowUpRight /><span className="sr-only">(opens in a new tab)</span></a></Button>}
-            <Button asChild size="lg" variant="secondary" className={cn(photo && "border-primary-foreground/80 text-primary-foreground hover:bg-primary-foreground hover:text-ink")}><Link to={organogramPath}><Network />View organogram</Link></Button>
+            {p.hasOrganogram !== false && <Button asChild size="lg" variant="secondary" className={cn(photo && "border-primary-foreground/80 text-primary-foreground hover:bg-primary-foreground hover:text-ink")}><Link to={organogramPath}><Network />View organogram</Link></Button>}
           </div>
           {photo && <p className="mt-8 text-xs text-primary-foreground/80">{photo.caption}</p>}
         </div>
@@ -91,9 +89,9 @@ function Hero({ p, organogramPath }: { p: InstitutionProfile; organogramPath: st
 
 export function InstitutionProfilePage({ p }: { p: InstitutionProfile }) {
   const { pathname } = useLocation();
-  if (pathname.endsWith("/organogram")) return <InteractiveOrganogram key={pathname} p={p} parentPath={pathname.replace(/\/organogram$/, "")} />;
+  if (pathname.endsWith("/organogram")) return p.hasOrganogram === false ? <Navigate to={pathname.replace(/\/organogram$/, "")} replace /> : <InteractiveOrganogram key={pathname} p={p} parentPath={pathname.replace(/\/organogram$/, "")} />;
   const hasLeaders = !!p.leader || !!p.leaderGroups?.some((g) => g.members.length);
-  const nav = [["overview", "Overview"], hasLeaders && ["leadership", "Leadership"], ["mandate", "Mandate"], ["organogram", "Organogram"], p.history?.length && ["milestones", "Milestones"]].filter(Boolean) as [string, string][];
+  const nav = [["overview", "Overview"], hasLeaders && ["leadership", "Leadership"], ["mandate", "Mandate"], p.hasOrganogram !== false && ["organogram", "Organogram"], p.history?.length && ["milestones", "Milestones"]].filter(Boolean) as [string, string][];
   return (
     <>
       <Hero p={p} organogramPath={`${pathname}/organogram`} />
@@ -151,11 +149,11 @@ export function InstitutionProfilePage({ p }: { p: InstitutionProfile }) {
         <ol className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">{p.mandate.map((m, i) => <li key={m} className="flex gap-4 bg-card p-6"><span className="font-mono text-xs text-primary">{String(i + 1).padStart(2, "0")}</span><span className="text-small text-ink-soft">{m}</span></li>)}</ol>
       </Container></section>
 
-      <section id="organogram" aria-labelledby="organogram-title" className="scroll-mt-20 py-section"><Container>
+      {p.hasOrganogram !== false && <section id="organogram" aria-labelledby="organogram-title" className="scroll-mt-20 py-section"><Container>
         <SectionTitle id="organogram-title" eyebrow="Structure" title="Organogram" lead={`How the ${p.shortName ?? p.name} is organised.`} />
         
         <Button asChild size="lg" className="mt-6 h-auto min-h-13 max-w-full whitespace-normal"><Link to={`${pathname}/organogram`}><Network />View organogram<ArrowUpRight /></Link></Button>
-      </Container></section>
+      </Container></section>}
 
       {p.history?.length ? (
         <section id="milestones" aria-labelledby="milestones-title" className="scroll-mt-20 border-t border-border bg-surface-sunken py-section"><Container>
