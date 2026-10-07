@@ -1,0 +1,13 @@
+import { test, expect } from 'bun:test';
+import { enquirySchema, contactContentSchema, SUBMISSIONS_OPEN } from './contact-schema';
+const valid={first_name:'Ada',last_name:'Mensah',email:'ada@example.org',organization:'',country:'GH',enquiry_type:'general',subject:'Public information request',message:'Where can I find published reports?',preferred_language:'en',consent_recorded:true};
+test('public contact submissions remain closed until approved spam protection exists',()=>expect(SUBMISSIONS_OPEN).toBe(false));
+for(const field of ['first_name','last_name','email','subject','message'])test(`${field} is required`,()=>expect(enquirySchema.safeParse({...valid,[field]:''}).success).toBe(false));
+test('privacy acknowledgement is required',()=>expect(enquirySchema.safeParse({...valid,consent_recorded:false}).success).toBe(false));
+test('protected integrity reports cannot be classified as contact enquiries',()=>expect(enquirySchema.safeParse({...valid,enquiry_type:'integrity'}).success).toBe(false));
+test('job applications are not a general enquiry category',()=>expect(enquirySchema.safeParse({...valid,enquiry_type:'job_application'}).success).toBe(false));
+test('procurement bids are not a general enquiry category',()=>expect(enquirySchema.safeParse({...valid,enquiry_type:'bid'}).success).toBe(false));
+test('attachments are not approved for general enquiries',()=>expect(enquirySchema.safeParse({...valid,attachment:'cv.pdf'}).success).toBe(false));
+test('original enquiry message and language are preserved',()=>{const message='Bonjour, je demande une publication.';const result=enquirySchema.parse({...valid,message,preferred_language:'fr'});expect(result.message).toBe(message);expect(result.preferred_language).toBe('fr');});
+test('empty verified contact configuration has no invented contact details',()=>expect(contactContentSchema.parse({language:'en'})).toEqual({language:'en'}));
+test('map destinations cannot contain executable links',()=>expect(contactContentSchema.safeParse({language:'en',general:{map_url:'javascript:alert(1)'}}).success).toBe(false));
