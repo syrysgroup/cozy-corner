@@ -1,7 +1,7 @@
 # OAG roadmap
 
-- [ ] Compact the homepage closing section into a newsletter-only row, removing its four navigation links.
-- [ ] Limit homepage publications to the latest four, retaining card sizes and the full-library link; test selection.
+- [x] Compact the homepage closing section into a newsletter-only row, removing its four navigation links; verified at 125px tall instead of 461px.
+- [x] Limit homepage publications to the latest four, retaining card sizes and the full-library link; three selection tests passed, four 272px cards and library destination verified.
 - [ ] Prepare the non-repeating, fixed, compact header menu plan for approval (implementation awaits approval).
 
 - [ ] Remove homepage section numbering and all public page breadcrumb trails.
