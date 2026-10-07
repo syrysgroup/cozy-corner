@@ -14,6 +14,7 @@
 - [x] Display the four Transparency in numbers figures together in one desktop row, with a swipe track and arrows below on phone.
 - [x] Display the six Office & what we do functions in one full-width row below the heading, with a swipe track and arrows below on phone.
 - [ ] Remove Authority organogram and official-website destinations, since neither exists.
+- [x] Give OAG leadership a premium, portrait-led homepage feature; connect the published Authority Chairman portrait through its database record.
 
 - [ ] Finish the partly written Opportunities guidance hub and availability-first Careers/Procurement pages; verify navigation, search/filter/reset, source states and layouts against the supplied brief.
 
