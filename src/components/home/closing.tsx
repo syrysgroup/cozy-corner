@@ -1,11 +1,10 @@
 import { useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, EyeOff, Lock, UserCheck, Search, ShieldCheck } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, EyeOff, Lock, UserCheck, Search, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { GOVERNANCE_ARMS, OAG_POSITIONING } from "@/components/ds/institutional";
 import { useOfficialAsset } from "@/lib/public-site";
-import { usePrefersReducedMotion } from "@/hooks/use-motion";
 import { cn } from "@/lib/utils";
 import commissionLogo from "@/assets/commission-logo.png.asset.json";
 import parliamentLogo from "@/assets/parliament-logo.png.asset.json";
@@ -79,44 +78,53 @@ export function InstitutionsExplainer() {
 }
 
 export function IntegrityBand() {
-  const ref = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
+  const track = useRef<HTMLUListElement>(null);
   const opts = [
     { icon: EyeOff, t: "Report anonymously", d: "No name, no contact details required.", c: "border-l-ecowas-yellow" },
     { icon: Lock, t: "Report confidentially", d: "Your identity is known only to authorised staff.", c: "border-l-ecowas-lime" },
     { icon: UserCheck, t: "Identify myself", d: "Share your details so we can follow up with you.", c: "border-l-ecowas-sky" },
     { icon: Search, t: "Track existing report", d: "Use your case reference to check progress.", c: "border-l-ecowas-orange" },
   ];
-  const move = (e: React.PointerEvent) => {
-    if (reduced || !ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    ref.current.style.setProperty("--rx", `${((e.clientX - r.left) / r.width - 0.5) * 40}px`);
-    ref.current.style.setProperty("--ry", `${((e.clientY - r.top) / r.height - 0.5) * 40}px`);
+  const scroll = (dir: number) => {
+    const el = track.current; if (!el) return;
+    const card = el.querySelector("li"); const w = card ? card.getBoundingClientRect().width + 12 : el.clientWidth;
+    el.scrollBy({ left: dir * w, behavior: "smooth" });
   };
   return (
-    <section ref={ref} onPointerMove={move} aria-labelledby="home-integrity" className="relative overflow-hidden bg-ecowas-green py-section-lg text-primary-foreground">
-      {[36, 26, 16].map((s, i) => (
-        <span key={s} aria-hidden className="pointer-events-none absolute -right-24 -top-24 rounded-full border border-primary-foreground/15 transition-transform duration-slow ease-out"
-          style={{ width: `${s}rem`, height: `${s}rem`, transform: `translate(calc(var(--rx,0px) * ${(i + 1) * 0.5}), calc(var(--ry,0px) * ${(i + 1) * 0.5}))` }} />
-      ))}
-      <Container className="relative grid gap-10">
-        <div className="reveal">
-          <p className="text-overline uppercase text-primary-foreground/75">IntegrityLine</p>
-          <h2 id="home-integrity" className="mt-4 font-display text-display-lg text-primary-foreground">See something.<br />Say something.</h2>
-          <p className="mt-6 max-w-md text-lead text-primary-foreground/85">IntegrityLine provides protected channels for reporting matters within the Office’s mandate, fraud, waste, abuse or misconduct involving Community resources.</p>
-          <p className="mt-4 max-w-md text-small text-primary-foreground/75">Secure case handling is being finalised; reporting channels are not yet in production use.</p>
-          <Link to="/integrityline/protection" className="mt-6 inline-flex items-center gap-2 text-small font-semibold underline-offset-4 hover:underline">How reporters are protected <ArrowRight className="size-4" /></Link>
+    <section aria-labelledby="home-integrity" className="relative overflow-hidden bg-ecowas-green py-section text-primary-foreground">
+      <span aria-hidden className="absolute inset-x-0 top-0 h-1.5 band" />
+      <Container className="relative">
+        <div className="grid gap-6 xl:grid-cols-[minmax(15rem,0.85fr)_minmax(0,3.15fr)] xl:items-center">
+          <div className="reveal">
+            <p className="text-overline uppercase text-ecowas-yellow">IntegrityLine</p>
+            <h2 id="home-integrity" className="mt-3 font-display text-h2 text-primary-foreground">See something.<br />Say something.</h2>
+            <p className="mt-3 max-w-sm text-small text-primary-foreground/85">Protected channels for reporting fraud, waste, abuse or misconduct involving Community resources, within the Office’s mandate.</p>
+            <p className="mt-2 max-w-sm text-xs text-primary-foreground/65">Secure case handling is being finalised; reporting channels are not yet in production use.</p>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <Link to="/integrityline/protection" className="inline-flex min-h-11 items-center gap-2 text-small font-semibold underline-offset-4 hover:underline">How reporters are protected <ArrowRight className="size-4" aria-hidden /></Link>
+              <div className="flex gap-2 xl:hidden">
+                <Button type="button" variant="inverse" size="icon" aria-label="Previous reporting options" onClick={() => scroll(-1)}><ChevronLeft /></Button>
+                <Button type="button" variant="inverse" size="icon" aria-label="Next reporting options" onClick={() => scroll(1)}><ChevronRight /></Button>
+              </div>
+            </div>
+          </div>
+          <ul ref={track} aria-label="Ways to report" className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:grid xl:grid-cols-4 xl:overflow-x-visible xl:pb-0">
+            {opts.map((o, i) => (
+              <li key={o.t} className="w-[76%] shrink-0 snap-start xs:w-[58%] sm:w-[calc((100%-0.75rem)/2)] xl:w-auto">
+                <Link to="/integrityline/report" className={cn("group flex h-full min-h-[9.5rem] flex-col gap-4 border border-l-4 border-primary-foreground/20 bg-primary-foreground/5 p-5 transition-colors duration-base hover:bg-primary-foreground hover:text-ecowas-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow", o.c)}>
+                  <span className="flex items-center justify-between">
+                    <o.icon className="size-5" aria-hidden />
+                    <span className="font-mono text-xs opacity-60">0{i + 1}/04</span>
+                  </span>
+                  <span className="mt-auto">
+                    <span className="block font-display text-h4">{o.t}</span>
+                    <span className="mt-1 block text-small opacity-80">{o.d}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {opts.map((o, i) => (
-            <li key={o.t} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-              <Link to="/integrityline/report" className={cn("group flex h-full flex-col gap-6 border border-l-4 border-primary-foreground/20 bg-primary-foreground/5 p-6 transition-all duration-base hover:-translate-y-1 hover:bg-primary-foreground hover:text-ecowas-green hover:shadow-raised", o.c)}>
-                <o.icon className="size-6" aria-hidden />
-                <span><span className="block font-display text-h4">{o.t}</span><span className="mt-1 block text-small opacity-80">{o.d}</span></span>
-              </Link>
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );
