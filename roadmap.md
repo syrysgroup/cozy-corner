@@ -2,6 +2,7 @@
 
 - [ ] Remove homepage section numbering and all public page breadcrumb trails.
 - [ ] Redesign homepage ECOWAS news as a newest-first sliding grid in Community colours with institution and date labels.
+- [ ] Match IntegrityLine and Transparency in numbers to the compact Office layout: heading above full-width cards, minimal row spacing; verify both sections.
 - [x] Display the four IntegrityLine choices together in one desktop row.
 - [x] Display the four Transparency in numbers figures together in one desktop row, with a swipe track and arrows below on phone.
 - [x] Display the six Office & what we do functions in one full-width row below the heading, with a swipe track and arrows below on phone.
