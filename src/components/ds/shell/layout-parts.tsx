@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
-import { ChevronRight, AlertOctagon, CheckCircle2, SearchX, Inbox } from "lucide-react";
+import { AlertOctagon, CheckCircle2, SearchX, Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ds/primitives";
 
@@ -13,23 +12,8 @@ export function Prose({ children, className }: { children: ReactNode; className?
 }
 
 export type Crumb = { label: string; to?: string };
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
-  return (
-    <nav aria-label="Breadcrumb">
-      <ol className="flex flex-wrap items-center gap-1.5 text-small text-muted-foreground">
-        {items.map((c, i) => (
-          <li key={i} className="flex items-center gap-1.5">
-            {i > 0 && <ChevronRight className="size-3.5" aria-hidden />}
-            {c.to && i < items.length - 1 ? (
-              <Link to={c.to} className="underline-offset-4 hover:text-primary hover:underline">{c.label}</Link>
-            ) : (
-              <span aria-current="page" className="font-semibold text-ink">{c.label}</span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
+export function Breadcrumbs(_props: { items: Crumb[] }) {
+  return null;
 }
 
 export function PageHeader({ crumbs, overline, title, lead }: { crumbs: Crumb[]; overline?: string; title: string; lead?: string }) {
@@ -37,7 +21,7 @@ export function PageHeader({ crumbs, overline, title, lead }: { crumbs: Crumb[];
     <div className="border-b border-border bg-surface-sunken">
       <Container className="py-10 md:py-16">
         <Breadcrumbs items={crumbs} />
-        {overline && <p className="overline mt-8 text-primary">{overline}</p>}
+        {overline && <p className="overline text-primary">{overline}</p>}
         <h1 className="mt-3 max-w-4xl font-display text-h1">{title}</h1>
         {lead && <p className="mt-4 max-w-[42rem] text-lead text-ink-soft">{lead}</p>}
       </Container>

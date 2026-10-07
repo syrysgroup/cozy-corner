@@ -43,7 +43,7 @@ export function PublicationsShelf() {
     <section aria-labelledby="home-pubs" className="border-y border-border bg-surface-sunken py-section">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <div><p className="overline text-primary">07 · Publications</p><h2 id="home-pubs" className="mt-3 font-display text-h1">Reports that shape the record.</h2></div>
+          <div><p className="overline text-primary">Publications</p><h2 id="home-pubs" className="mt-3 font-display text-h1">Reports that shape the record.</h2></div>
           <Button asChild variant="secondary" size="sm"><Link to="/publications">View all publications <ArrowRight /></Link></Button>
         </div>
       </Container>

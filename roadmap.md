@@ -1,5 +1,10 @@
 # OAG roadmap
 
+- [ ] Remove homepage section numbering and all public page breadcrumb trails.
+- [ ] Redesign homepage ECOWAS news as a newest-first sliding grid in Community colours with institution and date labels.
+- [ ] Display the four IntegrityLine choices together in one desktop row.
+- [ ] Remove Authority organogram and official-website destinations, since neither exists.
+
 - [ ] Finish the partly written Opportunities guidance hub and availability-first Careers/Procurement pages; verify navigation, search/filter/reset, source states and layouts against the supplied brief.
 
 - [x] Update `/knowledge/ecowas-news` to a five-column desktop grid with selectable page size, next/previous pagination and actual publisher/date on every card; verified live paging, size selection and source-wide search. Current feed: ECOWAS Commission only.

@@ -16,7 +16,7 @@ export function HomeIntro() {
   return (
     <Container as="section" aria-labelledby="home-intro" className="py-section">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-        <div><p className="overline text-primary">01 · The Office</p><h2 id="home-intro" className="mt-3 font-display text-h2">Who we are</h2></div>
+        <div><p className="overline text-primary">The Office</p><h2 id="home-intro" className="mt-3 font-display text-h2">Who we are</h2></div>
         <p className="text-lead text-ink-soft">The Office of the Auditor General is an independent assurance office supporting accountability, good corporate governance and value for money across ECOWAS Institutions.</p>
       </div>
     </Container>
@@ -36,7 +36,7 @@ export function WhatOAGDoes() {
   return (
     <section aria-labelledby="home-functions" className="border-y border-border bg-surface-sunken py-section">
       <Container>
-        <p className="overline text-primary">02 · What OAG does</p>
+        <p className="overline text-primary">What OAG does</p>
         <h2 id="home-functions" className="mt-3 font-display text-h2">Six core functions</h2>
         <ul className="mt-8 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {FUNCTIONS.map(({ icon: Icon, t, d }) => (
@@ -79,7 +79,7 @@ export function LeadershipFeature() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-[minmax(17rem,0.72fr)_minmax(0,1.28fr)] lg:items-center">
           <div className="max-w-xl">
-            <p className="overline text-primary">02 · OAG Leadership</p>
+            <p className="overline text-primary">OAG Leadership</p>
             <h2 id="home-leadership" className="mt-4 font-display text-h1">Leadership of the Office of the Auditor General</h2>
             <p className="mt-5 text-lead text-ink-soft">The people responsible for directing the Office’s independent audit and assurance mandate.</p>
             <p className="mt-4 border-l-2 border-ecowas-yellow pl-4 text-small text-muted-foreground">Names, portraits and biographies will be published only after formal approval.</p>
@@ -173,7 +173,7 @@ export function AuditAssurance() {
     <Container as="section" aria-labelledby="home-audit" className="py-section">
       <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
         <div>
-          <p className="overline text-primary">05 · Audit &amp; Assurance</p>
+          <p className="overline text-primary">Audit &amp; Assurance</p>
           <h2 id="home-audit" className="mt-3 font-display text-h2">Assurance across the Community’s resources.</h2>
           <div className="mt-6"><Button asChild variant="secondary"><Link to="/audit">Explore Audit &amp; Assurance <ArrowRight /></Link></Button></div>
         </div>

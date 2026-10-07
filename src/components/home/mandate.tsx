@@ -28,7 +28,7 @@ export function MandateGrid() {
       <Container>
         <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr] lg:items-end">
           <div className="reveal">
-            <p className="overline flex items-center gap-3 text-primary"><span className="h-px w-10 bg-primary" aria-hidden />03 · The Office &amp; what we do</p>
+            <p className="overline flex items-center gap-3 text-primary"><span className="h-px w-10 bg-primary" aria-hidden />The Office &amp; what we do</p>
             <h2 id="home-functions" className="mt-3 font-display text-h1">Independent assurance, from evidence to public trust.</h2>
           </div>
           <div className="reveal">

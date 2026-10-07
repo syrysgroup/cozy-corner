@@ -83,6 +83,8 @@ export async function fetchEcowasNewsPage({ limit = 20, page = 1, query = "", si
   url.searchParams.set("per_page", String(perPage));
   url.searchParams.set("_embed", "1");
   url.searchParams.set("page", String(Math.max(1, Math.floor(page))));
+  url.searchParams.set("orderby", "date");
+  url.searchParams.set("order", "desc");
   if (query.trim()) url.searchParams.set("search", query.trim());
 
   const response = await fetch(url, {

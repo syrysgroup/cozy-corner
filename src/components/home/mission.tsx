@@ -28,7 +28,7 @@ export function MissionStatement() {
   return (
     <section id="mission" ref={ref} aria-labelledby="mission-title" className="py-section-lg">
       <Container>
-        <p className="overline flex items-center gap-3 text-primary"><span className="h-1 w-10 band" aria-hidden />01 · The Office</p>
+        <p className="overline flex items-center gap-3 text-primary"><span className="h-1 w-10 band" aria-hidden />The Office</p>
         <h2 id="mission-title" className="sr-only">Who we are</h2>
         <p className="mt-8 max-w-3xl text-lead leading-relaxed text-muted-foreground md:text-h3 md:leading-relaxed">
           {PARTS.map(([t, key], i) => {

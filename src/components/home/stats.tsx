@@ -43,7 +43,7 @@ export function TransparencyDashboard() {
   return (
     <section aria-labelledby="home-transparency" className="bg-ecowas-ocean py-section-lg text-primary-foreground">
       <Container>
-        <p className="overline flex items-center gap-3 text-primary-foreground/80"><span className="h-1 w-10 band" aria-hidden />05 · Transparency in numbers</p>
+        <p className="overline flex items-center gap-3 text-primary-foreground/80"><span className="h-1 w-10 band" aria-hidden />Transparency in numbers</p>
         <h2 id="home-transparency" className="mt-3 max-w-3xl font-display text-h1 text-primary-foreground">From institutional information to public knowledge.</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{ITEMS.map((it, i) => <Stat key={it.k} it={it} i={i} />)}</div>
         <p className="mt-6 text-xs text-primary-foreground/70">{PLACEHOLDER_NOTICE}</p>

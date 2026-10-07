@@ -45,3 +45,15 @@ test("missing headers do not invent pagination totals", async () => {
     expect(result.hasNext).toBe(false);
   } finally { globalThis.fetch = original; }
 });
+
+
+test("Community news requests newest stories first", async () => {
+  const original = globalThis.fetch;
+  let requested;
+  globalThis.fetch = async (url) => { requested = new URL(url); return new Response("[]"); };
+  try {
+    await fetchEcowasNewsPage({ limit: 12 });
+    expect(requested.searchParams.get("orderby")).toBe("date");
+    expect(requested.searchParams.get("order")).toBe("desc");
+  } finally { globalThis.fetch = original; }
+});
