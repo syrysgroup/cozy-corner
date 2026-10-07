@@ -1,5 +1,8 @@
 # OAG roadmap
 
+- [ ] Check homepage completeness against approved removals and latest Careers brief; verify every section renders.
+- [ ] Implement the uploaded Careers campaign: source verification, published vacancy data, discovery, individual roles, guidance, archive and multilingual-ready records; disclose unavailable source verification or services.
+
 - [x] Compact the homepage closing section into a newsletter-only row, removing its four navigation links; verified at 125px tall instead of 461px.
 - [x] Limit homepage publications to the latest four, retaining card sizes and the full-library link; three selection tests passed, four 272px cards and library destination verified.
 - [x] Prepare the non-repeating, fixed, compact header menu plan for approval; header implementation awaits approval.
