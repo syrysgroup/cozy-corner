@@ -99,7 +99,7 @@ export function IntegrityBand() {
             <p className="text-overline uppercase text-ecowas-yellow">IntegrityLine</p>
             <h2 id="home-integrity" className="mt-3 font-display text-h2 text-primary-foreground">See something.<br />Say something.</h2>
             <p className="mt-3 max-w-sm text-small text-primary-foreground/85">Protected channels for reporting fraud, waste, abuse or misconduct involving Community resources, within the Office’s mandate.</p>
-            <p className="mt-2 max-w-sm text-xs text-primary-foreground/65">Secure case handling is being finalised; reporting channels are not yet in production use.</p>
+            <p className="mt-2 max-w-sm text-xs text-primary-foreground/80">Secure case handling is being finalised; reporting channels are not yet in production use.</p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <Link to="/integrityline/protection" className="inline-flex min-h-11 items-center gap-2 text-small font-semibold underline-offset-4 hover:underline">How reporters are protected <ArrowRight className="size-4" aria-hidden /></Link>
               <div className="flex gap-2 xl:hidden">
@@ -110,11 +110,11 @@ export function IntegrityBand() {
           </div>
           <ul ref={track} aria-label="Ways to report" className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:grid xl:grid-cols-4 xl:overflow-x-visible xl:pb-0">
             {opts.map((o, i) => (
-              <li key={o.t} className="w-[76%] shrink-0 snap-start xs:w-[58%] sm:w-[calc((100%-0.75rem)/2)] xl:w-auto">
+              <li key={o.t} className="w-[85%] shrink-0 snap-start xs:w-[64%] sm:w-[calc((100%-0.75rem)/2)] xl:w-auto">
                 <Link to="/integrityline/report" className={cn("group flex h-full min-h-[9.5rem] flex-col gap-4 border border-l-4 border-primary-foreground/20 bg-primary-foreground/5 p-5 transition-colors duration-base hover:bg-primary-foreground hover:text-ecowas-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow", o.c)}>
                   <span className="flex items-center justify-between">
                     <o.icon className="size-5" aria-hidden />
-                    <span className="font-mono text-xs opacity-60">0{i + 1}/04</span>
+                    <span className="font-mono text-xs opacity-75">0{i + 1}/04</span>
                   </span>
                   <span className="mt-auto">
                     <span className="block font-display text-h4">{o.t}</span>
