@@ -83,6 +83,156 @@ export type Database = {
         }
         Relationships: []
       }
+      careers_jobs: {
+        Row: {
+          age_exemption_notes: string | null
+          age_requirement: string | null
+          application_email: string | null
+          application_method: string | null
+          archived_at: string | null
+          assessment_information: string | null
+          career_area: string
+          city: string
+          closing_date: string
+          competencies: string[]
+          country: string
+          created_at: string
+          directorate: string | null
+          division: string | null
+          documents_required: string[]
+          duty_station: string
+          employment_status: string
+          experience: string[]
+          featured: boolean
+          grade: string
+          id: string
+          institution: string
+          is_published: boolean
+          job_code: string
+          language_requirements: string | null
+          official_job_profile_url: string
+          official_source_name: string
+          official_source_url: string
+          official_title: string
+          publication_date: string
+          published_at: string | null
+          qualifications: string[]
+          reports_to: string | null
+          responsibilities: string[]
+          role_overview: string
+          salary_grade: string | null
+          salary_notes: string | null
+          salary_ua: number | null
+          salary_usd: number | null
+          slug: string
+          source_last_verified_at: string
+          source_publication_date: string
+          source_status: string
+          summary: string
+          supervises: string[]
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          age_exemption_notes?: string | null
+          age_requirement?: string | null
+          application_email?: string | null
+          application_method?: string | null
+          archived_at?: string | null
+          assessment_information?: string | null
+          career_area: string
+          city: string
+          closing_date: string
+          competencies?: string[]
+          country: string
+          created_at?: string
+          directorate?: string | null
+          division?: string | null
+          documents_required?: string[]
+          duty_station: string
+          employment_status: string
+          experience?: string[]
+          featured?: boolean
+          grade: string
+          id?: string
+          institution: string
+          is_published?: boolean
+          job_code: string
+          language_requirements?: string | null
+          official_job_profile_url: string
+          official_source_name: string
+          official_source_url: string
+          official_title: string
+          publication_date: string
+          published_at?: string | null
+          qualifications?: string[]
+          reports_to?: string | null
+          responsibilities?: string[]
+          role_overview: string
+          salary_grade?: string | null
+          salary_notes?: string | null
+          salary_ua?: number | null
+          salary_usd?: number | null
+          slug: string
+          source_last_verified_at?: string
+          source_publication_date: string
+          source_status?: string
+          summary: string
+          supervises?: string[]
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          age_exemption_notes?: string | null
+          age_requirement?: string | null
+          application_email?: string | null
+          application_method?: string | null
+          archived_at?: string | null
+          assessment_information?: string | null
+          career_area?: string
+          city?: string
+          closing_date?: string
+          competencies?: string[]
+          country?: string
+          created_at?: string
+          directorate?: string | null
+          division?: string | null
+          documents_required?: string[]
+          duty_station?: string
+          employment_status?: string
+          experience?: string[]
+          featured?: boolean
+          grade?: string
+          id?: string
+          institution?: string
+          is_published?: boolean
+          job_code?: string
+          language_requirements?: string | null
+          official_job_profile_url?: string
+          official_source_name?: string
+          official_source_url?: string
+          official_title?: string
+          publication_date?: string
+          published_at?: string | null
+          qualifications?: string[]
+          reports_to?: string | null
+          responsibilities?: string[]
+          role_overview?: string
+          salary_grade?: string | null
+          salary_notes?: string | null
+          salary_ua?: number | null
+          salary_usd?: number | null
+          slug?: string
+          source_last_verified_at?: string
+          source_publication_date?: string
+          source_status?: string
+          summary?: string
+          supervises?: string[]
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_audit: {
         Row: {
           action: string
