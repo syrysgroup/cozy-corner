@@ -1,31 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Search, Menu, X, Globe, ShieldCheck, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Band, Wordmark } from "@/components/ds/primitives";
 import { LANGS, useI18n } from "@/lib/i18n";
-import { MAIN_NAV, UI } from "@/lib/site";
+import { NAV, UI } from "@/lib/site";
+import { selectMainNav, dedupeLinks } from "@/lib/nav-dedupe";
 import { useUtilityNavigation } from "@/lib/public-site";
 import { Container } from "./layout-parts";
 import { SearchOverlay } from "./SearchOverlay";
 
-function useHideOnScroll() {
-  const [hidden, setHidden] = useState(false);
+function useScrolled() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    let last = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 8);
-      if (Math.abs(y - last) < 6) return;
-      setHidden(y > last && y > 160);
-      last = y;
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  return { hidden, scrolled };
+  return scrolled;
+}
+
+/** Measures the fixed header and shares its height as --header-h for spacer and anchor offsets. */
+function useHeaderHeight() {
+  const ref = useRef<HTMLElement>(null);
+  const [h, setH] = useState(0);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const v = el.offsetHeight;
+      setH(v);
+      document.documentElement.style.setProperty("--header-h", `${v}px`);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return { ref, h };
+}
+
+function useHeaderNav(lang: Parameters<typeof useUtilityNavigation>[0]) {
+  const utility = dedupeLinks(useUtilityNavigation(lang, UI[lang].utility).filter(([, to]) => !/^\/integrityline\/?$/i.test(to.split(/[?#]/)[0])));
+  return { utility, main: selectMainNav(NAV, utility) };
 }
 
 function LanguageSelect({ className, inverse }: { className?: string; inverse?: boolean }) {
@@ -45,8 +64,9 @@ function LanguageSelect({ className, inverse }: { className?: string; inverse?: 
 export function SiteHeader() {
   const { lang } = useI18n();
   const ui = UI[lang];
-  const utility = useUtilityNavigation(lang, ui.utility);
-  const { hidden, scrolled } = useHideOnScroll();
+  const { utility, main } = useHeaderNav(lang);
+  const scrolled = useScrolled();
+  const { ref: headerRef, h: headerH } = useHeaderHeight();
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -61,15 +81,13 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const isHidden = hidden && !menuOpen && !searchOpen;
-
   return (
     <>
       <a href="#main" className="fixed left-3 top-3 z-[60] -translate-y-20 bg-primary px-4 py-2 font-semibold text-primary-foreground focus:translate-y-0">{ui.skip}</a>
-      <header className={cn("sticky top-0 z-40 transition-transform duration-base ease-institutional motion-reduce:transition-none", isHidden && "-translate-y-full")}>
+      <header ref={headerRef} className="fixed inset-x-0 top-0 z-40">
         <Band />
         {/* Utility layer */}
-        <div className="hidden bg-ecowas-ocean text-primary-foreground md:block">
+        <div className="hidden bg-ecowas-ocean text-primary-foreground lg:block">
           <Container className="flex h-9 items-center justify-between text-xs">
             <span className="flex items-center gap-2 text-primary-foreground/80"><span className="size-1.5 rounded-full bg-ecowas-yellow" aria-hidden />Independent assurance for ECOWAS Institutions</span>
             <nav aria-label="Utility" className="flex items-center gap-5">
@@ -82,13 +100,13 @@ export function SiteHeader() {
         </div>
         {/* Main bar */}
         <div className={cn("border-b border-border bg-background/95 backdrop-blur transition-shadow duration-base", scrolled && "shadow-hairline")}>
-          <Container className="flex min-h-24 items-center justify-between gap-2 py-2 sm:gap-4 xl:min-h-28">
-            <Link to="/" aria-label="Office of the Auditor General, home" className="min-w-0 shrink overflow-hidden py-2 pr-1 sm:shrink-0 sm:pr-2"><Wordmark /></Link>
+          <Container className="flex min-h-20 items-center justify-between gap-2 py-1 sm:gap-4">
+            <Link to="/" aria-label="Office of the Auditor General, home" className="min-w-0 shrink overflow-hidden py-1 pr-1 sm:shrink-0"><Wordmark /></Link>
             <nav aria-label="Main" className="hidden shrink-0 xl:block">
               <ul className="flex items-center gap-0">
-                {MAIN_NAV.map((s) => (
+                {main.map((s) => (
                   <li key={s.slug}>
-                    <NavLink to={`/${s.slug}`} className={({ isActive }) => cn("relative block whitespace-nowrap px-1.5 py-2 text-small font-semibold text-ink-soft transition-colors duration-fast hover:text-primary after:absolute after:inset-x-1.5 after:-bottom-[1.05rem] after:h-0.5 after:scale-x-0 after:bg-primary after:transition-transform after:duration-base", isActive && "text-primary after:scale-x-100")}>
+                    <NavLink to={`/${s.slug}`} className={({ isActive }) => cn("relative block whitespace-nowrap px-1.5 py-2 text-small font-semibold text-ink-soft transition-colors duration-fast hover:text-primary after:absolute after:inset-x-1.5 after:-bottom-1 after:h-0.5 after:scale-x-0 after:bg-primary after:transition-transform after:duration-base", isActive && "text-primary after:scale-x-100")}>
                       {s.label[lang]}
                     </NavLink>
                   </li>
@@ -110,6 +128,7 @@ export function SiteHeader() {
           </Container>
         </div>
       </header>
+      <div aria-hidden style={{ height: headerH }} />
       <SearchOverlay open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
@@ -122,7 +141,8 @@ function UtilityLink({ to, children, className, onClick }: { to: string; childre
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const { lang } = useI18n();
   const ui = UI[lang];
-  const utility = useUtilityNavigation(lang, ui.utility);
+  const { utility, main } = useHeaderNav(lang);
+  const integrity = NAV.find((s) => s.slug === "integrityline");
   const [expanded, setExpanded] = useState<string | null>(null);
   return (
     <Dialog.Portal>
@@ -135,7 +155,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         </div>
         <nav aria-label="Main" className="flex-1 overflow-y-auto px-5 py-4">
           <ul className="divide-y divide-border">
-            {MAIN_NAV.map((s, i) => {
+            {main.map((s, i) => {
               const open = expanded === s.slug;
               return (
                 <li key={s.slug}>
@@ -157,6 +177,14 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
               );
             })}
           </ul>
+          {integrity && (
+            <div className="mt-4 rounded-md border border-border bg-surface-sunken p-4">
+              <Link to="/integrityline" onClick={onClose} className="flex min-h-11 items-center gap-2 font-display text-h4 text-primary hover:underline"><ShieldCheck className="size-5" aria-hidden />{integrity.label[lang]}</Link>
+              <ul className="grid gap-1 pl-7">
+                {integrity.children.map((c) => <li key={c.slug}><Link to={`/integrityline/${c.slug}`} onClick={onClose} className="flex min-h-11 items-center gap-2 text-body text-ink-soft hover:text-primary"><ArrowRight className="size-3.5" aria-hidden />{c.label[lang]}</Link></li>)}
+              </ul>
+            </div>
+          )}
         </nav>
         <div className="grid gap-4 border-t border-border bg-surface-sunken px-5 py-5">
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-small">
