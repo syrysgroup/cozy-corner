@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CalendarDays, MapPin, ShieldAlert, Briefcase } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin, ShieldAlert, Briefcase, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
-import { filterVacancies, DEFAULT_VACANCY_FILTERS } from "@/lib/opportunity-filters";
+import { filterVacancies, DEFAULT_VACANCY_FILTERS, vacancyStatus } from "@/lib/opportunity-filters";
 import {
   CAREER_AREAS, OFFICIAL_RECRUITMENT_URL, fetchVacancies,
   type Vacancy, type CareerArea, type ContractType,
@@ -75,15 +75,16 @@ export default function Careers() {
             <ul className="grid gap-4 md:grid-cols-2">
               {filtered.map((v) => (
                 <li key={v.id} className="flex flex-col border border-border border-l-4 border-l-primary bg-card p-6 transition-shadow duration-base hover:shadow-raised">
-                  <p className="text-small font-semibold text-ink-soft">{v.career_area} · {v.employment_status}</p>
+                  <div className="flex flex-wrap items-center justify-between gap-2"><p className="text-small font-semibold text-ink-soft">{v.career_area} · {v.employment_status}</p><span className="border border-border px-2 py-0.5 text-small font-semibold text-primary">{vacancyStatus(v.closing_date)}</span></div>
                   <h3 className="mt-2 font-display text-h3 text-ink"><Link to={`/opportunities/careers/${v.slug}`} className="underline-offset-4 hover:text-primary hover:underline">{v.official_title} ({v.grade})</Link></h3>
                   <p className="mt-3 line-clamp-3 text-body text-ink-soft">{v.summary}</p>
                   <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-small text-ink-soft">
                     <div className="flex items-center gap-1.5"><MapPin className="size-4" aria-hidden /><dt className="sr-only">Location</dt><dd>{v.duty_station}</dd></div>
-                    <div className="flex items-center gap-1.5"><CalendarDays className="size-4" aria-hidden /><dt>Closes</dt><dd>{new Date(`${v.closing_date}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</dd></div>
+                    <div><dt className="sr-only">Job code</dt><dd className="font-mono">{v.job_code}</dd></div>
+                    <div className="flex items-center gap-1.5"><CalendarDays className="size-4" aria-hidden /><dt className="font-semibold text-ink">Closes</dt><dd className="font-semibold text-ink">{new Date(`${v.closing_date}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</dd></div>
                   </dl>
                   <Button asChild variant="secondary" className="mt-6 self-start">
-                    <Link to={`/opportunities/careers/${v.slug}`}>View role details <ArrowRight /></Link>
+                    <Link to={`/opportunities/careers/${v.slug}`}>View role <ArrowRight /></Link>
                   </Button>
                 </li>
               ))}
