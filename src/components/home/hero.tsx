@@ -100,7 +100,7 @@ export function CinematicHero() {
             ))}
           </h1>
           <span className="band-grow mt-4 block h-1.5 w-48 band" aria-hidden />
-          <p className="mt-6 max-w-[38rem] text-lead text-primary-foreground/85 animate-fade-in motion-reduce:animate-none">The Office provides independent audit and assurance on how Community resources are used — turning evidence into recommendations, and recommendations into public trust.</p>
+          <p className="mt-6 max-w-[38rem] text-lead text-primary-foreground/85 animate-fade-in motion-reduce:animate-none">The Office provides independent audit and assurance on how Community resources are used, turning evidence into recommendations, and recommendations into public trust.</p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button asChild variant="inverse" size="lg"><Link to="/audit" className="group/cta">Explore Audit &amp; Assurance <ArrowRight className="transition-transform group-hover/cta:translate-x-1" /></Link></Button>
             <Button asChild size="lg" className="border border-primary-foreground/50 bg-transparent hover:bg-primary-foreground/10"><Link to="/publications">View Publications</Link></Button>

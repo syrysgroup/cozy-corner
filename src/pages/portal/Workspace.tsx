@@ -16,10 +16,10 @@ export function Documents() {
             const locked = (d.classification === "Restricted" && (!can("docs.restricted") || session.attrs.clearance === "standard")) || (d.institution !== "OAG" && !inScope(d.institution));
             return (
               <tr key={d.id}>
-                <td className={cn("font-semibold", locked && "text-muted-foreground")}><span className="inline-flex items-center gap-2">{locked ? <Lock className="size-4" /> : <FileText className="size-4 text-primary" />}{locked ? "Restricted — insufficient clearance or scope" : d.title}</span></td>
-                <td>{d.kind}</td><td>{locked ? "—" : d.institution}</td>
+                <td className={cn("font-semibold", locked && "text-muted-foreground")}><span className="inline-flex items-center gap-2">{locked ? <Lock className="size-4" /> : <FileText className="size-4 text-primary" />}{locked ? "Restricted, insufficient clearance or scope" : d.title}</span></td>
+                <td>{d.kind}</td><td>{locked ? "N/A" : d.institution}</td>
                 <td><span className={cn("border px-2 py-0.5 text-xs font-semibold", d.classification === "Restricted" ? "border-status-critical/40 text-status-critical" : d.classification === "Internal" ? "border-ecowas-orange/40 text-status-warning" : "border-border")}>{d.classification}</span></td>
-                <td className="font-mono text-xs">{locked ? "—" : d.linked}</td><td className="font-mono text-xs">{d.updated}</td>
+                <td className="font-mono text-xs">{locked ? "N/A" : d.linked}</td><td className="font-mono text-xs">{d.updated}</td>
               </tr>
             );
           })}

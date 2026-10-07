@@ -12,7 +12,7 @@ export default function NotFound() {
       <div>
         <p className="overline font-mono text-accent">Error 404 · Reference not found</p>
         <h1 className="mt-4 font-display text-display-lg">This page is not on the record.</h1>
-        <p className="mt-5 max-w-[36rem] text-lead text-ink-soft">The address may have changed, or the document may have been moved. Every finding has a trail — let’s pick yours back up.</p>
+        <p className="mt-5 max-w-[36rem] text-lead text-ink-soft">The address may have changed, or the document may have been moved. Every finding has a trail, let’s pick yours back up.</p>
         <div className="mt-8"><Button asChild><Link to="/">Return home <ArrowRight /></Link></Button></div>
       </div>
       <nav aria-label="Suggested sections" className="border-t-2 border-primary pt-5">

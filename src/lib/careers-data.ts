@@ -1,5 +1,5 @@
 /* Careers content source. Vacancies stay empty until the OAG publishes approved
-   notices — never fabricate roles, counts or closing dates. Replace the body of
+   notices, never fabricate roles, counts or closing dates. Replace the body of
    fetchVacancies with the authorised feed, keeping the Vacancy shape. */
 
 export type CareerArea = "financial" | "performance" | "compliance" | "it" | "investigations" | "corporate";
@@ -18,7 +18,7 @@ export interface Vacancy {
 
 export const CAREER_AREAS: { id: CareerArea; title: string; summary: string }[] = [
   { id: "financial", title: "Financial audit", summary: "Assurance over the financial statements of ECOWAS Institutions under international standards." },
-  { id: "performance", title: "Performance audit", summary: "Assessing economy, efficiency and effectiveness of Community programmes — value for money." },
+  { id: "performance", title: "Performance audit", summary: "Assessing economy, efficiency and effectiveness of Community programmes, value for money." },
   { id: "compliance", title: "Compliance audit", summary: "Testing adherence to the ECOWAS Treaty, Financial Regulations and governing rules." },
   { id: "it", title: "IT and data audit", summary: "Information systems assurance, audit analytics and data-driven risk assessment." },
   { id: "investigations", title: "Investigations and integrity", summary: "Handling referrals, protecting reporters and supporting institutional integrity." },

@@ -92,7 +92,7 @@
     },
     {
       "id": "13",
-      "title": "Principal Internal Auditor: Abuja + Agencies — Commission, Parliament, CCJ, ERERA, WRCC, EYSDC, ECREEE",
+      "title": "Principal Internal Auditor: Abuja + Agencies, Commission, Parliament, CCJ, ERERA, WRCC, EYSDC, ECREEE",
       "parent": "11",
       "grade": "P5",
       "page": 33
@@ -106,7 +106,7 @@
     },
     {
       "id": "15",
-      "title": "Principal Internal Auditor: Institutions Outside Abuja — WAHO, GIABA, etc.",
+      "title": "Principal Internal Auditor: Institutions Outside Abuja, WAHO, GIABA, etc.",
       "parent": "11",
       "grade": "P5",
       "page": 33
@@ -412,7 +412,7 @@
     },
     {
       "id": "13",
-      "title": "Deputy Chief Registrar — Registry",
+      "title": "Deputy Chief Registrar, Registry",
       "parent": "6",
       "grade": "D1",
       "page": 6
@@ -557,7 +557,7 @@
     },
     {
       "id": "9",
-      "title": "Director Administration & Finance — pooling with EGDC",
+      "title": "Director Administration & Finance, pooling with EGDC",
       "parent": "0",
       "page": 18
     },
@@ -809,7 +809,7 @@
     },
     {
       "id": "14",
-      "title": "Administration & Finance — possible pool with PPDU, Permanent Representative, CCC",
+      "title": "Administration & Finance, possible pool with PPDU, Permanent Representative, CCC",
       "parent": "1",
       "grade": "P5",
       "page": 2
@@ -865,7 +865,7 @@
     },
     {
       "id": "1",
-      "title": "Water Resources Management Centre (Ouagadougou) — WRMC",
+      "title": "Water Resources Management Centre (Ouagadougou), WRMC",
       "parent": "0",
       "grade": "D1",
       "page": 4
@@ -1033,7 +1033,7 @@
     },
     {
       "id": "1",
-      "title": "Executive Director RAHC/CRSA — Bamako",
+      "title": "Executive Director RAHC/CRSA, Bamako",
       "parent": "0",
       "grade": "D1",
       "page": 10
@@ -1444,7 +1444,7 @@
     },
     {
       "id": "10",
-      "title": "Head of Admin & Finance Division — pooling Lomé",
+      "title": "Head of Admin & Finance Division, pooling Lomé",
       "parent": "1",
       "grade": "P5",
       "page": 26
@@ -1610,7 +1610,7 @@
     },
     {
       "id": "7",
-      "title": "Information System — Senior IT Expert",
+      "title": "Information System, Senior IT Expert",
       "parent": "6",
       "grade": "P5",
       "page": 3
@@ -1623,7 +1623,7 @@
     },
     {
       "id": "9",
-      "title": "Economic Unit — Senior Economist",
+      "title": "Economic Unit, Senior Economist",
       "parent": "6",
       "grade": "P5",
       "page": 3
@@ -1636,7 +1636,7 @@
     },
     {
       "id": "11",
-      "title": "Engineering & Development Unit — Senior Engineer",
+      "title": "Engineering & Development Unit, Senior Engineer",
       "parent": "6",
       "grade": "P5",
       "page": 3
@@ -1649,7 +1649,7 @@
     },
     {
       "id": "13",
-      "title": "Legal Unit — Senior Lawyer",
+      "title": "Legal Unit, Senior Lawyer",
       "parent": "6",
       "grade": "P5",
       "page": 3

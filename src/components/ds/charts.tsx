@@ -8,7 +8,7 @@ import { useCountUp } from "@/hooks/use-motion";
  * and patterns so colour is never the only cue, (3) a toggleable data table alternative.
  */
 
-/** Pattern defs: solid, diagonal, dots, cross — pair with fills so series differ without colour. */
+/** Pattern defs: solid, diagonal, dots, cross, pair with fills so series differ without colour. */
 export function ChartPatterns() {
   return (
     <svg width="0" height="0" className="absolute" aria-hidden focusable="false">

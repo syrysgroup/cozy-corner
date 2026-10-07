@@ -25,7 +25,7 @@ export default function Admin() {
   return (
     <Gate need="admin.view">
       <PageHead overline="Administration" title="Access & configuration" lead="Roles grant capabilities; attribute policies narrow them by institution, clearance and assignment. The identity provider and policy engine are authoritative." />
-      {!manage && <p className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground"><Lock className="size-3.5" />Read-only — changes require admin.manage.</p>}
+      {!manage && <p className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground"><Lock className="size-3.5" />Read-only, changes require admin.manage.</p>}
       <div className="mt-5"><Seg label="Admin section" value={tab} options={TABS} onChange={setTab} /></div>
       <div className="mt-4">
         {tab === "Users" && (

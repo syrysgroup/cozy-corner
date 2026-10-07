@@ -14,7 +14,7 @@ import courtLogo from "@/assets/court-logo.png.asset.json";
 const SLUGS = ["commission", "parliament", "court"];
 const LOGOS = [commissionLogo.url, parliamentLogo.url, courtLogo.url];
 
-/** Official institution logo — always on a white tile with clear space, per the ECOWAS Design Manual. */
+/** Official institution logo, always on a white tile with clear space, per the ECOWAS Design Manual. */
 function ArmLogo({ armKey, fallback, body }: { armKey: string; fallback: string; body: string }) {
   const logo = useOfficialAsset(armKey, fallback);
   return (
@@ -34,7 +34,7 @@ export function InstitutionsExplainer() {
             <p className="overline text-primary">04 · ECOWAS Institutions</p>
             <h2 id="home-institutions" className="mt-3 font-display text-h1">Three arms of governance.</h2>
           </div>
-          <p className="reveal max-w-xl text-lead text-ink-soft">ECOWAS governance is exercised by the Executive, the Legislature and the Judiciary — each with a distinct Community mandate.</p>
+          <p className="reveal max-w-xl text-lead text-ink-soft">ECOWAS governance is exercised by the Executive, the Legislature and the Judiciary, each with a distinct Community mandate.</p>
         </div>
 
         <ol className="mt-6 grid gap-px border border-border bg-border md:grid-cols-3">
@@ -64,8 +64,8 @@ export function InstitutionsExplainer() {
           <div className="relative grid gap-6 md:grid-cols-[auto_1fr_auto] md:items-center">
             <ShieldCheck className="size-12 text-ecowas-yellow" aria-hidden />
             <div>
-              <p className="text-overline uppercase text-primary-foreground/75">Independent assurance</p>
-              <h3 className="mt-1 font-display text-h2 text-primary-foreground">OAG — not a fourth arm.</h3>
+              <p className="text-overline uppercase text-primary-foreground/75">Office of the Auditor General</p>
+              <h3 className="mt-1 font-display text-h2 text-primary-foreground">OAG: Independent assurance.</h3>
               <p className="mt-2 max-w-2xl text-small text-primary-foreground/85">{OAG_POSITIONING}</p>
             </div>
             <Link to="/institutions" className="inline-flex min-h-11 w-fit items-center gap-2 bg-primary-foreground px-5 text-small font-semibold text-ecowas-green transition-transform duration-base hover:-translate-y-0.5">
@@ -103,7 +103,7 @@ export function IntegrityBand() {
         <div className="reveal">
           <p className="text-overline uppercase text-primary-foreground/75">09 · IntegrityLine</p>
           <h2 id="home-integrity" className="mt-4 font-display text-display-lg text-primary-foreground">See something.<br />Say something.</h2>
-          <p className="mt-6 max-w-md text-lead text-primary-foreground/85">IntegrityLine provides protected channels for reporting matters within the Office’s mandate — fraud, waste, abuse or misconduct involving Community resources.</p>
+          <p className="mt-6 max-w-md text-lead text-primary-foreground/85">IntegrityLine provides protected channels for reporting matters within the Office’s mandate, fraud, waste, abuse or misconduct involving Community resources.</p>
           <p className="mt-4 max-w-md text-small text-primary-foreground/75">Secure case handling is being finalised; reporting channels are not yet in production use.</p>
           <Link to="/integrityline/protection" className="mt-6 inline-flex items-center gap-2 text-small font-semibold underline-offset-4 hover:underline">How reporters are protected <ArrowRight className="size-4" /></Link>
         </div>
@@ -133,12 +133,12 @@ export function ClosingBand() {
         <div>
           <h2 id="home-closing" className="reveal font-display text-display-lg text-background">Explore the work of the Office.</h2>
           <form className="mt-6 max-w-md" onSubmit={(e) => { e.preventDefault(); setStatus("unavailable"); }}>
-            <label htmlFor={`${id}-email`} className="text-small font-semibold">Stay informed — newsletter</label>
+            <label htmlFor={`${id}-email`} className="text-small font-semibold">Stay informed, newsletter</label>
             <div className="mt-2 flex gap-2">
               <input id={`${id}-email`} type="email" required autoComplete="email" placeholder="you@example.org" className="min-h-11 flex-1 border border-background/30 bg-transparent px-3 text-small text-background placeholder:text-background/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow" />
               <Button type="submit" variant="inverse">Subscribe</Button>
             </div>
-            <p role="status" className="mt-3 text-small text-background/70">{status === "unavailable" && "Subscriptions are not yet open — the mailing service is still being connected, so your details were not saved."}</p>
+            <p role="status" className="mt-3 text-small text-background/70">{status === "unavailable" && "Subscriptions are not yet open, the mailing service is still being connected, so your details were not saved."}</p>
           </form>
         </div>
         <ul className="grid content-end border-t border-background/20">

@@ -4,9 +4,9 @@ import { Container } from "@/components/ds/shell/layout-parts";
 import { cn } from "@/lib/utils";
 
 type C = { id: string; name: string; pts: [number, number][]; institutions: string[] };
-// Simplified outlines (lon, lat). Orientation only — not an authoritative boundary map.
+// Simplified outlines (lon, lat). Orientation only, not an authoritative boundary map.
 const COUNTRIES: C[] = [
-  { id: "SN", name: "Senegal", institutions: ["GIABA — Inter-Governmental Action Group against Money Laundering (Dakar)", "ECOWAS Gender Development Centre (Dakar)"], pts: [[-17.5,14.7],[-16.7,16.5],[-14,16.6],[-12.2,14.7],[-12.2,12.6],[-16.7,12.4]] },
+  { id: "SN", name: "Senegal", institutions: ["GIABA, Inter-Governmental Action Group against Money Laundering (Dakar)", "ECOWAS Gender Development Centre (Dakar)"], pts: [[-17.5,14.7],[-16.7,16.5],[-14,16.6],[-12.2,14.7],[-12.2,12.6],[-16.7,12.4]] },
   { id: "GM", name: "The Gambia", institutions: [], pts: [[-16.8,13.75],[-13.8,13.75],[-13.8,13.15],[-16.8,13.15]] },
   { id: "GW", name: "Guinea-Bissau", institutions: [], pts: [[-16.7,12.4],[-13.7,12.6],[-13.7,11],[-15,10.9],[-16.7,11.6]] },
   { id: "GN", name: "Guinea", institutions: [], pts: [[-15,10.9],[-13.7,11],[-13.7,12.6],[-11.4,12.4],[-8.8,12.1],[-7.9,10.4],[-8.2,7.6],[-9.5,8.5],[-10.7,9.2],[-13.2,9.2]] },
@@ -55,7 +55,7 @@ export function WestAfricaMap() {
       <Container>
         <p className="overline text-primary">03 · Across the region</p>
         <h2 id="home-map" className="mt-3 max-w-3xl font-display text-h1">Twelve member states. One audit mandate.</h2>
-        <p className="mt-3 max-w-2xl text-small text-muted-foreground">Select a country — or tab in and use the arrow keys — to see the Community institutions hosted there.</p>
+        <p className="mt-3 max-w-2xl text-small text-muted-foreground">Select a country, or tab in and use the arrow keys, to see the Community institutions hosted there.</p>
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
           <div className="relative border border-border bg-card p-3">
             <svg viewBox="0 0 900 470" className="h-auto w-full" role="group" aria-label="Map of ECOWAS member states">

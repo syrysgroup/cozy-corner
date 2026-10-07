@@ -1,9 +1,9 @@
 /**
- * Homepage content — ILLUSTRATIVE PLACEHOLDER DATA ONLY.
+ * Homepage content, ILLUSTRATIVE PLACEHOLDER DATA ONLY.
  * None of these figures are real OAG statistics. Replace each export with an
  * authorised data source (e.g. a fetcher returning the same shape) before launch.
  */
-export const PLACEHOLDER_NOTICE = "Illustrative placeholder data — not official OAG figures.";
+export const PLACEHOLDER_NOTICE = "Illustrative placeholder data, not official OAG figures.";
 
 export type Metric = { key: string; label: string; value: number; suffix?: string; note: string };
 export const intelligenceMetrics: Metric[] = [
@@ -56,5 +56,5 @@ export const opportunities: { kind: OppKind; title: string; ref: string; closes:
   { kind: "Procurement", title: "Supply of audit analytics licences", ref: "OAG/PR/S-11", closes: "12 Nov 2026", location: "Remote" },
   { kind: "Consultancies", title: "IT audit methodology specialist", ref: "OAG/CN/S-04", closes: "20 Nov 2026", location: "Hybrid" },
   { kind: "Tenders", title: "Translation services framework (EN/FR/PT)", ref: "OAG/TD/S-07", closes: "5 Dec 2026", location: "Regional" },
-  { kind: "Consultancies", title: "Training facilitator — public-sector audit", ref: "OAG/CN/S-05", closes: "28 Nov 2026", location: "Regional" },
+  { kind: "Consultancies", title: "Training facilitator, public-sector audit", ref: "OAG/CN/S-05", closes: "28 Nov 2026", location: "Regional" },
 ];

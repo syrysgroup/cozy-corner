@@ -1,4 +1,4 @@
-/* SAMPLE library records — illustrative placeholders only. Replace with the authorised
+/* SAMPLE library records, illustrative placeholders only. Replace with the authorised
    document repository keeping these shapes. Restricted records are filtered out by
    `publicDocuments` and must never be rendered. */
 

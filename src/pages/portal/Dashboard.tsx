@@ -28,7 +28,7 @@ export default function Dashboard() {
         <Metric label="High-risk areas" value={highRisk.length} sub="score ≥ 60" tone="warning" />
         <Metric label="Recs implemented" value={`${Math.round((recs.filter((r) => ["Closed", "Verified"].includes(r.status)).length / Math.max(1, recs.length)) * 100)}%`} sub={`${recs.length} tracked`} tone="positive" />
         <Metric label="Overdue actions" value={overdue.length} sub="past due date" tone="critical" />
-        <Metric label="Investigations" value={can("inv.view") ? openCases.length : "—"} sub={can("inv.view") ? "open cases" : "restricted"} />
+        <Metric label="Investigations" value={can("inv.view") ? openCases.length : "N/A"} sub={can("inv.view") ? "open cases" : "restricted"} />
       </div>
 
       <div className="mt-4 grid gap-4 xl:grid-cols-[1.4fr_1fr]">

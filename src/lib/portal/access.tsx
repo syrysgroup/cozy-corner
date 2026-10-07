@@ -1,8 +1,8 @@
 /**
- * Portal access model — PLACEHOLDER for the enterprise IAM.
+ * Portal access model, PLACEHOLDER for the enterprise IAM.
  * RBAC: roles grant permissions. ABAC: attributes (institution scope, clearance) narrow data.
  * Swap `useAccess` source for the real identity provider / policy decision point; keep shapes.
- * The UI only hides/explains — the backend must enforce every check.
+ * The UI only hides/explains, the backend must enforce every check.
  */
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 
