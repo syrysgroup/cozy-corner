@@ -49,15 +49,17 @@ export function TransparencyDashboard() {
     el.scrollBy({ left: dir * w, behavior: "smooth" });
   };
   return (
-    <section aria-labelledby="home-transparency" className="relative overflow-hidden bg-ecowas-ocean py-section text-primary-foreground">
+    <section aria-labelledby="home-transparency" className="relative overflow-hidden bg-ecowas-ocean py-section-sm text-primary-foreground">
       <span aria-hidden className="absolute inset-x-0 top-0 h-1.5 band" />
       <Container className="relative">
-        <div className="grid gap-6 xl:grid-cols-[minmax(15rem,0.85fr)_minmax(0,3.15fr)] xl:items-center">
+        <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr] lg:items-end">
           <div className="reveal">
             <p className="text-overline uppercase text-ecowas-yellow">Transparency in numbers</p>
             <h2 id="home-transparency" className="mt-3 font-display text-h2 text-primary-foreground">From institutional information to public knowledge.</h2>
-            <p className="mt-3 max-w-sm text-xs text-primary-foreground/80">{PLACEHOLDER_NOTICE}</p>
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+          </div>
+          <div className="reveal">
+            <p className="text-xs text-primary-foreground/80">{PLACEHOLDER_NOTICE}</p>
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
               <Link to="/transparency" className="inline-flex min-h-11 items-center gap-2 text-small font-semibold underline-offset-4 hover:underline">Explore transparency data <ArrowRight className="size-4" aria-hidden /></Link>
               <div className="flex gap-2 xl:hidden">
                 <Button type="button" variant="inverse" size="icon" aria-label="Previous figures" onClick={() => scroll(-1)}><ChevronLeft /></Button>
@@ -65,14 +67,14 @@ export function TransparencyDashboard() {
               </div>
             </div>
           </div>
-          <ul ref={track} aria-label="Transparency figures" className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:grid xl:grid-cols-4 xl:overflow-x-visible xl:pb-0">
+        </div>
+          <ul ref={track} aria-label="Transparency figures" className="mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:grid xl:grid-cols-4 xl:overflow-x-visible xl:pb-0">
             {ITEMS.map((it, i) => (
               <li key={it.k} className="w-[85%] shrink-0 snap-start xs:w-[64%] sm:w-[calc((100%-0.75rem)/2)] xl:w-auto">
                 <Stat it={it} i={i} />
               </li>
             ))}
           </ul>
-        </div>
       </Container>
     </section>
   );
