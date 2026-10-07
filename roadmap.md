@@ -34,6 +34,7 @@
 - [x] Replace header Careers/Procurement with database-backed Opportunities alongside ECOWAS Institutions (desktop and mobile verified).
 - [x] Restore official logo display through active public storage records; the Auditor General logo path now points to the supplied logo image.
 - [ ] ECOWAS leadership & institution profiles: centralized authoritative content, homepage feature, institution hub and directory, secure publishing workflow, and mobile verification. EBID, WAHO, GIABA, OAG profiles and Parliament portraits implemented.
+- [ ] Give OAG leadership a premium, portrait-led homepage feature; connect the published Authority Chairman portrait through its database record.
 - [x] Show all five Commission commissioners in one compact row; wider institution redesign and sitemap changes cancelled by request.
 - [x] Redesign the Commission profile around its emblem, verified 2026–2030 leadership and portfolios, mandate, structure, official links, and ECOWAS brand guide; preserve Parliament and Court profiles.
 - [x] Add the official Commission headquarters and Parliament building photographs as full-width imagery on their individual institution pages.
