@@ -1,6 +1,6 @@
 # OAG roadmap
 
-- [ ] Upgrade Opportunities into a shared guidance hub; make Careers and Procurement availability-first, using the established OAG design and colours (awaiting design plan approval).
+- [ ] Finish the partly written Opportunities guidance hub and availability-first Careers/Procurement pages; verify navigation, search/filter/reset, source states and layouts against the supplied brief.
 
 - [x] Update `/knowledge/ecowas-news` to a five-column desktop grid with selectable page size, next/previous pagination and actual publisher/date on every card; verified live paging, size selection and source-wide search. Current feed: ECOWAS Commission only.
 

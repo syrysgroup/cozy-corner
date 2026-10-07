@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CalendarDays, ExternalLink, MapPin, ShieldAlert, Briefcase } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
+import { filterVacancies, DEFAULT_VACANCY_FILTERS } from "@/lib/opportunity-filters";
 import {
   CAREER_AREAS, OFFICIAL_RECRUITMENT_URL, fetchVacancies,
   type Vacancy, type CareerArea, type ContractType,
@@ -18,12 +19,12 @@ export default function Careers() {
   const load = () => { setFailed(false); setVacancies(null); fetchVacancies().then(setVacancies).catch(() => setFailed(true)); };
   useEffect(load, []);
   const filtered = useMemo(
-    () => (vacancies ?? []).filter((v) => (area === "all" || v.area === area) && (contract === "all" || v.contract === contract)),
+    () => filterVacancies(vacancies ?? [], area, contract),
     [vacancies, area, contract],
   );
 
   return (
-    <>
+    <div lang="en">
       <section className="container pt-section-sm pb-6">
         <nav aria-label="Breadcrumb" className="mb-6 text-small text-muted-foreground"><Link to="/" className="hover:text-primary">Home</Link> / <Link to="/opportunities" className="hover:text-primary">Opportunities</Link> / <span aria-current="page">Careers</span></nav>
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="overline text-primary">Professional opportunities</p><h1 className="mt-3 font-display text-h1">Careers</h1><p className="mt-4 text-lead text-ink-soft">Published vacancies and official application channels.</p></div><Button asChild variant="tertiary"><Link to="/opportunities#careers-guidance">Recruitment guidance <ArrowRight /></Link></Button></div>
@@ -65,9 +66,9 @@ export default function Careers() {
                 <p className="mt-2 max-w-2xl text-body text-ink-soft">
                   {vacancies.length === 0 ? "There are no approved vacancy notices listed on this page. Check the official ECOWAS channel for further announcements." : "Try another career area or contract type."}
                 </p>
-                <Button asChild variant="secondary" className="mt-5">
+                {vacancies.length > 0 ? <Button variant="secondary" className="mt-5" onClick={() => { setArea(DEFAULT_VACANCY_FILTERS.area); setContract(DEFAULT_VACANCY_FILTERS.contract); }}>Reset filters</Button> : <Button asChild variant="secondary" className="mt-5 max-w-full whitespace-normal text-left">
                   <a href={OFFICIAL_RECRUITMENT_URL} target="_blank" rel="noreferrer">Visit official ECOWAS channel <ExternalLink /><span className="sr-only">(opens in a new tab)</span></a>
-                </Button>
+                </Button>}
               </div>
             </div>
           ) : (
@@ -91,6 +92,6 @@ export default function Careers() {
       </section>
 
       <div className="container pb-section"><p className="flex items-start gap-2 border-t border-border pt-5 text-small text-ink-soft"><ShieldAlert className="size-4 shrink-0 text-accent" aria-hidden /><span>Never pay to apply. Use the channel named in the vacancy notice. <Link to="/opportunities#careers-guidance" className="font-semibold text-primary hover:underline">Read recruitment guidance</Link>.</span></p></div>
-    </>
+    </div>
   );
 }
