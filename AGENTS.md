@@ -24,7 +24,7 @@
 - Keep governance-arm building imagery as optional metadata in the shared institution profile source and resolve it from the public institution asset store; this keeps full-width institutional photography page-specific and replaceable without changing layouts.
 - Keep supporting-institution cards and profiles sourced from `src/lib/institution-data.ts`; one record drives each logo, link, summary and mandate to prevent hub/profile drift.
 - OAG newsroom (`/news`, `/news/:sub`) reads only through `src/lib/news-data.ts` (published, approved-language records; empty today) and stays separate from attributed ECOWAS stories; one detail template serves every category.
-- Careers vacancies come only from `fetchVacancies` in `src/lib/careers-data.ts` (empty until approved notices); never fabricate roles or counts.
+- Opportunities shares careers/procurement guidance and tested `opportunity-filters.ts`; search stays URL-keyed. Vacancy/notice feeds stay empty until approved; never fabricate records.
 - All institution profiles reuse `InstitutionProfilePage` for compact leadership and consistent uncropped portrait sizing; charts render only on organogram subroutes with the shared viewer/navigation, never inline on profiles.
 
 - The Authority profile reuses `useAuthorityChairs` for current/archive leadership; keep the supreme institution distinct from the three governance arms.
