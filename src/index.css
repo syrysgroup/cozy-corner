@@ -417,3 +417,12 @@
     .marquee { animation: none; }
   }
 }
+
+/* Justified body text: paragraphs and list items align on both edges.
+   Tailwind alignment utilities (text-left/center/right) still take precedence. */
+p,
+li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
