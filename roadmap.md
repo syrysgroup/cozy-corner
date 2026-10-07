@@ -1,6 +1,6 @@
 # OAG roadmap
 
-- [ ] Update `/knowledge/ecowas-news` to a five-column desktop grid with selectable page size, next/previous pagination and actual publisher/date on every card; verify paging and search.
+- [x] Update `/knowledge/ecowas-news` to a five-column desktop grid with selectable page size, next/previous pagination and actual publisher/date on every card; verified live paging, size selection and source-wide search. Current feed: ECOWAS Commission only.
 
 - [ ] Upgrade the existing Contact & Institutional Enquiries hub: verified CMS contacts/FAQs, multilingual routing and form, secure submission and administration, shared footer contact information, phone/accessibility/security checks.
 - [ ] Refine the menu and homepage, especially a creative ECOWAS News presentation; select a visual direction, then finish phone layouts and final checks.
