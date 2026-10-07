@@ -31,7 +31,8 @@ function useHeaderHeight() {
     if (!el) return;
     const update = () => {
       const v = el.offsetHeight;
-      setH(v);
+      // Spacer keeps the full height so shrinking on scroll never shifts page content.
+      if (window.scrollY <= 8) setH(v);
       document.documentElement.style.setProperty("--header-h", `${v}px`);
     };
     update();
@@ -100,8 +101,8 @@ export function SiteHeader() {
         </div>
         {/* Main bar */}
         <div className={cn("border-b border-border bg-background/95 backdrop-blur transition-shadow duration-base", scrolled && "shadow-hairline")}>
-          <Container className="flex min-h-20 items-center justify-between gap-2 py-1 sm:gap-4">
-            <Link to="/" aria-label="Office of the Auditor General, home" className="min-w-0 shrink overflow-hidden py-1 pr-1 sm:shrink-0"><Wordmark /></Link>
+          <Container className={cn("flex items-center justify-between gap-2 transition-[min-height,padding] duration-base ease-institutional motion-reduce:transition-none sm:gap-4", scrolled ? "min-h-14 py-0" : "min-h-20 py-1")}>
+            <Link to="/" aria-label="Office of the Auditor General, home" className="min-w-0 shrink overflow-hidden py-1 pr-1 sm:shrink-0"><span className={cn("block origin-left transition-[transform,margin] duration-base ease-institutional motion-reduce:transition-none", scrolled && "-my-1.5 scale-[0.8]")}><Wordmark /></span></Link>
             <nav aria-label="Main" className="hidden shrink-0 xl:block">
               <ul className="flex items-center gap-0">
                 {main.map((s) => (
