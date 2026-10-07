@@ -7,7 +7,7 @@ import { useOfficialAsset } from "@/lib/public-site";
 
 /**
  * Canonical ECOWAS institutional model.
- * ECOWAS has THREE arms of governance. OAG is NOT a fourth arm — it is an
+ * ECOWAS has THREE arms of governance. OAG is NOT a fourth arm, it is an
  * independent assurance office within the wider institutional ecosystem.
  */
 export const OAG_POSITIONING =

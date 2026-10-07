@@ -6,7 +6,7 @@ const tone: Record<LibraryDoc["cover"], string> = {
   slate: "bg-ecowas-slate", orange: "bg-ecowas-orange", sky: "bg-ecowas-sky",
 };
 
-/** Generated typographic cover — stands in until official cover artwork is supplied. */
+/** Generated typographic cover, stands in until official cover artwork is supplied. */
 export function DocCover({ doc, className, large }: { doc: LibraryDoc; className?: string; large?: boolean }) {
   return (
     <div className={cn("relative flex aspect-[3/4] flex-col justify-between overflow-hidden text-primary-foreground shadow-raised", tone[doc.cover], className)} aria-hidden>

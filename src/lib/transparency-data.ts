@@ -1,5 +1,5 @@
 /**
- * Transparency & data intelligence — ILLUSTRATIVE PLACEHOLDER DATA ONLY.
+ * Transparency & data intelligence, ILLUSTRATIVE PLACEHOLDER DATA ONLY.
  * None of these figures are official OAG statistics.
  * Integration point: replace the body of `fetchTransparencyData` with a call to an
  * authorised API that returns the same `TransparencyData` shape. Pages only consume
@@ -8,7 +8,7 @@
 import { countries, type Country } from "@/lib/home-data";
 import { publicDocuments } from "@/lib/library-data";
 
-export const DATA_NOTICE = "Illustrative placeholder data — not official OAG figures.";
+export const DATA_NOTICE = "Illustrative placeholder data, not official OAG figures.";
 
 export type Kpi = { key: string; label: string; value: number; suffix?: string; delta: string; question: string };
 export type YearPoint = { year: string; audits: number; reports: number };

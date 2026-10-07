@@ -1,5 +1,5 @@
 /**
- * Sole OAG public-news boundary. Empty until approved OAG news is published —
+ * Sole OAG public-news boundary. Empty until approved OAG news is published,
  * replace the body of `loadPublishedNews` with the authorised CMS/API keeping the shape.
  * Only published, approved language versions may be returned. Never hardcode articles in pages.
  * ECOWAS Community stories stay in `ecowas-news-data.ts` with their own attribution.

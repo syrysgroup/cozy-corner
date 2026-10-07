@@ -104,7 +104,7 @@ function MetadataNotice() {
   return (
     <Callout tone="warn">
       <strong className="block text-ink">No system can guarantee absolute anonymity.</strong>
-      Technical information — such as the device or network you use, document metadata (author names, locations in photos), or details only you would know — may make identification possible. Consider using a personal device on a private network, removing metadata from files, and describing events without unnecessary self-identifying detail.
+      Technical information, such as the device or network you use, document metadata (author names, locations in photos), or details only you would know, may make identification possible. Consider using a personal device on a private network, removing metadata from files, and describing events without unnecessary self-identifying detail.
     </Callout>
   );
 }
@@ -268,7 +268,7 @@ function ReportWizard() {
                   <Callout>You chose to report anonymously. No identity details will be requested. You will receive a protected reference and access key to follow up.</Callout>
                 ) : (
                   <div className="grid gap-4 border border-border bg-card p-5">
-                    <p className="flex items-center gap-2 text-small font-semibold text-primary"><KeyRound className="size-4" aria-hidden />Sent to the restricted identity vault — not stored with your report</p>
+                    <p className="flex items-center gap-2 text-small font-semibold text-primary"><KeyRound className="size-4" aria-hidden />Sent to the restricted identity vault, not stored with your report</p>
                     <Field id="nm" label="Full name" error={errors.identity}><input id="nm" autoComplete="off" maxLength={100} className={inputCls} value={d.identity.name} onChange={(e) => set("identity", { ...d.identity, name: e.target.value })} /></Field>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Field id="em" label="Email (optional)"><input id="em" type="email" autoComplete="off" maxLength={255} className={inputCls} value={d.identity.email} onChange={(e) => set("identity", { ...d.identity, email: e.target.value })} /></Field>
@@ -311,10 +311,10 @@ function Review({ d, go }: { d: ReportDraft; go: (n: number) => void }) {
   const mode = MODES.find((m) => m.id === d.mode)!;
   const rows: [string, string, number][] = [
     ["Report type", mode.title, 0], ["Category", d.category, 1], ["Title", d.summary, 1], ["Description", d.details, 1],
-    ["Institution", [d.institution, d.location].filter(Boolean).join(" — "), 2],
-    ["When", d.when === "unknown" ? "Not sure" : d.when === "range" ? `${d.dateFrom} to ${d.dateTo}` : `${d.dateFrom || "—"}${d.when === "ongoing" ? " (ongoing)" : ""}`, 3],
-    ["Involved", d.involved || "—", 4], ["Evidence", d.evidence.filter((f) => f.state === "secured").map((f) => f.name).join(", ") || "None", 5],
-    ["Identity", d.mode === "anonymous" ? "Not provided" : "Provided — held in identity vault", 6],
+    ["Institution", [d.institution, d.location].filter(Boolean).join(", "), 2],
+    ["When", d.when === "unknown" ? "Not sure" : d.when === "range" ? `${d.dateFrom} to ${d.dateTo}` : `${d.dateFrom || "N/A"}${d.when === "ongoing" ? " (ongoing)" : ""}`, 3],
+    ["Involved", d.involved || "N/A", 4], ["Evidence", d.evidence.filter((f) => f.state === "secured").map((f) => f.name).join(", ") || "None", 5],
+    ["Identity", d.mode === "anonymous" ? "Not provided" : "Provided, held in identity vault", 6],
   ];
   return (
     <dl className="divide-y divide-border border border-border bg-card">
@@ -408,7 +408,7 @@ function Submitted({ reference, accessKey }: { reference: string; accessKey: str
         <div className="mx-auto max-w-[40rem]" role="status">
           <CheckCircle2 className="size-10 text-status-positive" aria-hidden />
           <h1 className="mt-4 font-display text-h1">Your report has been received</h1>
-          <p className="mt-3 text-lead text-ink-soft">Thank you. Save the details below now — they are the only way to follow up and cannot be recovered.</p>
+          <p className="mt-3 text-lead text-ink-soft">Thank you. Save the details below now, they are the only way to follow up and cannot be recovered.</p>
           <div className="mt-8 grid gap-4">
             <CopyLine label="Protected reference" value={reference} />
             <CopyLine label="Access key" value={accessKey} />
@@ -525,7 +525,7 @@ function Protection() {
   return (
     <>
       <ProtectedBar />
-      <PageHeader crumbs={crumbs("Whistleblower protection")} overline="IntegrityLine" title="How reporters are protected" lead="What OAG does to protect people who report in good faith — and the limits you should know about." />
+      <PageHeader crumbs={crumbs("Whistleblower protection")} overline="IntegrityLine" title="How reporters are protected" lead="What OAG does to protect people who report in good faith, and the limits you should know about." />
       <Container className="grid max-w-[46rem] gap-8 py-section">
         {[
           ["Separation of identity", "Identity details are designed to be held in a restricted identity vault, separate from the case record that investigators work with."],

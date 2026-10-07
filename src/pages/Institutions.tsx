@@ -159,7 +159,7 @@ export default function Institutions() {
           <p className="mt-3 text-xs text-muted-foreground">Partial directory. The complete approved directory will be added.</p>
         </section>
         <section id="audit-universe" aria-labelledby="h-au" className="scroll-mt-28 border-2 border-primary bg-card p-6 md:p-8">
-          <p className="flex items-center gap-2 text-primary"><ShieldCheck className="size-5" aria-hidden /><span className="overline">Independent assurance — not an arm of governance</span></p>
+          <p className="flex items-center gap-2 text-primary"><ShieldCheck className="size-5" aria-hidden /><span className="overline">Independent assurance, not an arm of governance</span></p>
           <h2 id="h-au" className="mt-2 font-display text-h2">OAG Audit Universe</h2>
           <p className="mt-3 max-w-2xl text-small text-muted-foreground">{OAG_POSITIONING}</p>
           <ul className="mt-4 flex flex-wrap gap-2">{OAG_ROLES.map((r) => <li key={r} className="border border-primary/40 px-2 py-1 text-xs font-semibold text-primary">{r}</li>)}</ul>

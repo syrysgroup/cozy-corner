@@ -1,5 +1,5 @@
 /**
- * OAG Intelligence Portal data — ILLUSTRATIVE PLACEHOLDER ONLY.
+ * OAG Intelligence Portal data, ILLUSTRATIVE PLACEHOLDER ONLY.
  * The portal is an intelligence layer: SAP and ECOWAS enterprise systems remain systems of record.
  * Replace `fetchPortal` with authorised integration endpoints returning the same shapes.
  */
@@ -71,10 +71,10 @@ export const RECS: Recommendation[] = [
 export const CASES: InvCase[] = [
   { id: "INV-26-041", reporterId: "PR-7F82A", source: "IntegrityLine", category: "Procurement irregularities", institution: "WAHO", stage: "Investigation", priority: "Critical", assignee: "Investigator 03", opened: "2026-09-12", deadline: "2026-11-12", evidence: 6, findings: 2, identityMode: "anonymous", lastActivity: "2h ago" },
   { id: "INV-26-044", reporterId: "PR-C19D0", source: "IntegrityLine", category: "Conflict of interest", institution: "ECOWAS Commission", stage: "Triage", priority: "High", assignee: null, opened: "2026-10-01", deadline: "2026-10-08", evidence: 1, findings: 0, identityMode: "confidential", lastActivity: "1d ago" },
-  { id: "INV-26-039", reporterId: "—", source: "Audit finding", category: "Financial misconduct", institution: "ECOWAS Commission", stage: "Assessment", priority: "Critical", assignee: "Investigator 01", opened: "2026-08-28", deadline: "2026-10-15", evidence: 9, findings: 1, identityMode: "identified", lastActivity: "5h ago" },
+  { id: "INV-26-039", reporterId: "N/A", source: "Audit finding", category: "Financial misconduct", institution: "ECOWAS Commission", stage: "Assessment", priority: "Critical", assignee: "Investigator 01", opened: "2026-08-28", deadline: "2026-10-15", evidence: 9, findings: 1, identityMode: "identified", lastActivity: "5h ago" },
   { id: "INV-26-045", reporterId: "PR-4B6EE", source: "IntegrityLine", category: "Abuse of authority", institution: "ECOWAS Parliament", stage: "Intake", priority: "Moderate", assignee: null, opened: "2026-10-03", deadline: "2026-10-10", evidence: 0, findings: 0, identityMode: "anonymous", lastActivity: "6h ago" },
   { id: "INV-26-033", reporterId: "PR-91A2F", source: "IntegrityLine", category: "Bribery", institution: "EBID", stage: "Review", priority: "High", assignee: "Investigator 02", opened: "2026-07-04", deadline: "2026-10-20", evidence: 12, findings: 3, identityMode: "confidential", lastActivity: "3d ago" },
-  { id: "INV-26-030", reporterId: "—", source: "Referral", category: "Misuse of ECOWAS resources", institution: "GIABA", stage: "Investigation", priority: "Moderate", assignee: "Investigator 03", opened: "2026-06-21", deadline: "2026-10-30", evidence: 4, findings: 1, identityMode: "identified", lastActivity: "1d ago" },
+  { id: "INV-26-030", reporterId: "N/A", source: "Referral", category: "Misuse of ECOWAS resources", institution: "GIABA", stage: "Investigation", priority: "Moderate", assignee: "Investigator 03", opened: "2026-06-21", deadline: "2026-10-30", evidence: 4, findings: 1, identityMode: "identified", lastActivity: "1d ago" },
   { id: "INV-26-021", reporterId: "PR-0DE77", source: "IntegrityLine", category: "Fraud", institution: "ERERA", stage: "Closed", priority: "High", assignee: "Investigator 01", opened: "2026-03-10", deadline: "2026-08-10", evidence: 8, findings: 2, identityMode: "anonymous", lastActivity: "Aug 04" },
 ];
 
@@ -132,12 +132,12 @@ export const NOTICES: Notice[] = [
 ];
 
 export const DOCS: Doc[] = [
-  { id: "d1", title: "Final report — Court registry financial audit", kind: "Report", institution: "ECOWAS Court of Justice", classification: "Public", updated: "2026-05-30", linked: "AUD-2026-005" },
-  { id: "d2", title: "Working papers — procurement sampling", kind: "Working paper", institution: "WAHO", classification: "Restricted", updated: "2026-09-18", linked: "AUD-2026-011" },
+  { id: "d1", title: "Final report, Court registry financial audit", kind: "Report", institution: "ECOWAS Court of Justice", classification: "Public", updated: "2026-05-30", linked: "AUD-2026-005" },
+  { id: "d2", title: "Working papers, procurement sampling", kind: "Working paper", institution: "WAHO", classification: "Restricted", updated: "2026-09-18", linked: "AUD-2026-011" },
   { id: "d3", title: "Management letter FY2025", kind: "Letter", institution: "ECOWAS Commission", classification: "Internal", updated: "2026-09-02", linked: "AUD-2026-014" },
   { id: "d4", title: "Evidence pack REC-0388", kind: "Evidence", institution: "WAHO", classification: "Internal", updated: "2026-10-02", linked: "REC-0388" },
   { id: "d5", title: "IT controls planning memo (draft)", kind: "Memo", institution: "EBID", classification: "Restricted", updated: "2026-09-29", linked: "AUD-2026-016" },
-  { id: "d6", title: "Annual activity report 2025", kind: "Report", institution: "OAG", classification: "Public", updated: "2026-02-14", linked: "—" },
+  { id: "d6", title: "Annual activity report 2025", kind: "Report", institution: "OAG", classification: "Public", updated: "2026-02-14", linked: "N/A" },
 ];
 
 export const KNOWLEDGE: Knowledge[] = [
@@ -154,7 +154,7 @@ export const USERS: UserRow[] = [
   { id: "u3", name: "F. Diallo", role: "Auditor", scope: "Commission, WAHO", clearance: "Standard", mfa: true, lastActive: "1h", status: "Active" },
   { id: "u4", name: "Investigator 03", role: "Investigator", scope: "Assigned cases", clearance: "Restricted", mfa: true, lastActive: "2h", status: "Active" },
   { id: "u5", name: "Integrity Officer", role: "Integrity Officer", scope: "IntegrityLine", clearance: "Secret", mfa: true, lastActive: "30m", status: "Active" },
-  { id: "u6", name: "New staff", role: "Auditor", scope: "—", clearance: "Standard", mfa: false, lastActive: "Never", status: "Pending" },
+  { id: "u6", name: "New staff", role: "Auditor", scope: "N/A", clearance: "Standard", mfa: false, lastActive: "Never", status: "Pending" },
   { id: "u7", name: "Former consultant", role: "Auditor", scope: "WAHO", clearance: "Standard", mfa: true, lastActive: "64d", status: "Suspended" },
 ];
 

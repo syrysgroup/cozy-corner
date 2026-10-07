@@ -78,7 +78,7 @@ export function AuditDetail() {
       <div className="mt-4" role="tabpanel">
         {tab === "Findings" && (
           <Panel>
-            {a.findings.length ? <Table head={["#", "Finding", "Area", "Risk"]}>{a.findings.map((f) => <tr key={f.id}><td className="font-mono text-xs">{f.id}</td><td className="font-semibold">{f.title}</td><td>{f.area}</td><td><RiskTag r={f.risk} /></td></tr>)}</Table> : <p className="text-small text-muted-foreground">No findings recorded yet — audit is in {a.stage.toLowerCase()}.</p>}
+            {a.findings.length ? <Table head={["#", "Finding", "Area", "Risk"]}>{a.findings.map((f) => <tr key={f.id}><td className="font-mono text-xs">{f.id}</td><td className="font-semibold">{f.title}</td><td>{f.area}</td><td><RiskTag r={f.risk} /></td></tr>)}</Table> : <p className="text-small text-muted-foreground">No findings recorded yet, audit is in {a.stage.toLowerCase()}.</p>}
           </Panel>
         )}
         {tab === "Recommendations" && (

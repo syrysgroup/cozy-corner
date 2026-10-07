@@ -71,7 +71,7 @@ export function Investigations() {
                     <option value="">Unassigned</option>{INVESTIGATORS.map((i) => <option key={i}>{i}</option>)}
                   </select>
                 </label>
-                <Button size="sm" variant="secondary" disabled={c.stage === "Closed"} onClick={() => patch(c.id, { stage: STAGES[STAGES.indexOf(c.stage) + 1] })}><UserPlus />Advance to {STAGES[STAGES.indexOf(c.stage) + 1] ?? "—"}</Button>
+                <Button size="sm" variant="secondary" disabled={c.stage === "Closed"} onClick={() => patch(c.id, { stage: STAGES[STAGES.indexOf(c.stage) + 1] })}><UserPlus />Advance to {STAGES[STAGES.indexOf(c.stage) + 1] ?? "N/A"}</Button>
               </div>
             ) : <p className="flex items-start gap-1.5 text-xs text-muted-foreground"><Lock className="mt-0.5 size-3.5 shrink-0" />Triage, assignment and stage changes require inv.assign. You can work on cases assigned to you.</p>}
           </Panel>
@@ -106,7 +106,7 @@ export function IntegrityCases() {
           <Panel title="Reporter" meta={c.reporterId}>
             <div className="border border-dashed border-border bg-surface-sunken p-4 text-small">
               <p className="flex items-center gap-2 font-semibold"><EyeOff className="size-4" />Identity withheld</p>
-              <p className="mt-1 text-xs text-ink-soft">{c.identityMode === "anonymous" ? "Anonymous report — no identity exists in the vault." : "Identity is sealed in the vault. Reveal requires a documented legal basis and dual approval by the Auditor General and Integrity Officer."}</p>
+              <p className="mt-1 text-xs text-ink-soft">{c.identityMode === "anonymous" ? "Anonymous report, no identity exists in the vault." : "Identity is sealed in the vault. Reveal requires a documented legal basis and dual approval by the Auditor General and Integrity Officer."}</p>
               {c.identityMode !== "anonymous" && (can("il.identity.request")
                 ? <Button size="sm" variant="secondary" className="mt-3" disabled={requested.includes(c.id)} onClick={() => { setRequested((r) => [...r, c.id]); toast("Reveal request submitted for dual approval"); }}><KeyRound />{requested.includes(c.id) ? "Request pending approval" : "Request identity access"}</Button>
                 : <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground"><Lock className="size-3.5" />Your role cannot request identity access.</p>)}

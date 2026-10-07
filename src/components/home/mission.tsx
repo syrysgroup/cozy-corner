@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const PARTS: [string, boolean][] = [
   ["The Office of the Auditor General is ", false], ["an independent assurance office", true],
   [" supporting ", false], ["accountability", true], [", ", false], ["good corporate governance", true],
-  [" and ", false], ["value for money", true], [" across ECOWAS Institutions — so that every Community resource is ", false],
+  [" and ", false], ["value for money", true], [" across ECOWAS Institutions, so that every Community resource is ", false],
   ["used as intended", true], [".", false],
 ];
 

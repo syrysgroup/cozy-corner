@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 /* ==========================================================
-   OAG DESIGN TOKENS — ECOWAS 2020 brand system
+   OAG DESIGN TOKENS, ECOWAS 2020 brand system
    All colours are HSL channels. Never hardcode hex in components.
    ========================================================== */
 @layer base {
   :root {
-    /* Brand — ECOWAS primary */
+    /* Brand, ECOWAS primary */
     --ecowas-green: 151 100% 25%;   /* #008244 */
     --ecowas-brown: 16 58% 43%;     /* #AD4F2E */
     --ecowas-yellow: 53 100% 45%;   /* #E4CA00 */
-    /* Brand — ECOWAS secondary */
+    /* Brand, ECOWAS secondary */
     --ecowas-lime: 67 54% 48%;      /* #AEBD39 */
     --ecowas-orange: 26 87% 54%;    /* #F07E26 */
     --ecowas-sky: 191 35% 54%;      /* #5EA3B3 */
@@ -22,7 +22,7 @@
     /* Manual treatment: ECOWAS Yellow at 12% on white, pre-mixed so text contrast stays predictable */
     --ecowas-yellow-12: 53 70% 92%;
 
-    /* Status semantics (never colour alone — always paired with icon + label) */
+    /* Status semantics (never colour alone, always paired with icon + label) */
     --status-positive: 151 100% 21%;
     --status-attention: 45 100% 25%;
     --status-warning: 22 85% 33%;
@@ -70,7 +70,7 @@
     --focus: var(--ecowas-ocean);
     --status-information: var(--status-info);
 
-    /* Typography scale — fluid */
+    /* Typography scale, fluid */
     --fs-display-xl: clamp(2.75rem, 1.6rem + 4.6vw, 5.5rem);
     --fs-display-lg: clamp(2.25rem, 1.5rem + 3vw, 4rem);
     --fs-h1: clamp(2rem, 1.5rem + 2vw, 3rem);
@@ -106,7 +106,7 @@
       hsl(var(--ecowas-brown)) 80% 100%);
   }
 
-  /* Internal intelligence environment — denser, analytical, ocean-led chrome */
+  /* Internal intelligence environment, denser, analytical, ocean-led chrome */
   .theme-intel {
     --background: 200 20% 97%;
     --surface-sunken: 200 16% 93%;

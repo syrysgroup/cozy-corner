@@ -159,7 +159,7 @@ export function InstitutionsTeaser() {
           ))}
         </ul>
         <div className="mt-6 flex flex-col gap-4 border-2 border-primary bg-card p-5 md:flex-row md:items-center md:justify-between">
-          <p className="flex items-start gap-3 text-small text-ink-soft"><ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden /><span><strong className="text-ink">OAG — Independent assurance, not a fourth arm.</strong> {OAG_POSITIONING}</span></p>
+          <p className="flex items-start gap-3 text-small text-ink-soft"><ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden /><span><strong className="text-ink">OAG: Independent assurance.</strong> {OAG_POSITIONING}</span></p>
           <Button asChild variant="secondary" className="shrink-0"><Link to="/institutions">Explore ECOWAS Institutions <ArrowRight /></Link></Button>
         </div>
       </Container>
@@ -251,7 +251,7 @@ export function Newsletter() {
             <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">{INTERESTS.map((x) => <label key={x} className="inline-flex min-h-11 items-center gap-2 text-small"><input type="checkbox" className="size-4 accent-primary" />{x}</label>)}</div>
           </fieldset>
           <div className="sm:col-span-2"><Button type="submit">Subscribe</Button></div>
-          <p role="status" className="text-small text-muted-foreground sm:col-span-2">{status === "unavailable" && "Subscriptions are not yet open — the mailing service is still being connected, so your details were not saved. Please try again later."}</p>
+          <p role="status" className="text-small text-muted-foreground sm:col-span-2">{status === "unavailable" && "Subscriptions are not yet open, the mailing service is still being connected, so your details were not saved. Please try again later."}</p>
         </form>
       </div>
     </Container>

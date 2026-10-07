@@ -1,5 +1,5 @@
 /* Procurement content source. All published collections stay empty until the OAG
-   connects an authorised procurement feed — never fabricate notices, plans,
+   connects an authorised procurement feed, never fabricate notices, plans,
    awards, projects, contacts or resource documents. Replace the bodies of the
    fetch functions with the authorised source, keeping the shapes below.
    Records are structured for later reviewed EN/FR/PT content. */

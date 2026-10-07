@@ -47,17 +47,17 @@ function ActivitySection({ d, n = "01" }: { d: TransparencyData; n?: string }) {
     <section className="py-section-sm">
       <Story n={n} kicker="Audit activity" title="Is audit coverage growing?">Activity is measured by completed engagements and reports made public after due process.</Story>
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <ChartFigure question="How has audit activity changed since 2020?" answer={<>Completed audits rose from <strong>{first.audits}</strong> to <strong>{last.audits}</strong>, and published reports kept pace — from {first.reports} to {last.reports}.</>}
+        <ChartFigure question="How has audit activity changed since 2020?" answer={<>Completed audits rose from <strong>{first.audits}</strong> to <strong>{last.audits}</strong>, and published reports kept pace, from {first.reports} to {last.reports}.</>}
           table={{ head: ["Year", "Audits completed", "Reports published"], rows: d.activity.map((a) => [a.year, a.audits, a.reports]) }}>
           <TrendChart data={d.activity.map((a) => ({ label: a.year, values: [a.audits, a.reports] }))} series={[{ name: "Audits", className: "text-primary" }, { name: "Reports", className: "text-ecowas-brown" }]} />
-          <p className="mt-3 flex flex-wrap gap-4 text-xs text-muted-foreground"><span>● solid line — audits completed</span><span>■ dashed line — reports published</span></p>
+          <p className="mt-3 flex flex-wrap gap-4 text-xs text-muted-foreground"><span>● solid line, audits completed</span><span>■ dashed line, reports published</span></p>
         </ChartFigure>
         <ChartFigure question="What kinds of audit are carried out?" answer={<>Financial audits remain the core of the mandate; performance audits now make up about one in five.</>}
           table={{ head: ["Audit type", "Count"], rows: d.auditTypes.map((t) => [t.type, t.count]) }}>
           <Donut centre={String(d.auditTypes.reduce((s, t) => s + t.count, 0))} centreLabel="audits, 2025"
             data={d.auditTypes.map((t, i) => ({ label: t.type, value: t.count, className: ["text-primary", "text-ecowas-ocean", "text-ecowas-brown", "text-status-neutral"][i] }))} />
         </ChartFigure>
-        <ChartFigure className="lg:col-span-2" question="Which themes appear most frequently in findings?" answer={<><strong>{top.name}</strong> is the most frequent theme ({top.count} findings), followed by procurement and asset management — areas where controls most often need strengthening.</>}
+        <ChartFigure className="lg:col-span-2" question="Which themes appear most frequently in findings?" answer={<><strong>{top.name}</strong> is the most frequent theme ({top.count} findings), followed by procurement and asset management, areas where controls most often need strengthening.</>}
           table={{ head: ["Theme", "Findings"], rows: d.themes.map((t) => [t.name, t.count]) }}>
           <BarList data={d.themes.map((t) => ({ label: t.name, value: t.count }))} highlight={3} />
           <p className="mt-3 text-xs text-muted-foreground">Top three themes shown at full strength.</p>

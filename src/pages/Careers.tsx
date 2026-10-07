@@ -24,7 +24,7 @@ export default function Careers() {
 
   return (
     <>
-      {/* Hero — white editorial */}
+      {/* Hero, white editorial */}
       <section className="container grid gap-10 py-section-sm lg:grid-cols-[1.05fr_1fr] lg:items-center lg:py-section">
         <div>
           <nav aria-label="Breadcrumb" className="mb-6 text-small text-muted-foreground">
@@ -46,7 +46,7 @@ export default function Careers() {
         </figure>
       </section>
 
-      {/* Green feature — purpose */}
+      {/* Green feature, purpose */}
       <section className="bg-primary text-primary-foreground">
         <div className="container grid gap-10 py-section-sm md:grid-cols-3 lg:py-section">
           <h2 className="font-display text-h2 text-primary-foreground md:col-span-1">Why work at the OAG</h2>
@@ -65,7 +65,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Vacancies — white */}
+      {/* Vacancies, white */}
       <section id="vacancies" className="container scroll-mt-24 py-section-sm lg:py-section" aria-labelledby="vac-h">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
           <div>
@@ -126,7 +126,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Yellow-12 accent — fraud notice */}
+      {/* Yellow-12 accent, fraud notice */}
       <section className="bg-ecowas-yellow-12">
         <div className="container flex flex-col gap-4 py-10 md:flex-row md:items-center">
           <ShieldAlert className="size-8 shrink-0 text-ecowas-brown" aria-hidden />
@@ -137,7 +137,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Career areas — white */}
+      {/* Career areas, white */}
       <section className="container py-section-sm lg:py-section" aria-labelledby="areas-h">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
           <div>
@@ -156,7 +156,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Ocean — process timeline */}
+      {/* Ocean, process timeline */}
       <section id="process" className="scroll-mt-24 bg-ecowas-ocean text-background" aria-labelledby="proc-h">
         <div className="container py-section-sm lg:py-section">
           <h2 id="proc-h" className="font-display text-h2 text-background">How recruitment works</h2>
@@ -172,7 +172,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* FAQ — white */}
+      {/* FAQ, white */}
       <section className="container py-section-sm lg:py-section" aria-labelledby="faq-h">
         <h2 id="faq-h" className="font-display text-h2">Frequently asked questions</h2>
         <div className="mt-8 max-w-3xl divide-y divide-border border-y border-border">

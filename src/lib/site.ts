@@ -77,7 +77,7 @@ export const SEARCH_CATEGORIES = ["All", "Audits", "Reports", "Recommendations",
 export type SearchCategory = (typeof SEARCH_CATEGORIES)[number];
 export type SearchItem = { title: string; category: Exclude<SearchCategory, "All">; meta: string; href: string };
 
-/* Sample index — to be replaced by the connected search service. */
+/* Sample index, to be replaced by the connected search service. */
 export const SEARCH_INDEX: SearchItem[] = [
   { title: "Financial audit of the ECOWAS Commission, 2025", category: "Audits", meta: "OAG/FA/2025/014 · Completed", href: "/audit/programme" },
   { title: "Performance audit: regional health procurement", category: "Audits", meta: "OAG/PA/2025/006 · In progress", href: "/audit/programme" },

@@ -1,5 +1,5 @@
 /**
- * IntegrityLine client service — PLACEHOLDER.
+ * IntegrityLine client service, PLACEHOLDER.
  * The frontend performs NO real cryptography. Swap each function body for calls to the
  * secure backend (identity vault + evidence service) keeping the same shapes.
  * Identity details must go to the vault only; the case interface never receives them.

@@ -388,7 +388,7 @@ function Overview() {
         <Wordmark />
         <h1 className="mt-8 font-display text-display-lg text-ink">Procurement & opportunities</h1>
         <p className="mt-6 max-w-2xl text-lead text-ink-soft">
-          Procurement notices, plans and contract awards from the Office of the Auditor General of ECOWAS Institutions — and how suppliers and partners can take part.
+          Procurement notices, plans and contract awards from the Office of the Auditor General of ECOWAS Institutions, and how suppliers and partners can take part.
         </p>
         <form className="mt-8 flex max-w-xl gap-3" action="/opportunities/procurement/notices" onSubmit={(e) => { if (!q.trim()) e.preventDefault(); }}>
           <label className="relative flex-1">

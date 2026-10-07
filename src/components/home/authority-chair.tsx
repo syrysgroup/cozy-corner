@@ -4,7 +4,7 @@ import { Button } from "@/components/ds/primitives";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { useAuthorityChairs, formatChairDate } from "@/lib/authority-data";
 
-/** ECOWAS Authority leadership — deliberately separate from OAG leadership. */
+/** ECOWAS Authority leadership, deliberately separate from OAG leadership. */
 export function AuthorityChairFeature() {
   const { current, archive, loading } = useAuthorityChairs();
   if (!loading && !current) return null;

@@ -84,7 +84,7 @@ export function Band({ className }: { className?: string }) {
   return <div className={cn("band h-1 w-full", className)} aria-hidden />;
 }
 
-/* Official ECOWAS emblem, supplied by the Office — rendered as-is (no redraw, no distortion). */
+/* Official ECOWAS emblem, supplied by the Office, rendered as-is (no redraw, no distortion). */
 import auditorGeneralLogo from "@/assets/auditor-general-logo.png.asset.json";
 
 export const OFFICIAL_LOGO_SRC: string = auditorGeneralLogo.url;

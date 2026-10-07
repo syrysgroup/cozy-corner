@@ -90,7 +90,7 @@ export default function DesignSystem() {
       </div>
       <header className="showcase-header">
         <div className="showcase-container masthead">
-          <a href="#top" className="brand-lockup" aria-label="Office of the Auditor General, ECOWAS Institutions — start">
+          <a href="#top" className="brand-lockup" aria-label="Office of the Auditor General, ECOWAS Institutions, start">
             <span className="brand-seal" aria-hidden="true"><span>OAG</span></span>
             <span className="brand-name"><strong>Office of the Auditor General</strong><small>ECOWAS Institutions</small></span>
           </a>
@@ -108,7 +108,7 @@ export default function DesignSystem() {
       <section id="top" className="intro-section">
         <div className="showcase-container intro-layout">
           <div className="intro-copy">
-            <p className="overline intro-eyebrow">A shared visual language <span>—</span> v1.0</p>
+            <p className="overline intro-eyebrow">A shared visual language <span>·</span> v1.0</p>
             <h1 className="font-display text-display-lg">{lang === "en" ? <>OAG Design<br /><em>System.</em></> : lang === "fr" ? <>Système de design<br /><em>du BVG.</em></> : <>Sistema de design<br /><em>do GAG.</em></>}</h1>
             <p className="intro-lead">{lang === "en" ? "An editorial, data-led foundation for public accountability and institutional intelligence across West Africa." : lang === "fr" ? "Un socle éditorial et axé sur les données pour la redevabilité publique et l’intelligence institutionnelle en Afrique de l’Ouest." : "Uma base editorial orientada por dados para a prestação de contas públicas e inteligência institucional na África Ocidental."}</p>
             <a href="#foundations" className="text-link">Explore the foundations <ArrowDown size={16} aria-hidden="true" /></a>
@@ -124,7 +124,7 @@ export default function DesignSystem() {
 
       <div className="showcase-container">
         <section id="foundations" className="showcase-section foundations-section">
-          <SectionHeading index="01" eyebrow="Core language" title="Foundations">A considered system for institutional clarity — balancing brand, legibility and visual evidence.</SectionHeading>
+          <SectionHeading index="01" eyebrow="Core language" title="Foundations">A considered system for institutional clarity, balancing brand, legibility and visual evidence.</SectionHeading>
           <div className="foundation-grid">
             <Specimen label="Colour · ECOWAS 2020">
               <div className="swatch-grid">
@@ -155,7 +155,7 @@ export default function DesignSystem() {
         </section>
 
         <section id="components" className="showcase-section">
-          <SectionHeading index="02" eyebrow="Reusable elements" title="Components">Clear action, accountable status, and editorial storytelling — from the same visual grammar.</SectionHeading>
+          <SectionHeading index="02" eyebrow="Reusable elements" title="Components">Clear action, accountable status, and editorial storytelling, from the same visual grammar.</SectionHeading>
           <div className="component-stack">
             <Specimen label="Actions · button family">
               <div className="flex flex-wrap items-center gap-3">
@@ -257,7 +257,7 @@ export default function DesignSystem() {
         </section>
 
         <section id="visualisation" className="showcase-section">
-          <SectionHeading index="05" eyebrow="Evidence, at a glance" title="Data visualisation">Consistent scales, meaningful labels and accessible descriptions — every chart has a readable counterpart.</SectionHeading>
+          <SectionHeading index="05" eyebrow="Evidence, at a glance" title="Data visualisation">Consistent scales, meaningful labels and accessible descriptions, every chart has a readable counterpart.</SectionHeading>
           <div className="chart-grid">
             <article className="chart-panel chart-wide">
               <div className="chart-head"><div><p className="overline">FOLLOW-UP · 2025</p><h3 className="mt-2 font-display text-h3">Implementation over time</h3></div><a href="#tables" className="chart-action">View data <ArrowUpRight size={14} aria-hidden="true" /></a></div>
@@ -290,7 +290,7 @@ export default function DesignSystem() {
           <SectionHeading index="06" eyebrow="Interface patterns" title="Interaction & guidance">Shared patterns keep public communication warm and internal work focused.</SectionHeading>
           <div className="pattern-grid">
             <Specimen label="Public editorial · narrative first">
-              <article className="public-pattern"><img src={meetingImage} alt="Colleagues reviewing audit evidence" /><div className="public-pattern-copy"><p className="overline text-primary">FROM THE OFFICE</p><h3 className="mt-3 font-display text-h3">Evidence in the service of public trust.</h3><p className="mt-2 text-small text-muted-foreground">Stories, reports and institutional progress — presented with clarity and context.</p><a className="text-link mt-4" href="#components">Read the latest <ArrowUpRight size={14} aria-hidden="true" /></a></div></article>
+              <article className="public-pattern"><img src={meetingImage} alt="Colleagues reviewing audit evidence" /><div className="public-pattern-copy"><p className="overline text-primary">FROM THE OFFICE</p><h3 className="mt-3 font-display text-h3">Evidence in the service of public trust.</h3><p className="mt-2 text-small text-muted-foreground">Stories, reports and institutional progress, presented with clarity and context.</p><a className="text-link mt-4" href="#components">Read the latest <ArrowUpRight size={14} aria-hidden="true" /></a></div></article>
             </Specimen>
             <Specimen label="Internal intelligence · information first">
               <div className="intel-pattern"><div className="intel-top"><span className="flex items-center gap-2"><Menu size={16} aria-hidden="true" /> Follow-up overview</span><span className="intel-period">Q3 · 2025 <ChevronDown size={13} aria-hidden="true" /></span></div><div className="intel-kpis"><div><span>OPEN ACTIONS</span><strong>327</strong><small>−12% vs previous period</small></div><div><span>HIGH PRIORITY</span><strong>24</strong><small className="attention-text">6 require review</small></div><div><span>DUE THIS MONTH</span><strong>18</strong><small>Across 7 institutions</small></div></div><div className="intel-row"><FileText size={15} aria-hidden="true" /><span>Procurement compliance review</span><StatusTag status="Attention" /><ArrowUpRight size={14} aria-hidden="true" /></div><div className="intel-row"><FileText size={15} aria-hidden="true" /><span>Asset register follow-up</span><StatusTag status="Implemented" /><ArrowUpRight size={14} aria-hidden="true" /></div></div>
