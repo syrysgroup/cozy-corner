@@ -6,12 +6,12 @@ import { enquirySchema, ENQUIRY_TYPES, SUBMISSIONS_OPEN, type ContactContent } f
 import { CONTACT_COPY } from '@/lib/contact-copy';
 import type { Lang } from '@/lib/i18n';
 
-const NOT_HERE: Record<Lang, { check: string; title: string; items: [string, string, string][]; messageHint: string; typeHint: string }> = {
-  en: { check: 'Check my answers', title: 'Please do not use this form for', messageHint: 'Do not include personal, financial or confidential information.', typeHint: 'Choose the topic that best matches your enquiry.',
+const NOT_HERE: Record<Lang, { check: string; consentShort: string; title: string; items: [string, string, string][]; messageHint: string; typeHint: string }> = {
+  en: { check: 'Check my answers', consentShort: 'Consent', title: 'Please do not use this form for', messageHint: 'Do not include personal, financial or confidential information.', typeHint: 'Choose the topic that best matches your enquiry.',
     items: [['Integrity reports', '/integrityline', 'Use IntegrityLine'], ['Job applications', '/opportunities/careers', 'Go to Careers'], ['Procurement bids', '/opportunities/procurement', 'Go to Procurement']] },
-  fr: { check: 'Vérifier mes réponses', title: 'Merci de ne pas utiliser ce formulaire pour', messageHint: 'N’incluez pas d’informations personnelles, financières ou confidentielles.', typeHint: 'Choisissez le sujet qui correspond le mieux à votre demande.',
+  fr: { check: 'Vérifier mes réponses', consentShort: 'Consentement', title: 'Merci de ne pas utiliser ce formulaire pour', messageHint: 'N’incluez pas d’informations personnelles, financières ou confidentielles.', typeHint: 'Choisissez le sujet qui correspond le mieux à votre demande.',
     items: [['Les signalements d’intégrité', '/integrityline', 'Utiliser IntegrityLine'], ['Les candidatures', '/opportunities/careers', 'Aller aux Carrières'], ['Les offres de marchés', '/opportunities/procurement', 'Aller aux Marchés']] },
-  pt: { check: 'Verificar respostas', title: 'Não utilize este formulário para', messageHint: 'Não inclua informações pessoais, financeiras ou confidenciais.', typeHint: 'Escolha o tema que melhor corresponde ao seu pedido.',
+  pt: { check: 'Verificar respostas', consentShort: 'Consentimento', title: 'Não utilize este formulário para', messageHint: 'Não inclua informações pessoais, financeiras ou confidenciais.', typeHint: 'Escolha o tema que melhor corresponde ao seu pedido.',
     items: [['Denúncias de integridade', '/integrityline', 'Usar IntegrityLine'], ['Candidaturas a emprego', '/opportunities/careers', 'Ir para Carreiras'], ['Propostas de aquisições', '/opportunities/procurement', 'Ir para Aquisições']] },
 };
 
@@ -53,7 +53,7 @@ export function EnquiryForm({ lang, type, onType, content }: { lang: Lang; type:
       <p id="not-here-title" className="font-semibold">{n.title}</p>
       <ul className="mt-3 grid gap-2 sm:grid-cols-3">{n.items.map(([what, to, cta]) => <li key={to} className="text-small"><span className="block text-ink-soft">{what}</span><Link to={to} className="inline-flex min-h-11 items-center gap-1 font-semibold text-primary hover:underline">{cta}<ArrowRight className="size-4" aria-hidden /></Link></li>)}</ul>
     </aside>
-    {Object.keys(errors).length > 0 && <div ref={summary} tabIndex={-1} role="alert" className="mb-6 border border-destructive p-4"><h3 className="font-semibold">{c.error}</h3><ul className="mt-2 list-disc pl-5">{Object.entries(errors).map(([field, error]) => <li key={field}><a className="underline" href={`#contact-${field}`}>{labels[field] ?? (field === 'message' ? c.message : field === 'enquiry_type' ? c.type : c.consent)}: {error}</a></li>)}</ul></div>}
+    {Object.keys(errors).length > 0 && <div ref={summary} tabIndex={-1} role="alert" className="mb-6 border border-destructive p-4"><h3 className="font-semibold">{c.error}</h3><ul className="mt-2 list-disc pl-5">{Object.entries(errors).map(([field, error]) => <li key={field}><a className="underline" href={`#contact-${field}`}>{labels[field] ?? (field === 'message' ? c.message : field === 'enquiry_type' ? c.type : n.consentShort)}: {error}</a></li>)}</ul></div>}
     <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
       {Object.entries(labels).map(([field, label]) => <div key={field} className={field === 'subject' ? 'sm:col-span-2' : ''}>
         <label htmlFor={`contact-${field}`} className="font-semibold">{label}<Marker optional={field === 'organization'} /></label>
