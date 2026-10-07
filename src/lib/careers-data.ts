@@ -1,20 +1,11 @@
-/* Careers content source. Vacancies stay empty until the OAG publishes approved
-   notices, never fabricate roles, counts or closing dates. Replace the body of
-   fetchVacancies with the authorised feed, keeping the Vacancy shape. */
+/* Published OAG vacancies are read from the approved public Careers records. */
 
-export type CareerArea = "financial" | "performance" | "compliance" | "it" | "investigations" | "corporate";
-export type ContractType = "Permanent" | "Fixed-term" | "Internship" | "Consultancy";
+import type { Tables } from "@/integrations/supabase/types";
+import { supabase } from "@/integrations/supabase/client";
 
-export interface Vacancy {
-  id: string;
-  title: string;
-  grade?: string;
-  area: CareerArea;
-  contract: ContractType;
-  location: string;
-  closes: string; // ISO date
-  officialUrl: string;
-}
+export type Vacancy = Tables<"careers_jobs">;
+export type CareerArea = string;
+export type ContractType = string;
 
 export const CAREER_AREAS: { id: CareerArea; title: string; summary: string }[] = [
   { id: "financial", title: "Financial audit", summary: "Assurance over the financial statements of ECOWAS Institutions under international standards." },
@@ -42,5 +33,27 @@ export const FAQS = [
 export const OFFICIAL_RECRUITMENT_URL = "https://www.ecowas.int/";
 
 export async function fetchVacancies(): Promise<Vacancy[]> {
-  return [];
+  const { data, error } = await supabase
+    .from("careers_jobs")
+    .select("*")
+    .eq("is_published", true)
+    .is("archived_at", null)
+    .order("featured", { ascending: false })
+    .order("closing_date", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function fetchVacancyBySlug(slug: string): Promise<Vacancy | null> {
+  const { data, error } = await supabase
+    .from("careers_jobs")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_published", true)
+    .is("archived_at", null)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
 }

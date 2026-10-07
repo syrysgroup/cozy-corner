@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CalendarDays, ExternalLink, MapPin, ShieldAlert, Briefcase } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin, ShieldAlert, Briefcase } from "lucide-react";
 import { Button } from "@/components/ds/primitives";
 import { filterVacancies, DEFAULT_VACANCY_FILTERS } from "@/lib/opportunity-filters";
 import {
   CAREER_AREAS, OFFICIAL_RECRUITMENT_URL, fetchVacancies,
   type Vacancy, type CareerArea, type ContractType,
 } from "@/lib/careers-data";
-
-const CONTRACTS: ContractType[] = ["Permanent", "Fixed-term", "Internship", "Consultancy"];
 
 export default function Careers() {
   const [vacancies, setVacancies] = useState<Vacancy[] | null>(null);
@@ -22,6 +20,8 @@ export default function Careers() {
     () => filterVacancies(vacancies ?? [], area, contract),
     [vacancies, area, contract],
   );
+  const areas = useMemo(() => [...new Set((vacancies ?? []).map((v) => v.career_area))].sort(), [vacancies]);
+  const contracts = useMemo(() => [...new Set((vacancies ?? []).map((v) => v.employment_status))].sort(), [vacancies]);
 
   return (
     <div lang="en">
@@ -42,14 +42,14 @@ export default function Careers() {
               Career area
               <select className="form-control min-h-11 w-full" value={area} onChange={(e) => setArea(e.target.value as CareerArea | "all")}>
                 <option value="all">All areas</option>
-                {CAREER_AREAS.map((a) => <option key={a.id} value={a.id}>{a.title}</option>)}
+                {areas.map((value) => <option key={value} value={value}>{value}</option>)}
               </select>
             </label>
             <label className="grid gap-1 text-small font-semibold text-ink">
               Contract type
               <select className="form-control min-h-11 w-full" value={contract} onChange={(e) => setContract(e.target.value as ContractType | "all")}>
                 <option value="all">All types</option>
-                {CONTRACTS.map((c) => <option key={c}>{c}</option>)}
+                {contracts.map((value) => <option key={value}>{value}</option>)}
               </select>
             </label>
           </div>
@@ -75,14 +75,15 @@ export default function Careers() {
             <ul className="grid gap-4 md:grid-cols-2">
               {filtered.map((v) => (
                 <li key={v.id} className="flex flex-col border border-border border-l-4 border-l-primary bg-card p-6 transition-shadow duration-base hover:shadow-raised">
-                  <p className="text-small font-semibold text-ink-soft">{CAREER_AREAS.find((a) => a.id === v.area)?.title} · {v.contract}</p>
-                  <h3 className="mt-2 font-display text-h3 text-ink">{v.title}{v.grade && ` (${v.grade})`}</h3>
+                  <p className="text-small font-semibold text-ink-soft">{v.career_area} · {v.employment_status}</p>
+                  <h3 className="mt-2 font-display text-h3 text-ink"><Link to={`/opportunities/careers/${v.slug}`} className="underline-offset-4 hover:text-primary hover:underline">{v.official_title} ({v.grade})</Link></h3>
+                  <p className="mt-3 line-clamp-3 text-body text-ink-soft">{v.summary}</p>
                   <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-small text-ink-soft">
-                    <div className="flex items-center gap-1.5"><MapPin className="size-4" aria-hidden /><dt className="sr-only">Location</dt><dd>{v.location}</dd></div>
-                    <div className="flex items-center gap-1.5"><CalendarDays className="size-4" aria-hidden /><dt>Closes</dt><dd>{new Date(v.closes).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</dd></div>
+                    <div className="flex items-center gap-1.5"><MapPin className="size-4" aria-hidden /><dt className="sr-only">Location</dt><dd>{v.duty_station}</dd></div>
+                    <div className="flex items-center gap-1.5"><CalendarDays className="size-4" aria-hidden /><dt>Closes</dt><dd>{new Date(`${v.closing_date}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</dd></div>
                   </dl>
-                  <Button asChild className="mt-6 self-start">
-                    <a href={v.officialUrl} target="_blank" rel="noreferrer">Apply through official channel <ExternalLink /><span className="sr-only">(opens in a new tab)</span></a>
+                  <Button asChild variant="secondary" className="mt-6 self-start">
+                    <Link to={`/opportunities/careers/${v.slug}`}>View role details <ArrowRight /></Link>
                   </Button>
                 </li>
               ))}
