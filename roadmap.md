@@ -3,6 +3,7 @@
 - [ ] Remove homepage section numbering and all public page breadcrumb trails.
 - [ ] Redesign homepage ECOWAS news as a newest-first sliding grid in Community colours with institution and date labels.
 - [x] Display the four IntegrityLine choices together in one desktop row.
+- [x] Display the four Transparency in numbers figures together in one desktop row, with a swipe track and arrows below on phone.
 - [ ] Remove Authority organogram and official-website destinations, since neither exists.
 
 - [ ] Finish the partly written Opportunities guidance hub and availability-first Careers/Procurement pages; verify navigation, search/filter/reset, source states and layouts against the supplied brief.
