@@ -36,7 +36,7 @@ const FUNCTIONS = [
 export function WhatOAGDoes() {
   return (
     <section aria-labelledby="home-functions" className="border-y border-border bg-surface-sunken py-section">
-      <Container>
+      <Container className="relative z-10">
         <p className="overline text-primary">What OAG does</p>
         <h2 id="home-functions" className="mt-3 font-display text-h2">Six core functions</h2>
         <ul className="mt-8 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
@@ -83,7 +83,10 @@ export function LeadershipFeature() {
             <h3 id="ag-title" className="mt-4 max-w-2xl font-display text-h1 md:text-display-lg">Name awaiting approval</h3>
             <p className="mt-3 font-display text-h3 text-primary">Auditor General</p>
             <p className="mt-1 text-small font-semibold text-ink-soft">Office of the Auditor General of ECOWAS Institutions</p>
-            <blockquote className="relative mt-8 max-w-2xl border-l-4 border-ecowas-yellow pl-6 font-display text-h3 leading-snug text-ink">“The Auditor General leads the Office’s independent audit and assurance work across ECOWAS Institutions.”</blockquote>
+            <div className="relative mt-8 max-w-2xl border-l-4 border-ecowas-yellow pl-6">
+              <p className="overline text-muted-foreground">Institutional leadership</p>
+              <p className="mt-2 font-display text-h3 leading-snug text-ink">The Auditor General leads the Office’s independent audit and assurance work across ECOWAS Institutions.</p>
+            </div>
             <p className="mt-5 flex max-w-xl items-start gap-2 text-small text-muted-foreground"><ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />The official name, portrait and approved statement will be published here once authorised.</p>
             <div className="mt-8">
               <Button asChild size="lg"><Link to="/about/leadership" className="group/cta">Meet the Auditor General <ArrowRight className="transition-transform group-hover/cta:translate-x-1" /></Link></Button>
