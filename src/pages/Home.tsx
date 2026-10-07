@@ -7,6 +7,7 @@ import { TransparencyDashboard } from "@/components/home/stats";
 import { PublicationsShelf } from "@/components/home/shelf";
 import { InstitutionsExplainer, IntegrityBand, ClosingBand } from "@/components/home/closing";
 import { useReveal } from "@/hooks/use-motion";
+import { HomeInsights, HomeOpportunities } from "@/components/home/discovery";
 
 export default function Home() {
   const ref = useReveal<HTMLDivElement>();
@@ -20,7 +21,9 @@ export default function Home() {
       <TransparencyDashboard />
       <EcowasNews />
       <PublicationsShelf />
+      <HomeInsights />
       <IntegrityBand />
+      <HomeOpportunities />
       <ClosingBand />
     </div>
   );

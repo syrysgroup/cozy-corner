@@ -1,0 +1,12 @@
+import { Link } from "react-router-dom";
+import { ArrowRight, BookOpen, BriefcaseBusiness, ScrollText } from "lucide-react";
+import { Button } from "@/components/ds/primitives";
+import { Container } from "@/components/ds/shell/layout-parts";
+
+export function HomeInsights() {
+  return <section aria-labelledby="home-insights" className="border-y border-border bg-surface-sunken py-section"><Container><div className="flex flex-wrap items-end justify-between gap-5"><div><p className="overline text-primary">Knowledge & learning</p><h2 id="home-insights" className="mt-3 font-display text-h2">Insights</h2></div><Button asChild variant="tertiary"><Link to="/knowledge">Explore knowledge <ArrowRight /></Link></Button></div><div className="mt-7 flex items-start gap-4 border-t border-border pt-6"><BookOpen className="size-6 shrink-0 text-primary" aria-hidden /><div><h3 className="font-display text-h3">Evidence, learning and institutional knowledge</h3><p className="mt-3 max-w-2xl text-body text-ink-soft">Approved audit insights and lessons will appear here when cleared for public release. No institutional findings are currently published in this section.</p></div></div></Container></section>;
+}
+
+export function HomeOpportunities() {
+  return <section aria-labelledby="home-opportunities" className="py-section"><Container><div className="flex flex-wrap items-end justify-between gap-5"><div><p className="overline text-primary">Work with the Office</p><h2 id="home-opportunities" className="mt-3 font-display text-h2">Opportunities</h2></div><Button asChild variant="tertiary"><Link to="/opportunities">All opportunities <ArrowRight /></Link></Button></div><div className="mt-7 grid gap-5 md:grid-cols-2">{[{ title: "Careers", text: "Published vacancies, role requirements and official ECOWAS application channels.", to: "/opportunities/careers", Icon: BriefcaseBusiness }, { title: "Procurement", text: "Published procurement notices and official submission requirements.", to: "/opportunities/procurement", Icon: ScrollText }].map(({ title, text, to, Icon }) => <article key={to} className="border border-border border-t-2 border-t-primary bg-card p-6"><Icon className="size-6 text-primary" aria-hidden /><h3 className="mt-4 font-display text-h3">{title}</h3><p className="mt-3 text-ink-soft">{text}</p><Button asChild variant="tertiary" className="mt-5"><Link to={to}>Explore {title.toLowerCase()} <ArrowRight /></Link></Button></article>)}</div></Container></section>;
+}
