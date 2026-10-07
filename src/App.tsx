@@ -18,6 +18,7 @@ const StatesPage = lazy(() => import("@/pages/SectionPage").then((m) => ({ defau
 import { SiteLayout } from "@/components/ds/shell/SiteLayout";
 const AboutOAG = lazy(() => import("@/pages/AboutOAG"));
 const Careers = lazy(() => import("@/pages/Careers"));
+const CareerDetail = lazy(() => import("@/pages/CareerDetail"));
 const Opportunities = lazy(() => import("@/pages/Opportunities"));
 const Procurement = lazy(() => import("@/pages/Procurement"));
 const ContactPage = lazy(() => import("@/pages/Contact"));
@@ -82,6 +83,8 @@ export default function App() {
               <Route path="/design-system/states" element={<StatesPage />} />
               <Route path="/opportunities" element={<Opportunities />} />
               <Route path="/opportunities/careers" element={<Careers />} />
+              <Route path="/opportunities/careers/:slug" element={<CareerDetail />} />
+              <Route path="/opportunities/careers/opportunities/:slug" element={<CareerDetail />} />
               <Route path="/opportunities/procurement" element={<Procurement />} />
               <Route path="/opportunities/procurement/:sub" element={<Procurement />} />
               <Route path="/opportunities/procurement/:sub/:id" element={<Procurement />} />
