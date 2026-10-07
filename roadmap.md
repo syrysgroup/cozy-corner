@@ -2,7 +2,7 @@
 
 - [x] Compact the homepage closing section into a newsletter-only row, removing its four navigation links; verified at 125px tall instead of 461px.
 - [x] Limit homepage publications to the latest four, retaining card sizes and the full-library link; three selection tests passed, four 272px cards and library destination verified.
-- [ ] Prepare the non-repeating, fixed, compact header menu plan for approval (implementation awaits approval).
+- [x] Prepare the non-repeating, fixed, compact header menu plan for approval; header implementation awaits approval.
 
 - [ ] Remove homepage section numbering and all public page breadcrumb trails.
 - [ ] Redesign homepage ECOWAS news as a newest-first sliding grid in Community colours with institution and date labels.
