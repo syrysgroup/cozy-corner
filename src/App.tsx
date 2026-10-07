@@ -19,7 +19,7 @@ import { SiteLayout } from "@/components/ds/shell/SiteLayout";
 const AboutOAG = lazy(() => import("@/pages/AboutOAG"));
 const Careers = lazy(() => import("@/pages/Careers"));
 const Procurement = lazy(() => import("@/pages/Procurement"));
-const ContactPage = lazy(() => import("@/pages/AboutOAG").then((m) => ({ default: m.ContactPage })));
+const ContactPage = lazy(() => import("@/pages/Contact"));
 import { PortalLayout } from "@/components/portal/PortalLayout";
 const PortalDashboard = lazy(() => import("@/pages/portal/Dashboard"));
 const AuditList = lazy(() => import("@/pages/portal/Audits").then((m) => ({ default: m.AuditList })));
