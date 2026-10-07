@@ -6,12 +6,12 @@ import { enquirySchema, ENQUIRY_TYPES, SUBMISSIONS_OPEN, type ContactContent } f
 import { CONTACT_COPY } from '@/lib/contact-copy';
 import type { Lang } from '@/lib/i18n';
 
-const NOT_HERE: Record<Lang, { title: string; items: [string, string, string][]; messageHint: string; typeHint: string }> = {
-  en: { title: 'Please do not use this form for', messageHint: 'Do not include personal, financial or confidential information.', typeHint: 'Choose the topic that best matches your enquiry.',
+const NOT_HERE: Record<Lang, { check: string; title: string; items: [string, string, string][]; messageHint: string; typeHint: string }> = {
+  en: { check: 'Check my answers', title: 'Please do not use this form for', messageHint: 'Do not include personal, financial or confidential information.', typeHint: 'Choose the topic that best matches your enquiry.',
     items: [['Integrity reports', '/integrityline', 'Use IntegrityLine'], ['Job applications', '/opportunities/careers', 'Go to Careers'], ['Procurement bids', '/opportunities/procurement', 'Go to Procurement']] },
-  fr: { title: 'Merci de ne pas utiliser ce formulaire pour', messageHint: 'N’incluez pas d’informations personnelles, financières ou confidentielles.', typeHint: 'Choisissez le sujet qui correspond le mieux à votre demande.',
+  fr: { check: 'Vérifier mes réponses', title: 'Merci de ne pas utiliser ce formulaire pour', messageHint: 'N’incluez pas d’informations personnelles, financières ou confidentielles.', typeHint: 'Choisissez le sujet qui correspond le mieux à votre demande.',
     items: [['Les signalements d’intégrité', '/integrityline', 'Utiliser IntegrityLine'], ['Les candidatures', '/opportunities/careers', 'Aller aux Carrières'], ['Les offres de marchés', '/opportunities/procurement', 'Aller aux Marchés']] },
-  pt: { title: 'Não utilize este formulário para', messageHint: 'Não inclua informações pessoais, financeiras ou confidenciais.', typeHint: 'Escolha o tema que melhor corresponde ao seu pedido.',
+  pt: { check: 'Verificar respostas', title: 'Não utilize este formulário para', messageHint: 'Não inclua informações pessoais, financeiras ou confidenciais.', typeHint: 'Escolha o tema que melhor corresponde ao seu pedido.',
     items: [['Denúncias de integridade', '/integrityline', 'Usar IntegrityLine'], ['Candidaturas a emprego', '/opportunities/careers', 'Ir para Carreiras'], ['Propostas de aquisições', '/opportunities/procurement', 'Ir para Aquisições']] },
 };
 
@@ -70,7 +70,7 @@ export function EnquiryForm({ lang, type, onType, content }: { lang: Lang; type:
       <Err field="consent_recorded" />
     </fieldset>
     <div className="flex flex-wrap items-center gap-4">
-      <Button type="submit" variant="secondary" className="w-full sm:w-auto">{c.check ?? 'Check my answers'}</Button>
+      <Button type="submit" variant="secondary" className="w-full sm:w-auto">{n.check}</Button>
       <Button type="button" disabled={!SUBMISSIONS_OPEN} aria-describedby="submission-notice" className="w-full sm:w-auto"><LockKeyhole aria-hidden />{c.send}</Button>
     </div>
   </form>;
