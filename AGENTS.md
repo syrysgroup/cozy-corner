@@ -4,7 +4,7 @@
 
 - Reuse design primitives in `src/components/ds/` across the showcase and all experiences for consistent OAG styling.
 - Public site pages render inside `SiteLayout` (shared header, footer, search, transitions); nav/search content lives in `src/lib/site.ts` so sections are config-driven. The design-system reference stays standalone at `/design-system`.
-- Homepage figures live in `src/lib/home-data.ts` as clearly labelled placeholders; replace with authorised data sources keeping the same shapes, so no fabricated OAG stats ship.
+- Homepage data stays labelled illustrative in `src/lib/home-data.ts`; replace with authorised sources before launch. `latestHomepagePublications` sorts before limiting to keep the shelf current.
 - Keep About OAG content in a dedicated route-aware page while sharing navigation labels from `src/lib/site.ts`; this supports progressive disclosure without changing the site shell.
 - Library records live in `src/lib/library-data.ts`; only `publicDocuments`/`getPublicDoc` may be consumed so restricted documents can never render.
 - Transparency figures come only from `fetchTransparencyData` in `src/lib/transparency-data.ts` (placeholder today); swap its body for an authorised API returning the same shape so pages need no changes. Charts in `src/components/ds/charts.tsx` always pair colour with patterns/labels and a table view.
@@ -21,7 +21,7 @@
 - Authority chair data comes only from `useAuthorityChairs` in `src/lib/authority-data.ts` (public read of published rows, current + archive); chairs rotate yearly so nothing is hardcoded and history is never deleted.
 - Homepage narrative order is Authority Chair, OAG leadership, combined Office/mandate, then ECOWAS Institutions; this preserves the approved institutional hierarchy before supporting content.
 - Keep Commission-specific profile and leadership data in the shared institution profile source and render its distinct institution-first presentation there; this prevents duplicate data while preserving Parliament and Court profiles.
-- Keep governance-arm building imagery as optional metadata in the shared institution profile source and resolve it from the public institution asset store; this keeps full-width institutional photography page-specific and replaceable without changing layouts.
+- Keep optional governance building imagery in shared profile metadata, resolved from public institution assets; photos remain replaceable and page-specific.
 - Keep supporting-institution cards and profiles sourced from `src/lib/institution-data.ts`; one record drives each logo, link, summary and mandate to prevent hub/profile drift.
 - OAG newsroom (`/news`, `/news/:sub`) reads only through `src/lib/news-data.ts` (published, approved-language records; empty today) and stays separate from attributed ECOWAS stories; one detail template serves every category.
 - Opportunities shares careers/procurement guidance and tested `opportunity-filters.ts`; search stays URL-keyed. Vacancy/notice feeds stay empty until approved; never fabricate records.

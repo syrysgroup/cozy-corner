@@ -4,7 +4,7 @@ import { ArrowRight, Download } from "lucide-react";
 import { Button, Badge } from "@/components/ds/primitives";
 import { Container } from "@/components/ds/shell/layout-parts";
 import { usePrefersReducedMotion } from "@/hooks/use-motion";
-import { publications } from "@/lib/home-data";
+import { publications, latestHomepagePublications } from "@/lib/home-data";
 import { cn } from "@/lib/utils";
 
 const coverTone = { ocean: "bg-ecowas-ocean", green: "bg-ecowas-green", brown: "bg-ecowas-brown", slate: "bg-ecowas-slate" };
@@ -30,6 +30,7 @@ function Cover({ p }: { p: typeof publications[number] }) {
 }
 
 export function PublicationsShelf() {
+  const latest = latestHomepagePublications(publications);
   const rail = useRef<HTMLDivElement>(null);
   const [prog, setProg] = useState(0);
   const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
@@ -55,7 +56,7 @@ export function PublicationsShelf() {
         onClickCapture={(e) => { if (drag.current?.moved) { e.preventDefault(); e.stopPropagation(); } }}
         className="mt-6 cursor-grab snap-x snap-mandatory overflow-x-auto pb-6 active:cursor-grabbing [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-scrollbar]:hidden">
         <ul className="mx-auto flex w-max select-none gap-6 px-5 md:px-8 xl:px-[max(3rem,calc((100vw-82rem)/2+3rem))]">
-          {publications.map((p, i) => (
+          {latest.map((p, i) => (
             <li key={p.title} className="reveal w-[15rem] shrink-0 snap-start md:w-[17rem]" style={{ transitionDelay: `${i * 80}ms` }}>
               <article>
                 <Cover p={p} />

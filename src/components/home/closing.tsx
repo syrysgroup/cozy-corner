@@ -135,32 +135,22 @@ export function IntegrityBand() {
 export function ClosingBand() {
   const id = useId();
   const [status, setStatus] = useState<"idle" | "unavailable">("idle");
-  const links = [{ t: "Audit & Assurance", to: "/audit" }, { t: "Publications", to: "/publications" }, { t: "IntegrityLine", to: "/integrityline" }, { t: "Knowledge", to: "/knowledge" }];
   return (
     <section aria-labelledby="home-closing" className="bg-ink text-background">
       <div className="h-1.5 band" aria-hidden />
-      <Container className="grid gap-14 py-section-lg lg:grid-cols-[1fr_1fr]">
+      <Container className="grid items-center gap-5 py-8 lg:grid-cols-[1fr_minmax(0,32rem)] lg:gap-8">
         <div>
-          <h2 id="home-closing" className="reveal font-display text-display-lg text-background">Explore the work of the Office.</h2>
-          <form className="mt-6 max-w-md" onSubmit={(e) => { e.preventDefault(); setStatus("unavailable"); }}>
-            <label htmlFor={`${id}-email`} className="text-small font-semibold">Stay informed, newsletter</label>
-            <div className="mt-2 flex gap-2">
-              <input id={`${id}-email`} type="email" required autoComplete="email" placeholder="you@example.org" className="min-h-11 flex-1 border border-background/30 bg-transparent px-3 text-small text-background placeholder:text-background/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow" />
+          <h2 id="home-closing" className="font-display text-h3 text-background">Stay informed.</h2>
+          <p className="mt-1 text-small text-background/70">News and publications from the Office of the Auditor General.</p>
+        </div>
+          <form className="min-w-0" onSubmit={(e) => { e.preventDefault(); setStatus("unavailable"); }}>
+            <label htmlFor={`${id}-email`} className="sr-only">Newsletter email address</label>
+            <div className="flex gap-2">
+              <input id={`${id}-email`} type="email" required maxLength={254} autoComplete="email" placeholder="you@example.org" className="min-h-11 min-w-0 flex-1 border border-background/30 bg-transparent px-3 text-small text-background placeholder:text-background/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ecowas-yellow" />
               <Button type="submit" variant="inverse">Subscribe</Button>
             </div>
-            <p role="status" className="mt-3 text-small text-background/70">{status === "unavailable" && "Subscriptions are not yet open, the mailing service is still being connected, so your details were not saved."}</p>
+            {status === "unavailable" && <p role="status" className="mt-2 text-small text-background/70">Subscriptions are not yet open, the mailing service is still being connected, so your details were not saved.</p>}
           </form>
-        </div>
-        <ul className="grid content-end border-t border-background/20">
-          {links.map((l) => (
-            <li key={l.t} className="border-b border-background/20">
-              <Link to={l.to} className="group flex items-center justify-between py-5 font-display text-h2 transition-colors hover:text-ecowas-yellow">
-                <span className="transition-transform duration-base group-hover:translate-x-2">{l.t}</span>
-                <ArrowRight className="size-7 -translate-x-3 opacity-40 transition-all duration-base group-hover:translate-x-0 group-hover:opacity-100" aria-hidden />
-              </Link>
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );
