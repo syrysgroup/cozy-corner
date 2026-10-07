@@ -34,7 +34,15 @@ export const countries: Country[] = [
   { code: "CV", name: "Cabo Verde", x: 2, y: 24, institutions: ["Sample office"], audits: 1, findings: 0, recs: { implemented: 2, inProgress: 1, notStarted: 0 } },
 ];
 
-export type Publication = { title: string; type: string; year: string; institution: string; language: string; tone: "ocean" | "green" | "brown" | "slate" };
+export type Publication = { title: string; type: string; year: string; publishedAt?: string; institution: string; language: string; tone: "ocean" | "green" | "brown" | "slate" };
+/** Prefer authorised publication dates; existing samples provide only a year. */
+export function latestHomepagePublications(records: readonly Publication[]): Publication[] {
+  const timestamp = (record: Publication) => {
+    const exact = record.publishedAt ? Date.parse(record.publishedAt) : NaN;
+    return Number.isFinite(exact) ? exact : Date.UTC(Number(record.year) || 0, 0, 1);
+  };
+  return [...records].sort((a, b) => timestamp(b) - timestamp(a)).slice(0, 4);
+}
 export const publications: Publication[] = [
   { title: "Annual Activity Report", type: "Annual report", year: "2025", institution: "Office of the Auditor General", language: "EN · FR · PT", tone: "ocean" },
   { title: "Performance Audit of Regional Programme Delivery", type: "Audit report", year: "2025", institution: "Sample Commission", language: "EN · FR", tone: "green" },
