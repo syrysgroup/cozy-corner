@@ -8,6 +8,8 @@ export type EcowasNewsItem = {
   summary: string;
   image?: string;
   href: string;
+  /** Publisher of the retrieved feed, never inferred from the story subject. */
+  source: string;
   body: EcowasArticleBlock[];
 };
 
@@ -64,11 +66,24 @@ function summarize(value: string): string {
 }
 
 export async function fetchEcowasNews(limit = 4, signal?: AbortSignal): Promise<EcowasNewsItem[]> {
-  const perPage = Math.min(24, Math.max(1, Math.floor(limit)));
+  return (await fetchEcowasNewsPage({ limit, signal })).items;
+}
+
+export type EcowasNewsPageResult = {
+  items: EcowasNewsItem[];
+  total: number | null;
+  totalPages: number | null;
+  hasNext: boolean;
+};
+
+export async function fetchEcowasNewsPage({ limit = 20, page = 1, query = "", signal }: { limit?: number; page?: number; query?: string; signal?: AbortSignal } = {}): Promise<EcowasNewsPageResult> {
+  const perPage = Math.min(100, Math.max(1, Math.floor(limit)));
   const url = new URL(ECOWAS_API);
   url.searchParams.set("categories", "12");
   url.searchParams.set("per_page", String(perPage));
   url.searchParams.set("_embed", "1");
+  url.searchParams.set("page", String(Math.max(1, Math.floor(page))));
+  if (query.trim()) url.searchParams.set("search", query.trim());
 
   const response = await fetch(url, {
     headers: { Accept: "application/json" },
@@ -80,7 +95,16 @@ export async function fetchEcowasNews(limit = 4, signal?: AbortSignal): Promise<
   const payload: unknown = await response.json();
   if (!Array.isArray(payload)) throw new Error("ECOWAS news response was not a list");
 
-  return parseEcowasPosts(payload);
+  const items = parseEcowasPosts(payload);
+  const headerNumber = (name: string) => {
+    const value = response.headers.get(name);
+    if (value === null || value.trim() === "") return null;
+    const number = Number(value);
+    return Number.isInteger(number) && number >= 0 ? number : null;
+  };
+  const total = headerNumber("X-WP-Total");
+  const totalPages = headerNumber("X-WP-TotalPages");
+  return { items, total, totalPages, hasNext: totalPages !== null ? page < totalPages : payload.length === perPage };
 }
 
 function parseEcowasPosts(payload: unknown[]): EcowasNewsItem[] {
@@ -96,6 +120,7 @@ function parseEcowasPosts(payload: unknown[]): EcowasNewsItem[] {
       summary: summarize(renderedText(entry.excerpt) || renderedText(entry.content)),
       image: featuredImage(entry),
       href,
+      source: "ECOWAS",
       body: parseArticleBody(entry.content),
     }];
   });

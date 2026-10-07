@@ -6,6 +6,7 @@ import { Button } from "@/components/ds/primitives";
 import { ecowasNewsPath, fetchEcowasArticle, fetchEcowasNews, type EcowasNewsItem } from "@/lib/ecowas-news-data";
 
 import { EditorialLead, EditorialHeadlines, NewsImage, NewsDate } from "@/components/ds/ecowas-editorial";
+import { EcowasNewsGrid } from "@/components/ds/ecowas-news-grid";
 
 export default function EcowasNewsPage() {
   const { id } = useParams();
@@ -14,6 +15,7 @@ export default function EcowasNewsPage() {
   const [retry, setRetry] = useState(0);
   const [query, setQuery] = useState("");
   useEffect(() => {
+    if (!id) return;
     const controller = new AbortController();
     setItems(null);
     setFailed(false);
@@ -23,6 +25,14 @@ export default function EcowasNewsPage() {
   }, [id, retry]);
   const article = items?.[0];
   const filtered = (items ?? []).filter((item) => `${item.title} ${item.summary}`.toLowerCase().includes(query.toLowerCase()));
+  if (!id) return <Container as="section" className="py-section-lg">
+    <Link to="/" className="inline-flex min-h-11 items-center gap-2 text-small text-primary hover:underline"><ArrowLeft className="size-4" />Home</Link>
+    <header className="mt-6 border-b-2 border-ink pb-6">
+      <p className="overline text-primary">Official updates from the Community</p>
+      <h1 className="mt-3 font-display text-h1">ECOWAS News</h1>
+    </header>
+    <EcowasNewsGrid />
+  </Container>;
   return (
     <Container as="section" className="py-section-lg">
       <Link to={id ? "/knowledge/ecowas-news" : "/"} className="inline-flex min-h-11 items-center gap-2 text-small text-primary hover:underline"><ArrowLeft className="size-4" />{id ? "ECOWAS News" : "Home"}</Link>
