@@ -1,5 +1,7 @@
 # OAG roadmap
 
+- [ ] Upgrade Opportunities into a shared guidance hub; make Careers and Procurement availability-first, using the established OAG design and colours (awaiting design plan approval).
+
 - [x] Update `/knowledge/ecowas-news` to a five-column desktop grid with selectable page size, next/previous pagination and actual publisher/date on every card; verified live paging, size selection and source-wide search. Current feed: ECOWAS Commission only.
 
 - [ ] Upgrade the existing Contact & Institutional Enquiries hub: verified CMS contacts/FAQs, multilingual routing and form, secure submission and administration, shared footer contact information, phone/accessibility/security checks.
